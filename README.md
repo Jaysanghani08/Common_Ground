@@ -23,3 +23,6 @@ with the Common Core Standards.
 ## Project Work
 
 - [User Stories](https://github.com/Jaysanghani08/Common_Ground/blob/main/User_Stories/User_Stories.pdf)
+- [Activity Diagram](https://github.com/Jaysanghani08/Common_Ground/blob/main/Activity_diagram/)
+  - [Diagram](https://github.com/Jaysanghani08/Common_Ground/blob/main/Activity_diagram/Activity_Diagram.pdf)
+  - [Description](https://github.com/Jaysanghani08/Common_Ground/blob/main/Activity_diagram/Activity_Diagram_Description.pdf)
