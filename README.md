@@ -38,3 +38,6 @@ with the Common Core Standards.
   - [middleware](https://github.com/Jaysanghani08/Common_Ground/tree/main/BackEnd/api/middleware)
   - [models](https://github.com/Jaysanghani08/Common_Ground/tree/main/BackEnd/api/models)
 - [Config.env](https://github.com/Jaysanghani08/Common_Ground/blob/main/BackEnd/config.env)
+
+## Postman API Testing
+- [Postman Collection](https://www.postman.com/jaysabva/workspace/common-ground/collection/29100795-f050ae57-b6d0-4d13-a547-90435b1845d7?action=share&creator=29100795)
