@@ -31,7 +31,8 @@ with the Common Core Standards.
 ## Backend Folder
 
 - [Server.js](https://github.com/Jaysanghani08/Common_Ground/blob/main/BackEnd/server.js)
-- [App.js](https://github.com/Jaysanghani08/Common_Ground/tree/main/BackEnd/api)
+- [App.js](https://github.com/Jaysanghani08/Common_Ground/tree/main/BackEnd/app.js)
+- [API](https://github.com/Jaysanghani08/Common_Ground/tree/main/BackEnd/api/)
   - [routes](https://github.com/Jaysanghani08/Common_Ground/tree/main/BackEnd/api/routes)
   - [controllers](https://github.com/Jaysanghani08/Common_Ground/tree/main/BackEnd/api/controllers)
   - [middleware](https://github.com/Jaysanghani08/Common_Ground/tree/main/BackEnd/api/middleware)
