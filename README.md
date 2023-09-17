@@ -28,10 +28,12 @@ with the Common Core Standards.
   - [Description](https://github.com/Jaysanghani08/Common_Ground/blob/main/Activity_diagram/Activity_Diagram_Description.pdf)
 - [Concept Map](https://github.com/Jaysanghani08/Common_Ground/blob/main/Concept_map/Concept_Map.pdf)
 
-## Backend Files
+## Backend Folder
 
 - [Server.js](https://github.com/Jaysanghani08/Common_Ground/blob/main/BackEnd/server.js)
-- [Controllers](https://github.com/Jaysanghani08/Common_Ground/tree/main/BackEnd/Controllers)
-- [Models](https://github.com/Jaysanghani08/Common_Ground/tree/main/BackEnd/Models)
-- [Routes](https://github.com/Jaysanghani08/Common_Ground/tree/main/BackEnd/Routes)
-- [Config](https://github.com/Jaysanghani08/Common_Ground/blob/main/BackEnd/config.env)
+- [App.js](https://github.com/Jaysanghani08/Common_Ground/tree/main/BackEnd/api)
+  - [routes](https://github.com/Jaysanghani08/Common_Ground/tree/main/BackEnd/api/routes)
+  - [controllers](https://github.com/Jaysanghani08/Common_Ground/tree/main/BackEnd/api/controllers)
+  - [middleware](https://github.com/Jaysanghani08/Common_Ground/tree/main/BackEnd/api/middleware)
+  - [models](https://github.com/Jaysanghani08/Common_Ground/tree/main/BackEnd/api/models)
+- [Config.env](https://github.com/Jaysanghani08/Common_Ground/blob/main/BackEnd/config.env)
