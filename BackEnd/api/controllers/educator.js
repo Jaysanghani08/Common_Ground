@@ -8,6 +8,7 @@ const Educator = require('../models/educator');
 const Student = require("../models/student");
 const Token = require("../models/token");
 
+
 exports.userSignup = async (req, res, next) => {
     try {
         const user = await Educator.findOne({ email: req.body.email }).exec();

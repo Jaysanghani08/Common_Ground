@@ -38,6 +38,7 @@ app.use((req, res, next) => {
 // Request handling
 app.use("/student", studentRoutes);
 app.use("/educator", educatorRoutes);
+
 // Error handling
 app.use((req, res, next) => {
     const error = new Error('Not found');
