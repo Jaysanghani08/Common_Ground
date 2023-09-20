@@ -57,18 +57,14 @@ const studentSchema = new mongoose.Schema({
         type: [String],
         trim: true
     },
-    bookmarkedCourses: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
+    bookmarkedCourses: {
+            type: [mongoose.Schema.Types.ObjectId],
             ref: 'Course'
-        },
-    ],
-    enrolledCourses: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Course'
-        },
-    ],
+    },
+    enrolledCourses: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Course'
+    }
 });
 
 const Student = mongoose.model('Student', studentSchema);
