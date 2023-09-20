@@ -7,7 +7,7 @@ const crypto = require('crypto');
 const Educator = require('../models/educator');
 const Student = require("../models/student");
 const Token = require("../models/token");
-
+const sendEmail = require("../../utils/sendEmail");
 
 exports.userSignup = async (req, res, next) => {
     try {
@@ -151,10 +151,10 @@ exports.resetPassword = async (req, res, next) => {
             await token.save();
         }
 
-        return res.status(200).json({
-            message: 'Reset password link sent to email - Educator',
-            token: token
-        });
+        const link = `www.google.com/password-reset/${user._id}/${token.token}`;
+        await sendEmail(user.email, "Password reset", link);
+
+        res.send("password reset link sent to your email account");
     } catch (error) {
         return res.status(500).json({message: 'Internal server error'});
     }
