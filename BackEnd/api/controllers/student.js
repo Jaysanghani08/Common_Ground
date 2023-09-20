@@ -13,7 +13,7 @@ exports.userSignup = async (req, res, next) => {
     try {
         const user = await Student.findOne({ email: req.body.email }).exec();
 
-        if (user && user.length >= 1) {
+        if (user) {
             return res.status(409).json({
                 message: 'Mail exists - Student'
             });
