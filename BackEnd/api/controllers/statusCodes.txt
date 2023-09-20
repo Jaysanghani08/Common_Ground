@@ -1,0 +1,49 @@
+
+Same Status Codes for student also !!
+
+
+---------  Educator SignUp ----------
+
+      status: 409         Msg: Mail is already in use - Educator
+                               Phone number is already in use - Educator
+
+      status: 201         Msg: User created
+
+      status: 500          Msg: internal Server Error
+
+---------  Educator Login  -----------
+
+      status: 404       Msg: User does not exist - Educator
+
+      Status: 200       Msg: Logged In Successfully - Educator
+
+      status: 400       Msg: Wrong Password - Educator
+
+      status: 500       Msg: internal server error
+
+
+--------   User Delete  -----------
+
+     status: 404       Msg: Educator not found
+
+     status: 200       Msg: Educator Deleted
+
+     status: 500       Msg: Internal server Error
+
+---------   Reset Password ------------------
+
+    status: 404        Msg: User not found - Educator
+
+    status: 200        Msg: Reset password link sent to email - Educator
+
+    status: 500        Msg: Internal Server Error
+
+
+--------- Update Password -----------------
+
+    status: 404         Msg: User not found - Educator
+                        Msg: Token not found - Educator
+
+   status: 200          Msg: Password updated successfully
+
+   status:              Msg: Internal Server Error
