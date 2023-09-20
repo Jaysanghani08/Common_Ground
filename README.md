@@ -11,10 +11,10 @@ with the Common Core Standards.
      Group No:  16
 ## Group Members
 
-- [@JaySabva](https://www.github.com/JaySabva)
-- [@JaySanghani](https://www.github.com/Jaysanghani08/)
-- 
--
+- [@Jay Sabva](https://www.github.com/JaySabva)
+- [@Jay Sanghani](https://www.github.com/Jaysanghani08/)
+- [@Ashish Parmar](https://www.github.com/Ashishparmar3511) 
+- [@Param Patel](https://www.github.com/P-a-r-a-m)
 -
 -
 -
