@@ -151,10 +151,15 @@ exports.resetPassword = async (req, res, next) => {
             await token.save();
         }
 
-        const link = `www.google.com/password-reset/${user._id}/${token.token}`;
-        await sendEmail(user.email, "Password reset", link);
+        const resetLink = `https://localhost/3000/password-reset/${user._id}/${token.token}`;
+        const subject = 'Password Change - Common Ground'
 
-        res.send("password reset link sent to your email account");
+        await sendEmail(user.fname, user.email, subject, resetLink);
+
+        return res.status(200).json({
+            message: 'Email sent successfully',
+        });
+
     } catch (error) {
         return res.status(500).json({message: 'Internal server error'});
     }

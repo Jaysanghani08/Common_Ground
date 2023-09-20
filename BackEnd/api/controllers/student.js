@@ -7,6 +7,7 @@ const crypto = require("crypto");
 const Student = require('../models/student');
 const Educator = require("../models/educator");
 const Token = require("../models/token");
+const sendEmail = require("../../utils/sendEmail");
 
 
 exports.userSignup = async (req, res, next) => {
@@ -150,9 +151,13 @@ exports.resetPassword = async (req, res, next) => {
             await token.save();
         }
 
+        const resetLink = `https://localhost/3000/password-reset/${user._id}/${token.token}`;
+        const subject = 'Password Change - Common Ground'
+
+        await sendEmail(user.fname, user.email, subject, resetLink);
+
         return res.status(200).json({
-            message: 'Reset password link sent to email - Student',
-            token: token
+            message: 'Email sent successfully',
         });
     } catch (error) {
         return res.status(500).json({message: 'Internal server error'});
