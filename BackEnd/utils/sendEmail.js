@@ -1,28 +1,30 @@
 const nodemailer = require("nodemailer");
 
-const sendEmail = async (email, subject, text) => {
+const sendEmail = async (fname, email, subject, text) => {
     try {
         const transporter = nodemailer.createTransport({
-            // host: process.env.HOST,
-            service: process.env.SERVICE,
+            host: 'smtp.ethereal.email',
             port: 587,
-            secure: true,
             auth: {
-                user: process.env.USER,
-                pass: process.env.PASS,
-            },
+                user: 'sheldon.price@ethereal.email',
+                pass: 'Vrj8nXyErz2AX2HyFW'
+            }
         });
 
-        await transporter.sendMail({
-            from: "Jay Sabva <test@test.com>",
-            to: "jaysabva62@gmail.com",
-            subject: "Forget Password",
-            text: text ,
-        });
+        const body = `Dear ${fname},\n\nWe received a request to reset your password. To reset your password, please click on the following link:\n\n${text}\n\nIf you did not request this password reset, please ignore this email. Your account security is important to us.\n\nSincerely,\nCommon Ground`
 
-        console.log("email sent successfully");
+        const mailOptions = {
+            from: 'Jay <jay@test.com>',
+            to: email,
+            subject: subject,
+            text: body
+        };
+
+        await transporter.sendMail(mailOptions);
+
+        console.log("Email sent successfully");
     } catch (error) {
-        console.log(error, "email not sent");
+        console.error("Email not sent:", error);
     }
 };
 
