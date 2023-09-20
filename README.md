@@ -14,8 +14,8 @@ with the Common Core Standards.
 - [@Jay Sabva](https://www.github.com/JaySabva)
 - [@Jay Sanghani](https://www.github.com/Jaysanghani08/)
 - [@Ashish Parmar](https://www.github.com/Ashishparmar3511) 
-- [@Juhi_Andharia](https://www.github.com/P-a-r-a-m)
--
+- [@Param_Patel](https://www.github.com/P-a-r-a-m)
+- [@Juhi_Andharial](https://www.github.com/juhi_andharia)
 -
 -
 -
