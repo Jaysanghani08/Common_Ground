@@ -53,7 +53,7 @@ const courseSchema = new mongoose.Schema({
     ref: 'Assignment',
   },
   prerequisites: {
-    type: [string], 
+    type: [String],
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId, 
