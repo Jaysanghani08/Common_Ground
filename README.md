@@ -11,16 +11,16 @@ with the Common Core Standards.
      Group No:  16
 ## Group Members
 
-- [@Jay Sabva](https://www.github.com/JaySabva)
 - [@Jay Sanghani](https://www.github.com/Jaysanghani08/)
+- [@Jay Sabva](https://www.github.com/JaySabva)
 - [@Ashish Parmar](https://www.github.com/Ashishparmar3511) 
 - [@Param_Patel](https://www.github.com/P-a-r-a-m)
-- [@Juhi_Andharial](https://www.github.com/juhi_andharia)
--
--
--
--
--
+- [@Juhi_Andharia](https://github.com/juhiandharia)
+- [@Anand Santoki] (https://github.com/Anand202526)
+- [@Ankur_Damor](https://github.com/AnkurDamor1110)
+- [@Chaxu_Patel](https://github.com/Chaxupatel)
+- [@Sahil_Machhar](https://github.com/Sahilmachhar)
+- [@Jahnvi_Verma](https://github.com/v-jahnvi)
 ## Project Work
 
 - [User Stories](https://github.com/Jaysanghani08/Common_Ground/blob/main/User_Stories/User_Stories.pdf)
