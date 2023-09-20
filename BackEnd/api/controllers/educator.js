@@ -72,9 +72,9 @@ exports.userLogin = async (req, res, next) => {
     try {
         const user = await Educator.findOne({ email: req.body.email }).exec();
 
-        if (!user || user.length < 1) {
+        if (!user) {
             return res.status(404).json({
-                message: 'Auth failed - Educator'
+                message: 'User does not exist - Educator'
             });
         }
 
@@ -92,12 +92,12 @@ exports.userLogin = async (req, res, next) => {
                 }
             );
             return res.status(200).json({
-                message: 'Auth successful - Educator',
+                message: 'Logged In Successfully - Educator',
                 token: token
             });
         } else {
             return res.status(404).json({
-                message: 'Auth failed - Educator'
+                message: 'Wrong Password - Educator'
             });
         }
     } catch (err) {
@@ -135,7 +135,7 @@ exports.resetPassword = async (req, res, next) => {
 
     try {
         const user = await Educator.findOne({email: req.body.email}).exec();
-        console.log(user);
+
         if (!user) {
             return res.status(404).json({
                 message: 'User not found - Educator'
@@ -151,14 +151,11 @@ exports.resetPassword = async (req, res, next) => {
             await token.save();
         }
 
-        console.log(token);
         return res.status(200).json({
             message: 'Reset password link sent to email - Educator',
             token: token
         });
     } catch (error) {
-        // Handle any potential errors here
-        console.error(error);
         return res.status(500).json({message: 'Internal server error'});
     }
 };
@@ -168,7 +165,6 @@ exports.updatePassword = async (req, res, next) => {
     try {
         console.log(req.body);
 
-        // Find the user
         const user = await Educator.findOne({ email: req.body.email }).exec();
         if (!user) {
             return res.status(404).json({
@@ -176,7 +172,7 @@ exports.updatePassword = async (req, res, next) => {
             });
         }
 
-        // Find the token
+
         const token = await Token.findOne({ token: req.body.token }).exec();
         if (!token) {
             return res.status(404).json({
@@ -184,15 +180,12 @@ exports.updatePassword = async (req, res, next) => {
             });
         }
 
-        // Delete the token
-        const deleteTokenResult = await Token.deleteOne({ token: req.body.token }).exec();
-        console.log(deleteTokenResult);
+        await Token.deleteOne({ token: req.body.token }).exec();
 
-        // Update the user's password
         user.password = await bcrypt.hash(req.body.password, 10);
+
         await user.save();
 
-        // Respond with success
         res.status(200).json({
             message: 'Password updated successfully'
         });

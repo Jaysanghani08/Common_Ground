@@ -51,7 +51,7 @@ const educatorSchema = new mongoose.Schema({
     upiID: {
         type: String,
         required: true,
-        match : /^[a-zA-Z0-9.-]{2, 256}@[a-zA-Z][a-zA-Z]{2, 64}$/
+        match : /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]/
     },
     bio: {
         type: String,
