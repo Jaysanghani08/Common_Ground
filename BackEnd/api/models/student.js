@@ -47,11 +47,10 @@ const studentSchema = new mongoose.Schema({
         type: String,
         unique: true,
         required: true,
-        match: "^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$",
+        match: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
     },
     profilePic: {
-        data: BinData(0, "base64_encoded_image_data"),
-       contentType: "image/jpeg",
+        type: String,
         default: 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'
     },
     interests: {
@@ -75,4 +74,3 @@ const studentSchema = new mongoose.Schema({
 const Student = mongoose.model('Student', studentSchema);
 
 module.exports = Student;
-
