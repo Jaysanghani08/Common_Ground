@@ -1,3 +1,4 @@
+![Comman Ground (1000 × 500 px)](https://github.com/Jaysanghani08/Common_Ground/assets/94957904/0c79050a-ab46-47ab-856c-f26909c185df)
 
 # Common Ground
 
