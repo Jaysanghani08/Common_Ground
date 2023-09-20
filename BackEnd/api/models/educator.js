@@ -39,19 +39,19 @@ const educatorSchema = new mongoose.Schema({
     phone: {
         type: String,
         required: true,
-        match : "/^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/",
+        match : /^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/,
         trim : true
     },
     email: {
         type: String,
         unique: true,
         required: true,
-        match: "^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
+        match: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
     },
     upiID: {
         type: String,
         required: true,
-        match : "^[a-zA-Z0-9.-]{2, 256}@[a-zA-Z][a-zA-Z]{2, 64}$"
+        match : /^[a-zA-Z0-9.-]{2, 256}@[a-zA-Z][a-zA-Z]{2, 64}$/
     },
     bio: {
         type: String,
@@ -59,8 +59,6 @@ const educatorSchema = new mongoose.Schema({
     },
     profilePic: {
         type: String,
-        data: BinData(0, "base64_encoded_image_data"),
-        contentType: "image/jpeg",
         default : "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
 
     },
