@@ -59,8 +59,6 @@ const educatorSchema = new mongoose.Schema({
     },
     profilePic: {
         type: String,
-        data: BinData(0, "base64_encoded_image_data"),
-        contentType: "image/jpeg",
         default : "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
 
     },
