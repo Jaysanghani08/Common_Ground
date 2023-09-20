@@ -11,11 +11,27 @@ const Token = require("../models/token");
 
 exports.userSignup = async (req, res, next) => {
     try {
-        const user = await Educator.findOne({ email: req.body.email }).exec();
+        let user = await Educator.findOne({email: req.body.email}).exec();
 
-        if (user && user.length >= 1) {
+        if (user) {
             return res.status(409).json({
-                message: 'Mail exists - Educator'
+                message: 'Mail is already in use - Educator'
+            });
+        }
+
+        user = await Educator.findOne({username: req.body.username}).exec();
+
+        if (user) {
+            return res.status(409).json({
+                message: 'Username is already in use - Educator'
+            });
+        }
+
+        user = await Educator.findOne({phone: req.body.phone}).exec();
+
+        if (user) {
+            return res.status(409).json({
+                message: 'Phone number is already in use - Educator'
             });
         }
 
@@ -26,6 +42,7 @@ exports.userSignup = async (req, res, next) => {
             lname: req.body.lname,
             gender: req.body.gender,
             dob: req.body.dob,
+            location: req.body.location,
             username: req.body.username,
             password: hash,
             phone: req.body.phone,

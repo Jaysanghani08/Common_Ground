@@ -11,11 +11,27 @@ const Token = require("../models/token");
 
 exports.userSignup = async (req, res, next) => {
     try {
-        const user = await Student.findOne({ email: req.body.email }).exec();
+        let user = await Student.findOne({email: req.body.email}).exec();
 
         if (user) {
             return res.status(409).json({
-                message: 'Mail exists - Student'
+                message: 'Mail is already in use - Student'
+            });
+        }
+
+        user = await Student.findOne({username: req.body.username}).exec();
+
+        if (user) {
+            return res.status(409).json({
+                message: 'Username is already in use - Student'
+            });
+        }
+
+        user = await Student.findOne({phone: req.body.phone}).exec();
+
+        if (user) {
+            return res.status(409).json({
+                message: 'Phone number is already in use - Student'
             });
         }
 
@@ -25,6 +41,7 @@ exports.userSignup = async (req, res, next) => {
             fname: req.body.fname,
             lname: req.body.lname,
             gender: req.body.gender,
+            location: req.body.location,
             dob: req.body.dob,
             username: req.body.username,
             password: hash,
@@ -52,7 +69,7 @@ exports.userSignup = async (req, res, next) => {
 
 exports.userLogin = async (req, res, next) => {
     try {
-        const user = await Student.findOne({ email: req.body.email }).exec();
+        const user = await Student.findOne({email: req.body.email}).exec();
 
         if (!user || user.length < 1) {
             return res.status(404).json({
@@ -93,7 +110,7 @@ exports.userLogin = async (req, res, next) => {
 
 exports.userDelete = async (req, res, next) => {
     try {
-        const result = await Student.deleteOne({ email: req.params.email }).exec();
+        const result = await Student.deleteOne({email: req.params.email}).exec();
 
         if (result.deletedCount === 0) {
             return res.status(404).json({
@@ -152,7 +169,7 @@ exports.updatePassword = async (req, res, next) => {
         console.log(req.body);
 
         // Find the user
-        const user = await Student.findOne({ email: req.body.email }).exec();
+        const user = await Student.findOne({email: req.body.email}).exec();
         if (!user) {
             return res.status(404).json({
                 message: 'User not found - Student'
@@ -160,7 +177,7 @@ exports.updatePassword = async (req, res, next) => {
         }
 
         // Find the token
-        const token = await Token.findOne({ token: req.body.token }).exec();
+        const token = await Token.findOne({token: req.body.token}).exec();
         if (!token) {
             return res.status(404).json({
                 message: 'Token not found - Student'
@@ -168,7 +185,7 @@ exports.updatePassword = async (req, res, next) => {
         }
 
         // Delete the token
-        const deleteTokenResult = await Token.deleteOne({ token: req.body.token }).exec();
+        const deleteTokenResult = await Token.deleteOne({token: req.body.token}).exec();
         console.log(deleteTokenResult);
 
         // Update the user's password
