@@ -151,7 +151,7 @@ exports.resetPassword = async (req, res, next) => {
             await token.save();
         }
 
-        const resetLink = `https://localhost/3000/password-reset/${user._id}/${token.token}`;
+        const resetLink = `http://localhost:3000/student/resetpassword/${user._id}/${token.token}`;
         const subject = 'Password Change - Common Ground'
         const body = `
             <html>
@@ -180,14 +180,27 @@ exports.resetPassword = async (req, res, next) => {
                     display: block; /* Remove any extra spacing around the image */
                     margin: 0 auto; /* Center the image horizontally */
                   }
+                  .reset-button {
+                      display: block;
+                      padding: 10px 20px;
+                      background-color: #007bff;
+                      color: #fff;
+                      text-decoration: none;
+                      border-radius: 5px;
+                      font-size: 18px;
+                      text-align: center;
+                  }
+                   .reset-button:hover {
+                      background-color: #0056b3;
+                  }
                 </style>
               </head>
               <body>
                 <div class="container">
                   <img src="https://user-images.githubusercontent.com/94957904/268924860-0c79050a-ab46-47ab-856c-f26909c185df.jpg" alt="Common Ground" />
-                  <p>Hello ${user.fname},</p>
+                  <p>Hello ${user.username},</p>
                   <p>You have requested to reset your password. Please click on the following link to reset your password:</p>
-                  <p><a href="${resetLink}">${resetLink}</a></p>
+                  <a class="reset-button" href="${resetLink}">Reset Password</a>
                   <p>If you didn't request this, you can safely ignore this email.</p>
                   <p>Best regards,<br />The Common Ground Team</p>
                 </div>
