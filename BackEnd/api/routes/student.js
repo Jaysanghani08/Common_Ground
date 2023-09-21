@@ -3,6 +3,7 @@ const router = express.Router();
 
 const StudentController = require("../controllers/student");
 const CourseController = require("../controllers/course");
+const DiscussionController = require("../controllers/discussion");
 
 const checkAuth = require("../middleware/checkAuth");
 
@@ -15,4 +16,7 @@ router.delete("/:email", checkAuth, StudentController.userDelete);
 router.post("/enroll/:courseId", checkAuth, CourseController.enrollCourse);
 router.post("/unenroll/:courseId", checkAuth, CourseController.unenrollCourse);
 
+
+// under progress
+router.post("/:courseId/discussion", checkAuth, DiscussionController.addMessage);
 module.exports = router;
