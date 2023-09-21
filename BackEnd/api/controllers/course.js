@@ -18,8 +18,7 @@ exports.createCourse = async (req, res, next) => {
             tags: req.body.tags,
             courseLevel: req.body.courseLevel,
             courseCode: req.body.courseCode,
-            courseSections: req.body.courseSections,
-            courseAssignments: req.body.courseAssignments,
+            language: req.body.language,
             prerequisites: req.body.prerequisites,
             createdBy: req.userData.userId
         });
