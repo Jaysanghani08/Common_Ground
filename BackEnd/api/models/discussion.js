@@ -9,11 +9,16 @@ const messageSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    createdBy: {
+    createdByStudent: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Student',
-        required: true
+        ref: 'Student'
+    },
+
+    createdByEducator: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Educator'
     }
+
 });
 
 const discussionSchema = new mongoose.Schema({
