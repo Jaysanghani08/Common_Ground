@@ -1,23 +1,21 @@
 const nodemailer = require("nodemailer");
 
-const sendEmail = async (fname, email, subject, text) => {
+const sendEmail = async (email, subject, body) => {
     try {
         const transporter = nodemailer.createTransport({
-            host: 'smtp.ethereal.email',
+            host: 'smtp-relay.brevo.com',
             port: 587,
             auth: {
-                user: 'sheldon.price@ethereal.email',
-                pass: 'Vrj8nXyErz2AX2HyFW'
+                user: "3sy9lit63@mozmail.com",
+                pass: "zNLTaqQK78FxPtym"
             }
         });
 
-        const body = `Dear ${fname},\n\nWe received a request to reset your password. To reset your password, please click on the following link:\n\n${text}\n\nIf you did not request this password reset, please ignore this email. Your account security is important to us.\n\nSincerely,\nCommon Ground`
-
         const mailOptions = {
-            from: 'Jay <jay@test.com>',
-            to: email,
+            from: 'CommonGround <admin@test.com>',
+            to: "202101224@daiict.ac.in",
             subject: subject,
-            text: body
+            html: body
         };
 
         await transporter.sendMail(mailOptions);

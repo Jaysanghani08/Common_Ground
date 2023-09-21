@@ -39,7 +39,7 @@ const educatorSchema = new mongoose.Schema({
     phone: {
         type: String,
         required: true,
-        match: /^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/,
+        match: /^\d{10}$/,
         trim: true
     },
     email: {
