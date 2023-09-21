@@ -44,6 +44,10 @@ const courseSchema = new mongoose.Schema({
         type: Date,   //don't take any input
         default: Date.now,
     },
+    language : {
+        type : String,
+        required : true,
+    },
     courseSections: {
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'Section',
