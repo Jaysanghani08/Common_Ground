@@ -3,17 +3,18 @@ const nodemailer = require("nodemailer");
 const sendEmail = async (email, subject, body) => {
     try {
         const transporter = nodemailer.createTransport({
-            host: 'smtp-relay.brevo.com',
-            port: 587,
+            host: process.env.EMAIL_HOST,
+            port: process.env.EMAIL_PORT,
             auth: {
-                user: "3sy9lit63@mozmail.com",
-                pass: "zNLTaqQK78FxPtym"
-            }
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
+            },
         });
 
         const mailOptions = {
             from: 'CommonGround <admin@test.com>',
-            to: "202101224@daiict.ac.in",
+            cc: "202101224@daiict.ac.in",
+            to: email,
             subject: subject,
             html: body
         };
