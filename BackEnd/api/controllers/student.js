@@ -9,7 +9,6 @@ const Educator = require("../models/educator");
 const Token = require("../models/token");
 const sendEmail = require("../../utils/sendEmail");
 
-
 exports.userSignup = async (req, res, next) => {
     try {
         let user = await Student.findOne({email: req.body.email}).exec();
@@ -136,9 +135,10 @@ exports.resetPassword = async (req, res, next) => {
 
     try {
         const user = await Student.findOne({email: req.body.email}).exec();
+
         if (!user) {
             return res.status(404).json({
-                message: 'User not found - Student'
+                message: 'User not found - Educator'
             });
         }
 
@@ -153,12 +153,54 @@ exports.resetPassword = async (req, res, next) => {
 
         const resetLink = `https://localhost/3000/password-reset/${user._id}/${token.token}`;
         const subject = 'Password Change - Common Ground'
+        const body = `
+            <html>
+              <head>
+                <style>
+                  /* Define your CSS styles here */
+                  body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                  }
+                  .container {
+                    max-width: 600px;
+                    margin: 0 auto;
+                    padding: 20px;
+                    background-color: #ffffff;
+                    border-radius: 5px;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                  }
+                  a {
+                    color: #007bff;
+                    text-decoration: none;
+                  }
+                  img {
+                    max-width: 100%; /* Ensure the image fits within its parent container */
+                    height: auto; /* Maintain the aspect ratio */
+                    display: block; /* Remove any extra spacing around the image */
+                    margin: 0 auto; /* Center the image horizontally */
+                  }
+                </style>
+              </head>
+              <body>
+                <div class="container">
+                  <img src="https://user-images.githubusercontent.com/94957904/268924860-0c79050a-ab46-47ab-856c-f26909c185df.jpg" alt="Common Ground" />
+                  <p>Hello ${user.fname},</p>
+                  <p>You have requested to reset your password. Please click on the following link to reset your password:</p>
+                  <p><a href="${resetLink}">${resetLink}</a></p>
+                  <p>If you didn't request this, you can safely ignore this email.</p>
+                  <p>Best regards,<br />The Common Ground Team</p>
+                </div>
+              </body>
+            </html>
+            `;
 
-        await sendEmail(user.fname, user.email, subject, resetLink);
+        await sendEmail(user.email, subject, body);
 
         return res.status(200).json({
             message: 'Email sent successfully',
         });
+
     } catch (error) {
         return res.status(500).json({message: 'Internal server error'});
     }
