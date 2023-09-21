@@ -11,12 +11,13 @@ const messageSchema = new mongoose.Schema({
     },
     createdByStudent: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Student'
+        ref: 'Student',
+        default: null
     },
-
     createdByEducator: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Educator'
+        ref: 'Educator',
+        default: null
     }
 
 });
@@ -28,4 +29,5 @@ const discussionSchema = new mongoose.Schema({
 });
 
 const Discussion = mongoose.model('Discussion', discussionSchema);
+
 module.exports = Discussion;
