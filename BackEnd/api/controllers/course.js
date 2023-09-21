@@ -80,13 +80,65 @@ exports.deleteCourse = async (req, res, next) => {
                 message: 'Unauthorized'
             });
         }
-        
+
         await Course.deleteOne({_id: courseId}).exec();
 
         res.status(200).json({
             message: 'Course deleted'
         });
 
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    }
+}
+
+exports.enrollCourse = async (req, res, next) => {
+    try {
+        const course = await Course.findById(req.params.courseId).exec();
+
+        if (!course) {
+            return res.status(404).json({
+                message: 'Course not found'
+            });
+        }
+
+        req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
+
+        course.enrolledStudents.push(req.userData.userId);
+        await course.save();
+
+        return res.status(200).json({
+            message: 'Enrolled'
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    }
+}
+
+exports.unenrollCourse = async (req, res, next) => {
+    try {
+        const course = await Course.findById(req.params.courseId).exec();
+
+        if (!course) {
+            return res.status(404).json({
+                message: 'Course not found'
+            });
+        }
+
+        req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
+
+        course.enrolledStudents.pull(req.userData.userId);
+        await course.save();
+
+        return res.status(200).json({
+            message: 'Unenrolled'
+        });
     } catch (err) {
         console.log(err);
         res.status(500).json({
