@@ -6,6 +6,7 @@ const crypto = require('crypto');
 const Course = require('../models/course');
 const Token = require("../models/token");
 const Educator = require("../models/educator");
+const Discussion = require("../models/discussion");
 
 const sendEmail = require("../../utils/sendEmail");
 
@@ -13,6 +14,14 @@ const sendEmail = require("../../utils/sendEmail");
 exports.createCourse = async (req, res, next) => {
     try {
         req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
+        let discussionId;
+        if (req.body.discussionForum == true) {
+            const newDiscussion = new Discussion({
+                messages: []
+            });
+            await newDiscussion.save();
+            discussionId = newDiscussion._id;
+        }
 
         const newCourse = new Course({
             courseTitle: req.body.courseTitle,
@@ -25,8 +34,10 @@ exports.createCourse = async (req, res, next) => {
             courseCode: req.body.courseCode,
             language: req.body.language,
             prerequisites: req.body.prerequisites,
-            createdBy: req.userData.userId
+            createdBy: req.userData.userId,
+            discussionForum: discussionId,
         });
+
         await newCourse.save();
         res.status(201).json({
             message: 'Course created'
@@ -177,7 +188,11 @@ exports.sudoDeleteLecture = async (req, res, next) => {
             });
         }
 
-        await Token.deleteOne({token: req.body.token}).exec();
+        await Token.deleteOne({token: req.params.token}).exec();
+
+        if (course.discussionForum) {
+            await Discussion.deleteOne({_id: course.discussionForum}).exec();
+        }
 
         await Course.deleteOne({_id: courseId}).exec();
 
