@@ -69,7 +69,7 @@ const courseSchema = new mongoose.Schema({
   },
   discussionForum: {
     type: mongoose.Schema.Types.ObjectId, 
-    ref: 'DiscussionForum',
+    ref: 'Discussion',
   },
   courseCertificate: {
     type: String, 
