@@ -4,6 +4,11 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 
 const Course = require('../models/course');
+const Token = require("../models/token");
+const Educator = require("../models/educator");
+
+const sendEmail = require("../../utils/sendEmail");
+
 
 exports.createCourse = async (req, res, next) => {
     try {
@@ -81,12 +86,104 @@ exports.deleteCourse = async (req, res, next) => {
             });
         }
 
-        await Course.deleteOne({_id: courseId}).exec();
+        let token = await Token.findOne({userId: req.userData.userId});
+        if (!token) {
+            token = new Token({
+                userId: req.userData.userId,
+                token: crypto.randomBytes(16).toString('hex')
+            });
+            await token.save();
+        }
 
-        res.status(200).json({
-            message: 'Course deleted'
+        const user = await Educator.findOne({email: req.userData.email}).exec();
+
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found'
+            });
+        }
+
+        const subject = `Want to delete your course` + ` [` + `${course.courseTitle}` + `] ?`;
+
+        const body = `
+              <html>
+                <head>
+                  <style>
+                    /* Define your CSS styles here */
+                    body {
+                      font-family: Arial, sans-serif;
+                      background-color: #f4f4f4;
+                    }
+                    .container {
+                      max-width: 600px;
+                      margin: 0 auto;
+                      padding: 20px;
+                      background-color: #ffffff;
+                      border-radius: 5px;
+                      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                    }
+                    a {
+                      color: #007bff;
+                      text-decoration: none;
+                    }
+                    img {
+                      max-width: 100%; /* Ensure the image fits within its parent container */
+                      height: auto; /* Maintain the aspect ratio */
+                      display: block; /* Remove any extra spacing around the image */
+                      margin: 0 auto; /* Center the image horizontally */
+                    }
+                  </style>
+                </head>
+                <body>
+                  <div class="container">
+                    <img src="https://user-images.githubusercontent.com/94957904/268924860-0c79050a-ab46-47ab-856c-f26909c185df.jpg" alt="Common Ground" />
+                    <p>Hello ${user.username},</p>
+                    <p>You have requested to delete your course titled "${course.courseTitle}".</p>
+                    <p>To confirm the deletion, please click on the following link:</p>
+                    <p><a href="http://localhost:3000/educator/delete-course/${courseId}/${token.token}">Delete course</a></p>
+                    <p>If you didn't request this, you can safely ignore this email.</p>
+                    <p>Best regards,<br />Common Ground</p>
+                  </div>
+                </body>
+              </html>
+            `;
+
+        await sendEmail(req.userData.email, subject, body);
+
+        return res.status(200).json({
+            message: 'Email sent successfully',
         });
 
+    } catch (error) {
+        return res.status(500).json({message: 'Internal server error'});
+    }
+}
+
+exports.sudoDeleteLecture = async (req, res, next) => {
+    try {
+        const courseId = req.params.courseId;
+        const course = await Course.findById(courseId).exec();
+
+        if (!course) {
+            return res.status(404).json({
+                message: 'Course not found'
+            });
+        }
+
+        const token = await Token.findOne({token: req.params.token}).exec();
+        if (!token) {
+            return res.status(404).json({
+                message: 'Token not found - Educator'
+            });
+        }
+
+        await Token.deleteOne({token: req.body.token}).exec();
+
+        await Course.deleteOne({_id: courseId}).exec();
+
+        return res.status(200).json({
+            message: 'Course deleted'
+        });
     } catch (err) {
         console.log(err);
         res.status(500).json({
@@ -94,7 +191,6 @@ exports.deleteCourse = async (req, res, next) => {
         });
     }
 }
-
 exports.enrollCourse = async (req, res, next) => {
     try {
         const course = await Course.findById(req.params.courseId).exec();
