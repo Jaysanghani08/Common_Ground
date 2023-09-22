@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 const EducatorController = require("../controllers/educator");
-const courseController = require("../controllers/course");
+const CourseController = require("../controllers/course");
+const SectionController = require("../controllers/section");
 
 const checkAuth = require("../middleware/checkAuth");
 
@@ -12,9 +13,17 @@ router.post('/reset-password', EducatorController.resetPassword);
 router.post('/update-password', EducatorController.updatePassword);
 router.delete("/:email", checkAuth, EducatorController.userDelete);
 
-router.post("/create-course", checkAuth, courseController.createCourse);
-router.patch("/edit-course/:courseId", checkAuth, courseController.editCourse);
-router.post("/delete-course/:courseId", checkAuth, courseController.deleteCourse);
-router.post("/delete-course/:courseId/:token", checkAuth, courseController.sudoDeleteLecture);
+router.post("/create-course", checkAuth, CourseController.createCourse);
+router.patch("/edit-course/:courseId", checkAuth, CourseController.editCourse);
+router.post("/delete-course/:courseId", checkAuth, CourseController.deleteCourse);
+router.delete("/delete-course/:courseId/:token", checkAuth, CourseController.sudoDeleteLecture);
 
+// under progress
+router.post("/create-section/:courseId", checkAuth, SectionController.createSection);
+router.patch("/edit-section/:courseId/:sectionId", checkAuth, SectionController.editSection);
+router.delete("/delete-section/:courseId/:sectionId", checkAuth, SectionController.deleteSection);
+
+router.post("/add-post/:courseId/:sectionId", checkAuth, SectionController.addPost);
+// router.patch("/edit-post/:courseId/:sectionId/:postId", checkAuth, SectionController.editPost);
+// router.post("/delete-post/:courseId/:sectionId/:postId", checkAuth, SectionController.deletePost);
 module.exports = router;
