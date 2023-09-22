@@ -131,8 +131,8 @@ exports.userDelete = async (req, res, next) => {
                 message: 'Student not found'
             });
         }
-        if (profilePic)
-            deleteFile.deleteFile(profilePic);
+        if (profilePic.profilePic)
+            deleteFile.deleteFile(profilePic.profilePic);
 
         res.status(200).json({
             message: 'Student deleted'
