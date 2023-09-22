@@ -6,6 +6,7 @@ const CourseController = require("../controllers/course");
 const DiscussionController = require("../controllers/discussion");
 
 const checkAuth = require("../middleware/checkAuth");
+const checkEnroll = require("../middleware/checkEnroll");
 
 router.post("/signup", StudentController.userSignup);
 router.post("/login", StudentController.userLogin);
@@ -18,5 +19,8 @@ router.post("/unenroll/:courseId", checkAuth, CourseController.unenrollCourse);
 
 
 // under progress
-router.post("/:courseId/discussion", checkAuth, DiscussionController.addMessage);
+router.post("/:courseId/discussion", checkAuth, checkEnroll, DiscussionController.addMessage);
+router.patch("/:courseId/discussion/:messageId", checkAuth, checkEnroll, DiscussionController.editMessage);
+router.delete("/:courseId/discussion/:messageId", checkAuth, checkEnroll, DiscussionController.deleteMessage);
+
 module.exports = router;
