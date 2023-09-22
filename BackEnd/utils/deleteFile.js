@@ -8,4 +8,12 @@ const deleteFile = (filePath) => {
     });
 }
 
-exports.deleteFile = deleteFile;
+const deleteFolder = (folderPath) => {
+    fs.rmdir(folderPath, {recursive: true}, (err) => {
+        if (err) {
+            throw (err);
+        }
+    });
+}
+
+module.exports = {deleteFile, deleteFolder};
