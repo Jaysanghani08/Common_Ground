@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { profilePhoto } = require("../middleware/multerProfile");
 const { course } = require("../middleware/multerCourse");
+const { section } = require("../middleware/multerSection");
 
 const EducatorController = require("../controllers/educator");
 const CourseController = require("../controllers/course");
@@ -16,11 +17,11 @@ router.post('/update-password', EducatorController.updatePassword);
 router.delete("/:email", checkAuth, EducatorController.userDelete);
 
 router.post("/create-course", course.single('thumbnail'), checkAuth, CourseController.createCourse);
-router.patch("/edit-course/:courseId", checkAuth, CourseController.editCourse);
+router.patch("/edit-course/:courseId", course.single('thumbnail'), checkAuth, CourseController.editCourse);
 router.post("/delete-course/:courseId", checkAuth, CourseController.deleteCourse);
 router.delete("/delete-course/:courseId/:token", checkAuth, CourseController.sudoDeleteLecture);
 
-router.post("/create-section/:courseId", checkAuth, SectionController.createSection);
+router.post("/create-section/:courseId", section.any('attachment'), checkAuth, SectionController.createSection);
 router.patch("/edit-section/:courseId/:sectionId", checkAuth, SectionController.editSection);
 router.delete("/delete-section/:courseId/:sectionId", checkAuth, SectionController.deleteSection);
 
