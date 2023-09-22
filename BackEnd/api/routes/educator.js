@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { profilePhoto } = require("../middleware/profile");
+const { profilePhoto } = require("../middleware/multerProfile");
 
 const EducatorController = require("../controllers/educator");
 const CourseController = require("../controllers/course");
