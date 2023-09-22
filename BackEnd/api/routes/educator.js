@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { profilePhoto } = require("../middleware/profile");
 
 const EducatorController = require("../controllers/educator");
 const CourseController = require("../controllers/course");
@@ -7,7 +8,7 @@ const SectionController = require("../controllers/section");
 
 const checkAuth = require("../middleware/checkAuth");
 
-router.post("/signup", EducatorController.userSignup);
+router.post("/signup", profilePhoto.single('profilePic'), EducatorController.userSignup);
 router.post("/login", EducatorController.userLogin);
 router.post('/reset-password', EducatorController.resetPassword);
 router.post('/update-password', EducatorController.updatePassword);
