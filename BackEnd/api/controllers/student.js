@@ -8,12 +8,15 @@ const Student = require('../models/student');
 const Educator = require("../models/educator");
 const Token = require("../models/token");
 const sendEmail = require("../../utils/sendEmail");
+const deleteFile = require("../../utils/deleteFile");
 
 exports.userSignup = async (req, res, next) => {
     try {
         let user = await Student.findOne({email: req.body.email}).exec();
 
         if (user) {
+            if (req.file)
+                deleteFile.deleteFile(req.file.path);
             return res.status(409).json({
                 message: 'Mail is already in use - Student'
             });
@@ -22,6 +25,8 @@ exports.userSignup = async (req, res, next) => {
         user = await Student.findOne({username: req.body.username}).exec();
 
         if (user) {
+            if (req.file)
+                deleteFile.deleteFile(req.file.path);
             return res.status(409).json({
                 message: 'Username is already in use - Student'
             });
@@ -30,6 +35,8 @@ exports.userSignup = async (req, res, next) => {
         user = await Student.findOne({phone: req.body.phone}).exec();
 
         if (user) {
+            if (req.file)
+                deleteFile.deleteFile(req.file.path);
             return res.status(409).json({
                 message: 'Phone number is already in use - Student'
             });
@@ -37,6 +44,10 @@ exports.userSignup = async (req, res, next) => {
 
         const hash = await bcrypt.hash(req.body.password, 10);
 
+        let profilePic = null;
+        if (req.file) {
+            profilePic = req.file.path;
+        }
         const newUser = new Student({
             fname: req.body.fname,
             lname: req.body.lname,
@@ -47,7 +58,7 @@ exports.userSignup = async (req, res, next) => {
             password: hash,
             phone: req.body.phone,
             email: req.body.email,
-            profilePic: req.body.profilePic,
+            profilePic: profilePic,
             interests: req.body.interests,
             bookmarkedCourses: req.body.bookmarkedCourses,
             enrolledCourses: req.body.enrolledCourses
@@ -55,12 +66,14 @@ exports.userSignup = async (req, res, next) => {
 
         const result = await newUser.save();
 
-        console.log(result);
         res.status(201).json({
             message: 'Student created'
         });
     } catch (err) {
         console.log(err);
+        if (req.file)
+            deleteFile.deleteFile(req.file.path);
+
         res.status(500).json({
             error: err
         });
@@ -110,6 +123,7 @@ exports.userLogin = async (req, res, next) => {
 
 exports.userDelete = async (req, res, next) => {
     try {
+        const profilePic = await Student.findOne({email: req.params.email}).select('profilePic').exec();
         const result = await Student.deleteOne({email: req.params.email}).exec();
 
         if (result.deletedCount === 0) {
@@ -117,6 +131,8 @@ exports.userDelete = async (req, res, next) => {
                 message: 'Student not found'
             });
         }
+        if (profilePic)
+            deleteFile.deleteFile(profilePic);
 
         res.status(200).json({
             message: 'Student deleted'
