@@ -23,8 +23,10 @@ const storage = multerProfile.diskStorage({
             console.error(err);
             return cb(err);
         }
-
         cb(null, destinationPath);
+    },
+    filename: function (req, file, cb) {
+        cb(null, req.body.courseTitle + Date.now() + file.originalname);
     }
 });
 
