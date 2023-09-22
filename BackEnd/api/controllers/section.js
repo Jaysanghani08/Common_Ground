@@ -8,7 +8,7 @@ const Educator = require('../models/educator');
 const Course = require('../models/course');
 
 
-exports.createSection = async (req,res,next) => {
+exports.createSection = async (req, res, next) => {
     try {
         req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
         const course = await Course.findById(req.params.courseId).exec();
@@ -42,8 +42,7 @@ exports.createSection = async (req,res,next) => {
         res.status(201).json({
             message: 'Section created'
         });
-    }
-    catch
+    } catch
         (err) {
         console.log(err);
         res.status(500).json({
@@ -52,7 +51,7 @@ exports.createSection = async (req,res,next) => {
     }
 };
 
-exports.editSection = async (req,res,next) => {
+exports.editSection = async (req, res, next) => {
     try {
         req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
 
@@ -83,8 +82,7 @@ exports.editSection = async (req,res,next) => {
         res.status(201).json({
             message: 'Section edited'
         });
-    }
-    catch
+    } catch
         (err) {
         console.log(err);
         res.status(500).json({
@@ -93,7 +91,7 @@ exports.editSection = async (req,res,next) => {
     }
 }
 
-exports.deleteSection = async (req,res,next) => {
+exports.deleteSection = async (req, res, next) => {
     try {
         req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
 
@@ -123,8 +121,7 @@ exports.deleteSection = async (req,res,next) => {
         res.status(201).json({
             message: 'Section deleted'
         });
-    }
-    catch
+    } catch
         (err) {
         console.log(err);
         res.status(500).json({
@@ -132,7 +129,7 @@ exports.deleteSection = async (req,res,next) => {
         });
     }
 }
-exports.addPost = async (req,res,next) => {
+exports.addPost = async (req, res, next) => {
     try {
         req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
         const course = await Course.findById(req.params.courseId).exec();
@@ -168,8 +165,7 @@ exports.addPost = async (req,res,next) => {
         return res.status(201).json({
             message: 'Post added'
         });
-    }
-    catch
+    } catch
         (err) {
         console.log(err);
         res.status(500).json({
@@ -177,4 +173,99 @@ exports.addPost = async (req,res,next) => {
         });
     }
 };
+
+exports.editPost = async (req, res, next) => {
+    try {
+        req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
+        const course = await Course.findById(req.params.courseId).exec();
+
+        if (!course) {
+            return res.status(404).json({
+                message: 'Course not found'
+            });
+        }
+
+        if (course.createdBy.toString() !== req.userData.userId.toString()) {
+            return res.status(401).json({
+                message: 'Unauthorized'
+            });
+        }
+
+        const section = await Section.findById(req.params.sectionId).exec();
+        if (!section) {
+            return res.status(404).json({
+                message: 'Section not found'
+            });
+        }
+
+        const post = section.posts.id(req.params.postId);
+
+        if (!post) {
+            return res.status(404).json({
+                message: 'Post not found'
+            });
+        }
+
+        await section.posts.id(req.params.postId).set(req.body);
+        // Save the updated section
+        await section.save();
+
+        res.status(200).json({
+            message: 'Post edited',
+            updatedPost: post // You can also send the updated post as a response if needed
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    }
+}
+
+exports.deletePost = async (req, res, next) => {
+    try {
+        req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
+        const course = await Course.findById(req.params.courseId).exec();
+
+        if (!course) {
+            return res.status(404).json({
+                message: 'Course not found'
+            });
+        }
+
+        if (course.createdBy.toString() !== req.userData.userId.toString()) {
+            return res.status(401).json({
+                message: 'Unauthorized'
+            });
+        }
+
+        const section = await Section.findById(req.params.sectionId).exec();
+        if (!section) {
+            return res.status(404).json({
+                message: 'Section not found'
+            });
+        }
+
+        const post = section.posts.id(req.params.postId);
+
+        if (!post) {
+            return res.status(404).json({
+                message: 'Post not found'
+            });
+        }
+
+        await section.posts.pull(req.params.postId);
+
+        await section.save();
+
+        res.status(200).json({
+            message: 'Post deleted'
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    }
+}
 
