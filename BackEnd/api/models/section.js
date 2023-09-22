@@ -1,25 +1,36 @@
 const mongoose = require('mongoose');
 
-// Define the Section schema
+const post = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true,
+    },
+    body: {
+        type: String,
+    },
+    attachments: {
+        type: [String],
+    },
+    createdOn: {
+        type: Date,
+        default: Date.now,
+    }
+});
+
 const sectionSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
-        trim: true,
     },
-    description: {
-        type: String,
-        required: true,
-        trim: true,
+    posts: {
+        type: [post],
     },
-    attachments:{
-        type: [String],
-
+    createdOn: {
+        type: Date,
+        default: Date.now,
     }
-    // You can add more fields specific to the Section here
 });
 
-// Create the Section model
 const Section = mongoose.model('Section', sectionSchema);
 
 module.exports = Section;
