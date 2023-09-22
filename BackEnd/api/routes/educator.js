@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { profilePhoto } = require("../middleware/multerProfile");
+const { course } = require("../middleware/multerCourse");
 
 const EducatorController = require("../controllers/educator");
 const CourseController = require("../controllers/course");
@@ -14,7 +15,7 @@ router.post('/reset-password', EducatorController.resetPassword);
 router.post('/update-password', EducatorController.updatePassword);
 router.delete("/:email", checkAuth, EducatorController.userDelete);
 
-router.post("/create-course", checkAuth, CourseController.createCourse);
+router.post("/create-course", course.single('thumbnail'), checkAuth, CourseController.createCourse);
 router.patch("/edit-course/:courseId", checkAuth, CourseController.editCourse);
 router.post("/delete-course/:courseId", checkAuth, CourseController.deleteCourse);
 router.delete("/delete-course/:courseId/:token", checkAuth, CourseController.sudoDeleteLecture);
