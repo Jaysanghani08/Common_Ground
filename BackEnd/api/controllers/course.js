@@ -9,11 +9,13 @@ const Educator = require("../models/educator");
 const Discussion = require("../models/discussion");
 
 const sendEmail = require("../../utils/sendEmail");
+const {deleteFile, deleteFolder} = require("../../utils/deleteFile");
 
 
 exports.createCourse = async (req, res, next) => {
     try {
         req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
+
         let discussionId;
         if (req.body.discussionForum == true) {
             const newDiscussion = new Discussion({
@@ -23,12 +25,16 @@ exports.createCourse = async (req, res, next) => {
             discussionId = newDiscussion._id;
         }
 
+        let thumbnail = null;
+        if (req.file) {
+            thumbnail = req.file.path;
+        }
         const newCourse = new Course({
             courseTitle: req.body.courseTitle,
             courseDescription: req.body.courseDescription,
             courseDescriptionLong: req.body.courseDescriptionLong,
             coursePrice: req.body.coursePrice,
-            thumbnail: req.body.thumbnail,
+            thumbnail: thumbnail,
             tags: req.body.tags,
             courseLevel: req.body.courseLevel,
             courseCode: req.body.courseCode,
@@ -193,6 +199,10 @@ exports.sudoDeleteLecture = async (req, res, next) => {
         if (course.discussionForum) {
             await Discussion.deleteOne({_id: course.discussionForum}).exec();
         }
+
+
+        const coursePath = `uploads\\course\\${course.courseCode}-${course.courseTitle}`;
+        deleteFolder(coursePath);
 
         await Course.deleteOne({_id: courseId}).exec();
 
