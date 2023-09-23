@@ -277,8 +277,12 @@ exports.unenrollCourse = async (req, res, next) => {
 
         req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
 
+        const student = await Student.findById(req.userData.userId).exec();
+        student.enrolledCourses.pull(req.params.courseId);
         course.enrolledStudents.pull(req.userData.userId);
+
         await course.save();
+        await student.save();
 
         return res.status(200).json({
             message: 'Unenrolled'
