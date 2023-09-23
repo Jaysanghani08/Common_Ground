@@ -66,7 +66,6 @@ exports.userSignup = async (req, res, next) => {
 
         const result = await newUser.save();
 
-        console.log(result);
         res.status(201).json({
             message: 'Educator created'
         });
@@ -100,7 +99,7 @@ exports.userLogin = async (req, res, next) => {
                 },
                 process.env.JWT_KEY,
                 {
-                    expiresIn: "1h"
+                    expiresIn: "30d"
                 }
             );
             return res.status(200).json({
@@ -148,8 +147,6 @@ exports.userDelete = async (req, res, next) => {
 
 
 exports.resetPassword = async (req, res, next) => {
-    console.log(req.body.email);
-
     try {
         const user = await Educator.findOne({email: req.body.email}).exec();
 
@@ -239,8 +236,6 @@ exports.resetPassword = async (req, res, next) => {
 
 exports.updatePassword = async (req, res, next) => {
     try {
-        console.log(req.body);
-
         const user = await Educator.findOne({email: req.body.email}).exec();
         if (!user) {
             return res.status(404).json({
