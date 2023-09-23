@@ -6,6 +6,7 @@ const crypto = require('crypto');
 const Course = require('../models/course');
 const Token = require("../models/token");
 const Educator = require("../models/educator");
+const Student = require("../models/student");
 const Discussion = require("../models/discussion");
 
 const sendEmail = require("../../utils/sendEmail");
@@ -239,9 +240,19 @@ exports.enrollCourse = async (req, res, next) => {
         }
 
         req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
+        if (course.enrolledStudents.includes(req.userData.userId)) {
+            return res.status(401).json({
+                message: 'Already enrolled'
+            });
+        }
 
         course.enrolledStudents.push(req.userData.userId);
+
+        const student = await Student.findById(req.userData.userId).exec();
+        student.enrolledCourses.push(req.params.courseId);
+
         await course.save();
+        await student.save();
 
         return res.status(200).json({
             message: 'Enrolled'
