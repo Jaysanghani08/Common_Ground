@@ -13,16 +13,10 @@ const storage = multerProfile.diskStorage({
         cb(null, './uploads/profilePic');
     },
     filename: function (req, file, cb) {
-        cb(null, req.body.username + Date.now() + file.originalname);
+        cb(null, req.body.username + '-' + file.originalname);
     }
 });
 
 const profilePhoto = multerProfile({ storage: storage, fileFilter: imageFilter});
-
-if (profilePhoto.fileValidationError) {
-    return res.status(400).json({
-        message: "Only image files are allowed!"
-    });
-}
 
 module.exports = { profilePhoto };
