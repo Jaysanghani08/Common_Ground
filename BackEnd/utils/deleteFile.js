@@ -9,7 +9,7 @@ const deleteFile = (filePath) => {
 }
 
 const deleteFolder = (folderPath) => {
-    fs.rmdir(folderPath, {recursive: true}, (err) => {
+    fs.rm(folderPath, {recursive: true}, (err) => {
         if (err) {
             throw (err);
         }
