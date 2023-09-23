@@ -6,33 +6,29 @@ const crypto = require('crypto');
 const Section = require('../models/section');
 const Educator = require('../models/educator');
 const Course = require('../models/course');
+const {deleteFolder} = require("../../utils/deleteFile");
 
 
 exports.createSection = async (req, res, next) => {
     try {
         req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
+
         const course = await Course.findById(req.params.courseId).exec();
         if (!course) {
             return res.status(404).json({
                 message: 'Course not found'
             });
         }
-        console.log(course.createdBy);
-        console.log(req.userData.userId);
+
         if (course.createdBy.toString() !== req.userData.userId.toString()) {
             return res.status(401).json({
                 message: 'Unauthorized'
             });
         }
 
-        const post = {
-            title: req.body.title,
-            body: req.body.body,
-            attachments: req.body.attachments
-        };
         const section = new Section({
-            title: req.body.sectionTitle,
-            posts: post
+            title: req.body.title,
+            posts: []
         });
 
         await section.save();
@@ -114,10 +110,12 @@ exports.deleteSection = async (req, res, next) => {
                 message: 'Section not found'
             });
         }
+        const sectionPath = `uploads/course/${course.courseCode}-${course.courseTitle}/${section.title}`;
+        deleteFolder(sectionPath);
+
         await Course.updateOne({_id: req.params.courseId}, {$pull: {courseSections: req.params.sectionId}}).exec();
 
         await Section.deleteOne({_id: req.params.sectionId}).exec();
-
         res.status(201).json({
             message: 'Section deleted'
         });
@@ -153,10 +151,13 @@ exports.addPost = async (req, res, next) => {
             });
         }
 
+        // Get the uploaded files and add their paths to an array
+        const attachments = req.files.map(file => file.path);
+
         const post = {
             title: req.body.title,
             body: req.body.body,
-            attachments: req.body.attachments
+            attachments: attachments
         };
 
         section.posts.push(post);
@@ -165,14 +166,14 @@ exports.addPost = async (req, res, next) => {
         return res.status(201).json({
             message: 'Post added'
         });
-    } catch
-        (err) {
+    } catch (err) {
         console.log(err);
         res.status(500).json({
             error: err
         });
     }
 };
+
 
 exports.editPost = async (req, res, next) => {
     try {
@@ -207,12 +208,12 @@ exports.editPost = async (req, res, next) => {
         }
 
         await section.posts.id(req.params.postId).set(req.body);
-        // Save the updated section
+
         await section.save();
 
         res.status(200).json({
             message: 'Post edited',
-            updatedPost: post // You can also send the updated post as a response if needed
+            updatedPost: post
         });
     } catch (err) {
         console.log(err);
@@ -253,6 +254,9 @@ exports.deletePost = async (req, res, next) => {
                 message: 'Post not found'
             });
         }
+
+        const postPath = `uploads/course/${course.courseCode}-${course.courseTitle}/${section.title}/${post.title}`;
+        deleteFolder(postPath);
 
         await section.posts.pull(req.params.postId);
 
