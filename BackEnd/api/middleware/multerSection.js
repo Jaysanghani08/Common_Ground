@@ -1,29 +1,59 @@
 const multerProfile = require("multer");
 const path = require("path");
-const fs = require("fs/promises"); // Import fs.promises for promise-based file operations
-
+const fs = require("fs");
 const Course = require('../models/course');
+const Section = require('../models/section');
 
 const storage = multerProfile.diskStorage({
     destination: async function (req, file, cb) {
+        const courseId = req.params.courseId;
+        const sectionId = req.params.sectionId;
+
         try {
-            const course = await Course.findById(req.params.courseId).exec();
-            if (!course) {
-                throw new Error('Course not found');
+            if (!courseId) {
+                throw new Error('Course ID is missing');
             }
 
-            destinationPath = path.join(
-                './uploads/course',
-                `${course.courseCode}-${course.courseTitle}`,
-                req.body.sectionTitle
-            );
+            const course = await Course.findById(courseId);
+            if (!course) {
+                throw new Error('Course not found in the database');
+            }
 
-            await fs.mkdir(destinationPath, { recursive: true });
+            if (sectionId) {
+                const section = await Section.findById(sectionId);
+                if (section) {
+                    const sectionTitle = section.title;
+
+                    const sectionDirectory = path.join(
+                        `./uploads/course/${course.courseCode}-${course.courseTitle}`,
+                        sectionTitle
+                    );
+
+                    if (!fs.existsSync(sectionDirectory)) {
+                        fs.mkdirSync(sectionDirectory, { recursive: true });
+                    }
+
+                    const postTitle = req.body.title;
+                    const postDirectory = path.join(sectionDirectory, postTitle);
+
+                    if (!fs.existsSync(postDirectory)) {
+                        fs.mkdirSync(postDirectory, { recursive: true });
+                    }
+
+                    console.log('Post directory created');
+                    cb(null, postDirectory);
+                } else {
+                    console.error('Section not found in the database');
+                    cb('Section not found in the database', null);
+                }
+            } else {
+                console.error('Section ID is missing');
+                cb('Section ID is missing', null);
+            }
         } catch (err) {
-            console.error(err);
-            return cb(err);
+            console.error('Error:', err.message);
+            cb(err.message, null);
         }
-        cb(null, destinationPath);
     },
     filename: function (req, file, cb) {
         cb(null, req.body.courseTitle + Date.now() + file.originalname);
