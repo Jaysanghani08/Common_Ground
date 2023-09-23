@@ -13,6 +13,7 @@ const checkAuth = require("../middleware/checkAuth");
 // multer middleware
 const profileUpload = profilePhoto.single('profilePic');
 const courseUpload = course.single('thumbnail');
+const sectionUpload = section.array('attachments', 10);
 
 router.post("/signup", profileUpload, EducatorController.userSignup);
 router.post("/login", EducatorController.userLogin);
@@ -25,12 +26,12 @@ router.patch("/edit-course/:courseId", courseUpload, checkAuth, CourseController
 router.post("/delete-course/:courseId", checkAuth, CourseController.deleteCourse);
 router.delete("/delete-course/:courseId/:token", checkAuth, CourseController.sudoDeleteLecture);
 
-router.post("/create-section/:courseId", section.any('attachment'), checkAuth, SectionController.createSection);
+router.post("/create-section/:courseId", checkAuth, SectionController.createSection);
 router.patch("/edit-section/:courseId/:sectionId", checkAuth, SectionController.editSection);
 router.delete("/delete-section/:courseId/:sectionId", checkAuth, SectionController.deleteSection);
 
-router.post("/add-post/:courseId/:sectionId", checkAuth, SectionController.addPost);
-router.patch("/edit-post/:courseId/:sectionId/:postId", checkAuth, SectionController.editPost);
+router.post("/add-post/:courseId/:sectionId", sectionUpload, checkAuth, SectionController.addPost);
+router.patch("/edit-post/:courseId/:sectionId/:postId", sectionUpload, checkAuth, SectionController.editPost);
 router.delete("/delete-post/:courseId/:sectionId/:postId", checkAuth, SectionController.deletePost);
 
 module.exports = router;
