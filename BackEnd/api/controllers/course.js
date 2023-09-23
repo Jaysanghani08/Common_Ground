@@ -17,7 +17,7 @@ exports.createCourse = async (req, res, next) => {
         req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
 
         let discussionId;
-        if (req.body.discussionForum == true) {
+        if (req.body.discussionForum === "true") {
             const newDiscussion = new Discussion({
                 messages: []
             });
@@ -68,7 +68,19 @@ exports.editCourse = async (req, res, next) => {
             });
         }
 
+        // pending work
+        // const oldThumbLink = course.thumbnail;
+        // const newFolderName = `${req.body.courseCode}+'-'+${req.body.courseTitle}`;
+        // const regex = /uploads\/course\/([^/]+)/;
+        // const newLink = oldThumbLink.replace(regex, `uploads/course/${newFolderName}`);
+        // // console.log(newLink);
+        // // console.log(oldThumbLink);
+        // if (req.file)
+        //     deleteFile(newLink);
+
         const updateData = req.body;
+
+        // const newThumbnail = req.file ? req.file.path : null;
 
         await Course.updateOne({_id: courseId}, {$set: updateData}).exec();
 
