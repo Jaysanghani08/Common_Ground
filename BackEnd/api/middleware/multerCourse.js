@@ -1,21 +1,57 @@
 const multerProfile = require("multer");
 const path = require("path");
-const fs = require("fs");
+const fs = require("fs")
+;
+const Course = require('../models/course');
 
 const storage = multerProfile.diskStorage({
-    destination: function (req, file, cb) {
-        fs.mkdir('./uploads/course/' + req.body.courseCode + '-' + req.body.courseTitle, {recursive: true}, (err) => {
-            if (err) {
-                return console.error(err);
+    destination: async function (req, file, cb) {
+        const courseCode = req.body.courseCode;
+        const courseTitle = req.body.courseTitle;
+
+        const courseID = req.params.courseId;
+        try {
+            if (courseID) {
+                const existingCourse = await Course.findById(courseID);
+
+                if (existingCourse) {
+                    const oldDirectoryName = existingCourse.courseCode + '-' + existingCourse.courseTitle;
+                    const newDirectoryName = courseCode + '-' + courseTitle;
+
+                    const courseDirectory = path.join('./uploads/course', oldDirectoryName);
+                    const newCourseDirectory = path.join('./uploads/course', newDirectoryName);
+
+                    if (fs.existsSync(courseDirectory)) {
+                        fs.renameSync(courseDirectory, newCourseDirectory);
+                        console.log('Directory already exists and renamed');
+                    }
+
+                    console.log(newCourseDirectory);
+                    cb(null, newCourseDirectory);
+                } else {
+                    console.error('Course not found in the database');
+                    cb('Course not found in the database', null);
+                }
+            } else {
+                const courseDirectory = path.join('./uploads/course', courseCode + '-' + courseTitle);
+                fs.mkdir(courseDirectory, { recursive: true }, (err) => {
+                    if (err) {
+                        return console.error(err);
+                    }
+                    console.log('Directory created successfully');
+                    cb(null, courseDirectory);
+                });
             }
-            cb(null, './uploads/course/' + req.body.courseCode + '-' + req.body.courseTitle);
-        });
+        } catch (err) {
+            console.error('Database error:', err);
+            cb('Database error', null);
+        }
     },
     filename: function (req, file, cb) {
         cb(null, req.body.courseTitle + Date.now() + file.originalname);
     }
 });
 
-const course = multerProfile({storage: storage});
+const course = multerProfile({ storage: storage });
 
-module.exports = {course};
+module.exports = { course };
