@@ -9,7 +9,10 @@ const DiscussionController = require("../controllers/discussion");
 const checkAuth = require("../middleware/checkAuth");
 const checkEnroll = require("../middleware/checkEnroll");
 
-router.post("/signup", profilePhoto.single('profilePic'), StudentController.userSignup);
+// multer middleware
+const profileUpload = profilePhoto.single('profilePic');
+
+router.post("/signup", profileUpload, StudentController.userSignup);
 router.post("/login", StudentController.userLogin);
 router.post('/reset-password', StudentController.resetPassword);
 router.post('/update-password', StudentController.updatePassword);
