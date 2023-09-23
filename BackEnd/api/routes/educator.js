@@ -10,14 +10,18 @@ const SectionController = require("../controllers/section");
 
 const checkAuth = require("../middleware/checkAuth");
 
-router.post("/signup", profilePhoto.single('profilePic'), EducatorController.userSignup);
+// multer middleware
+const profileUpload = profilePhoto.single('profilePic');
+const courseUpload = course.single('thumbnail');
+
+router.post("/signup", profileUpload, EducatorController.userSignup);
 router.post("/login", EducatorController.userLogin);
 router.post('/reset-password', EducatorController.resetPassword);
 router.post('/update-password', EducatorController.updatePassword);
 router.delete("/:email", checkAuth, EducatorController.userDelete);
 
-router.post("/create-course", course.single('thumbnail'), checkAuth, CourseController.createCourse);
-router.patch("/edit-course/:courseId", course.single('thumbnail'), checkAuth, CourseController.editCourse);
+router.post("/create-course", courseUpload, checkAuth, CourseController.createCourse);
+router.patch("/edit-course/:courseId", courseUpload, checkAuth, CourseController.editCourse);
 router.post("/delete-course/:courseId", checkAuth, CourseController.deleteCourse);
 router.delete("/delete-course/:courseId/:token", checkAuth, CourseController.sudoDeleteLecture);
 
