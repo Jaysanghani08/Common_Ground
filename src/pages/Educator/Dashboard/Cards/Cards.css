@@ -1,0 +1,27 @@
+.cards {
+    /* width: 100%; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 6px 19px rgb(75, 17, 191, 0.30), 0 15px 31px rgb(75, 17, 191, 0.22);
+    margin: 0 10px;
+    /* border: 2px solid rgb(75, 17, 191, 0.50); */
+    padding: 20px;
+    height: 100px;
+    background: white;
+    color: black;
+    width: 250px;
+    display: flex;
+    justify-content: space-around;
+
+    align-items: center;
+}
+
+.rightcontent{
+    color: black;
+}
+

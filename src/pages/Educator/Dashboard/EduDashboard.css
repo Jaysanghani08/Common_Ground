@@ -1,0 +1,53 @@
+.container {
+    display: flex;
+    background-color: #f8f9fa;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    /* justify-content: space-between; */
+    overflow: hidden;
+    position: fixed;
+    /* align-items: ; */
+}
+
+.maindash{
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* flex-wrap: wrap; */
+    align-items: left;
+}
+
+.header{
+    margin-top: 1.3rem;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10px;
+    align-items: center;
+    font-size: 26px;
+}
+/* 
+.heading{
+} */
+
+.heading > h1 > span{
+    /* font-size: 26px; */
+    color: #4f39bf;
+}
+
+.profilephoto{
+    border : 2px solid rgba(0, 0, 0, 0.518);
+    border-radius: 50%;
+    padding: 6px;
+}
+
+.graphcal{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+.courses{
+    color: black;
+    box-shadow: 0 6px 19px rgb(75, 17, 191, 0.30), 0 15px 31px rgb(75, 17, 191, 0.22);
+}
