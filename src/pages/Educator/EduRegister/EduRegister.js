@@ -217,10 +217,10 @@ const EduRegister = () => {
                             </div>
                         </div>
                         <button className={style.btn} onClick={handleSubmit}>Sign Up</button>
-                        {"\n"}
+                        </form>
                         <p>Already have an account ? </p>
                         <Link className="custom-link"to="/educator/login"> Login here</Link>
-                    </form>
+                    
                 </div>
                 <ToastContainer />
             </section>

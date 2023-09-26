@@ -46,8 +46,8 @@
     margin-right: 0px;
 }
 
-.register_form .custom-link {
-    margin-right: 620px;
+.custom-link {
+    margin: auto;
     text-decoration: none;
     color: orange;
     font-weight: bold;

@@ -12,7 +12,7 @@ function EduDashboard() {
 
     return (
         <>
-            <div class="container">
+            <div className="container">
                 <Siderbar />
                 <div className="maindash">
                     <div className="header">

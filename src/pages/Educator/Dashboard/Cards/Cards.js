@@ -14,7 +14,7 @@ const Cards = () => {
             {
                 EduCardContent.map((item, index) => {
                     return (
-                        <div class="card">
+                        <div className="card" key={index}>
 
                             {item.icon({ size : 50, color: '#000000' })}
                             {/* <UilUser /> */}

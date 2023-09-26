@@ -81,19 +81,21 @@ img{
     
 }
 
-@media screen and (max-width:768px){
+@media (max-width:768px){
     .menuItem>span{
         display: block;
     }
-    .logo{
-        display: none;
+    
+    .logo {
+        display: flex;
+        justify-content: space-around;
     }
     .Sidebar{
         position: fixed;
         z-index: 9;
-        background: #ffffff;
+        background: #4b11bf;
         width:50%;
-        padding-right: 1rem;
+        /* padding-right: 1rem; */
         height:100%;
     }
 
@@ -101,8 +103,8 @@ img{
         display: flex;
         position: fixed;
         top: 2rem;
-        z-index: 9;
-        background: #ceb0ec;
+        z-index: 12;
+        background: #4b11bf;
         padding: 10px;
         border-radius: 10px;
 

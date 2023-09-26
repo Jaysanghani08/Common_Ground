@@ -40,11 +40,11 @@
       justify-content: space-around;
       align-items: center;
     }
-  .register_form p {
+   /* p {
       margin-right:0px;
-    }
-  .register_form .register_custom-link {
-    margin-right: 496px;
+    } */
+  .register_custom-link {
+    margin: auto;
     text-decoration: none;
     color: orange; 
     font-weight: bold;

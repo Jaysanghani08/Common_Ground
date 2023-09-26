@@ -9,6 +9,7 @@ import Logo  from './../../../../data/imgs/Logo.svg'
 function Sidebar() {
     const [selected, setSelected] = useState(0);
     const [expanded, setExpanded] = useState(true);
+    console.log(expanded)
 
     const sidebarVariants = {
         true: {
@@ -20,7 +21,7 @@ function Sidebar() {
     }
     return (
         <>
-            <div className='bars' style={expanded ? { left: '50%' } : { left: '5%' }} onClick={() => setExpanded(!expanded)}>
+            <div className='bars' style={expanded ? { left: '50%' } : { left: '5%' }} onClick={() => {setExpanded(!expanded); console.log("clicked")}}>
                 <UilBars style={{ color: 'white' }} />
             </div>
             <motion.span className="Sidebar" variants={sidebarVariants} animate={window.innerWidth <= 768 ? `${expanded}` : ''}>

@@ -2,6 +2,7 @@
     /* width: 100%; */
     display: flex;
     justify-content: center;
+    /* flex-wrap: wrap; */
     align-items: center;
 }
 
@@ -26,3 +27,14 @@
     color: black;
 }
 
+
+@media (max-width: 768px){
+.cards {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    gap: 2rem;
+}
+}

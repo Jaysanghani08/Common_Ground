@@ -8,6 +8,7 @@
     overflow: hidden;
     position: fixed;
     /* align-items: ; */
+
 }
 
 .maindash{
@@ -50,4 +51,20 @@
 .courses{
     color: black;
     box-shadow: 0 6px 19px rgb(75, 17, 191, 0.30), 0 15px 31px rgb(75, 17, 191, 0.22);
+}
+
+@media (max-width: 768px){
+    .maindash{
+        grid-template-columns: 1fr;
+        overflow-y: scroll;
+        
+        /* align-items: center; */
+    }
+    .maindash::-webkit-scrollbar{
+        display: none;
+    }
+
+    .calendar{
+        margin: auto;
+    }
 }
