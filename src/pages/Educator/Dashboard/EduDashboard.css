@@ -53,17 +53,14 @@
     box-shadow: 0 6px 19px rgb(75, 17, 191, 0.30), 0 15px 31px rgb(75, 17, 191, 0.22);
 }
 
-@media (max-width: 768px){
+@media (max-width: 600px){
     .maindash{
         grid-template-columns: 1fr;
-        overflow-y: scroll;
-        
-        /* align-items: center; */
+        overflow-y: scroll;    
     }
     .maindash::-webkit-scrollbar{
         display: none;
     }
-
     .calendar{
         margin: auto;
     }
