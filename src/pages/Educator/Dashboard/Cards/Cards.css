@@ -28,7 +28,7 @@
 }
 
 
-@media (max-width: 768px){
+@media (max-width: 600px){
 .cards {
     width: 100%;
     display: flex;
