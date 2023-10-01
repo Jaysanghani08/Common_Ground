@@ -131,7 +131,7 @@ const EduRegister = () => {
                         <h1>Sign Up</h1>
                         <p>Welcome to Common Ground</p>
                     </div>
-                    <form className='register_form'>
+                    <form className='EDU_register_form'>
                         <div className={style.form_input}>
                             <label htmlFor="fname">First Name</label>
                             <input type="text" value={inputdata.fname} name="fname" onChange={handleChange} placeholder='Enter Your First Name' />

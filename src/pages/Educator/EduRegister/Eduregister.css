@@ -35,14 +35,14 @@
     margin: auto;
 }
 
-.register_form {
+.EDU_register_form {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
 }
 
-.register_form p {
+.EDU_register_form p {
     margin-right: 0px;
 }
 
@@ -53,18 +53,18 @@
     font-weight: bold;
 }
 
-.register_form input {
+.EDU_register_form input {
     margin: 20px 0px 12px 0px;
     /* width: 500px; */
 }
 
-.register_form label {
+.EDU_register_form label {
     display: block;
     margin-bottom: 5px;
 }
 
-.register_form input,
-.register_form select {
+.EDU_register_form input,
+.EDU_register_form select {
     width: 200px;
     padding: 10px;
     font-size: 16px;
@@ -91,7 +91,7 @@
 
 }
 
-.register_form input[type="text"] {
+.EDU_register_form input[type="text"] {
     display: inline-block;
 }
 
@@ -108,7 +108,7 @@
         align-items: flex-start;
     }
 
-    .register_form {
+    .EDU_register_form {
         display: flex;
         flex-wrap: nowrap;
         justify-content: space-around;
@@ -116,7 +116,7 @@
         flex-direction: column;
     }
 
-    .register_form .custom-link {
+    .EDU_register_form .custom-link {
         margin: auto;
     }
 
