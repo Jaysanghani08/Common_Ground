@@ -27,8 +27,8 @@ function Sidebar() {
             <motion.span className="Sidebar" variants={sidebarVariants} animate={window.innerWidth <= 768 ? `${expanded}` : ''}>
 
                 {/* {logo} */}
-                <div className="logo">
-                    <img src={Logo} style={{color : '#fff'}}></img>
+                <div className="logo logo-hidden">
+                    <img src={Logo} style={{color : '#fff'}} alt='logo'></img>
 
                 </div>
                 <div className="menu">

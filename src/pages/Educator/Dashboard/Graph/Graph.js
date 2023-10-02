@@ -20,21 +20,18 @@ const xLabels = [
 
 export default function SimpleBarChart() {
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 600px)');
+    const mediaQuery = window.matchMedia('(max-width: 600px), (min-width: 601px) and (max-width: 1200px)');
 
     function handleMediaQueryChange(event) {
-      // When the media query condition is met, update the width to 'auto'
       const chartContainer = document.querySelector('.css-q3wnbe-MuiResponsiveChart-container');
       chartContainer.style.width = event.matches ? 'auto' : '800px';
     }
 
-    // Initial setup
+    
     handleMediaQueryChange(mediaQuery);
 
-    // Add a listener to update the width when the media query condition changes
     mediaQuery.addEventListener('change', handleMediaQueryChange);
 
-    // Clean up the listener when the component unmounts
     return () => {
       mediaQuery.removeEventListener('change', handleMediaQueryChange);
     };

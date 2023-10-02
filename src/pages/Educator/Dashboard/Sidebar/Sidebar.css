@@ -110,3 +110,19 @@ img{
 
     }
 }
+
+@media (min-width: 601px) and (max-width: 1200px){
+    .menuItem>span{
+        display: none;
+    }
+    .logo-hidden {
+        display: none;
+    }
+    .active{
+        padding-left: 55px;
+        margin-left: -20px;
+    }
+    .Sidebar{
+       width: 80px;
+    }
+}

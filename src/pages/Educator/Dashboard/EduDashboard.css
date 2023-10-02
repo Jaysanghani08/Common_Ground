@@ -65,3 +65,13 @@
         margin: auto;
     }
 }
+
+@media (min-width: 601px) and (max-width: 1200px){
+    .maindash {
+        padding: 15px 25px;
+        overflow-y: scroll;
+    }
+    .calendar{
+        margin: auto;
+    }
+}

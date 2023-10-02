@@ -3,7 +3,13 @@
     .css-q3wnbe-MuiResponsiveChart-container{
     width: auto;
 }
- 
+}
 
-  
+@media (min-width: 601px) and (max-width: 1200px) {
+    .css-q3wnbe-MuiResponsiveChart-container>svg {
+        width: 100%;
+        height: 100%;
+        margin-left: 80px;
+        
+    }
 }
