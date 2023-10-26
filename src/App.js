@@ -11,7 +11,7 @@ import EduLogin from "./pages/Educator/EduLogin/EduLogin"
 import EduFP from "./pages/Educator/EduForgetPass/EduFP"
 import EduResetPass from "./pages/Educator/EduResetPass/EduResetPass"
 import EduDashboard from "./pages/Educator/Dashboard/EduDashboard";
-import StuDashboard from "./pages/student/Dashboard/StuDashboard";
+
 function App() {
     return (
         <>
@@ -32,6 +32,10 @@ function App() {
                     <Route path='forgetpassword' element={<EduFP />} />
                     <Route path='resetpassword/:id/:token' element={<EduResetPass />} />
                     <Route path='dashboard' element={<EduDashboard />} />
+                    <Route path='profile' element={<EduProfile />} />
+                    <Route path='create-course' element={<EduCreateCourse />} />
+                    <Route path='offered-course' element={<EduOfferedCourses />} />
+
 
                 </Route>
                 <Route path='*' element={<Error />} />
