@@ -5,7 +5,7 @@ const EduCreateCourse = () => {
     return (
         <div>
             <Sidebar/>
-            EduOffered Course Page
+            Edu-Create Course Page
         </div>
     )
 }

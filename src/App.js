@@ -38,7 +38,7 @@ function App() {
                     <Route path='dashboard' element={<EduDashboard />} />
                     <Route path='profile' element={<EduProfile />} />
                     <Route path='create-course' element={<EduCreateCourse />} />
-                    <Route path='offered-course' element={<EduOfferedCourses />} />
+                    <Route path='offered-courses' element={<EduOfferedCourses />} />
 
 
                 </Route>
