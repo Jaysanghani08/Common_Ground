@@ -1,9 +1,11 @@
 import React from 'react'
+import Sidebar from '../Dashboard/Sidebar/Sidebar'
 
 const EduCreateCourse = () => {
     return (
         <div>
-            Edu-Create Curse page
+            <Sidebar/>
+            EduOffered Course Page
         </div>
     )
 }

@@ -17,12 +17,12 @@ export const SidebarData = [
     {
       icon: UilBookAlt,
       heading: "Offered Courses",
-      route: "/educator/offeredcourses",
+      route: "/educator/offered-courses",
     },
     {
       icon: UilPlus,
       heading: "Create Courses",
-      route: "/educator/createcourse",
+      route: "/educator/create-course",
     },
     {
       icon:  UilUser,
