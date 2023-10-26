@@ -1,25 +1,12 @@
-const coursesData = [
-    {
-      id: 1,
-      title: 'HTML',
-      progress: 80,
-      icon: 'fab fa-html5 html',
-    },
-    {
-      id: 2,
-      title: 'CSS',
-      progress: 50,
-      icon: 'fab fa-css3-alt css',
-    },
-    {
-      id: 3,
-      title: 'JavaScript',
-      progress: 30,
-      icon: 'fab fa-js-square js',
-    },
-    // Add more course data here
-    
-  ];
-  
-  export default coursesData;
-  
+// data.js
+const productData = {
+  title: 'Hartbeespoort',
+  description: 'Support and Nike Zoom Air come together for a more supportive feel with high-speed responsiveness',
+  badge: 'New',
+  rating: [1, 1, 1, 1, 0], // Use 1 for active stars and 0 for grey stars
+  sizes: [7, 8, 9, 10, 11],
+  colors: ['orange', 'green', 'yellow'],
+  price: 23453,
+};
+
+export default productData;
