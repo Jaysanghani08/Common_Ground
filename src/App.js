@@ -11,7 +11,11 @@ import EduLogin from "./pages/Educator/EduLogin/EduLogin"
 import EduFP from "./pages/Educator/EduForgetPass/EduFP"
 import EduResetPass from "./pages/Educator/EduResetPass/EduResetPass"
 import EduDashboard from "./pages/Educator/Dashboard/EduDashboard";
+import EduProfile from "./pages/Educator/EduProfile/EduProfile"
+import EduOfferedCourses from "./pages/Educator/EduOfferedCourses/EduOfferedCourses";
+import EduCreateCourse from "./pages/Educator/CreateCourse/EduCreateCourse";
 
+import StuDashboard from "./pages/student/Dashboard/StuDashboard";
 function App() {
     return (
         <>
