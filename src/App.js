@@ -28,6 +28,9 @@ function App() {
                     <Route path='forgetpassword' element={<StudentFP />} />
                     <Route path='resetpassword/:id/:token' element={<ResetPass />} />
                     <Route path='dashboard' element={<StuDashboard/>} />
+                    <Route path='view-courses' element={<StuDashboard/>} />
+                    <Route path='enrolled-courses' element={<StuDashboard/>} />
+                    <Route path='profile' element={<StuDashboard/>} />
                 </Route>
                 <Route path='/educator' >
                     <Route index element={<EduRegister />} />
@@ -39,8 +42,6 @@ function App() {
                     <Route path='profile' element={<EduProfile />} />
                     <Route path='create-course' element={<EduCreateCourse />} />
                     <Route path='offered-courses' element={<EduOfferedCourses />} />
-
-
                 </Route>
                 <Route path='*' element={<Error />} />
             </Routes>
