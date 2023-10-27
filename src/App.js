@@ -14,6 +14,7 @@ import EduDashboard from "./pages/Educator/Dashboard/EduDashboard";
 import EduProfile from "./pages/Educator/EduProfile/EduProfile"
 import EduOfferedCourses from "./pages/Educator/EduOfferedCourses/EduOfferedCourses";
 import EduCreateCourse from "./pages/Educator/CreateCourse/EduCreateCourse";
+import Example from "./pages/tmp";
 
 import StuDashboard from "./pages/student/Dashboard/StuDashboard";
 function App() {
@@ -21,8 +22,9 @@ function App() {
         <>
             <Routes>
                 <Route path='/' element={<StudentRegister />} />
+                <Route path='/tmp' element={<Example />} />
                 <Route path='/student' >
-                    <Route index element={<StudentRegister />} />
+                    <Route index element={<StuDashboard />} />
                     <Route path='register' element={<StudentRegister />} />
                     <Route path='login' element={<StudentLogin />} />
                     <Route path='forgetpassword' element={<StudentFP />} />
