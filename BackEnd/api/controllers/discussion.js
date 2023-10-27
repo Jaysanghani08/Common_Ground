@@ -13,10 +13,19 @@ exports.addMessage = async (req, res, next) => {
     try {
         req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
 
-        const message = {
-            message: req.body.message,
-            createdByStudent: req.userData.userId,
-        };
+        let message;
+        if (req.userData.userType === 'student') {
+            message = {
+                message: req.body.message,
+                createdByStudent: req.userData.userId
+            }
+        }
+        else {
+            message = {
+                message: req.body.message,
+                createdByEducator: req.userData.userId
+            }
+        }
 
         const course = await Course.findById(req.params.courseId).exec();
 
