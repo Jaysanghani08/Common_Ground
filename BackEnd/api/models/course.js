@@ -1,5 +1,21 @@
 const mongoose = require('mongoose');
 
+const feedback = new mongoose.Schema({
+    student: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Student',
+        required: true,
+    },
+    rating: {
+        type: Number,
+        required: true,
+    },
+    comment: {
+        type: String,
+        required: true,
+    },
+});
+
 const courseSchema = new mongoose.Schema({
     courseTitle: {
         type: String,
@@ -59,6 +75,10 @@ const courseSchema = new mongoose.Schema({
     prerequisites: {
         type: [String],
     },
+    visibility: {
+        type: String,
+        default: 'public',
+    },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Educator',
@@ -67,9 +87,8 @@ const courseSchema = new mongoose.Schema({
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'Student',
     },
-    rating: {
-        type: Number,
-        default: 0,
+    courseFeedback: {
+        type: [feedback],
     },
     discussionForum: {
         type: mongoose.Schema.Types.ObjectId,
