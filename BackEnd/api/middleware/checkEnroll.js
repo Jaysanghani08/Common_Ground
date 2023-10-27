@@ -14,7 +14,7 @@ module.exports = async (req, res, next) => {
             });
         }
 
-        if (!course.enrolledStudents.includes(req.userData.userId)) {
+        if (!course.enrolledStudents.includes(req.userData.userId) && req.userData.userType === 'student') {
             return res.status(401).json({
                 message: 'You are not enrolled in this course'
             });
