@@ -1,28 +1,20 @@
 const mongoose = require('mongoose');
 
-// Define the Assignment schema
 const assignmentSchema = new mongoose.Schema({
-
     title: {
         type: String,
         required: true,
-        trim: true,
     },
     description: {
         type: String,
         required: true,
-
+    },
+    attachment: {
+        type: [String],
     },
     dueDate: {
         type: Date,
-        required: true,
     },
-
-    dateCreated: {
-        type: Date,
-        default: Date.now()
-    },
-
     assignedBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'educator',
@@ -30,19 +22,19 @@ const assignmentSchema = new mongoose.Schema({
     },
     course: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Course', // Reference to the Course model
+        ref: 'Course',
         required: true,
     },
-    attachment: {
-        type: [String],
-
+    submission: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Submission'
+    },
+    dateCreated: {
+        type: Date,
+        default: Date.now()
     }
-
-
-    // You can add more fields specific to assignments here, such as submission details or attachments
 });
 
-// Create the Assignment model
 const Assignment = mongoose.model('Assignment', assignmentSchema);
 
 module.exports = Assignment;
