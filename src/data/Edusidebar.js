@@ -38,27 +38,27 @@ export const SidebarData = [
 
 export const SidebarDataForStudent = [
     {
-        icon: UilEstate,
+        // icon: UilEstate,
         heading: "Dashboard",
         route: "/student/dashboard",
     },
     {
-        icon: UilBookAlt,
+        // icon: UilBookAlt,
         heading: "View Courses",
         route: "/student/view-courses",
     },
     {
-        icon: UilPlus,
+        // icon: UilPlus,
         heading: "Enrolled Courses",
         route: "/student/enrolled-courses",
     },
     {
-        icon: UilUser,
+        // icon: UilUser,
         heading: 'Profile',
         route: "/student/profile",
     },
     {
-        icon: UilSignOutAlt,
+        // icon: UilSignOutAlt,
         heading: 'Logout',
         route: "/student/logout",
     },
