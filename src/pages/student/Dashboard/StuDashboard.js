@@ -1,15 +1,13 @@
 import React from 'react'
-import MyCourses from './Mycourses/Mycourses'
 import Sidebar from './Sidebar/Sidebar'
+import Coursescard from './Coursescard/Coursescard'
 
 function StuDashboard() {
     return (
         <>
             <Sidebar />
-            {/* <div className="container"> */}
-
-                {/* <MyCourses /> */}
-            {/* </div> */}
+                <Coursescard/>
+           
         </>
     )
 }

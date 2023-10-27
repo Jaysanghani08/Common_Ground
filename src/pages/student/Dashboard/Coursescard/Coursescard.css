@@ -1,13 +1,9 @@
-* {
+/* * {
   margin: 0;
   padding: 0;
   outline: none;
-}
+} */
 
-body {
-  font-family: "Roboto", sans-serif;
-  background: #353535;
-}
 
 .courses_container {
   width: 280px;
@@ -17,7 +13,7 @@ body {
 
 .courses_card {
   border-radius: 25px;
-  box-shadow: -11px 11px 1px rgba(0, 0, 0, 0.3);
+  box-shadow: -11px 11px 1px rgb(32 11 214 / 67%);
 }
 
 .courses_card-head {
@@ -25,11 +21,11 @@ body {
   height: 252px;
   background: #fa782e;
   /* Old browsers */
-  background: -moz-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
+  /* background: -moz-linear-gradient(-45deg, #fa782e 8%, #c82930 83%); */
   /* FF3.6-15 */
-  background: -webkit-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
+  /* background: -webkit-linear-gradient(-45deg, #fa782e 8%, #c82930 83%); */
   /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(135deg, #fa782e 8%, #c82930 83%);
+  /* background: linear-gradient(135deg, #fa782e 8%, #c82930 83%); */
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#fa782e', endColorstr='#c82930', GradientType=1);
   /* IE6-9 fallback on horizontal gradient */
@@ -50,7 +46,7 @@ body {
 
 .courses_product-detail {
   padding: 0 20px;
-  font-size: 11px;
+  font-size: 15px;
   color: #fff;
 }
 
@@ -64,10 +60,10 @@ body {
 
 .courses_back-text {
   display: inline-block;
-  font-size: 125px;
+  font-size: 90px;
   font-weight: 900;
-  margin-left: -7px;
-  margin-top: -12px;
+  margin-left: 9px;
+  margin-top: 5px;
   opacity: 0.1;
 }
 
@@ -106,14 +102,15 @@ body {
 .courses_product-caption {
   display: block;
   padding: 0 20px;
-  font-size: 10px;
+  font-size: 15px;
   font-weight: 400;
   text-transform: uppercase;
 }
 
 .courses_product-rating {
   padding: 0 20px;
-  font-size: 11px;
+  font-size: 13px;
+  color: yellow;
 }
 
 .courses_product-rating i.grey {
@@ -213,7 +210,7 @@ body {
 
 .courses_product-price {
   position: absolute;
-  background: #11e95b;
+  background: orange;
   padding: 7px 20px;
   text-align: center;
   display: inline-block;
@@ -221,9 +218,9 @@ body {
   font-weight: 200;
   color: #fff;
   border-radius: 7px;
-  margin-top: -13px;
-  margin-left: -5px;
-  box-shadow: -10px 20px 15px -10px rgba(17, 233, 91, 0.3);
+  margin-top: 23px;
+  margin-left: 120px;
+  box-shadow: -12px 17px 15px -10px rgb(246 180 33 / 30%);
 }
 
 .courses_product-price b {
