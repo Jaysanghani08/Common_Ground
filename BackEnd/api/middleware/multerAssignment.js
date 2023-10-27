@@ -25,8 +25,8 @@ const storage = multerProfile.diskStorage({
             const newAssignmentDirectory = path.join(assignmentDirectory, assignmentTitle);
             if (!fs.existsSync(newAssignmentDirectory)) {
                 fs.mkdirSync(newAssignmentDirectory, { recursive: true });
+                console.log('Assignment directory created');
             }
-            console.log('Assignment directory created');
             cb(null, newAssignmentDirectory);
 
         } catch (err) {
