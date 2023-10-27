@@ -26,7 +26,7 @@ img{
     flex-direction: column;
     gap:2rem;
 }
-.menuItem{
+.menu .menuItem{
     display: flex;
     align-items: center;
     gap: 2rem;
@@ -41,11 +41,11 @@ img{
     color:white;
     font-weight: 600;
 }
-.navlink{
+.menu .navlink{
     text-decoration: none;
 }
 
-.active{
+.menu .active{
     background-color: #f8f9fa;
     color: #4b11bf;
     border-top-left-radius:20px ;
@@ -53,8 +53,8 @@ img{
     padding-left: 75px;
     margin-left: -30px;
 }
-.active:before,
-.active:after {
+.menu .active:before,
+.menu .active:after {
   content: "";
   position: absolute;
   height: 20px;
@@ -63,26 +63,26 @@ img{
   background:radial-gradient(circle at top left, #fff0 72%, #f8f9fa 75%);
 }
 
-.active:after {
+.menu .active:after {
   right: 0;
   top:100%;
   background:radial-gradient(circle at bottom left, #fff0 70%, #f8f9fa 75%);
 }
 
-.active:before {
+.menu .active:before {
   bottom:100%;
    right:0;
 }
 .bars{
     display: none;
 }
-.menuItem:hover{
+.menu .menuItem:hover{
     cursor: pointer;
     
 }
 
 @media (max-width:600px){
-    .menuItem>span{
+    .menu .menuItem>span{
         display: block;
     }
     
@@ -112,7 +112,7 @@ img{
 }
 
 @media (min-width: 601px) and (max-width: 1200px){
-    .menuItem>span{
+    .menu .menuItem>span{
         display: none;
     }
     .logo-hidden {
