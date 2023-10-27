@@ -1,12 +1,12 @@
-.container {
+.container1 {
     display: flex;
     background-color: #f8f9fa;
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
+    /* overflow: hidden; */
     /* justify-content: space-between; */
     overflow: hidden;
-    position: fixed;
+    /* position: fixed; */
     /* align-items: ; */
 
 }
