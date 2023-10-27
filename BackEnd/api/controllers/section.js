@@ -35,13 +35,13 @@ exports.createSection = async (req, res, next) => {
         course.courseSections.push(section._id);
         await course.save();
 
-        res.status(201).json({
+        return res.status(201).json({
             message: 'Section created'
         });
     } catch
         (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
@@ -75,13 +75,13 @@ exports.editSection = async (req, res, next) => {
 
         await Section.updateOne({_id: req.params.sectionId}, {$set: updateData}).exec();
 
-        res.status(201).json({
+        return res.status(201).json({
             message: 'Section edited'
         });
     } catch
         (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
@@ -116,13 +116,13 @@ exports.deleteSection = async (req, res, next) => {
         await Course.updateOne({_id: req.params.courseId}, {$pull: {courseSections: req.params.sectionId}}).exec();
 
         await Section.deleteOne({_id: req.params.sectionId}).exec();
-        res.status(201).json({
+        return res.status(201).json({
             message: 'Section deleted'
         });
     } catch
         (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
@@ -166,9 +166,10 @@ exports.addPost = async (req, res, next) => {
         return res.status(201).json({
             message: 'Post added'
         });
+
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
@@ -211,13 +212,14 @@ exports.editPost = async (req, res, next) => {
 
         await section.save();
 
-        res.status(200).json({
-            message: 'Post edited',
-            updatedPost: post
+        return res.status(200).json({
+            message: 'Post edited'
         });
+
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+
+        return res.status(500).json({
             error: err
         });
     }
@@ -262,12 +264,12 @@ exports.deletePost = async (req, res, next) => {
 
         await section.save();
 
-        res.status(200).json({
+        return res.status(200).json({
             message: 'Post deleted'
         });
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
