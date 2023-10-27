@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const fs = require('fs');
+const path = require('path');
 
 const Course = require('../models/course');
 const Token = require("../models/token");
@@ -30,6 +32,7 @@ exports.createCourse = async (req, res, next) => {
         if (req.file) {
             thumbnail = req.file.path;
         }
+
         const newCourse = new Course({
             courseTitle: req.body.courseTitle,
             courseDescription: req.body.courseDescription,
@@ -40,19 +43,22 @@ exports.createCourse = async (req, res, next) => {
             courseLevel: req.body.courseLevel,
             courseCode: req.body.courseCode,
             language: req.body.language,
+            visibility: req.body.visibility,
             prerequisites: req.body.prerequisites,
             createdBy: req.userData.userId,
             discussionForum: discussionId,
         });
 
         await newCourse.save();
-        res.status(201).json({
+
+        return res.status(201).json({
             message: 'Course created'
         });
-    } catch
-        (err) {
+
+    } catch (err) {
         console.log(err);
-        res.status(500).json({
+
+        return res.status(500).json({
             error: err
         });
     }
@@ -69,29 +75,29 @@ exports.editCourse = async (req, res, next) => {
             });
         }
 
-        // pending work
-        // const oldThumbLink = course.thumbnail;
-        // const newFolderName = `${req.body.courseCode}+'-'+${req.body.courseTitle}`;
-        // const regex = /uploads\/course\/([^/]+)/;
-        // const newLink = oldThumbLink.replace(regex, `uploads/course/${newFolderName}`);
-        // // console.log(newLink);
-        // // console.log(oldThumbLink);
-        // if (req.file)
-        //     deleteFile(newLink);
+        let oldThumbLink = course.thumbnail;
+        const newFolderName = `${req.body.courseCode}-${req.body.courseTitle}`;
+        const newPath = path.join(__dirname, `../../uploads/course/${newFolderName}`);
+        console.log(newPath);
+
+        if (req.file && oldThumbLink != null) {
+            oldThumbLink = newPath + '/' + path.basename(oldThumbLink);
+            console.log(oldThumbLink);
+            deleteFile(oldThumbLink);
+        }
 
         const updateData = req.body;
 
-        // const newThumbnail = req.file ? req.file.path : null;
-
         await Course.updateOne({_id: courseId}, {$set: updateData}).exec();
 
-        res.status(200).json({
+        return res.status(200).json({
             message: 'Course updated'
         });
-    } catch
-        (err) {
+
+    } catch (err) {
         console.log(err);
-        res.status(500).json({
+
+        return res.status(500).json({
             error: err
         });
     }
@@ -184,8 +190,10 @@ exports.deleteCourse = async (req, res, next) => {
             message: 'Email sent successfully',
         });
 
-    } catch (error) {
-        return res.status(500).json({message: 'Internal server error'});
+    } catch (err) {
+        return res.status(500).json({
+            error: err
+        });
     }
 }
 
@@ -213,7 +221,6 @@ exports.sudoDeleteLecture = async (req, res, next) => {
             await Discussion.deleteOne({_id: course.discussionForum}).exec();
         }
 
-
         const coursePath = `uploads\\course\\${course.courseCode}-${course.courseTitle}`;
         deleteFolder(coursePath);
 
@@ -222,9 +229,10 @@ exports.sudoDeleteLecture = async (req, res, next) => {
         return res.status(200).json({
             message: 'Course deleted'
         });
+
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
@@ -236,6 +244,11 @@ exports.enrollCourse = async (req, res, next) => {
         if (!course) {
             return res.status(404).json({
                 message: 'Course not found'
+            });
+        }
+        if (course.visibility === 'private') {
+            return res.status(401).json({
+                message: 'It is a private course'
             });
         }
 
