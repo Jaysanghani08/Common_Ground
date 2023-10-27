@@ -1,15 +1,17 @@
 import React from 'react'
-import MyCourses from './Mycourses/Mycourses'
-import Sidebar from './Sidebar/Sidebar'
+// import MyCourses from './Mycourses/Mycourses'
+import Navbar from './Sidebar/Sidebar'
+import LoadingPage from './LoadingPage/LoadingPage'
+// import "./StuDashboard.css"
 
 function StuDashboard() {
     return (
         <>
-            <Sidebar />
-            {/* <div className="container"> */}
-
-                {/* <MyCourses /> */}
-            {/* </div> */}
+        {/* // <div> */}
+            <Navbar />
+            <LoadingPage />
+         
+        {/* //     </div> */}
         </>
     )
 }
