@@ -1,16 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const { profilePhoto } = require("../middleware/multerProfile");
+const { submission } = require("../middleware/multerSubmission");
 
 const StudentController = require("../controllers/student");
 const CourseController = require("../controllers/course");
 const DiscussionController = require("../controllers/discussion");
+const SubmissionController = require("../controllers/submission");
 
 const checkAuth = require("../middleware/checkAuth");
 const checkEnroll = require("../middleware/checkEnroll");
 
 // multer middleware
 const profileUpload = profilePhoto.single('profilePic');
+const submissionUpload = submission.array('submission');
 
 router.post("/signup", profileUpload, StudentController.userSignup);
 router.post("/login", StudentController.userLogin);
@@ -25,5 +28,7 @@ router.post("/:courseId/discussion", checkAuth, checkEnroll, DiscussionControlle
 router.patch("/:courseId/discussion/:messageId", checkAuth, checkEnroll, DiscussionController.editMessage);
 router.delete("/:courseId/discussion/:messageId", checkAuth, checkEnroll, DiscussionController.deleteMessage);
 
+router.post("/submit-assignment/:assignmentId", submissionUpload, checkAuth, SubmissionController.submitSubmission);
+router.delete("/delete-submission/:submissionId", checkAuth, SubmissionController.deleteSubmission);
 
 module.exports = router;
