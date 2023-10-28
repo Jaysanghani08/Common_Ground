@@ -1,0 +1,89 @@
+.create-course-container {
+    display: flex;
+    justify-content: center;
+    background: #f8f9fa;
+    padding: 1rem 9rem;
+    /* width: 100vw; */
+    /* padding-left: 50px; */
+    color: white;
+    /* background-color: blue; */
+  }
+  
+  .create-course-form {
+    flex: 1;
+    padding: 20px;
+    /* background: rgba(0, 0, 0, 0.5); */
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+form{
+  margin: auto;
+}
+  .no-button {
+    display: inline-block;
+  }
+  
+  .create-course-image {
+    margin: auto;
+    height: 70%;
+    width: 100%;
+    object-position: right 10px;
+  flex: 50%;
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: contain;
+  }
+  
+  .form-group {
+    margin: 10px 0;
+    
+  }
+  
+  label {
+    display: inline-flex;
+    font-weight: bold;
+    color: #4b11bf;
+  }
+  textarea {
+    width: 250px;
+    /* height: 150px;  */
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+  
+  input,
+  
+  textarea,
+  select {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid #4b11bf;
+    /* border-radius: 5px; */
+    /* background: rgba(255, 255, 255, 0.1); */
+    /* color: white; */
+  }
+  
+  button {
+    background: orange;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background: red;
+  }
+
+  .description{
+    height: 50px;
+  }
+  
