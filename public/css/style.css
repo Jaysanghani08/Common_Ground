@@ -507,12 +507,12 @@ header .intro-text {
   color: #1f386e;
   background: #fff;
 }
-label {
+/* label {
   font-size: 12px;
   font-weight: 400;
   font-family: "Open Sans", sans-serif;
   float: left;
-}
+} */
 #contact .form-control {
   display: block;
   width: 100%;
