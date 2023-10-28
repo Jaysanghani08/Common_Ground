@@ -31,8 +31,9 @@ const Star = ({ stars, reviews }) => {
 const Wrapper = styled.section`
   
     .icon {
-      font-size: 1.5rem;
-      color: yellow;
+      font-size: 1.8rem;
+      color: #f35e3d;
+      margin-left : 20px;
     }
 
     .empty-icon {

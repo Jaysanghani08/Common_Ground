@@ -15,8 +15,14 @@ import EduProfile from "./pages/Educator/EduProfile/EduProfile"
 import EduOfferedCourses from "./pages/Educator/EduOfferedCourses/EduOfferedCourses";
 import EduCreateCourse from "./pages/Educator/CreateCourse/EduCreateCourse";
 import Example from "./pages/tmp";
-
 import StuDashboard from "./pages/student/Dashboard/StuDashboard";
+import SmoothScroll from "smooth-scroll";
+
+export const scroll = new SmoothScroll('a[href*="#"]', {
+    speed: 1000,
+    speedAsDuration: true,
+});
+
 function App() {
     return (
         <>

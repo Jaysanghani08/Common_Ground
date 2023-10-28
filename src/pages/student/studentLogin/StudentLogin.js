@@ -59,7 +59,7 @@ const StudentLogin = () => {
 
     return (
         <div className={style.outerdiv}>
-            <section>
+            <section className={style.section}>
                 <div className={style.imgBox}>
                     <img src='../images/Loginimg.png'></img>
                 </div>

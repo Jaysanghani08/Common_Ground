@@ -52,7 +52,7 @@ const StudentFP = () => {
 
     return (
         <div className='outerdiv'>
-            <section>
+            <section className={style.section}>
                 <div className={style.imgBox}> 
                     <img src="../images/forgot-password.avif"></img>
                 </div>

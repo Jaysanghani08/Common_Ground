@@ -61,7 +61,7 @@ const EduLogin = () => {
 
     return (
         <div className={style.outerdiv}>
-            <section>
+            <section className={style.section}>
                 <div className="imgBox">
                     <img src='../images/eductor_login.jpg'></img>
                 </div>
