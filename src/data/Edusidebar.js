@@ -16,7 +16,7 @@ export const SidebarData = [
     },
     {
         icon: UilBookAlt,
-        heading: "Offered Courses",
+        heading: "Your Courses",
         route: "/educator/offered-courses",
     },
     {

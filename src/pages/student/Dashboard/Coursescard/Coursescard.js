@@ -52,7 +52,7 @@ function Coursescard() {
         <div className='courses_main_container' id='courses_main_container'>
             <div className="course_main_container_title">
                 <h2>Our Courses</h2>
-                <button type="button" class="btn view_all_courses_btn" ><NavLink to={`/view-course/`} style={{ color: "white" }}> All Courses      >> </NavLink></button>
+                <button type="button" class="btn view_all_courses_btn" ><NavLink to={`/student/view-courses/`} style={{ color: "white" }}> All Courses      >> </NavLink></button>
             </div>
             <div className="courses_container">
                 {coursesData.map(course => (

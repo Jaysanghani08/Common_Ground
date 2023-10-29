@@ -2,6 +2,7 @@ import Sidebar from '../Dashboard/Sidebar/Sidebar'
 import Star from './stars'
 import './EduOfferedCourses.css'
 import React, { useState, useEffect } from 'react';
+import Coursescard from '../../student/Dashboard/Coursescard/Coursescard';
 
 const EduOfferedCourses = () => {
     const [courses, setCourses] = useState([]);
@@ -25,7 +26,8 @@ const EduOfferedCourses = () => {
     return (
         <div className="container1">
             <Sidebar />
-            <div className="maindash">
+            <Coursescard />
+            {/* <div className="maindash">
                 <div className="oc-search-bar">
                     <input
                         type="text"
@@ -61,7 +63,7 @@ const EduOfferedCourses = () => {
                         ))}
                     </div>
                 )}
-            </div>
+            </div> */}
         </div>
     );
 };

@@ -30,7 +30,7 @@ function Sidebar() {
 
                 {/* {logo} */}
                 <div className="logo logo-hidden">
-                    <img src={Logo} style={{color : '#fff'}} alt='logo'></img>
+                    <img src={Logo} style={{color : '#4b11bf'}} alt='logo'></img>
 
                 </div>
                 <div className="menu">
@@ -43,8 +43,8 @@ function Sidebar() {
                                             onClick={() => setSelected(index)}
                                             >
                                         {location.pathname === item.route
-                                            ? item.icon({ size: 30, color: '#00000' })
-                                            : item.icon({ size: 30, color: '#ffffff' })}
+                                            ? item.icon({ size: 30, color: 'white' })
+                                            : item.icon({ size: 30, color: 'black'  })}
                                         <span>{item.heading}</span>
                                  </div>
                             </NavLink>
