@@ -17,6 +17,7 @@ import EduCreateCourse from "./pages/Educator/CreateCourse/EduCreateCourse";
 import Example from "./pages/tmp";
 import StuDashboard from "./pages/student/Dashboard/StuDashboard";
 import SmoothScroll from "smooth-scroll";
+import CourseDetails from "./pages/CourseDetail/CourseDetails";
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
     speed: 1000,
@@ -29,6 +30,8 @@ function App() {
             <Routes>
                 <Route path='/' element={<StudentRegister />} />
                 <Route path='/tmp' element={<Example />} />
+                <Route path='/tmp' element={<Example />} />
+                <Route path='/course' element={<CourseDetails />} />
                 <Route path='/student' >
                     <Route index element={<StuDashboard />} />
                     <Route path='register' element={<StudentRegister />} />

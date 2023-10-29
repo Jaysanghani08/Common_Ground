@@ -1,0 +1,20 @@
+.course-container{
+    font-family: "Lato", sans-serif;
+    background-color: #f8f9fa;
+    height: 100vh;
+    padding: 40px 10vw;
+    letter-spacing: 0.7;
+    line-height: 20px;
+}
+
+.course-content{
+    background: white;
+    position: relative;
+    top: 100px;
+    border-radius: 1rem;
+    padding: 3rem 5rem;
+    box-shadow: 5px 6px 22px -5px rgba(75, 17, 191, 0.66);
+    -webkit-box-shadow: 5px 6px 22px -5px rgba(75, 17, 191, 0.66);
+    -moz-box-shadow: 5px 6px 22px -5px rgba(75, 17, 191, 0.66);
+}
+
