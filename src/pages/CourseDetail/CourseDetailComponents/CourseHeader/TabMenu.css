@@ -1,0 +1,16 @@
+.accordion-content {
+    max-height: 200px; /* Set an appropriate value */
+    overflow-y: auto; /* Add scrollbars when needed */
+}
+
+.MuiAccordion-root {
+    transition: transform 0.2s;
+  }
+  
+  .MuiAccordion-root:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  }
+  
+ 
+  
