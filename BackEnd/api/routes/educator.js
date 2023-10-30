@@ -24,6 +24,7 @@ router.post("/signup", profileUpload, EducatorController.userSignup);
 router.post("/login", EducatorController.userLogin);
 router.post('/reset-password', EducatorController.resetPassword);
 router.post('/update-password', EducatorController.updatePassword);
+router.patch("/edit-profile", checkAuth, profileUpload, EducatorController.userEdit);
 router.delete("/:email", checkAuth, EducatorController.userDelete);
 
 router.post("/create-course", courseUpload, checkAuth, CourseController.createCourse);

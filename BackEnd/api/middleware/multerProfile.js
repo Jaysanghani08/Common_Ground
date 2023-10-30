@@ -1,4 +1,5 @@
 const multerProfile = require("multer");
+const path = require("path");
 
 const imageFilter = (req, file, cb) => {
     if (file.mimetype.startsWith("image/")) {
@@ -13,7 +14,7 @@ const storage = multerProfile.diskStorage({
         cb(null, './uploads/profilePic');
     },
     filename: function (req, file, cb) {
-        cb(null, req.body.username + '-' + file.originalname);
+        cb(null, req.body.username + path.extname(file.originalname));
     }
 });
 

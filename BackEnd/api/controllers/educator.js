@@ -120,6 +120,37 @@ exports.userLogin = async (req, res, next) => {
     }
 };
 
+exports.userEdit = async (req, res, next) => {
+    try {
+        const user = await Educator.findOne({_id: req.userData.userId}).exec();
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found - Educator'
+            });
+        }
+
+        if (req.file) {
+            if (user.profilePic != "null") {
+                deleteFile.deleteFile(user.profilePic);
+            }
+        }
+
+        req.body.profilePic = req.file ? req.file.path : user.profilePic;
+
+        await Educator.updateOne({_id: req.userData.userId}, req.body).exec();
+
+        return res.status(200).json({
+            message: 'Educator updated'
+        });
+    } catch (err) {
+        console.log(err);
+        if (req.file)
+            deleteFile.deleteFile(req.file.path);
+        return res.status(500).json({
+            error: err
+        });
+    }
+}
 exports.userDelete = async (req, res, next) => {
     try {
         const profilePic = await Educator.findOne({email: req.params.email}).select('profilePic').exec();
@@ -135,12 +166,12 @@ exports.userDelete = async (req, res, next) => {
         if (profilePic.profilePic) {
             deleteFile.deleteFile(profilePic.profilePic);
         }
-        res.status(200).json({
+        return res.status(200).json({
             message: 'Educator deleted'
         });
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
@@ -258,12 +289,12 @@ exports.updatePassword = async (req, res, next) => {
 
         await user.save();
 
-        res.status(200).json({
+        return res.status(200).json({
             message: 'Password updated successfully'
         });
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
