@@ -1,6 +1,6 @@
 .accordion-content {
-    max-height: 200px; /* Set an appropriate value */
-    overflow-y: auto; /* Add scrollbars when needed */
+    max-height: 200px; 
+    overflow-y: auto; 
 }
 
 .MuiAccordion-root {
@@ -12,5 +12,9 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
   }
   
- 
+  .custom-paper {
+    width: 80%; 
+    height: 80%; 
+}
+
   
