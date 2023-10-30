@@ -121,6 +121,37 @@ exports.userLogin = async (req, res, next) => {
     }
 };
 
+exports.userEdit = async (req, res, next) => {
+    try {
+        const user = await Student.findOne({_id: req.userData.userId}).exec();
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found - Student'
+            });
+        }
+
+        if (req.file) {
+            if (user.profilePic != "null") {
+                deleteFile.deleteFile(user.profilePic);
+            }
+        }
+
+        req.body.profilePic = req.file ? req.file.path : user.profilePic;
+
+        await Student.updateOne({_id: req.userData.userId}, req.body).exec();
+
+        return res.status(200).json({
+            message: 'Student updated'
+        });
+    } catch (err) {
+        console.log(err);
+        if (req.file)
+            deleteFile.deleteFile(req.file.path);
+        return res.status(500).json({
+            error: err
+        });
+    }
+};
 
 exports.userDelete = async (req, res, next) => {
     try {
