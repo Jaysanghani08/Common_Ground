@@ -32,7 +32,6 @@ exports.createAssignment = async (req, res, next) => {
         }
         const educator = await Educator.findById(req.userData.userId).exec();
 
-        console.log(educator._id.toString());
         if (educator._id.toString() !== course.createdBy.toString()) {
             return res.status(401).json({
                 message: 'Unauthorized'
@@ -49,7 +48,11 @@ exports.createAssignment = async (req, res, next) => {
         });
 
         await assignment.save();
+        console.log(assignment._id);
 
+        course.courseAssignments.push(assignment._id);
+
+        await course.save();
         return res.status(201).json({
             message: 'Assignment created'
         });
@@ -129,6 +132,9 @@ exports.deleteAssignment = async (req, res, next) => {
         const assignmentPath = path.join(assignmentDirectory, assignmentTitle);
 
         deleteFolder(assignmentPath);
+
+        course.courseAssignments.pull(req.params.assignmentId);
+        await course.save();
 
         await Assignment.deleteOne({_id: req.params.assignmentId}).exec();
 
