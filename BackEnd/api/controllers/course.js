@@ -10,6 +10,8 @@ const Token = require("../models/token");
 const Educator = require("../models/educator");
 const Student = require("../models/student");
 const Discussion = require("../models/discussion");
+const Assignment = require('../models/assignment');
+const Section = require('../models/section');
 
 const sendEmail = require("../../utils/sendEmail");
 const {deleteFile, deleteFolder} = require("../../utils/deleteFile");
@@ -50,6 +52,10 @@ exports.createCourse = async (req, res, next) => {
         });
 
         await newCourse.save();
+
+        const educator = await Educator.findById(req.userData.userId).exec();
+        educator.courseCreated.push(newCourse._id);
+        await educator.save();
 
         return res.status(201).json({
             message: 'Course created'
@@ -223,6 +229,19 @@ exports.sudoDeleteLecture = async (req, res, next) => {
 
         const coursePath = `uploads\\course\\${course.courseCode}-${course.courseTitle}`;
         deleteFolder(coursePath);
+
+        const assignments = course.courseAssignments;
+        await Assignment.deleteMany({_id: {$in: assignments}}).exec();
+
+        const sections = course.courseSections;
+        await Section.deleteMany({_id: {$in: sections}}).exec();
+
+        await Discussion.deleteOne({_id: course.discussionForum}).exec();
+
+        const students = course.enrolledStudents;
+        for (const student of students) {
+            await student.enrolledCourses.pull(courseId);
+        }
 
         await Course.deleteOne({_id: courseId}).exec();
 
