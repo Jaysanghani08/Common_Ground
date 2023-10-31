@@ -48,7 +48,7 @@ const storage = multerProfile.diskStorage({
         }
     },
     filename: function (req, file, cb) {
-        cb(null, req.body.courseTitle + '-' + 'Thumbnail' + '-' + file.originalname);
+        cb(null, req.body.courseTitle + path.extname(file.originalname));
     }
 });
 
