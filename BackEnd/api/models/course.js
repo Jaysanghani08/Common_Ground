@@ -57,8 +57,8 @@ const courseSchema = new mongoose.Schema({
         match: /^[a-zA-Z]+[0-9]+$/,
     },
     dateCreated: {
-        type: Date,   //don't take any input
-        default: Date.now,
+        type: Date,
+        default: Date.now(),
     },
     language : {
         type : String,
