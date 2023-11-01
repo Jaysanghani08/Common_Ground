@@ -87,10 +87,19 @@ exports.editMessage = async (req, res, next) => {
             });
         }
 
-        if (message.createdByStudent.toString() !== req.userData.userId.toString()) {
-            return res.status(403).json({
-                message: 'You are not authorized to edit this message'
-            });
+        if (req.userData.userType == "student") {
+            if (message.createdByStudent.toString() !== req.userData.userId.toString()) {
+                return res.status(403).json({
+                    message: 'You are not authorized to edit this message'
+                });
+            }
+        }
+        if (req.userData.userType == "educator") {
+            if (message.createdByEducator.toString() !== req.userData.userId.toString()) {
+                return res.status(403).json({
+                    message: 'You are not authorized to edit this message'
+                });
+            }
         }
 
         message.message = req.body.message;
@@ -136,10 +145,19 @@ exports.deleteMessage = async (req, res, next) => {
             });
         }
 
-        if (message.createdByStudent.toString() !== req.userData.userId.toString()) {
-            return res.status(403).json({
-                message: 'You are not authorized to delete this message'
-            });
+        if (req.userData.userType == "student") {
+            if (message.createdByStudent.toString() !== req.userData.userId.toString()) {
+                return res.status(403).json({
+                    message: 'You are not authorized to edit this message'
+                });
+            }
+        }
+        if (req.userData.userType == "educator") {
+            if (message.createdByEducator.toString() !== req.userData.userId.toString()) {
+                return res.status(403).json({
+                    message: 'You are not authorized to edit this message'
+                });
+            }
         }
 
         await discussion.messages.pull(req.params.messageId);
