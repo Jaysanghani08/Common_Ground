@@ -1,0 +1,72 @@
+.ep-main-container {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f2f2f2;
+  }
+  #line{
+    color: white;
+  }
+  .ep-heading {
+    color: #007bff;
+  }
+  
+  .ep-sub-main {
+    display: flex;
+  }
+  
+  .ep-photo-edit {
+    flex: 0 0 25%;
+    max-width: 25%;
+    padding: 0 15px;
+  }
+  
+  .ep-personal-info {
+    flex: 0 0 75%;
+    max-width: 75%;
+  }
+  
+  .avatar {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+  }
+  
+  .ep-photo-edit h6 {
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .ep-form-group {
+    margin-top: 10px;
+    display: table-caption;
+  }
+  
+  .ep-form-control {
+    width: 400px;
+  }
+  .ep-about{
+    display: block;
+  }
+  .ep-personal-info h3 {
+    font-size: 1.5rem;
+    margin-top: 15px;
+  }
+  
+ .ep-form-group label {
+    font-weight: bold;
+  }
+  
+  .ep-submit-button{
+    background-color: #007bff;
+    width: 100px;
+    margin-left: 300px;
+    margin-top: 50px;
+    color: white;
+    font-weight: bolder;
+    border-radius: 5px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding: 5px;
+    text-decoration: none;
+  }
+  
+  

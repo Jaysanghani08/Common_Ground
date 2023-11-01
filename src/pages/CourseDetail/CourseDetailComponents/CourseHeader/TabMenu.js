@@ -20,7 +20,7 @@ import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit'; 
 import { useMediaQuery, useTheme } from '@mui/material';
 import './TabMenu.css';
-
+import { CourseAccordion } from './CourseAccordion';
 Dialog.propTypes = {
     open: PropTypes.bool.isRequired, 
     onClose: PropTypes.func.isRequired,
@@ -28,7 +28,7 @@ Dialog.propTypes = {
     children: PropTypes.node,
 };
 function CustomAccordion(props) {
-    const { title, pdfLink, assignmentLink, details, AssignmentTitle, pdfTitle} = props;
+    const { title, pdfLink, assignmentLink, details, AssignmentTitle, pdfTitle,content,posts} = props;
 
 
     const [openPdfDialog, setOpenPdfDialog] = useState(false);
@@ -83,7 +83,12 @@ function CustomAccordion(props) {
                         <a href={assignmentLink}>Assignment</a>
                     </li>
                 </ul>
-
+                <div>
+            <CourseAccordion
+                content={content}
+                posts={posts}
+            />
+        </div>
                 <Dialog
                     open={openPdfDialog}
                     onClose={handleClosePdfDialog}
@@ -180,6 +185,12 @@ function CustomTabPanel(props) {
                             assignmentLink="link-to-assignment-1"
                             AssignmentTitle="Networks"
                             details="This is the details for Week 1."
+                            content="Course content goes here"
+                            posts={[
+                                "Post 1 for Week 1",
+                                "Post 2 for Week 1",
+                                "Post 3 for Week 1",
+                            ]}
                         />
                         <CustomAccordion
                             title="Week 2"
