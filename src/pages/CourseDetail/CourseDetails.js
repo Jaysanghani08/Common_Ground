@@ -14,7 +14,7 @@ const CourseDetails = () => {
                 <CourseHeader />
                 <div className="course-content">
                     <BasicTabs />
-
+                    
                 </div>
             </div>
         </div>
