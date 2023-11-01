@@ -7,11 +7,24 @@ import { UilUser } from '@iconscout/react-unicons'
 import Cards from './Cards/Cards';
 import SimpleBarChart from './Graph/Graph';
 import BasicTable from './Table/Table'
+import { useNavigate, Navigate } from 'react-router-dom';
+import AuthLayout from './../../../services/AuthLayout'
+import getToken from '../../../services/getToken';
 
 function EduDashboard() {
 
+    const navigate = useNavigate();
+    const token = getToken();
+    console.log(token);
+
+    if (!token) {
+        navigate('/educator/login');
+        return;
+    }
+
     return (
         <>
+            {/* <AuthLayout> */}
             <div className="container1">
                 <Siderbar />
                 <div className="maindash">
@@ -42,7 +55,7 @@ function EduDashboard() {
             </div>
 
         </>
-    );
+    )
 }
 
 export default EduDashboard;

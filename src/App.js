@@ -18,6 +18,7 @@ import Example from "./pages/tmp";
 import StuDashboard from "./pages/student/Dashboard/StuDashboard";
 import SmoothScroll from "smooth-scroll";
 import CourseDetails from "./pages/CourseDetail/CourseDetails";
+import AuthLayout from "./services/AuthLayout";
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
     speed: 1000,
@@ -30,7 +31,6 @@ function App() {
             <Routes>
                 <Route path='/' element={<StudentRegister />} />
                 <Route path='/tmp' element={<Example />} />
-                <Route path='/tmp' element={<Example />} />
                 <Route path='/course' element={<CourseDetails />} />
                 <Route path='/student' >
                     <Route index element={<StuDashboard />} />
@@ -38,12 +38,12 @@ function App() {
                     <Route path='login' element={<StudentLogin />} />
                     <Route path='forgetpassword' element={<StudentFP />} />
                     <Route path='resetpassword/:id/:token' element={<ResetPass />} />
-                    <Route path='dashboard' element={<StuDashboard/>} />
-                    <Route path='view-courses' element={<StuDashboard/>} />
-                    <Route path='enrolled-courses' element={<StuDashboard/>} />
-                    <Route path='profile' element={<StuDashboard/>} />
+                    <Route path='dashboard' element={<StuDashboard />} />
+                    <Route path='view-courses' element={<StuDashboard />} />
+                    <Route path='enrolled-courses' element={<StuDashboard />} />
+                    <Route path='profile' element={<StuDashboard />} />
                 </Route>
-                <Route path='/educator' >
+                <Route path='/educator'>
                     <Route index element={<EduRegister />} />
                     <Route path='register' element={<EduRegister />} />
                     <Route path='login' element={<EduLogin />} />

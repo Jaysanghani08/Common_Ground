@@ -18,12 +18,12 @@ function EduCreateCourse() {
         tags: ''
     })
 
+    console.log(inputdata)
+
     const handleFileUpload = (event) => {
-        // get the selected file from the input
+
         const file = event.target.files[0];
-        // create a new FormData object and append the file to it
-        // const formData = new FormData();
-        // formData.append();
+
         setInputdata({
             ...inputdata,
             "thumbnail" : file
@@ -113,7 +113,6 @@ function EduCreateCourse() {
                                     type="file"
                                     name="thumbnail"
                                     accept='.png'
-                                    // value={inputdata.thumbnail}
                                     onChange={handleFileUpload}
                                 />
                             </div>

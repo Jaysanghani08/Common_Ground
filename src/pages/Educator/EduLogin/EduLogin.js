@@ -6,13 +6,16 @@ import Spinner from 'react-bootstrap/Spinner';
 import { eduloginfunction } from '../../../services/Apis';
 import style from "../../student/studentLogin/studentlogin.module.css";
 import "./edulogin.css";
+import Cookies from 'js-cookie';
+
 const EduLogin = () => {
 
     const [inputdata, setInputdata] = useState({
-        email : "",
-        password : ""
+        email: "",
+        password: ""
     });
-    const [spiner,setSpiner] = useState(false);
+    
+    const [spiner, setSpiner] = useState(false);
     const [paswordshow, setPaswordShow] = useState(false);
     const navigate = useNavigate();
 
@@ -37,12 +40,12 @@ const EduLogin = () => {
         } else if (inputdata.password.length < 6) {
             toast.error("password length minimum 6 character")
         }
-        
+
         else {
             setSpiner(true)
             const data = {
                 email: inputdata.email,
-                password : inputdata.password
+                password: inputdata.password
             }
 
             const response = await eduloginfunction(data);
@@ -52,7 +55,14 @@ const EduLogin = () => {
             if (response.status === 200) {
                 setSpiner(false)
                 toast.success(response.data.message);
-                // navigate("/user/otp",{state:email})
+
+                // console.log(response.data.token)
+                if (response.data.token) Cookies.remove('token')
+                Cookies.set('token', response.data.token, { expires: 7, secure: true });
+
+                setTimeout(() => {
+                    navigate("/educator/dashboard")
+                }, 1000);
             } else {
                 toast.error(response.response.data.message);
             }
@@ -85,9 +95,9 @@ const EduLogin = () => {
                             </div>
                         </div>
                         <button className={style.btn} onClick={sendOtp}>Login
-                        {
-                            spiner ? <span><Spinner animation="border" /></span>:""
-                        }
+                            {
+                                spiner ? <span><Spinner animation="border" /></span> : ""
+                            }
                         </button>
                         <p>Don't have an account <NavLink to="/educator/register">Sign up</NavLink> </p>
                         <p> <NavLink to="/educator/forgetpassword">Forget Password</NavLink> </p>
