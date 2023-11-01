@@ -16,5 +16,13 @@
     width: 80%; 
     height: 80%; 
 }
-
+ .matrials{
+  display: flex;
+    justify-content: space-around;
+ }
+ .matrials li{
+  color: orange;
+    font-weight: bold;
+    display: flex;
+ }
   
