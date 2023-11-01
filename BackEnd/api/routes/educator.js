@@ -31,6 +31,7 @@ router.post("/create-course", courseUpload, checkAuth, CourseController.createCo
 router.patch("/edit-course/:courseId", courseUpload, checkAuth, CourseController.editCourse);
 router.post("/delete-course/:courseId", checkAuth, CourseController.deleteCourse);
 router.delete("/delete-course/:courseId/:token", checkAuth, CourseController.sudoDeleteLecture);
+router.post("/remove-student/:courseId/:studentId", checkAuth, CourseController.removeStudent);
 
 router.post("/create-section/:courseId", checkAuth, SectionController.createSection);
 router.patch("/edit-section/:courseId/:sectionId", checkAuth, SectionController.editSection);
@@ -47,5 +48,6 @@ router.delete("/:courseId/discussion/:messageId", checkAuth, checkEnroll, Discus
 router.post("/create-assignment/:courseId", assignmentUpload, checkAuth, AssignmentController.createAssignment);
 // router.patch("/edit-assignment/:courseId/:assignmentId", assignmentUpload, checkAuth, AssignmentController.editAssignment);
 router.delete("/delete-assignment/:courseId/:assignmentId", checkAuth, AssignmentController.deleteAssignment);
+router.post("/grade-assignment/:courseId/:assignmentId/:submissionId", checkAuth, AssignmentController.gradeAssignment);
 
 module.exports = router;
