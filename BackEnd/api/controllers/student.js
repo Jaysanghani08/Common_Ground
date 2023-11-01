@@ -9,6 +9,8 @@ const Educator = require("../models/educator");
 const Token = require("../models/token");
 const sendEmail = require("../../utils/sendEmail");
 const deleteFile = require("../../utils/deleteFile");
+const path = require("path");
+const fs = require("fs");
 
 exports.userSignup = async (req, res, next) => {
     try {
@@ -131,11 +133,23 @@ exports.userEdit = async (req, res, next) => {
         }
 
         if (req.file) {
-            if (user.profilePic != "null") {
+            if (user.profilePic != null) {
                 deleteFile.deleteFile(user.profilePic);
             }
         }
-
+        else if (req.body.username != user.username){
+            if (user.profilePic != null)
+            {
+                const oldPath = user.profilePic;
+                const lastIndex = oldPath.lastIndexOf('\\');
+                const pathWithoutFileName = oldPath.slice(0, lastIndex);
+                const newPath = pathWithoutFileName + '\\' + req.body.username + path.extname(oldPath);
+                await fs.rename(oldPath, newPath, function (err) {
+                    if (err) throw err;
+                });
+                user.profilePic = newPath;
+            }
+        }
         req.body.profilePic = req.file ? req.file.path : user.profilePic;
 
         await Student.updateOne({_id: req.userData.userId}, req.body).exec();
