@@ -37,7 +37,7 @@ const storage = multerProfile.diskStorage({
     },
     filename: function (req, file, cb) {
         req.userData = jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
-        cb(null,  req.params.assignmentId + '-' +req.userData.userId + path.extname(file.originalname));
+        cb(null,  path.basename(file.originalname) + req.params.assignmentId + '-' +req.userData.userId + path.extname(file.originalname));
     }
 });
 
