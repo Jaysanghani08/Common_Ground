@@ -10,7 +10,7 @@
     position: relative;
     display: inline-block;
     transition: all 300ms ease;
-    background: #4b11bf;
+    background: white;
     /* font-family: 'Lora', serif; */
     letter-spacing: 2px;
 }
