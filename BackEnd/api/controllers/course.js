@@ -92,8 +92,8 @@ exports.editCourse = async (req, res, next) => {
             deleteFile(oldThumbLink);
         }
 
+        req.body.thumbnail = req.file.path;
         const updateData = req.body;
-
         await Course.updateOne({_id: courseId}, {$set: updateData}).exec();
 
         return res.status(200).json({
@@ -243,8 +243,9 @@ exports.sudoDeleteLecture = async (req, res, next) => {
             await student.enrolledCourses.pull(courseId);
         }
 
-        const educator = await Educator.findById(course.createdBy).exec();
-        await educator.courseCreated.pull(courseId);
+        const educator = await Educator.findById(req.userData.userId).exec();
+        educator.courseCreated.pull(req.params.courseId);
+        await educator.save();
 
         await Course.deleteOne({_id: courseId}).exec();
 
