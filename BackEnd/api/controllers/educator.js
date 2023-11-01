@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-
+const fs = require('fs');
+const path = require('path');
 
 const Educator = require('../models/educator');
 const Student = require("../models/student");
@@ -130,11 +131,23 @@ exports.userEdit = async (req, res, next) => {
         }
 
         if (req.file) {
-            if (user.profilePic != "null") {
+            if (user.profilePic != null) {
                 deleteFile.deleteFile(user.profilePic);
             }
         }
-
+        else if (req.body.username != user.username){
+            if (user.profilePic != null)
+            {
+                const oldPath = user.profilePic;
+                const lastIndex = oldPath.lastIndexOf('\\');
+                const pathWithoutFileName = oldPath.slice(0, lastIndex);
+                const newPath = pathWithoutFileName + '\\' + req.body.username + path.extname(oldPath);
+                await fs.rename(oldPath, newPath, function (err) {
+                    if (err) throw err;
+                });
+                user.profilePic = newPath;
+            }
+        }
         req.body.profilePic = req.file ? req.file.path : user.profilePic;
 
         await Educator.updateOne({_id: req.userData.userId}, req.body).exec();
@@ -150,7 +163,8 @@ exports.userEdit = async (req, res, next) => {
             error: err
         });
     }
-}
+};
+
 exports.userDelete = async (req, res, next) => {
     try {
         const profilePic = await Educator.findOne({email: req.params.email}).select('profilePic').exec();
@@ -176,7 +190,6 @@ exports.userDelete = async (req, res, next) => {
         });
     }
 };
-
 
 exports.resetPassword = async (req, res, next) => {
     try {
@@ -264,7 +277,6 @@ exports.resetPassword = async (req, res, next) => {
         return res.status(500).json({message: 'Internal server error'});
     }
 };
-
 
 exports.updatePassword = async (req, res, next) => {
     try {
