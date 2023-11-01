@@ -239,8 +239,10 @@ exports.sudoDeleteLecture = async (req, res, next) => {
         await Discussion.deleteOne({_id: course.discussionForum}).exec();
 
         const students = course.enrolledStudents;
-        for (const student of students) {
-            await student.enrolledCourses.pull(courseId);
+        for (let i = 0; i < students.length; i++) {
+            const student = await Student.findById(students[i]).exec();
+            student.enrolledCourses.pull(courseId);
+            await student.save();
         }
 
         const educator = await Educator.findById(req.userData.userId).exec();
