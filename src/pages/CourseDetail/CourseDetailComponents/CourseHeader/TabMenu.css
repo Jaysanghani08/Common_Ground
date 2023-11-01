@@ -1,0 +1,20 @@
+.accordion-content {
+    max-height: 200px; 
+    overflow-y: auto; 
+}
+
+.MuiAccordion-root {
+    transition: transform 0.2s;
+  }
+  
+  .MuiAccordion-root:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .custom-paper {
+    width: 80%; 
+    height: 80%; 
+}
+
+  
