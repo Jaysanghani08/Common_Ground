@@ -243,6 +243,9 @@ exports.sudoDeleteLecture = async (req, res, next) => {
             await student.enrolledCourses.pull(courseId);
         }
 
+        const educator = await Educator.findById(course.createdBy).exec();
+        await educator.courseCreated.pull(courseId);
+
         await Course.deleteOne({_id: courseId}).exec();
 
         return res.status(200).json({
