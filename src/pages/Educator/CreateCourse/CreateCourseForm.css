@@ -69,10 +69,10 @@
     padding: 10px;
     border: none;
     border-bottom: 2px solid #4b11bf;
+    color: black;
     /* outline: none; */
     /* border-radius: 5px; */
     /* background: rgba(255, 255, 255, 0.1); */
-    /* color: white; */
 }
 
 .ccsubmit {

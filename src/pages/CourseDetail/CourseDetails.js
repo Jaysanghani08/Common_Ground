@@ -4,8 +4,6 @@ import "./CourseDetails.css"
 import CourseHeader from './CourseDetailComponents/CourseHeader/CourseHeader'
 import BasicTabs from './CourseDetailComponents/CourseHeader/TabMenu'
 
-
-
 const CourseDetails = () => {
     return (
         <div>
@@ -14,7 +12,6 @@ const CourseDetails = () => {
                 <CourseHeader />
                 <div className="course-content">
                     <BasicTabs />
-                    
                 </div>
             </div>
         </div>

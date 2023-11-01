@@ -9,7 +9,7 @@ import Logo  from './../../../../data/imgs/Logo.svg'
 function Sidebar() {
     const [selected, setSelected] = useState(0);
     const [expanded, setExpanded] = useState(true);
-    console.log(expanded)
+    // console.log(expanded)
 
     const sidebarVariants = {
         true: {
