@@ -46,6 +46,9 @@ exports.submitSubmission = async (req, res, next) => {
 
         await submission.save();
 
+        await assignment.submission.push(submission._id);
+        await assignment.save();
+
         return res.status(201).json({
             message: "Submission successful"
         });
@@ -93,6 +96,9 @@ exports.deleteSubmission = async (req, res, next) => {
         }
 
         await deleteFile(submission.submission.toString());
+
+        await assignment.submission.pull(submission._id);
+        await assignment.save();
 
         await Submission.deleteOne({ _id: req.params.submissionId });
 
