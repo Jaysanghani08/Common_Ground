@@ -22,7 +22,8 @@ const EduRegister = () => {
         username: "",
         location: "",
         bio: "",
-        upiID: ""
+        upiID: "",
+        profilePic: ""
     });
 
     console.log(inputdata)
@@ -53,6 +54,15 @@ const EduRegister = () => {
             education: e.target.value,
         });
     };
+
+    const handleFileUpload = (event) => {
+        const file = event.target.files[0];
+
+        setInputdata({
+            ...inputdata,
+            "profilePic": file
+        })
+    }
 
     const handlelocationChange = (e) => {
         setInputdata({
@@ -92,7 +102,9 @@ const EduRegister = () => {
             toast.error("password length minimum 6 character")
         }
         else {
-            const response = await eduregisterfunction(inputdata);
+
+            console.log(inputdata)
+            const response = await eduregisterfunction(inputdata, );
 
             console.log(response)
 
@@ -110,9 +122,10 @@ const EduRegister = () => {
                     username: "",
                     location: "",
                     bio: "",
-                    upiID: ""
+                    upiID: "",
+                    profilePic: ""
                 });
-                // navigate("/")
+                navigate("/educator/login")
                 toast.success(response.data.message)
             } else {
                 toast.error(response.response.data.message);
@@ -131,12 +144,17 @@ const EduRegister = () => {
                         <h1>Sign Up</h1>
                         <p>Welcome to Common Ground</p>
                     </div>
-                    <form className='EDU_register_form'>
+                    <form className='EDU_register_form' encType='multipart/form-data'>
+                        <div className={style.form_input}>
+                            <label htmlFor="profilePic">Profile Picture</label>
+                            <input type="file" name="profilePic" accept=".png" onChange={handleFileUpload} />
+
+                        </div>
                         <div className={style.form_input}>
                             <label htmlFor="fname">First Name</label>
                             <input type="text" value={inputdata.fname} name="fname" onChange={handleChange} placeholder='Enter Your First Name' />
-                        
-                            </div>
+
+                        </div>
                         <div className={style.form_input}>
                             <label htmlFor="lname">Last Name</label>
                             <input type="text" name="lname" value={inputdata.lname} onChange={handleChange} placeholder='Enter Your Last Name' />
@@ -202,6 +220,10 @@ const EduRegister = () => {
                                 <input type="radio" id="female" name="gender" value="female" checked={inputdata.gender === 'female'} onChange={handleGenderChange} />
                                 <label htmlFor="female">Female</label>
                             </div>
+                            <div className='gender1'>
+                                <input type="radio" id="other" name="gender" value="other" checked={inputdata.gender === 'other'} onChange={handleGenderChange} />
+                                <label htmlFor="other">Other</label>
+                            </div>
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="username">Username</label>
@@ -217,10 +239,10 @@ const EduRegister = () => {
                             </div>
                         </div>
                         <button className={style.btn} onClick={handleSubmit}>Sign Up</button>
-                        </form>
-                        <p>Already have an account ? </p>
-                        <Link className="custom-link"to="/educator/login"> Login here</Link>
-                    
+                    </form>
+                    <p>Already have an account ? </p>
+                    <Link className="custom-link" to="/educator/login"> Login here</Link>
+
                 </div>
                 <ToastContainer />
             </section>

@@ -1,6 +1,7 @@
 import { commonrequest } from "./ApiCall";
 import { BACKEND_URL } from "./helper";
 
+// public pages
 //student
 export const studentregisterfunction = async (data) => {
     console.log(data)
@@ -30,7 +31,10 @@ export const studentupdatepasswordfunction = async (data) => {
 // educator
 export const eduregisterfunction = async (data) => {
     console.log(data)
-    return await commonrequest("POST", `${BACKEND_URL}/educator/signup`, data)
+    return await commonrequest("POST", `${BACKEND_URL}/educator/signup`, data, {
+        'Content-Type' : 'multipart/form-data'
+    })
+
 }
 
 export const eduloginfunction = async (data) => {
@@ -48,6 +52,11 @@ export const eduupdatepasswordfunction = async (data) => {
     return await commonrequest("POST", `${BACKEND_URL}/educator/update-password`, data)
 }
 
+
+// private poges
+
+// Educator
+
 export const educreatecoursefunction = async (data) => {
     console.log(data)
     return await commonrequest("POST", `${BACKEND_URL}/educator/create-course`, data, {
@@ -62,8 +71,4 @@ export const educreatecoursefunction = async (data) => {
 // extra
 export const sentOtpFunction = async (data) => {
     return await commonrequest("POST", `${BACKEND_URL}/user/sendotp`, data)
-}
-
-export const userVerify = async (data) => {
-    return await commonrequest("POST", `${BACKEND_URL}/user/login`, data)
 }

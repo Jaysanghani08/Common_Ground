@@ -5,7 +5,6 @@ import StudentLogin from "../pages/student/studentLogin/StudentLogin";
 import StudentFP from "../pages/student/ForgetPass/StudentFP";
 import ResetPass from "../pages/student/ResetPass.js/ResetPass";
 import StuDashboard from "../pages/student/Dashboard/StuDashboard";
-import Navbar from '../pages/student/Dashboard/Navbar/Navbar';
 
 const StudentRoutes = () => {
     return (
