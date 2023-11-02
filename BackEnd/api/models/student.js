@@ -16,7 +16,6 @@ const studentSchema = new mongoose.Schema({
         required: true,
         trim:true
     },
-
     location: {
         type: String,
         required: true
@@ -64,7 +63,11 @@ const studentSchema = new mongoose.Schema({
     enrolledCourses: {
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'Course'
-    }
+    },
+    certificates: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Certificate'
+    },
 });
 
 const Student = mongoose.model('Student', studentSchema);
