@@ -3,7 +3,7 @@ import Sidebar from './../student/Dashboard/Sidebar/Sidebar'
 import "./CourseDetails.css"
 import CourseHeader from './CourseDetailComponents/CourseHeader/CourseHeader'
 import BasicTabs from './CourseDetailComponents/CourseHeader/TabMenu'
-
+import DicussionForum from './CourseDetailComponents/DicussionForum/DicussionForum'
 
 
 const CourseDetails = () => {
@@ -14,7 +14,7 @@ const CourseDetails = () => {
                 <CourseHeader />
                 <div className="course-content">
                     <BasicTabs />
-            
+                    <DicussionForum/>
                 </div>
                 
             </div>

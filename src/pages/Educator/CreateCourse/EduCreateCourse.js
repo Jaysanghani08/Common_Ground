@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './CreateCourseForm.css';
 import Sidebar from '../Dashboard/Sidebar/Sidebar'
-import image from './ss.jpg';
+// import image from './ss.jpg';
 import { ToastContainer, toast } from 'react-toastify'
 import { educreatecoursefunction } from '../../../services/Apis';
 
@@ -242,7 +242,7 @@ function EduCreateCourse() {
                             <button className='ccsubmit' onClick={handleSubmit}>Create Course</button>
                         </div>
                         <div className=".create-course-image">
-                            <img src={image} alt="Profile" />
+                            <img src='#' alt="Profile" />
                         </div>
                     </form>
                 </div >
