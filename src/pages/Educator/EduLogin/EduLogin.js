@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import { NavLink, useNavigate } from "react-router-dom"
+import { NavLink, Navigate, useNavigate } from "react-router-dom"
 import { ToastContainer, toast } from 'react-toastify';
-// import { sentOtpFunction } from "../services/Apis";
-import Spinner from 'react-bootstrap/Spinner';
 import { eduloginfunction } from '../../../services/Apis';
 import style from "../../student/studentLogin/studentlogin.module.css";
 import "./edulogin.css";
 import Cookies from 'js-cookie';
+import getToken from './../../../services/getToken'
 
 const EduLogin = () => {
 
@@ -14,10 +13,14 @@ const EduLogin = () => {
         email: "",
         password: ""
     });
-    
-    const [spiner, setSpiner] = useState(false);
+
     const [paswordshow, setPaswordShow] = useState(false);
     const navigate = useNavigate();
+
+    const token = getToken('educator');
+    if (token) {
+        return <Navigate to="/educator/dashboard" />
+    }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -42,21 +45,16 @@ const EduLogin = () => {
         }
 
         else {
-            setSpiner(true)
             const data = {
                 email: inputdata.email,
                 password: inputdata.password
             }
 
             const response = await eduloginfunction(data);
-
-            console.log(response)
+            // console.log(response)
 
             if (response.status === 200) {
-                setSpiner(false)
                 toast.success(response.data.message);
-
-                // console.log(response.data.token)
                 if (response.data.token) Cookies.remove('token')
                 Cookies.set('token', response.data.token, { expires: 7, secure: true });
 
@@ -94,11 +92,7 @@ const EduLogin = () => {
                                 </div>
                             </div>
                         </div>
-                        <button className={style.btn} onClick={sendOtp}>Login
-                            {
-                                spiner ? <span><Spinner animation="border" /></span> : ""
-                            }
-                        </button>
+                        <button className={style.btn} onClick={sendOtp}>Login</button>
                         <p>Don't have an account <NavLink to="/educator/register">Sign up</NavLink> </p>
                         <p> <NavLink to="/educator/forgetpassword">Forget Password</NavLink> </p>
                     </form>

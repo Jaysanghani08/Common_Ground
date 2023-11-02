@@ -110,7 +110,7 @@ const StudentRegister = () => {
                     username: "",
                     location: ""
                 });
-                // navigate("/")
+                navigate("/student/login")
                 toast.success(response.data.message)
             } else {
                 toast.error(response.response.data.message);

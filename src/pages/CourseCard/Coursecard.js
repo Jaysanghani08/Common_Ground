@@ -3,17 +3,27 @@ import Star from "./../Educator/EduOfferedCourses/stars"
 import { NavLink } from 'react-router-dom'
 import "./Coursecard.css"
 
-const Coursecard = ({course}) => {
+const Coursecard = ({ course }) => {
+
+    if(!course){
+        return(
+            // changes at end
+            <h2 className="">
+                You have not created any courses.
+            </h2>
+        )
+    }
+
     return (
-        <div key={course.Index} className="card_container">
+        <div key={course.courseCode} className="card_container">
             <div className="courses_card">
                 <div className="courses_card-head">
                     {/* <span className="courses_back-text">IT304</span> */}
                 </div>
                 <div className="courses_card-body">
                     <div className="courses_product-detail">
-                        <h2>{course.coursename}</h2>
-                        {course.coursedescription.slice(0, 95)}
+                        <h2>{course.courseTitle}</h2>
+                        {course.courseDescription}
                     </div>
                     <div className="courses_product-desc">
                         <span className="courses_product-caption">By {course.instructor}</span>
@@ -26,11 +36,11 @@ const Coursecard = ({course}) => {
                             <h4>Progress</h4>
                         </span>
                         <span className="courses_product-color">
-                            <h4>{course.totalstudentenrolled} students enrolled</h4>
+                            <h4>{course.enrolledStudents.length} students enrolled</h4>
                         </span>
                         <span className="courses_product-price">
-                            <span> {course.price === 0 ? "Free" : `Rs. ${course.price}`} </span>
-                            <button type="button" class="btn" ><NavLink to={`/view-course/${course.course_id}`} style={{ color: "white" }}>View Course </NavLink></button>
+                            <span> {course.coursePrice === 0 ? "Free" : `Rs. ${course.price}`} </span>
+                            <button type="button" class="btn" ><NavLink to={`/view-course/${course._id}`} style={{ color: "white" }}>View Course </NavLink></button>
                         </span>
                     </div>
                 </div>

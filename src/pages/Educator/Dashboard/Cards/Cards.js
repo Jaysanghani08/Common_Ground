@@ -3,8 +3,34 @@ import Card from './Card'
 import { EduCardContent } from '../../../../data/EduCards'
 
 import './Cards.css'
+import { UilRupeeSign, UilStar, UilUsersAlt, UilBooks } from '@iconscout/react-unicons'
 
-const Cards = () => {
+const Cards = ({ income, rating, studentcnt, totalcourses }) => {
+
+    // console.log(income)
+    const EduCardContent = [
+        {
+            icon: UilRupeeSign,
+            heading: "Total Earnings",
+            value: income
+        },
+        {
+            icon: UilStar,
+            heading: "Rating",
+            value: `${rating}/5`
+        },
+        {
+            icon: UilUsersAlt,
+            heading: "Total Students",
+            value: studentcnt
+        },
+        {
+            icon: UilBooks,
+            heading: "Total Courses",
+            value: totalcourses
+        },
+    ]
+
     return (
         <div className='cards'>
             {/* <Card />
@@ -16,11 +42,10 @@ const Cards = () => {
                     return (
                         <div className="card" key={index}>
 
-                            {item.icon({ size : 50, color: '#000000' })}
-                            {/* <UilUser /> */}
+                            {item.icon({ size: 50, color: '#000000' })}
                             <div className="rightcontent">
                                 <h3>{item.value}</h3>
-                                <p style={{color : "black"}}> {item.heading} </p>
+                                <p style={{ color: "black" }}> {item.heading} </p>
                             </div>
                         </div>
                     )

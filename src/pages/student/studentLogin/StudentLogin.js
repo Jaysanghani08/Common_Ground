@@ -1,19 +1,25 @@
 import React, { useState } from 'react'
-import { NavLink, useNavigate } from "react-router-dom"
+import { NavLink, useNavigate, Navigate } from "react-router-dom"
 import { ToastContainer, toast } from 'react-toastify';
-// import { sentOtpFunction } from "../services/Apis";
-import Spinner from 'react-bootstrap/Spinner';
 import { studentloginfunction } from '../../../services/Apis';
 import style from "./studentlogin.module.css";
+import Cookies from 'js-cookie'
+import getToken from '../../../services/getToken';
+
 const StudentLogin = () => {
 
     const [inputdata, setInputdata] = useState({
-        email : "",
-        password : ""
+        email: "",
+        password: ""
     });
-    const [spiner,setSpiner] = useState(false);
+
     const [paswordshow, setPaswordShow] = useState(false);
     const navigate = useNavigate();
+
+    const token = getToken('student');
+    if (token) {
+        return <Navigate to="/student/dashboard" />
+    }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -36,21 +42,24 @@ const StudentLogin = () => {
         } else if (inputdata.password.length < 6) {
             toast.error("password length minimum 6 character")
         }
-        
+
         else {
-            setSpiner(true)
             const data = {
                 email: inputdata.email,
-                password : inputdata.password
+                password: inputdata.password
             }
 
             const response = await studentloginfunction(data);
-            console.log(response)
+            // console.log(response)
 
             if (response.status === 200) {
-                setSpiner(false)
                 toast.success(response.data.message);
-                // navigate("/user/otp",{state:email})
+                if (response.data.token) Cookies.remove('token')
+                Cookies.set('token', response.data.token, { expires: 7, secure: true });
+
+                setTimeout(() => {
+                    navigate("/student/dashboard")
+                }, 1000);
             } else {
                 toast.error(response.response.data.message);
             }
@@ -82,11 +91,7 @@ const StudentLogin = () => {
                                 </div>
                             </div>
                         </div>
-                        <button className={style.btn} onClick={sendOtp}>Login
-                        {
-                            spiner ? <span><Spinner animation="border" /></span>:""
-                        }
-                        </button>
+                        <button className={style.btn} onClick={sendOtp}>Login</button>
                         <p>Don't have an account <NavLink to="/student/register">Sign up</NavLink> </p>
                         <p> <NavLink to="/student/forgetpassword">Forget Password</NavLink> </p>
                     </form>

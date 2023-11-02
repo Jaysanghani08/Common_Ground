@@ -18,7 +18,6 @@ import Example from "./pages/tmp";
 import StuDashboard from "./pages/student/Dashboard/StuDashboard";
 import SmoothScroll from "smooth-scroll";
 import CourseDetails from "./pages/CourseDetail/CourseDetails";
-import AuthLayout from "./services/AuthLayout";
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
     speed: 1000,

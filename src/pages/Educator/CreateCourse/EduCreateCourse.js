@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import './CreateCourseForm.css';
 import Sidebar from '../Dashboard/Sidebar/Sidebar'
-import image from './ss.jpg';
+// import image from './ss.jpg';
 import { ToastContainer, toast } from 'react-toastify'
 import { educreatecoursefunction } from '../../../services/Apis';
+import getToken from '../../../services/getToken';
+import { Navigate } from 'react-router-dom';
 
 function EduCreateCourse() {
 
@@ -16,9 +18,20 @@ function EduCreateCourse() {
         courseCode: '',
         thumbnail: '',
         tags: ''
-    })
+    });
+    
+    const [courseLevel, setCourseLevel] = useState('');
+    const [courseLanguage, setCourseLanguage] = useState('');
+    const [visibility, setVisibility] = useState('');
+    // console.log(inputdata)
 
-    console.log(inputdata)
+    const token = getToken('educator');
+    // console.log(token)
+
+    if (!token) {
+        return <Navigate to="/educator/login" />;
+    }
+
 
     const handleFileUpload = (event) => {
 
@@ -30,9 +43,6 @@ function EduCreateCourse() {
         })
     }
 
-    const [courseLevel, setCourseLevel] = useState('');
-    const [courseLanguage, setCourseLanguage] = useState('');
-    const [visibility, setVisibility] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -73,7 +83,7 @@ function EduCreateCourse() {
         else {
             console.log(formData)
 
-            const response = await educreatecoursefunction(formData);
+            const response = await educreatecoursefunction(formData, token);
             // const response = {};
 
             console.log(response)
@@ -241,9 +251,9 @@ function EduCreateCourse() {
                             </div>
                             <button className='ccsubmit' onClick={handleSubmit}>Create Course</button>
                         </div>
-                        <div className=".create-course-image">
+                        {/* <div className=".create-course-image">
                             <img src={image} alt="Profile" />
-                        </div>
+                        </div> */}
                     </form>
                 </div >
             </div >

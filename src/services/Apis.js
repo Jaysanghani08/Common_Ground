@@ -1,5 +1,11 @@
 import { commonrequest } from "./ApiCall";
 import { BACKEND_URL } from "./helper";
+import Cookies from "js-cookie"
+
+const BASE_URL2 = "https://65435b7a01b5e279de203893.mockapi.io/"
+
+const token = Cookies.get('token')
+// console.log(`Bearer ${token}`)
 
 // public pages
 //student
@@ -32,7 +38,7 @@ export const studentupdatepasswordfunction = async (data) => {
 export const eduregisterfunction = async (data) => {
     console.log(data)
     return await commonrequest("POST", `${BACKEND_URL}/educator/signup`, data, {
-        'Content-Type' : 'multipart/form-data'
+        'Content-Type': 'multipart/form-data'
     })
 
 }
@@ -52,7 +58,6 @@ export const eduupdatepasswordfunction = async (data) => {
     return await commonrequest("POST", `${BACKEND_URL}/educator/update-password`, data)
 }
 
-
 // private poges
 
 // Educator
@@ -60,10 +65,80 @@ export const eduupdatepasswordfunction = async (data) => {
 export const educreatecoursefunction = async (data) => {
     console.log(data)
     return await commonrequest("POST", `${BACKEND_URL}/educator/create-course`, data, {
-            'authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhdXJhYmhfdGl3YXJpX3Rlc3RAZ21haWwuY29tIiwidXNlcklkIjoiNjU0MGQxYWM4YWY1Zjc3Yzg5Mjc4YjM5IiwidXNlclR5cGUiOiJlZHVjYXRvciIsImlhdCI6MTY5ODc0NjgwMSwiZXhwIjoxNzAxMzM4ODAxfQ.v6HJ9KKTLIe58CPNC2uFKPvrHwlLPAhOtcXW8Ud46_g`,
-            'Content-Type' : 'multipart/form-data'
+        'authorization': `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data'
     })
 }
+
+export const getEducatorDashboard = async (data) => {
+    // console.log(data)
+    try {
+        // console.log(data);
+        const response = await commonrequest("GET", `${BACKEND_URL}/query/dashboard`, data, {
+            'authorization': `Bearer ${token}`
+        });
+        // console.log(response.data)
+        return response.data;
+    } catch (error) {
+        throw new Error("Error fetching user data");
+    }
+}
+
+export const getEducatorProfile = async () => {
+    // console.log(data)
+    try {
+        // console.log(data);
+        const response = await commonrequest("GET", `${BACKEND_URL}/query/profile`, {}, {
+            'authorization': `Bearer ${token}`
+        });
+        return response.data.educator;
+    } catch (error) {
+        throw new Error("Error fetching user data");
+    }
+}
+
+export const getEducatorcourses = async () => {
+    // console.log(data)
+    try {
+        // console.log(data);
+        const response = await commonrequest("GET", `${BACKEND_URL}/query/coursebyeducator`, {}, {
+            'authorization': `Bearer ${token}`
+        });
+        return response.data.courses;
+    } catch (error) {
+        throw new Error("Error fetching user data");
+    }
+}
+
+export const getIncome = async (data) => {
+    // console.log(data)
+    try {
+        // console.log(data);
+        const response = await commonrequest("GET", `${BACKEND_URL}/query/dashboard`, data, {
+            'authorization': `Bearer ${token}`
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error("Error fetching user data");
+    }
+}
+
+
+export const getAllCourses = async (data) => {
+    // console.log(data)
+    try {
+        // console.log(data);
+        const response = await commonrequest("GET", `${BASE_URL2}/user/edu-earning`, data, {
+            'authorization': `Bearer ${token}`
+        });
+        // console.log(response.data[0].earning)
+        return response.data[0].earning;
+    } catch (error) {
+        throw new Error("Error fetching user data");
+    }
+}
+
+
 
 
 
