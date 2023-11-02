@@ -12,6 +12,8 @@ dotenv.config({path: "./config.env"});
 // Routes import
 const studentRoutes = require("./api/routes/student");
 const educatorRoutes = require("./api/routes/educator");
+const queryRoutes = require("./api/routes/query");
+const fileRoutes = require("./api/routes/files");
 
 // Middlewares
 app.use(morgan("dev"));
@@ -38,6 +40,8 @@ app.use((req, res, next) => {
 // Request handling
 app.use("/student", studentRoutes);
 app.use("/educator", educatorRoutes);
+app.use("/query", queryRoutes);
+app.use("/file", fileRoutes);
 
 // Error handling
 app.use((req, res, next) => {
