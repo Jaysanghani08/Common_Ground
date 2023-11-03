@@ -22,7 +22,7 @@ router.post('/update-password', StudentController.updatePassword);
 router.patch("/edit-profile", checkAuth, profileUpload, StudentController.userEdit);
 router.delete("/:email", checkAuth, StudentController.userDelete);
 
-router.post("/enroll/:courseId", checkAuth, payment, CourseController.enrollCourse);
+router.post("/enroll/:courseId", checkAuth, CourseController.enrollCourse);
 router.post("/unenroll/:courseId", checkAuth, CourseController.unenrollCourse);
 router.post("/rating/:courseId", checkAuth, checkEnroll, CourseController.rateCourse);
 
