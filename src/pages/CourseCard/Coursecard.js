@@ -39,7 +39,7 @@ const Coursecard = ({ course }) => {
                             <h4>{course.enrolledStudents ? course.enrolledStudents.length : 0} students enrolled</h4>
                         </span>
                         <span className="courses_product-price">
-                            <span> {course.coursePrice === 0 ? "Free" : `Rs. ${course.price}`} </span>
+                            <span> {course.coursePrice === 0 ? "Free" : `Rs. ${course.coursePrice}`} </span>
                             <button type="button" class="btn" ><NavLink to={`/view-course/${course._id}`} style={{ color: "white" }}>View Course </NavLink></button>
                         </span>
                     </div>

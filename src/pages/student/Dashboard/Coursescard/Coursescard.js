@@ -3,7 +3,6 @@ import './Coursescard.css';
 import { NavLink } from 'react-router-dom'
 import Coursecard from '../../../CourseCard/Coursecard';
 
-
 function Coursescard({coursesData}) {
     return (
         <div className='courses_main_container' id='courses_main_container'>
