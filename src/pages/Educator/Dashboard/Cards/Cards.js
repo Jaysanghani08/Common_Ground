@@ -1,6 +1,6 @@
 import React from 'react'
-import Card from './Card'
-import { EduCardContent } from '../../../../data/EduCards'
+// import Card from './Card'
+// import { EduCardContent } from '../../../../data/EduCards'
 
 import './Cards.css'
 import { UilRupeeSign, UilStar, UilUsersAlt, UilBooks } from '@iconscout/react-unicons'
