@@ -1,6 +1,6 @@
 import React from 'react'
-import {UilUser} from '@iconscout/react-unicons'
-import { Col } from 'react-bootstrap'
+// import {UilUser} from '@iconscout/react-unicons'
+// import { Col } from 'react-bootstrap'
 const Card = ({ icon, heading, value }) => {
     
     
