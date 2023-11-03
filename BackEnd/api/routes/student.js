@@ -10,7 +10,6 @@ const SubmissionController = require("../controllers/submission");
 
 const checkAuth = require("../middleware/checkAuth");
 const checkEnroll = require("../middleware/checkEnroll");
-const payment = require("../middleware/payment");
 
 // multer middleware
 const profileUpload = profilePhoto.single('profilePic');
