@@ -458,7 +458,7 @@ exports.getCertificate = async (req, res, next) => {
             size: "A4",
         });
 
-        doc.pipe(fs.createWriteStream(`${pdfName}.pdf`));
+        // doc.pipe(fs.createWriteStream(`${pdfName}.pdf`));
         doc.pipe(res);
 
         const imageWidth = 842;
