@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { NavLink, useNavigate, useParams } from "react-router-dom"
+import {useNavigate, useParams } from "react-router-dom"
 import { ToastContainer, toast } from 'react-toastify';
 // import { sentOtpFunction } from "../services/Apis";
 import Spinner from 'react-bootstrap/Spinner';
@@ -13,7 +13,6 @@ const ResetPass = () => {
     });
     const [paswordshow, setPaswordShow] = useState(false);
     const [spiner, setSpiner] = useState(false);
-    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
