@@ -36,7 +36,7 @@ const Coursecard = ({ course }) => {
                             <h4>Progress</h4>
                         </span>
                         <span className="courses_product-color">
-                            <h4>{course.enrolledStudents.length} students enrolled</h4>
+                            <h4>{course.enrolledStudents ? course.enrolledStudents.length : 0} students enrolled</h4>
                         </span>
                         <span className="courses_product-price">
                             <span> {course.coursePrice === 0 ? "Free" : `Rs. ${course.price}`} </span>
