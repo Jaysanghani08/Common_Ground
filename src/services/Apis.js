@@ -139,6 +139,34 @@ export const getAllCourses = async (data) => {
 }
 
 
+// Student
+
+export const getStudentDashboard = async (data) => {
+    // console.log(data)
+    try {
+        // console.log(data);
+        const response = await commonrequest("GET", `${BACKEND_URL}/query/enrolled-course`, data, {
+            'authorization': `Bearer ${token}`
+        });
+        // console.log(response.data)
+        return response.data ? response.data.courses : null;
+    } catch (error) {
+        throw new Error("Error fetching user data");
+    }
+}
+
+export const getStudentProfile = async () => {
+    // console.log(data)
+    try {
+        // console.log(data);
+        const response = await commonrequest("GET", `${BACKEND_URL}/query/profile`, {}, {
+            'authorization': `Bearer ${token}`
+        });
+        return response.data.student;
+    } catch (error) {
+        throw new Error("Error fetching user data");
+    }
+}
 
 
 
