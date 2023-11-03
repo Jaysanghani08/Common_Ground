@@ -7,7 +7,7 @@ const Star = ({ stars, reviews }) => {
     let number = index + 0.5;
     debugger;
     return (
-      <span key={index}>
+      <span className="stars" key={index}>
         {stars >= index + 1 ? (
           <FaStar className="icon" />
         ) : stars >= number ? (
@@ -31,14 +31,21 @@ const Star = ({ stars, reviews }) => {
 const Wrapper = styled.section`
   
     .icon {
-      font-size: 1.8rem;
-      color: #f35e3d;
+      font-size: 3rem;
+      color: #FFC436;
       margin-left : 20px;
     }
 
     .empty-icon {
-      font-size: 2.6rem;
+      font-size: 3.5rem;
+      color: #FFC436;
+      margin-left : 20px;
     }
+
+    .stars:nth-child(1){
+        margin-left : -20px;
+    }
+
 
     @media(max-width: 600px) {
       .icon-style {
