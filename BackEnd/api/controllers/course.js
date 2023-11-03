@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
+const moment = require("moment");
+const PDFDocument = require("pdfkit");
 
 const Course = require('../models/course');
 const Token = require("../models/token");
@@ -12,6 +14,7 @@ const Student = require("../models/student");
 const Discussion = require("../models/discussion");
 const Assignment = require('../models/assignment');
 const Section = require('../models/section');
+const Certificate = require('../models/certificate');
 
 const sendEmail = require("../../utils/sendEmail");
 const {deleteFile, deleteFolder} = require("../../utils/deleteFile");
@@ -325,6 +328,189 @@ exports.unenrollCourse = async (req, res, next) => {
         return res.status(200).json({
             message: 'Unenrolled'
         });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    }
+};
+
+exports.removeStudent = async (req, res, next) => {
+    try {
+        const course = await Course.findById(req.params.courseId).exec();
+
+        if (!course) {
+            return res.status(404).json({
+                message: 'Course not found'
+            });
+        }
+
+        const student = await Student.findById(req.params.studentId).exec();
+        student.enrolledCourses.pull(req.params.courseId);
+        course.enrolledStudents.pull(req.params.studentId);
+
+        await course.save();
+        await student.save();
+
+        return res.status(200).json({
+            message: 'Student removed'
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    }
+}
+
+exports.rateCourse = async (req, res, next) => {
+    try {
+        const ans = await Course.findOne({_id: req.params.courseId, 'courseFeedback.student': req.userData.userId}).select('courseFeedback').exec();
+        if (ans != null) {
+            return res.status(401).json({
+                message: 'Already rated'
+            });
+        }
+
+        const course = await Course.findById(req.params.courseId).exec();
+        if (!course) {
+            return res.status(404).json({
+                message: 'Course not found'
+            });
+        }
+
+        if (course.enrolledStudents.includes(req.userData.userId)) {
+            const feedback = {
+                student: req.userData.userId,
+                rating: req.body.rating,
+                comment: req.body.comment
+            };
+
+            course.courseFeedback.push(feedback);
+            await course.save();
+        }
+        return res.status(200).json({
+            message: 'Rated Successfully'
+        });
+
+    } catch (err) {
+            return res.status(500).json({
+                error: err
+            });
+        }
+}
+
+exports.getCertificate = async (req, res, next) => {
+    try {
+        const course = await Course.findById(req.params.courseId).exec();
+        if (!course) {
+            return res.status(404).json({
+                message: 'Course not found'
+            });
+        }
+
+        const educator = await Educator.findById(course.createdBy).exec();
+        if (!educator) {
+            return res.status(404).json({
+                message: 'Educator not found'
+            });
+        }
+
+        const student = await Student.findById(req.userData.userId).exec();
+        if (!student) {
+            return res.status(404).json({
+                message: 'Student not found'
+            });
+        }
+
+        const certificate = await Certificate.findOne({course: req.params.courseId, student: req.userData.userId}).exec();
+        if (!certificate) {
+            console.log('Certificate not found');
+            const newCertificate = new Certificate({
+                student: req.userData.userId,
+                educator: course.createdBy,
+                course: req.params.courseId,
+            });
+            await newCertificate.save();
+            await student.certificates.push(newCertificate._id);
+            await student.save();
+        }
+
+        const dateCreated = certificate.dateCreated;
+        const day = dateCreated.getDate().toString().padStart(2, '0');
+        const month = (dateCreated.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
+        const year = dateCreated.getFullYear();
+
+        const formattedDate = `${day}/${month}/${year}`;
+
+        let pdfName = course.courseCode + '-' + course.courseTitle + " Certificate";
+
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader(
+            'Content-Disposition',
+            'inline; filename="' + pdfName + '.pdf"'
+        );
+
+        // certificate pdf
+        const doc = new PDFDocument({
+            layout: "landscape",
+            size: "A4",
+        });
+
+        doc.pipe(fs.createWriteStream(`${pdfName}.pdf`));
+        doc.pipe(res);
+
+        const imageWidth = 842;
+        const imageHeight = 595;
+        const x = 0;
+        const y = 0;
+
+        const fontPath = path.join(__dirname, "../../uploads/font/source-serif-pro.regular.ttf");
+        const fontPath2 = path.join(__dirname, "../../uploads/font/Chomsky.ttf");
+
+        const imagePath = path.join(__dirname, "../../uploads/certificate/H1.jpg");
+        doc.image(imagePath, x, y, { width: imageWidth, height: imageHeight });
+        function addWrappedText(text, yPos, width, fontSize, lineSpacing, font) {
+            doc
+                .font(font)
+                .fontSize(fontSize)
+                .text(text, x + 60, yPos, { width: width, lineGap: lineSpacing });
+        }
+
+        let yPos = 180;
+        addWrappedText(`${formattedDate}`, yPos, 400, 10, 5, fontPath);
+        yPos += doc.heightOfString(`${formattedDate}`, { width: 400 }) + 15;
+
+        addWrappedText(`${student.username}`, yPos, 400, 27, 5, fontPath2);
+        yPos += doc.heightOfString(`${student.username}`, { width: 400 }) + 20;
+
+        addWrappedText("has successfully completed", yPos, 400, 12, 5, fontPath);
+        yPos += doc.heightOfString("has successfully completed", { width: 400 }) + 20;
+
+        addWrappedText(`${course.courseCode}` + '-' + `${course.courseTitle}`, yPos, 400, 27, 5, fontPath2);
+        yPos += doc.heightOfString(`${course.courseCode}\` + '-' + \`${course.courseTitle}`, { width: 400 }) + 20;
+
+        addWrappedText(`an online non-credit course authorized by ${educator.fname}` + ' ' + `${educator.lname} and offered through Common Ground.`, yPos, 400, 12, 5, fontPath);
+        yPos += doc.heightOfString(`an online non-credit course authorized by ${educator.fname}` + ' ' + `${educator.lname} and offered through Common Ground.`, { width: 400 }) + 50;
+
+        addWrappedText(`${educator.fname}` + " " + `${educator.lname}`, yPos, 400, 27, 5, fontPath2);
+        doc.text(`${educator.fname}` + " " + `${educator.lname}`, x + 60, yPos, { width: 400, lineGap: 5, underline: true });
+
+        yPos += doc.heightOfString(`${educator.fname}` + " " + `${educator.lname}`, { width: 400 }) + 5;
+
+        doc
+            .font(fontPath)
+            .fontSize(7)
+            .text(`Verify at coursera.org/verify/${certificate._id}`, 585, 490);
+
+        doc
+            .font(fontPath)
+            .fontSize(7)
+            .text("Common Ground has confirmed the identity of this individual and their participation in the course.", 585, 500, { width: 200 });
+
+        doc.end();
+
     } catch (err) {
         console.log(err);
         res.status(500).json({
