@@ -19,6 +19,7 @@ import StuDashboard from "./pages/student/Dashboard/StuDashboard";
 import SmoothScroll from "smooth-scroll";
 import CourseDetails from "./pages/CourseDetail/CourseDetails";
 import AuthLayout from "./services/AuthLayout";
+import HomePage from "./pages/HomePage/HomePage";
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
     speed: 1000,
@@ -32,6 +33,7 @@ function App() {
                 <Route path='/' element={<StudentRegister />} />
                 <Route path='/tmp' element={<Example />} />
                 <Route path='/course' element={<CourseDetails />} />
+                <Route path='/homepage' element={<HomePage />} />
                 <Route path='/student' >
                     <Route index element={<StuDashboard />} />
                     <Route path='register' element={<StudentRegister />} />
