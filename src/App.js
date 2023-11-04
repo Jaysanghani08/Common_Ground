@@ -19,6 +19,7 @@ import StuDashboard from "./pages/student/Dashboard/StuDashboard";
 import SmoothScroll from "smooth-scroll";
 import CourseDetails from "./pages/CourseDetail/CourseDetails";
 import HomePage from "./pages/HomePage/HomePage";
+import StuViewCourses from "./pages/student/ViewCourses/StuViewcourses";
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
     speed: 1000,
@@ -40,7 +41,7 @@ function App() {
                     <Route path='forgetpassword' element={<StudentFP />} />
                     <Route path='resetpassword/:id/:token' element={<ResetPass />} />
                     <Route path='dashboard' element={<StuDashboard />} />
-                    <Route path='view-courses' element={<StuDashboard />} />
+                    <Route path='view-courses' element={<StuViewCourses />} />
                     <Route path='enrolled-courses' element={<StuDashboard />} />
                     <Route path='profile' element={<StuDashboard />} />
                 </Route>

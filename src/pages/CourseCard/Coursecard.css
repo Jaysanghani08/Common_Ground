@@ -1,7 +1,5 @@
 .card_container{
     flex : 33%;
-    /* position: relative; */
-    /* width: 280px; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,31 +9,15 @@
 .courses_card {
     transition: transform .2s;
     border-radius: 1rem;
-    width: 280px;
-    /* margin: auto 30px; */
-    
-    /* height: 500px; */
-    
+    width: 280px;    
     box-shadow: 5px 6px 22px -5px rgba(75, 17, 191, 0.66);
     -webkit-box-shadow: 5px 6px 22px -5px rgba(75, 17, 191, 0.66);
     -moz-box-shadow: 5px 6px 22px -5px rgba(75, 17, 191, 0.66);
 }
 
 .courses_card:hover {
-    /* border-radius: 1rem; */
-    transform: scale(1.08);
-    /* box-shadow: none; */
-    /* border: 2px solid #4b11bfad; */
+    transform: translateY(-10px);
 }
-
-/* .courses_card-head {
-    padding: 3rem 2rem;
-    position: relative;
-    background: #f8f9fad1;
-    height: 252px;
-    /* background: #fa782e; 
-    border-radius: 1rem 1rem 0 0;
-} */
 
 .courses_product-detail {
     padding: 20px 20px;

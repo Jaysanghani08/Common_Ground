@@ -1,0 +1,225 @@
+/* body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  } */
+
+.stu-viewcourses {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    /* height: 100vh; */
+    font-family :'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.stu-viewcourses-background-image {
+    background-image: url('./../../../data/imgs/view_courses_bg.jpg');
+    background-size: cover;
+    background-repeat: repeat-y;
+    background-position: center;
+    position: fixed;
+    height: 100%;
+    /* position: absolute; */
+    width: 100%;
+    z-index: -1;
+    /* opacity: 0.5; */
+}
+
+.stu-viewcourses-section-cover {
+    opacity: 0.7;
+    background-position: center;
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+}
+
+.stu-viewcourses-section1-cover {
+    height: 63%;
+    background-color: rgba(12, 53, 106);
+}
+
+.stu-viewcourses-section2-cover {
+    top: 72.5%;
+    height: 100%;
+    background-color: #fff;
+}
+
+.stu-viewcourses-content {
+    display: flex;
+    line-height: 1.3;
+    letter-spacing: 1;
+    word-spacing: 3;
+    flex-direction: column;
+    flex: 1;
+    z-index: 7;
+}
+
+.stu-viewcourses-section1 {
+    padding: 4rem;
+    /* margin-bottom: 20px; */
+}
+
+.stu-viewcourses-heading {
+    opacity: 1;
+    font-size: 7.5rem;
+    color: white;
+    font-weight: 550;
+}
+
+.stu-viewcourses-subheading {
+    margin-top: 4rem;
+    font-size: 4.5rem;
+    color: white;
+    font-weight: 450;
+    text-transform: none;
+}
+
+.stu-viewcourses-search-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.stu-viewcourses-large-input {
+    margin: 10px;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    opacity: 1;
+    border-radius: 5px;
+}
+
+.stu-viewcourses-small-input,
+.stu-viewcourses-search-bar select {
+    margin: 10px;
+    padding: 10px;
+    width: 200px;
+    opacity: 1.5;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.stu-viewcourses-search-bar button {
+    margin: 10px;
+    padding: 10px 40px;
+    background-color: rgba(12, 53, 106);
+    color: white;
+    border: none;
+    font-weight: 500;
+    border-radius: 5px;
+    border: 2px solid white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.stu-viewcourses-section2{
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.stu-viewcourses-section2 h2{
+    font-size: 4rem;
+    color: rgba(12, 53, 106);
+}
+
+.stu-viewcourses-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: left;
+    justify-content: center;
+}
+
+.stu-viewcourses-courses_card-body:hover {
+    transform: translateY(-10px);
+}
+
+.stu-viewcourses-courses_card-body {
+    /* box-shadow: 5px 6px 22px -5px rgba(75, 17, 191, 0.66);
+    -webkit-box-shadow: 5px 6px 22px -5px rgba(75, 17, 191, 0.66);
+    -moz-box-shadow: 5px 6px 22px -5px rgba(75, 17, 191, 0.66); */
+    margin: 30px 40px;
+    transition: transform .3s ease;
+    height: 530px;
+    background-color: rgba(12, 53, 106, 0.84);
+    /* background */
+    border-radius: 1rem;
+    width: 340px;
+    border-radius: 1rem;
+    padding: 40px 40px 40px 40px;
+}
+
+.stu-viewcourses-courses_product-detail h2 {
+    font-size: 4rem;
+    /* font-weight: 500; */
+    color: #fff;
+    /* height: 4.5rem; */
+    letter-spacing: 2px;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.stu-viewcourses-courses_product-caption {
+    display: block;
+    /* padding: 0 20px; */
+    font-size: 2.3rem;
+    color: #fff;
+    font-weight: 600;
+    margin-top: 2rem;
+    /* text-transform: uppercase; */
+}
+
+.stu-viewcourses-enrolled-students {
+    margin-top: 1rem;
+}
+
+.stu-viewcourses-course-desc {
+    height: 15rem;
+    margin-top: 2rem;
+    font-size: 1.5rem;
+}
+
+.courses_product-rating {
+    /* padding: 0 20px; */
+    font-size: 13px;
+    color: #f35e3d;
+}
+
+.stu-viewcourses-courses_product-button button {
+    margin-left: 30px;
+    width: 200px;
+    margin-top: 2rem;
+    height: 50px;
+    font-size: 2rem;
+    background-color: rgba(12, 53, 106);
+    color: white;
+    border-radius: 0;
+    border: 2px solid #fff;
+    cursor: pointer;
+
+}
+
+/* .stu-viewcourses-search-bar button:hover {
+    background-color: ;
+} */
+
+
+/* Add styles for your search bar and filter options here */
+
+/* Responsive card styles */
+.stu-viewcourses-card {
+    /* Styles for your card */
+}
+
+@media (max-width: 768px) {
+    .stu-viewcourses-section1 {
+        padding: 20px;
+    }
+
+    .stu-viewcourses-search-bar input[type="text"],
+    .stu-viewcourses-search-bar input[type="number"],
+    .stu-viewcourses-search-bar select,
+    .stu-viewcourses-search-bar button {
+        width: 100%;
+    }
+}
