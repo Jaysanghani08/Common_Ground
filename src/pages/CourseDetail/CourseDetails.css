@@ -12,7 +12,7 @@
 }
 
 .dicussion-forum {
-    background-color: rgba(255, 225, 225, 0.973);
+    background-color: rgba(255, 225, 225, 0.7);
     background-size: cover;
     z-index: 2;
     flex: 1; 
@@ -32,7 +32,7 @@
     z-index: 2;
     padding: 40px 4vw;
     margin-top: 100px;
-    /* border-radius: 1rem; */
+    border-radius: 1rem;
     box-shadow: 5px 6px 22px -5px rgba(75, 17, 191, 0.66);
     -webkit-box-shadow: 5px 6px 22px -5px rgba(75, 17, 191, 0.66);
     -moz-box-shadow: 5px 6px 22px -5px rgba(75, 17, 191, 0.66);

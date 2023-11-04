@@ -16,15 +16,16 @@ const CourseDetails = () => {
                
                 <div className="course-content">
                     <BasicTabs />
+                    <div className="dicussion-forum">
                     <DicussionForum/>
                     </div>
-                    
+                    </div>
                 </div>
                 
              </div>
                 
             
-        </div>
+        
     )
 }
 
