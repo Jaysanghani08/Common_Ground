@@ -4,6 +4,11 @@ import './StuViewCourses.css';
 import Navbar from '../Dashboard/Sidebar/Sidebar';
 // import Coursescard from '../Dashboard/Coursescard/Coursescard';
 import Card from './Card.js'
+import CategoryCard from './CategoryCard.js';
+import coding from "./../../../data/imgs/Categories/coding.png"
+import design from "./../../../data/imgs/Categories/sketch.png"
+import pd from "./../../../data/imgs/Categories/growth.png"
+import dm from "./../../../data/imgs/Categories/digital-marketing.png"
 
 const coursesData = [
     {
@@ -142,6 +147,34 @@ const coursesData = [
         "__v": 8
     }
 ]
+const categoryData = [
+    {
+        "index": "1",
+        "categoryName" : "Development",
+        "course_id" : "1",
+        "image" : coding
+    }, 
+    {
+        "index": "2",
+        "categoryName" : "Designing",
+        "course_id" : "2",
+        "image" : design
+    }, 
+    {
+        "index": "3",
+        "categoryName" : "Personality Development",
+        "course_id" : "3",
+        "image" : pd
+        
+    }, 
+    {
+        "index": "4",
+        "categoryName" : "Digital Marketing",
+        "course_id" : "4",
+        "image" : dm
+    }, 
+
+]
 
 const StuViewCourses = () => {
 
@@ -274,6 +307,16 @@ const StuViewCourses = () => {
                         <div className="stu-viewcourses-card-container">
                             {coursesData.map((course, index) => (
                                 <Card course />
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="stu-viewcourses-section-cover stu-viewcourses-section3-cover"></div>
+                    <div className="stu-viewcourses-section1 stu-viewcourses-section3">
+                        <h2>Top Categories</h2>
+                        <div className="stu-viewcourses-card-container">
+                            {categoryData.map((category, index) => (
+                                <CategoryCard category={category} />
                             ))}
                         </div>
                     </div>
