@@ -16,6 +16,7 @@ const CourseDetails = () => {
                
                 <div className="course-content">
                     <BasicTabs />
+                    <BasicTextFields />
                     <div className="dicussion-forum">
                     <DicussionForum/>
                     </div>
