@@ -1,0 +1,42 @@
+.choose-container {
+    display: flex;
+    margin-top: 40px;
+    border-radius: 15px;
+    overflow: hidden;
+  }
+  
+  .choose__content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .choose__content h2 {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .choose__background {
+    flex: 1;
+  }
+  
+  .choose__background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  @media (max-width: 768px) {
+    .choose-container {
+      flex-direction: column; 
+    }
+  
+    .choose__content {
+      padding: 20px;
+      text-align: center; 
+    }
+  
+    .choose__background img {
+      width: 100%;
+      height: auto; 
+    }
+  }
