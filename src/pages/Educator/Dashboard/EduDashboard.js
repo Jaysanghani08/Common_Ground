@@ -7,24 +7,29 @@ import { UilUser } from '@iconscout/react-unicons'
 import Cards from './Cards/Cards';
 import SimpleBarChart from './Graph/Graph';
 import BasicTable from './Table/Table'
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import getToken from '../../../services/getToken';
 import { getEducatorDashboard, getEducatorProfile } from '../../../services/Apis';
 import LoadingComponent from './../../Loading/Loading'
 
 function EduDashboard() {
 
+    
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [dashboardData, setdashboardData] = useState(null);
     const [profile, setProfile] = useState(null);
-
+    // const location = useLocation()
+    
     console.log(profile)
-
-
+    
+    
     const token = getToken('educator');
 
+    // location.reload();
+    
     useEffect(() => {
+        // window.location.reload(true);
         const fetchData = async () => {
             try {
                 if (token) {

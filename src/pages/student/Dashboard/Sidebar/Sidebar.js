@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { SidebarDataForStudent } from "../../../../data/Edusidebar";
+import logo from "./../../../../data/imgs/Logo.png"
 
 const Navbar = (props) => {
     const location = useLocation();
@@ -24,7 +25,8 @@ const Navbar = (props) => {
                         <span className="icon-bar"></span>{" "}
                     </button>
                     <NavLink className="navbar-brand page-scroll" to="#page-top">
-                        Common Ground
+                        {/* change the color of logo */}
+                        <img src={logo} alt="" height={40} /> 
                     </NavLink>{" "}
                 </div>
 
@@ -38,7 +40,7 @@ const Navbar = (props) => {
                             return (
                                 <li>
                                     <NavLink to={item.route} key={index} className='page-scroll'
-                                    style={location.pathname === item.route ? {color: "#4b11bf"} : {}}>
+                                    style={location.pathname === item.route ? {color: "0C356a"} : {}}>
                                             {item.heading}
                                     </NavLink>
                                 </li>
