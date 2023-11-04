@@ -11,6 +11,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Dialog from '@mui/material/Dialog';
 import './TabMenu.css';
 import CourseAccordion from './CourseAccordion';
+import FileUploadForm from '../Buttons/video_and_pdf_button';
 
 Dialog.propTypes = {
     open: PropTypes.bool.isRequired,
@@ -44,6 +45,7 @@ function CustomAccordion(props) {
                     ))}
                 </div>
                 {posts}
+                <FileUploadForm/>
             </AccordionDetails>
         </Accordion>
     );
