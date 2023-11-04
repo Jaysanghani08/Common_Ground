@@ -25,4 +25,16 @@
     font-weight: bold;
     display: flex;
  }
-  
+ .css-19kzrtu {
+  padding: 24px;
+  background-color: #0c356a;
+ }
+ .accordion{
+  font-size: large;
+ }
+ .css-vkc4v8-MuiTypography-root{
+  font-size: 2rem;
+ }
+ .accordion-week{
+  font-size: 16px;
+ }

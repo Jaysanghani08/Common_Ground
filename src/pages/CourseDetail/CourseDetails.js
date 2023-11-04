@@ -12,12 +12,19 @@ const CourseDetails = () => {
             <Sidebar />
             <div className="course-container">
                 <CourseHeader />
+               
                 <div className="course-content">
                     <BasicTabs />
+                    
+                <div className="dicussion-forum">
                     <DicussionForum/>
+                    </div>
+                    
                 </div>
                 
-            </div>
+             </div>
+                
+            
         </div>
     )
 }

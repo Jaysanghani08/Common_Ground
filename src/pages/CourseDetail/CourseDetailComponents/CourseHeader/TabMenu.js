@@ -23,12 +23,14 @@ function CustomAccordion(props) {
     const { title, pdfLink, assignmentLink, details, AssignmentTitle, pdfTitle, content, posts } = props;
 
     return (
-        <Accordion style={{ margin: '10px 0' }}>
+        <Accordion style={{ margin: '10px 0' }} className='accordion'>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography color="primary">{title}</Typography>
+              
+                <Typography color="primary" style={{fontSize: '18px' }}>{title}</Typography>
+                
             </AccordionSummary>
             <AccordionDetails>
-                <div>
+                <div className='accordion-week'>
                     <h5>{details}</h5>
                 </div>
                 <div>
@@ -153,15 +155,16 @@ export default function BasicTabs() {
     };
 
     return (
+        <div>
         <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="Item One" {...a11yProps(0)} />
-                    <Tab label="Item Two" {...a11yProps(1)} />
-                    <Tab label="Item Three" {...a11yProps(2)} />
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }} style={{ backgroundColor: 'white' }}>
+                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" style={{color: '#fff' }}>
+                    <Tab style={{fontSize: '18px' }} label="Item One" {...a11yProps(0)} />
+                    <Tab style={{fontSize: '18px' }} label="Item Two" {...a11yProps(1)} />
+                    <Tab style={{fontSize: '18px' }} label="Item Three" {...a11yProps(2)} />
                 </Tabs>
             </Box>
-            <CustomTabPanel value={value} index={0}>
+            <CustomTabPanel value={value} index={0} >
                 Item One
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
@@ -171,5 +174,6 @@ export default function BasicTabs() {
                 Item Three
             </CustomTabPanel>
         </Box>
+        </div>
     );
 }
