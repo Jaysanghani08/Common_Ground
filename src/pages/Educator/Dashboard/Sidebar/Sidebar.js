@@ -4,7 +4,7 @@ import { UilBars } from "@iconscout/react-unicons";
 import { SidebarData } from "../../../../data/Edusidebar";
 import { motion } from 'framer-motion';
 import { Link, NavLink,useLocation } from 'react-router-dom';
-import Logo  from './../../../../data/imgs/Logo.svg'
+import Logo  from './../../../../data/imgs/Logo.png'
 
 function Sidebar() {
     const [selected, setSelected] = useState(0);

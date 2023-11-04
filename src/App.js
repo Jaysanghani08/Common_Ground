@@ -20,6 +20,8 @@ import SmoothScroll from "smooth-scroll";
 import CourseDetails from "./pages/CourseDetail/CourseDetails";
 import HomePage from "./pages/HomePage/HomePage";
 import StuViewCourses from "./pages/student/ViewCourses/StuViewcourses";
+import Logout from "./pages/Logout/Logout"
+import EnrolledCourses from "./pages/student/EnrolledCourses/EnrolledCourses";
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
     speed: 1000,
@@ -38,17 +40,19 @@ function App() {
                     <Route index element={<StuDashboard />} />
                     <Route path='register' element={<StudentRegister />} />
                     <Route path='login' element={<StudentLogin />} />
+                    <Route path='logout' element={<Logout />} />
                     <Route path='forgetpassword' element={<StudentFP />} />
                     <Route path='resetpassword/:id/:token' element={<ResetPass />} />
                     <Route path='dashboard' element={<StuDashboard />} />
                     <Route path='view-courses' element={<StuViewCourses />} />
-                    <Route path='enrolled-courses' element={<StuDashboard />} />
+                    <Route path='enrolled-courses' element={<EnrolledCourses />} />
                     <Route path='profile' element={<StuDashboard />} />
                 </Route>
                 <Route path='/educator'>
                     <Route index element={<EduRegister />} />
                     <Route path='register' element={<EduRegister />} />
                     <Route path='login' element={<EduLogin />} />
+                    <Route path='logout' element={<Logout />} />
                     <Route path='forgetpassword' element={<EduFP />} />
                     <Route path='resetpassword/:id/:token' element={<EduResetPass />} />
                     <Route path='dashboard' element={<EduDashboard />} />
