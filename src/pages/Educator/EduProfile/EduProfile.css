@@ -1,188 +1,226 @@
-.ep-profile{
-    /* width: -webkit-fill-available; */
-    /* margin: 50px; */
+.ep-profile{ 
+    /* height: fit-content; */
+    width: 100vw;
     border-radius: 5px;
-    /* margin-left: 150px; */
     display: flex;
     justify-content: center;
-    padding: 150px;
-    /* background: #4B11BF; */
-    /* background: cadetblue; */
-    /* background-color: #231F20; */
-    box-shadow: 0px 2px 20px 5px black;
-    
+    align-items: center;
+    flex-direction: column;
+    /* padding: 1.5rem; */
+    background-color: #0c356a;
+    position: relative;
 }
+.ep-sub-profile{
+    /* box-shadow: 0px 0px 20px 5px black; */
+    height: 600px;
+    width: 850px;
+    position: relative;
+    /* background-color: #0c356a; */
+}
+.ep-profile::before{
+    content: ' ';
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    /* width: 1500px; */
+    left: 0px;
+    bottom: 0px;
+    background-image: url(/public/images/Profilepage.jpg);
+    background-position: center center;
+    /* background-attachment: fixed; */
+    background-size: cover;
+    opacity: 0.3;
+}
+
+.ep-pro-heading{
+    font-size: 3rem ;
+    color: white;
+    text-decoration: underline;
+}
+
 .ep-upper-container{
-    height: 200px;
-    width: -webkit-fill-available;
-    background-color: aqua;
+    height: 300px;
+    /* width: -webkit-fill-available; */
+    /* display: inline; */
     display: flex;
     position: relative;
-    box-shadow: 0px 0px 20px 5px black;
-    /* box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); */
+    color: #f2f2f2;
+    /* padding-left: 150px; */
+    /* margin-left: 150px; */
 }
-.ep-background-img{
-    height: 200px;
-    width: -webkit-fill-available;
-}
-
-/* .ep-image-container{
-    background-color: black; 
+.ep-image-container{
+    height: 300px;
+    width: 400px;
+    margin-left: 100px;
+    margin-top: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100px;
-    width: 100px;
-} */
+}
 .ep-image-container img{
     background-color: white;
-    border-radius: 20px;
-    /* border-radius: 50%; */
-    height: 150px;
-    width: 150px;
-    margin-top: 220px;
-    margin-left: 50px;
-    /* margin-left: 570px; */
-    box-shadow: 3px 3px ;
-    position: absolute;
+    height: 200px;
+    width: 170px;
     padding: 5px;
-    left: 0px;
-    color: black;
 }
-
-.ep-lover-container{
-    box-shadow: 0px 0px 20px 5px black;
-    background-color: #f2f2f2;
-    /* background-color: burlywood; */
-    width: -webkit-fill-available;
-    padding: 35px;
+.ep-username{
+    /* color: black; */
+    margin-top: 10px;
+    font-weight: bolder;
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ep-personalinfo{
     padding-top: 50px;
-    text-align: center;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    height: 300px;
+    width: -webkit-fill-available;
+    /* background-color: grey; */
 }
 
-.ep-profileinfo {
-    margin-top: 0px;
-    margin-left: -300px;
+.ep-profilename {
+    margin-left: 50px;
     height: 53px;
     width: auto; 
-    font-size: 30;
-    color: black;
+    font-size: 30px;
+    /* color: black; */
     font-weight: bold;
-}
-.ep-first-icon{
-    width: 180px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;  
-}
-.ep-sec-icon{
-    width: 105px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    margin-left: 100px;
 }
 .ep-Icon{
     width: 500px;
     display: flex;
     align-items: center;
-    margin-left: 250px;
+    margin-left: 50px;
     /* margin-left: 400px; */
     margin-top: 10px;
-    color: black;
-    font-size: medium;
+    /* color: black; */
+    font-size: 20px;
 }
-.ep-about{
-    color: black;
-    font-size: medium;
-    padding:15px;
+.ep-age-icon{
+    width: 210px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;  
+}
+.ep-country-icon{
+    width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 60px;
 }
 .ep-email{
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    color: black;
+    margin-left: 50px; 
+    margin-top: 20px;
+    /* color: black; */
+    width: auto;
+    font-size: 20px;
+}
+.ep-email1{
+    margin-left: 20px;
 }
 .ep-mo-number{
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    color: black;
-    margin-top: 10px;
+    margin-left: 50px;
+    margin-top: 20px;
+    /* color: black; */
+    width: auto;
+    font-size: 20px;
+}
+.ep-mo-number1{
+    margin-left: 20px;
 } 
-.ep-find{
-    width: 160px;
-    margin-left: 30px;
-    margin-top: 20px;
-    font-size: medium;
+
+.ep-lover-container{
+    /* background-color: bisque; */
+    /* width: fit-content; */
+    padding: 35px;
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    position: relative;
+    color: #f2f2f2;
 }
+
 .ep-about-head{
-    font-size: 20;
-    color: black;
-    margin-top: 20px;
-    font-weight: bold;
-}
-.ep-find-head{
-    font-size: large;
-    color: black;
-    font-weight: bold;
-}
-.ep-button{
-    color: white;
-    margin-top: 30px;
-    background-color: #4B11BF;
+    font-size: 20px;
+    /* color: black; */
     font-weight: bolder;
-    border-radius: 10px;
+}
+
+.ep-about{
+    /* color: black; */
+    font-size: 17px;
+    padding:15px;
+    margin-top: 20px;
+}
+.ep-edit-button{
+    width: 200px;
+    height: 40px;
+    color: white;
+    display: block;
+    margin-top: 50px;
+    margin-left: 280px;
+    background-color: #0c356a;
+    font-weight: bolder;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     padding: 7px;
+    border-width: 3px;
+    border-color: #f2f2f2;
+    border-style: solid;
     text-decoration: none;
 }
-.ep-button:hover{
+
+.ep-edit-button:hover{
     color: white;
     background-color: #1a083f;
 }
-/* @media (max-width:600px){
+
+@media (max-width:600px){
+    .ep-profile{
+        height: fit-content;
+        width: fit-content;
+    }
+    .ep-sub-profile{
+        height: fit-content;
+    }
     .ep-upper-container {
-        width:auto;
+        width: fit-content;
+        display: inline-block;
     }
-    .ep-lover-container{
-        width:auto;
+    .ep-image-container{
+        width: auto;
+        margin-left: 50px;
     }
-    .ep-background-img{
-        width:-webkit-fill-available;
-    }
-    .ep-image-container img{
-       margin-left: 0px; 
+    .ep-personalinfo{
+        width: auto;
+        margin-left: 250px;
     }
     .ep-Icon{
-        width: auto;
+        display: inline-block;
+    }
+    .ep-country-icon{
         margin-left: 0px;
-    }
-    .ep-find{
-        width: auto;
-    }
-
-} */
-
-/* @media (min-width: 601px) and (max-width: 1200px){
-    .ep-upper-container {
-        width:auto;
+        margin-top: 20px;
     }
     .ep-lover-container{
-        width:auto;
+        width: fit-content;
+        text-align: center;
     }
-    .ep-background-img{
-        width:-webkit-fill-available;
-    }
-    .ep-image-container img{
-        margin-left: 0px; 
-     }
-    .ep-Icon{
-        width: auto;
-        margin-left: 160px;
-        margin-top: -150px;
-        margin-bottom: 130px;
+    .ep-about{
+        width: -webkit-fill-available;
+        text-align: center;
     }
 
-} */
+}
+
+@media (min-width: 601px) and (max-width: 1200px){
+    .ep-profile{
+        height: fit-content;
+        width: fit-content;
+    }
+
+}
