@@ -166,16 +166,14 @@ hr {
   font-family: "Raleway", sans-serif;
   text-transform: uppercase;
   color: #fff;
-  background-color: #0174BE;
-  background-image: linear-gradient(to right, #0174BE 0%, #0C356a 100%);
-  padding: 14px 34px;
+  background-color: #0c356a;
+  padding-left: 15px;
   letter-spacing: 1px;
   margin: 0;
   font-size: 15px;
   font-weight: 500;
-  border-radius: 25px;
-  transition: all 0.5s linear;
-  border: 0;
+  border-radius: 0;
+  border: 2px solid;
 }
 .btn-custom:hover,
 .btn-custom:focus,
@@ -208,7 +206,7 @@ a:focus,
   display: table;
   width: 100%;
   padding: 0;
-  background: url(../img/intro-bg.jpg) center center no-repeat;
+  background: url(../images/Student\ dash.jpg) center center no-repeat;
   background-color: #e5e5e5;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -216,7 +214,7 @@ a:focus,
   -o-background-size: cover;
 }
 .intro .overlay {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(12, 53, 106, 0.7);
 }
 .intro h1 {
   font-family: "Raleway", sans-serif;
