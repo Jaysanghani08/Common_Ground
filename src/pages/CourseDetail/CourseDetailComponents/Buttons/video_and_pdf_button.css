@@ -1,0 +1,11 @@
+.post-pdf{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.post-video{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

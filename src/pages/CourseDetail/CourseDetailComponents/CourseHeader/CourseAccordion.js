@@ -13,7 +13,7 @@ import Button from '@mui/material/Button';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import { useMediaQuery, useTheme } from '@mui/material';
-
+import "./CourseAccordion.css";
 function CourseContent(props) {
     const { content } = props;
     return (
@@ -64,7 +64,7 @@ export function CourseAccordion(props) {
     const fullScreenDialog = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
-        <div>
+        <div className='accordion'>
             <IconButton onClick={toggleContent} style={{ color: 'blue' }}>
                 {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                 {expanded ? 'Hide Post' : 'Show Post'}

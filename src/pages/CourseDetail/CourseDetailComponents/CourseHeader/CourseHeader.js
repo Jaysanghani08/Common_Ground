@@ -2,7 +2,7 @@ import React from 'react'
 import "./CourseHeader.css"
 import Star from "./../../../Educator/EduOfferedCourses/stars"
 import { FaCalendarDay, FaChalkboardTeacher, FaRupeeSign, FaUserFriends } from "react-icons/fa";
-
+import CourseImg from "./../../../../data/imgs/couse_img.jpg";
 const CourseHeader = () => {
     return (
         <div className="course-header">
@@ -14,6 +14,7 @@ const CourseHeader = () => {
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed dolor, et veniam commodi quasi perferendis, quae, iure non porro laudantium assumenda voluptate soluta nam magnam dolorum corrupti nihil? Aliquam, cupiditate.
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed dolor, et veniam commodi quasi perferendis, quae, iure non porro laudantium assumenda voluptate soluta nam magnam dolorum corrupti nihil? Aliquam, cupiditate.
                 </h5>
+                <img src={CourseImg } art=''></img>
             </div>
             <div className="course-rating">
                 <Star stars={3.9} />

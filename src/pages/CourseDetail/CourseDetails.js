@@ -4,6 +4,7 @@ import "./CourseDetails.css"
 import CourseHeader from './CourseDetailComponents/CourseHeader/CourseHeader'
 import BasicTabs from './CourseDetailComponents/CourseHeader/TabMenu'
 import DicussionForum from './CourseDetailComponents/DicussionForum/DicussionForum'
+import BasicTextFields from './CourseDetailComponents/Buttons/button'
 
 
 const CourseDetails = () => {
@@ -12,13 +13,20 @@ const CourseDetails = () => {
             <Sidebar />
             <div className="course-container">
                 <CourseHeader />
+               
                 <div className="course-content">
                     <BasicTabs />
+                    <BasicTextFields />
+                    <div className="dicussion-forum">
                     <DicussionForum/>
+                    </div>
+                    </div>
                 </div>
                 
-            </div>
-        </div>
+             </div>
+                
+            
+        
     )
 }
 
