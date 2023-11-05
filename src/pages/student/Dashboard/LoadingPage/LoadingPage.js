@@ -9,10 +9,10 @@ const LoadingPage = (props) => {
             <div className="row">
               <div className="col-md-8 col-md-offset-2 intro-text">
                 <h1>
-                Start learning today.
+                Start learning today
                   <span></span>
                 </h1>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt doloribus ipsa inventore illum laboriosam numquam tempora sed consequuntur in officia quasi fuga accusantium dolores, natus omnis eos dolor molestias placeat?</p>
+                <p>Welcome to COMMON GROUND , Your gateway to a world of online lerning and knowledge. Whether you're looking to advance your career, explore new interests, or enhance your skills, our online courses and resources offer a flexible and convenient way to achieve your educational goals.</p>
                 <a
                   href="#courses_main_container"
                   className="btn btn-custom btn-lg page-scroll"
