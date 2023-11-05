@@ -12,6 +12,7 @@ import EduFP from "./pages/Educator/EduForgetPass/EduFP"
 import EduResetPass from "./pages/Educator/EduResetPass/EduResetPass"
 import EduDashboard from "./pages/Educator/Dashboard/EduDashboard";
 import EduProfile from "./pages/Educator/EduProfile/EduProfile"
+import EditEduProfile from "./pages/Educator/EduProfile/EditEduProfile"
 import EduOfferedCourses from "./pages/Educator/EduOfferedCourses/EduOfferedCourses";
 import EduCreateCourse from "./pages/Educator/CreateCourse/EduCreateCourse";
 import Example from "./pages/tmp";
@@ -57,6 +58,7 @@ function App() {
                     <Route path='resetpassword/:id/:token' element={<EduResetPass />} />
                     <Route path='dashboard' element={<EduDashboard />} />
                     <Route path='profile' element={<EduProfile />} />
+                    <Route path='update' element={<EditEduProfile />} />
                     <Route path='create-course' element={<EduCreateCourse />} />
                     <Route path='offered-courses' element={<EduOfferedCourses />} />
                 </Route>
