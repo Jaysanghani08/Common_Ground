@@ -112,7 +112,7 @@ const EduProfile = () => {
 
         <div className='ep-edbutton'>
 
-        <Link to={'/update'} className='ep-edit-button'>Edit Profile</Link>    
+        <Link to={'/educator/update'} className='ep-edit-button'>Edit Profile</Link>    
         {/* <button to={'/update'} className='ep-button'>Edit Profile</button>     */}
 
         </div>
