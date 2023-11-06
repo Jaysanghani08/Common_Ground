@@ -243,19 +243,28 @@ exports.getEnrolledCourse = async (req, res, next) => {
 
 exports.getCourse = async (req, res, next) => {
     try {
-        const course = await Course.findById({_id :req.query.courseId, visibility: 'public'}).select('_id courseTitle courseDescription coursePrice courseLevel courseCode courseSections courseAssignments language prerequisites courseFeedback').exec();
+        const course = await Course.findById({_id :req.params.courseId, visibility: 'public'}).select('_id courseTitle courseDescriptionLong coursePrice courseLevel courseCode courseSections courseAssignments language prerequisites courseFeedback discussionForum enrolledStudents createdBy').populate('courseSections').populate('courseAssignments').populate('discussionForum').populate({path: 'enrolledStudents', model: 'Student', select: 'username'}).exec();
         if (!course) {
             return res.status(404).json({
                 message: 'Course not found'
             });
         }
 
+        const educator = await Educator.findById(course.createdBy).select('fname lname username').exec();
+        if (!educator) {
+            return res.status(404).json({
+                message: 'Educator not found'
+            });
+        }
+
+        course.createdBy = educator;
+
         return res.status(200).json({
             course: course
         });
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
