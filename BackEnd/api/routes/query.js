@@ -17,6 +17,6 @@ router.get('/dashboard', checkAuth, QueryController.getDashboard);
 router.get('/profile', checkAuth, QueryController.getProfile);
 router.get('/getCourses', QueryController.getCourses);
 router.get('/enrolled-course', checkAuth, QueryController.getEnrolledCourse);
-router.get('/getCourse', checkAuth, checkEnroll, QueryController.getCourse);
+router.get('/getCourse/:courseId', checkAuth, checkEnroll, QueryController.getCourse);
 
 module.exports = router;
