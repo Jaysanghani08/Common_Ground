@@ -10,12 +10,13 @@ const Student = require('../models/student');
 exports.getAllCourse = async (req, res, next) => {
     try {
         const courses = await Course.find();
-        res.status(200).json({
+
+        return res.status(200).json({
             courses: courses
         });
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
@@ -23,20 +24,20 @@ exports.getAllCourse = async (req, res, next) => {
 
 exports.getCourseByEducator = async (req, res, next) => {
     try {
-        const courses = await Course.find({createdBy: req.userData.userId}).exec();
+        const courses = await Course.find({ createdBy: req.userData.userId }).select('_id courseTitle courseDescription coursePrice courseLevel courseCode language rating createdBy').populate('createdBy', 'fname lname').exec();
 
         if (!courses) {
             return res.status(404).json({
                 message: 'This educator has no courses'
             });
         }
-        console.log(courses);
+
         return res.status(200).json({
             courses: courses
         });
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
@@ -57,7 +58,7 @@ exports.getEnrolledCourse = async (req, res, next) => {
         });
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
@@ -95,12 +96,13 @@ exports.searchFilter = async (req, res, next) => {
         filters.visibility = "public";
         console.log(filters);
         const courses = await Course.find(filters).select('_id courseTitle courseDescription coursePrice courseLevel courseCode language prerequisites').exec();
+
         return res.status(200).json({
             courses: courses
         });
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
@@ -126,17 +128,11 @@ exports.getDashboard = async (req, res, next) => {
             console.log(totalEarning, courses[i].coursePrice, courses[i].enrolledStudents.length);
         }
 
-        // avg rating
-        let avgRating = 0;
-        let count = 0;
+        let rate = 0;
         for (let i = 0; i < courses.length; i++) {
-            for (let j = 0; j < courses[i].courseFeedback.length; j++) {
-                avgRating += courses[i].courseFeedback[j].rating;
-                count++;
-            }
+            rate += courses[i].rating;
         }
-        avgRating /= count;
-
+        let avgRating = rate / courses.length;
         return res.status(200).json({
             totalEarning: totalEarning,
             totalStudent: totalStudent,
@@ -146,7 +142,7 @@ exports.getDashboard = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
@@ -181,7 +177,7 @@ exports.getProfile = async (req, res, next) => {
         });
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
@@ -200,7 +196,7 @@ exports.getCourses = async (req, res, next) => {
         });
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
@@ -235,7 +231,7 @@ exports.getEnrolledCourse = async (req, res, next) => {
     } catch
         (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
