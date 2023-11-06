@@ -387,6 +387,7 @@ exports.rateCourse = async (req, res, next) => {
                 comment: req.body.comment
             };
 
+            course.rating = (course.rating + req.body.rating) / (course.courseFeedback.length + 1);
             course.courseFeedback.push(feedback);
             await course.save();
         }

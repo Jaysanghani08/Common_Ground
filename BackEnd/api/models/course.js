@@ -90,6 +90,10 @@ const courseSchema = new mongoose.Schema({
     courseFeedback: {
         type: [feedback],
     },
+    rating: {
+        type: Number,
+        default: 0,
+    },
     discussionForum: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Discussion',
