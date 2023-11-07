@@ -89,7 +89,7 @@ exports.editCourse = async (req, res, next) => {
         const newPath = path.join(__dirname, `../../uploads/course/${newFolderName}`);
         console.log(newPath);
 
-        if (req.file && oldThumbLink != null) {
+        if (req.file && oldThumbLink != null && course.courseTitle != req.body.courseTitle) {
             oldThumbLink = newPath + '/' + path.basename(oldThumbLink);
             console.log(oldThumbLink);
             deleteFile(oldThumbLink);
