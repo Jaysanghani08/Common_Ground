@@ -104,7 +104,8 @@ const EduProfile = () => {
 
                     <div className='ep-lover-container'>
 
-                        <div className='ep-about-head'>About</div>
+        <Link to={'/educator/update'} className='ep-edit-button'>Edit Profile</Link>    
+        {/* <button to={'/update'} className='ep-button'>Edit Profile</button>     */}
 
                         {about.map(Sahil => (
                             <div className='ep-about'>I hold {Sahil.Degree} in {Sahil.Field}, and my educational background is complemented by {Sahil.Place}. This academic foundation forms the basis of my commitment to providing high-quality education in my course.</div>
