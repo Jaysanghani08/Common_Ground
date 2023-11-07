@@ -2,17 +2,17 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const fs = require('fs');
 
 const Section = require('../models/section');
 const Educator = require('../models/educator');
 const Course = require('../models/course');
 const {deleteFolder} = require("../../utils/deleteFile");
+const path = require("path");
 
 
 exports.createSection = async (req, res, next) => {
     try {
-        req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
-
         const course = await Course.findById(req.params.courseId).exec();
         if (!course) {
             return res.status(404).json({
@@ -49,8 +49,6 @@ exports.createSection = async (req, res, next) => {
 
 exports.editSection = async (req, res, next) => {
     try {
-        req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
-
         const course = await Course.findById(req.params.courseId).exec();
         if (!course) {
             return res.status(404).json({
@@ -70,6 +68,26 @@ exports.editSection = async (req, res, next) => {
                 message: 'Section not found'
             });
         }
+        const oldDirectoryName = course.courseCode + '-' + course.courseTitle + '/' + section.title;
+        const newDirectoryName = course.courseCode + '-' + course.courseTitle + '/' + req.body.title;
+
+        const courseDirectory = path.join('./uploads/course', oldDirectoryName);
+        const newCourseDirectory = path.join('./uploads/course', newDirectoryName);
+
+        if (fs.existsSync(courseDirectory)) {
+            fs.renameSync(courseDirectory, newCourseDirectory);
+            console.log('Directory already exists and renamed');
+        }
+
+        for (let i = 0; i < section.posts.length; i++) {
+            for (let j = 0; j < section.posts[i].attachments.length; j++) {
+                let filePath = section.posts[i].attachments[j];
+                filePath = filePath.replace(section.title, req.body.title);
+                section.posts[i].attachments[j] = filePath;
+            }
+        }
+
+        await section.save();
 
         const updateData = req.body;
 
@@ -89,8 +107,6 @@ exports.editSection = async (req, res, next) => {
 
 exports.deleteSection = async (req, res, next) => {
     try {
-        req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
-
         const course = await Course.findById(req.params.courseId).exec();
         if (!course) {
             return res.status(404).json({
@@ -111,7 +127,9 @@ exports.deleteSection = async (req, res, next) => {
             });
         }
         const sectionPath = `uploads/course/${course.courseCode}-${course.courseTitle}/${section.title}`;
-        deleteFolder(sectionPath);
+        if (fs.existsSync(sectionPath)){
+            deleteFolder(sectionPath);
+        }
 
         await Course.updateOne({_id: req.params.courseId}, {$pull: {courseSections: req.params.sectionId}}).exec();
 
@@ -129,7 +147,6 @@ exports.deleteSection = async (req, res, next) => {
 }
 exports.addPost = async (req, res, next) => {
     try {
-        req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
         const course = await Course.findById(req.params.courseId).exec();
 
         if (!course) {
@@ -178,7 +195,6 @@ exports.addPost = async (req, res, next) => {
 
 exports.editPost = async (req, res, next) => {
     try {
-        req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
         const course = await Course.findById(req.params.courseId).exec();
 
         if (!course) {
@@ -208,6 +224,16 @@ exports.editPost = async (req, res, next) => {
             });
         }
 
+        // if (req.file)
+        // {
+        //     const newTitle = req.body.title;
+        //     let filePath = post.title;
+        //     const lastIndex = filePath.lastIndexOf('\\');
+        //     filePath = filePath.slice(0, lastIndex);
+        //     filePath = filePath + '\\' + newTitle;
+        //     fs.renameSync(post.attachments[0], filePath);
+        //     console.log(filePath);
+        // }
         await section.posts.id(req.params.postId).set(req.body);
 
         await section.save();
@@ -227,7 +253,6 @@ exports.editPost = async (req, res, next) => {
 
 exports.deletePost = async (req, res, next) => {
     try {
-        req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
         const course = await Course.findById(req.params.courseId).exec();
 
         if (!course) {

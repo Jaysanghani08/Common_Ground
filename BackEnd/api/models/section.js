@@ -4,6 +4,7 @@ const post = new mongoose.Schema({
     title: {
         type: String,
         required: true,
+        unique: true
     },
     body: {
         type: String,
@@ -13,7 +14,7 @@ const post = new mongoose.Schema({
     },
     createdOn: {
         type: Date,
-        default: Date.now,
+        default: Date.now(),
     }
 });
 
@@ -21,13 +22,14 @@ const sectionSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
+        unique: true
     },
     posts: {
         type: [post],
     },
     createdOn: {
         type: Date,
-        default: Date.now,
+        default: Date.now(),
     }
 });
 
