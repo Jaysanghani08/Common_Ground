@@ -6,7 +6,7 @@ const LoadingPage = (props) => {
       <div className="intro">
         <div className="overlay">
           <div className="container">
-            <div className="row">
+            <div className="row" style={{width: "100%"}}>
               <div className="col-md-8 col-md-offset-2 intro-text">
                 <h1>
                 Start learning today

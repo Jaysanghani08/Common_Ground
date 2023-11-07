@@ -9,7 +9,7 @@
 .courses_card {
     transition: transform .2s;
     border-radius: 1rem;
-    width: 280px;    
+    width: 320px;    
     box-shadow: 5px 6px 22px -5px rgba(75, 17, 191, 0.66);
     -webkit-box-shadow: 5px 6px 22px -5px rgba(75, 17, 191, 0.66);
     -moz-box-shadow: 5px 6px 22px -5px rgba(75, 17, 191, 0.66);
@@ -20,42 +20,39 @@
 }
 
 .courses_product-detail {
-    padding: 20px 20px;
+    padding: 20px auto;
     font-size: 15px;
     color: gray;
 }
 
 .courses_product-detail h2 {
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 2.5rem;
+    font-weight: 800;
     height: 4.5rem;
-    color: #f35e3d;
+    color: rgba(12, 53, 106);
     letter-spacing: 2px;
     padding-bottom: 10px;
     text-transform: uppercase;
 }
+
 .courses_description {
-    max-height: 6em;   
+    color: rgba(12, 53, 106);
+    font-size: 1.5rem;
+    height: 8em;   
 }
 
 .courses_product-desc{
+    /* width: 200px; */
+    padding: 1.5rem 0;
     margin-top: 8px
 }
 
-/* .courses_back-text {
-    display: inline-block;
-    font-size: 90px;
-    font-weight: 900;
-    margin-left: 9px;
-    margin-top: 5px;
-    opacity: 0.1;
-} */
-
 .courses_card-body {
-    height: 450px;
-    background: #fff;
+    /* overflow: hidden; */
+    height: 500px;
+    background: rgba(255, 255, 255, 0.7);
     border-radius: 1rem;
-    padding: 20px 20px 5px 20px;
+    padding: 40px 20px 5px 20px;
 }
 
 .courses_product-title {
@@ -66,150 +63,41 @@
     text-transform: uppercase;
 }
 
-.courses_product-title b {
-    font-weight: 900;
-    letter-spacing: 0px;
-}
-
-.courses_badge {
-    position: relative;
-    font-size: 10px;
-    font-weight: 300;
-    color: #fff;
-    background: #11e95b;
-    padding: 2px 5px;
-    border-radius: 4px;
-    top: -2px;
-    margin-left: 5px;
-}
 
 .courses_product-caption {
     display: block;
-    padding: 0 20px;
-    font-size: 15px;
+    padding: 1.5rem 0;
+    color: rgba(12, 53, 106);
+    font-size: 2rem;
     font-weight: 400;
     text-transform: uppercase;
 }
 
-.courses_product-rating {
-    padding: 0 20px;
-    font-size: 13px;
-    color: #f35e3d;
-}
 
-/* .courses_product-rating i.grey {
-    color: #acacab;
-} */
-
-.courses_product-size h4 {
-    font-size: 11px;
-    padding: 0 21px;
-    margin-top: 15px;
-    padding-bottom: 10px;
-    text-transform: uppercase;
-}
-
-.ul-size {
-    margin-left: 15px;
-}
-
-.ul-size li {
-    list-style: none;
-    float: left;
-    margin-right: 20px;
-}
-
-.ul-size li a {
-    display: inline-block;
-    text-decoration: none;
-    font-size: 11px;
-    width: 22px;
-    height: 22px;
-    border-radius: 100%;
-    text-align: center;
-    line-height: 23px;
-    color: #000;
-}
-
-.courses_product-size:before,
-.courses_product-size:after {
-    content: "";
-    display: block;
-    clear: both;
-}
-
-.courses_product-color h4 {
-    font-size: 11px;
-    padding: 0 21px;
-    /* margin-top: 20px; */
-    /* padding-bottom: 20px; */
-    text-transform: uppercase;
-}
-
-.courses_ul-color {
-    margin-left: 27px;
-}
-
-.courses_ul-color li {
-    list-style: none;
-    float: left;
-    margin-right: 20px;
-}
-
-.courses_ul-color li a {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    border-radius: 100%;
-}
-
-.courses_ul-color li a.orange {
-    background: #f35e3d;
-}
-
-.courses_ul-color li a.green {
-    background: #11e95b;
-}
-
-.courses_ul-color li a.yellow {
-    background: #ffd414;
-}
-
-.courses_ul-color li a.courses_active:after {
-    position: absolute;
-    content: "";
-    display: inline-block;
-    border: 1px solid #f35e3d;
-    width: 24px;
-    height: 24px;
-    border-radius: 100%;
-    margin-left: -5px;
-    margin-top: -5px;
+.courses_product-color > h4{
+    font-family: inherit;
+    color: rgba(12, 53, 106);
 }
 
 .courses_product-price {
+    color: rgba(12, 53, 106);
     display: flex;
+    font-size: 2rem;
+    font-weight: 600;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 20px;
+    padding: 20px 0;
 
 }
 
 .courses_product-price button {
     margin-left: 5px;
-    background-color: #f35e3d;
+    border: 2px solid #fff;
+    border-radius: 0;
+    font-weight: 900;
+    font-size: 1.7rem;
+    height: 45px;
+    background-color: rgba(12, 53, 106);
     color: white;
     cursor: pointer;
-}
-
-.yt {
-    position: fixed;
-    padding: 7px 10px 3px 10px;
-    top: 5px;
-    right: 5px;
-    background: rgba(0, 0, 0, 0.1);
-}
-
-.yt:hover {
-    background: rgba(0, 0, 0, 0.2);
 }

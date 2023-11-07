@@ -168,16 +168,6 @@
     text-transform: uppercase;
 }
 
-.stu-viewcourses-courses_product-caption {
-    display: block;
-    /* padding: 0 20px; */
-    font-size: 2.3rem;
-    color: #fff;
-    font-weight: 600;
-    margin-top: 2rem;
-    /* text-transform: uppercase; */
-}
-
 .stu-viewcourses-enrolled-students {
     margin-top: 1rem;
 }
@@ -190,6 +180,7 @@
 
 .courses_product-rating {
     /* padding: 0 20px; */
+    margin : 1.5rem auto;
     font-size: 13px;
     color: #f35e3d;
 }
