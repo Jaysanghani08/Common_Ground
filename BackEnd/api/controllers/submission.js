@@ -17,11 +17,16 @@ const {deleteFile, deleteFolder} = require("../../utils/deleteFile");
 
 exports.submitSubmission = async (req, res, next) => {
     try {
-        req.userData = jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
         const assignment = await Assignment.findById(req.params.assignmentId);
         if (!assignment) {
             return res.status(404).json({
                 message: "Assignment not found"
+            });
+        }
+
+        if (assignment.dueDate < Date.now()) {
+            return res.status(401).json({
+                message: "Assignment submission time is over"
             });
         }
 
