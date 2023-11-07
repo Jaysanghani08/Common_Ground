@@ -33,36 +33,31 @@ const courseSchema = new mongoose.Schema({
         min: 50,
         required: true
     },
-    coursePrice: {
-        type: Number,
-        default: 0,
-    },
-    thumbnail: {
-        type: String,
-        required: true
-    },
-    tags: {
-        type: [String],
-        required: true
-    },
-    courseLevel: {
-        type: String, // You can specify 'beginner', 'intermediate', 'advanced', etc.
-        required: true,
-        trim: true
-    },
     courseCode: {
         type: String,
         unique: true,
         required: true,
         match: /^[a-zA-Z]+[0-9]+$/,
     },
-    dateCreated: {
-        type: Date,
-        default: Date.now(),
+    courseLevel: {
+        type: String, // You can specify 'beginner', 'intermediate', 'advanced', etc.
+        required: true,
+        trim: true
+    },
+    coursePrice: {
+        type: Number,
+        default: 0,
+    },
+    tags: {
+        type: [String],
+        required: true
     },
     language : {
         type : String,
         required : true,
+    },
+    prerequisites: {
+        type: [String],
     },
     courseSections: {
         type: [mongoose.Schema.Types.ObjectId],
@@ -72,20 +67,17 @@ const courseSchema = new mongoose.Schema({
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'Assignment',
     },
-    prerequisites: {
-        type: [String],
-    },
     visibility: {
         type: String,
         default: 'public',
     },
-    createdBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Educator',
-    },
     enrolledStudents: {
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'Student',
+    },
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Educator',
     },
     courseFeedback: {
         type: [feedback],
@@ -98,8 +90,16 @@ const courseSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Discussion',
     },
+    thumbnail: {
+        type: String,
+        required: true
+    },
     courseCertificate: {
         type: String,
+    },
+    dateCreated: {
+        type: Date,
+        default: Date.now(),
     },
 });
 
