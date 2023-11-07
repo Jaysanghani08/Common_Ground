@@ -12,12 +12,24 @@
 }
 
 .maindash{
-    padding: 20px 30px;
+    padding: 4rem;
+    /* height: fit-content; */
     display: flex;
+    overflow: hidden;
     flex-direction: column;
     justify-content: space-between;
     /* flex-wrap: wrap; */
     align-items: left;
+    margin-top: 83px;
+    background-image: url('./../../../data/imgs/StuDashCourseSec.jpg') ;
+    /* background: url(../images/Student\ dash.jpg) center center no-repeat; */
+  /* background-color: #e5e5e5; */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  /* background-attachment: fixed; */
+
 }
 
 .header{
@@ -53,7 +65,9 @@
 .graphcal{
     display: flex;
     flex-wrap: wrap;
-
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 72px;
 }
 .courses{
     color: black;

@@ -10,6 +10,7 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import getToken from '../../../services/getToken';
 import { getEducatorDashboard, getEducatorProfile } from '../../../services/Apis';
 import LoadingComponent from './../../Loading/Loading'
+import Navbar from '../../student/Dashboard/Sidebar/Sidebar';
 
 function EduDashboard() {
 
@@ -74,20 +75,20 @@ function EduDashboard() {
 
     return (
         <>
-            <div className="container1">
-                <Siderbar />
+            {/* <div className="container1"> */}
+               <Navbar/>
                 <div className="maindash">
                     <div className="header">
                         <div className="heading">
                             <h1>Hello <span>{profile.fname} !</span> </h1>
                         </div>
-                        <div className="profilephoto" onClick={navigateToProfile}>
+                        {/* <div className="profilephoto" onClick={navigateToProfile}>
                             {
                             profile && profile.profilePic ? 
                             <img src={`http://localhost:8000/${profile.profilePic.replace(/\\/g, '/').slice(8)}`} alt="user" width={150} srcset="" />
                             :<UilUser size='100' />
                             }
-                        </div>
+                        </div> */}
 
                     </div>
                     <div className="cards">
@@ -105,11 +106,11 @@ function EduDashboard() {
                             <Calendar />
                         </div>
                     </div>
-                    <div className="courses">
+                    {/* <div className="courses">
                         <BasicTable />
-                    </div>
+                    </div> */}
                 </div>
-            </div>
+            {/* </div> */}
         </>
     )
 }
