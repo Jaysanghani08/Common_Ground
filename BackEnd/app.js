@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
-
+const path = require('path');
 
 const app = express();
 dotenv.config({path: "./config.env"});
@@ -36,6 +36,11 @@ app.use((req, res, next) => {
     }
     next();
 });
+
+// static files
+const checkAuth = require("./api/middleware/checkAuth");
+// app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'uploads')));
 
 // Request handling
 app.use("/student", studentRoutes);
