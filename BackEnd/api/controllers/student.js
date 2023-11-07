@@ -133,7 +133,7 @@ exports.userEdit = async (req, res, next) => {
         }
 
         if (req.file) {
-            if (user.profilePic != null) {
+            if (user.profilePic != null && req.body.username != user.username) {
                 deleteFile.deleteFile(user.profilePic);
             }
         }

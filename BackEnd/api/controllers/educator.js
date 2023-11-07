@@ -131,7 +131,7 @@ exports.userEdit = async (req, res, next) => {
         }
 
         if (req.file) {
-            if (user.profilePic != null) {
+            if (user.profilePic != null && req.body.username != user.username) {
                 deleteFile.deleteFile(user.profilePic);
             }
         }
@@ -151,7 +151,6 @@ exports.userEdit = async (req, res, next) => {
         req.body.profilePic = req.file ? req.file.path : user.profilePic;
 
         await Educator.updateOne({_id: req.userData.userId}, req.body).exec();
-
         return res.status(200).json({
             message: 'Educator updated'
         });
