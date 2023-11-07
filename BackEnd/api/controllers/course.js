@@ -22,17 +22,6 @@ const {deleteFile, deleteFolder} = require("../../utils/deleteFile");
 
 exports.createCourse = async (req, res, next) => {
     try {
-        req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
-
-        let discussionId;
-        if (req.body.discussionForum === "true") {
-            const newDiscussion = new Discussion({
-                messages: []
-            });
-            await newDiscussion.save();
-            discussionId = newDiscussion._id;
-        }
-
         let thumbnail = null;
         if (req.file) {
             thumbnail = req.file.path;
@@ -50,9 +39,20 @@ exports.createCourse = async (req, res, next) => {
             language: req.body.language,
             visibility: req.body.visibility,
             prerequisites: req.body.prerequisites,
-            createdBy: req.userData.userId,
-            discussionForum: discussionId,
+            createdBy: req.userData.userId
         });
+
+        await newCourse.save();
+
+        let discussionId;
+        if (req.body.discussionForum === "true") {
+            const newDiscussion = new Discussion({
+                messages: []
+            });
+            await newDiscussion.save();
+            discussionId = newDiscussion._id;
+        }
+        newCourse.discussionForum = discussionId;
 
         await newCourse.save();
 
@@ -470,7 +470,7 @@ exports.getCertificate = async (req, res, next) => {
         const fontPath = path.join(__dirname, "../../uploads/font/source-serif-pro.regular.ttf");
         const fontPath2 = path.join(__dirname, "../../uploads/font/Chomsky.ttf");
 
-        const imagePath = path.join(__dirname, "../../uploads/certificate/H1.jpg");
+        const imagePath = path.join(__dirname, "../../uploads/certificate/certificate.jpg");
         doc.image(imagePath, x, y, { width: imageWidth, height: imageHeight });
         function addWrappedText(text, yPos, width, fontSize, lineSpacing, font) {
             doc
