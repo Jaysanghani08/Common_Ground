@@ -17,8 +17,6 @@ const {deleteFile, deleteFolder} = require("../../utils/deleteFile");
 
 exports.createAssignment = async (req, res, next) => {
     try {
-        req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
-
         if (req.userData.userType !== 'educator') {
             return res.status(401).json({
                 message: 'Unauthorized'
@@ -42,9 +40,9 @@ exports.createAssignment = async (req, res, next) => {
         const assignment = new Assignment({
             title: req.body.title,
             description: req.body.description,
-            dueDate: req.body.dueDate,
             assignedBy: req.userData.userId,
             course: req.params.courseId,
+            dueDate: req.body.dueDate,
             attachment: req.files.map(file => file.path)
         });
 
@@ -104,8 +102,6 @@ exports.createAssignment = async (req, res, next) => {
 
 exports.deleteAssignment = async (req, res, next) => {
     try {
-        req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
-
         if (req.userData.userType !== 'educator') {
             return res.status(401).json({
                 message: 'Unauthorized'
@@ -132,7 +128,9 @@ exports.deleteAssignment = async (req, res, next) => {
         const assignmentTitle = assignment.title;
         const assignmentPath = path.join(assignmentDirectory, assignmentTitle);
 
-        deleteFolder(assignmentPath);
+        if (fs.existsSync(assignmentPath)) {
+            deleteFolder(assignmentPath);
+        }
 
         course.courseAssignments.pull(req.params.assignmentId);
         await course.save();
@@ -151,9 +149,6 @@ exports.deleteAssignment = async (req, res, next) => {
 
 exports.gradeAssignment = async (req, res, next) => {
     try {
-        console.log(req.body);
-        req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
-
         if (req.userData.userType !== 'educator') {
             return res.status(401).json({
                 message: 'Unauthorized'
