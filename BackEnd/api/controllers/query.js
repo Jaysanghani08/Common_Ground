@@ -66,17 +66,19 @@ exports.getEnrolledCourse = async (req, res, next) => {
 
 exports.searchFilter = async (req, res, next) => {
     try {
-        let filters = {};
+        let filters = {
+            visibility: "public"
+        };
+
         if (req.query.title) {
-            filters.courseTitle = {$regex: new RegExp(req.query.title, 'i')};
+            filters.courseTitle = { $regex: new RegExp(req.query.title, 'i') };
         }
         if (req.query.price) {
-            filters.price = {$lte: req.query.price};
+            filters.coursePrice = { $lte: req.query.price };
         }
         if (req.query.tag) {
-            let tags = [];
-            tags = req.query.tag.split(',');
-            filters.tags = {$in: tags};
+            const tags = req.query.tag.split(',');
+            filters.tags = { $in: tags };
         }
         if (req.query.level) {
             filters.courseLevel = req.query.level;
@@ -84,29 +86,30 @@ exports.searchFilter = async (req, res, next) => {
         if (req.query.language) {
             filters.language = req.query.language;
         }
-        if (req.query.prerequisites) {
-            let prerequisites = [];
-            prerequisites = req.query.prerequisites.split(',');
-            filters.prerequisites = prerequisites;
-        }
+        // if (req.query.prerequisites) {
+        //     const prerequisites = req.query.prerequisites.split(',');
+        //     filters.prerequisites = { $in: prerequisites };
+        // }
         if (req.query.rating) {
-            filters.rating = {$gte: req.query.rating};
+            filters.rating = { $gte: req.query.rating };
         }
 
-        filters.visibility = "public";
-        console.log(filters);
-        const courses = await Course.find(filters).select('_id courseTitle courseDescription coursePrice courseLevel courseCode language prerequisites').exec();
+        const courses = await Course.find(filters)
+            .select('_id courseTitle courseDescription coursePrice courseLevel courseCode language rating createdBy')
+            .populate('createdBy', 'fname lname')
+            .exec();
 
         return res.status(200).json({
             courses: courses
         });
     } catch (err) {
-        console.log(err);
+        console.error(err); // Log the error for debugging
         return res.status(500).json({
-            error: err
+            error: err.message
         });
     }
 }
+
 
 exports.getDashboard = async (req, res, next) => {
     try {
@@ -257,6 +260,110 @@ exports.getCourse = async (req, res, next) => {
 
         return res.status(200).json({
             course: course
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            error: err
+        });
+    }
+}
+
+exports.getRecommendedCourse = async (req, res, next) => {
+    try {
+        const courses = await Course.aggregate([
+            {
+                $match: {
+                    enrolledStudents: { $exists: true, $ne: [] },
+                },
+            },
+            {
+                $project: {
+                    courseTitle: 1,
+                    courseDescription: 1,
+                    coursePrice: 1,
+                    courseLevel: 1,
+                    courseCode: 1,
+                    language: 1,
+                    rating: 1,
+                    ratio: { $multiply: [{ $size: '$enrolledStudents' }, '$rating'] },
+                    createdBy: 1, // Include the createdBy field to be used for $lookup
+                },
+            },
+            {
+                $sort: { ratio: -1 },
+            },
+            {
+                $limit: 5,
+            },
+            {
+                $lookup: {
+                    from: 'educators', // Replace 'educators' with the actual collection name where educators are stored
+                    localField: 'createdBy',
+                    foreignField: '_id',
+                    as: 'educator',
+                },
+            },
+            {
+                $unwind: '$educator', // Convert the 'educator' array to an object
+            },
+            {
+                $project: {
+                    _id: 1,
+                    courseTitle: 1,
+                    courseDescription: 1,
+                    coursePrice: 1,
+                    courseLevel: 1,
+                    courseCode: 1,
+                    language: 1,
+                    rating: 1,
+                    ratio: 1,
+                    createdBy: {
+                        fname: '$educator.fname',
+                        lname: '$educator.lname',
+                    },
+                },
+            },
+        ]);
+
+
+        if (!courses) {
+            return res.status(404).json({
+                message: 'No courses found'
+            });
+        }
+
+        return res.status(200).json({
+            courses: courses
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            error: err
+        });
+    }
+}
+
+exports.generateGraph = async (req, res, next) => {
+    try {
+    //     sort by latest created date
+
+        const courses = await Course.find({createdBy: req.userData.userId}).sort({dateCreated: -1}).exec();
+        if (!courses) {
+            return res.status(404).json({
+                message: 'No courses found'
+            });
+        }
+
+        let labels = [];
+        let data = [];
+        for (let i = 0; i < courses.length; i++) {
+            labels.push(courses[i].courseTitle);
+            data.push(courses[i].enrolledStudents.length);
+        }
+        return res.status(200).json({
+            courseTitle: labels,
+            enrolled: data
         });
     } catch (err) {
         console.log(err);
