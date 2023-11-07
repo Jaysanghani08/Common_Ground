@@ -10,7 +10,8 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import getToken from '../../../services/getToken';
 import { getEducatorDashboard, getEducatorProfile } from '../../../services/Apis';
 import LoadingComponent from './../../Loading/Loading'
-import Navbar from '../../student/Dashboard/Sidebar/Sidebar';
+// import Navbar from '../../student/Dashboard/Sidebar/Sidebar';
+import EdNavbar from "./Sidebar/Navbar";
 
 function EduDashboard() {
 
@@ -76,7 +77,7 @@ function EduDashboard() {
     return (
         <>
             {/* <div className="container1"> */}
-               <Navbar/>
+               <EdNavbar/>
                 <div className="maindash">
                     <div className="header">
                         <div className="heading">

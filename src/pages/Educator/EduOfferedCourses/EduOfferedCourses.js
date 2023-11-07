@@ -8,6 +8,7 @@ import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import LoadingComponent from '../../Loading/Loading';
 import { getEducatorcourses, getEducatorProfile } from '../../../services/Apis';
+import EdNavbar from '../Dashboard/Sidebar/Navbar';
 
 const EduOfferedCourses = () => {
 
@@ -78,7 +79,7 @@ const EduOfferedCourses = () => {
 
     return (
         <div className="container1">
-            <Sidebar />
+            <EdNavbar/>
             <Coursescard coursesData={offeredcourses}/>
             {/* <div className="maindash">
                 <div className="oc-search-bar">
