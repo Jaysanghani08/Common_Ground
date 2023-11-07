@@ -38,7 +38,14 @@
 }
 
 .profilephoto{
-    border : 2px solid rgba(0, 0, 0, 0.518);
+    background-color: #4f39bf;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.profilephoto img{
+    border : 2px solid #4f39bf;
     border-radius: 50%;
     padding: 6px;
 }

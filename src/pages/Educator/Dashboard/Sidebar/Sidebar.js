@@ -22,7 +22,6 @@ function Sidebar() {
     const location = useLocation();
     return (
         <>
-        
             <div className='bars' style={expanded ? { left: '50%' } : { left: '5%' }} onClick={() => {setExpanded(!expanded); console.log("clicked")}}>
                 <UilBars style={{ color: 'white' }} />
             </div>

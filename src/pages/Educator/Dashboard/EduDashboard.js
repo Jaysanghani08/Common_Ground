@@ -1,4 +1,3 @@
-
 import './EduDashboard.css';
 import React, { useState, useEffect } from 'react'
 import Siderbar from './Sidebar/Sidebar';
@@ -7,27 +6,36 @@ import { UilUser } from '@iconscout/react-unicons'
 import Cards from './Cards/Cards';
 import SimpleBarChart from './Graph/Graph';
 import BasicTable from './Table/Table'
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import getToken from '../../../services/getToken';
 import { getEducatorDashboard, getEducatorProfile } from '../../../services/Apis';
 import LoadingComponent from './../../Loading/Loading'
 
 function EduDashboard() {
 
-    
+
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [dashboardData, setdashboardData] = useState(null);
     const [profile, setProfile] = useState(null);
+    const navigate = useNavigate();
     // const location = useLocation()
-    
+
+    const navigateToProfile = () => {
+        navigate("/educator/profile");
+    }
+
     console.log(profile)
-    
-    
+    // if (profile) {
+    //     const originalString = profile.profilePic;
+        
+    //     console.log(modifiedString);
+    // }
+
     const token = getToken('educator');
 
     // location.reload();
-    
+
     useEffect(() => {
         // window.location.reload(true);
         const fetchData = async () => {
@@ -73,8 +81,12 @@ function EduDashboard() {
                         <div className="heading">
                             <h1>Hello <span>{profile.fname} !</span> </h1>
                         </div>
-                        <div className="profilephoto">
-                            <UilUser size='100' />
+                        <div className="profilephoto" onClick={navigateToProfile}>
+                            {
+                            profile && profile.profilePic ? 
+                            <img src={`http://localhost:8000/${profile.profilePic.replace(/\\/g, '/').slice(8)}`} alt="user" width={150} srcset="" />
+                            :<UilUser size='100' />
+                            }
                         </div>
 
                     </div>
