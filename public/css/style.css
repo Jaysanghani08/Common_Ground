@@ -601,4 +601,12 @@ header .intro-text {
   #about img {
     margin: 50px 0;
   }
+  .navbar-header{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+}
+.navbar-brand img{
+  width: 100%;
+}
 }

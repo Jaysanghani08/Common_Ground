@@ -39,6 +39,34 @@ export const SidebarData = [
 export const SidebarDataForStudent = [
     {
         // icon: UilEstate,
+        heading: "Dashboard",
+        route: "/student/dashboard",
+    },
+    {
+        // icon: UilBookAlt,
+        heading: "Your Courses",
+        route: "/student/view-courses",
+    },
+    {
+        // icon: UilPlus,
+        heading: "Create Courses",
+        route: "/student/enrolled-courses",
+    },
+    {
+        // icon: UilUser,
+        heading: 'Profile',
+        route: "/student/profile",
+    },
+    {
+        // icon: UilSignOutAlt,
+        heading: 'Logout',
+        route: "/student/logout",
+    },
+];
+
+export const homepage = [
+    {
+        // icon: UilEstate,
         heading: "Home",
         route: "/homepage",
     },

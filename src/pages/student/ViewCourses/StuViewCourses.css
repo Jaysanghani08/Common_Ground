@@ -248,3 +248,24 @@
         width: 100%;
     }
 }
+
+
+/* Default styles for larger screens */
+/* You can define your default styles for screens larger than 768px here */
+
+@media (max-width: 768px) {
+    /* Styles for screens with a maximum width of 768px */
+    .stu-viewcourses-section1 {
+      padding: 20px;
+    }
+  
+    .stu-viewcourses-search-bar input[type="text"],
+    .stu-viewcourses-search-bar input[type="number"],
+    .stu-viewcourses-search-bar select,
+    .stu-viewcourses-search-bar button {
+      width: 100%;
+    }
+  
+    /* Add more styles as needed for smaller screens */
+  }
+  

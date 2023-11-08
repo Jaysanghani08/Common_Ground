@@ -3,7 +3,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { SidebarDataForStudent } from "../../../../data/Edusidebar";
 import logo from "./../../../../data/imgs/Logo.png"
 
-const Navbar = (props) => {
+const StuNavbar = (props) => {
     const location = useLocation();
 
     const [selected, setSelected] = useState(0);
@@ -54,4 +54,4 @@ const Navbar = (props) => {
     );
 };
 
-export default Navbar
+export default StuNavbar

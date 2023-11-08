@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useLocation, Link } from "react-router-dom";
-import { SidebarDataForStudent } from "../../../data/Edusidebar";
+import { homepage  } from "../../../data/Edusidebar";
 import logo from "../../../data/imgs/Logo.png";
 // import './Sidebar.css'
 
@@ -37,7 +37,7 @@ const HomeNavbar = (props) => {
                 >
                     <ul className="nav navbar-nav navbar-right">
 
-                        {SidebarDataForStudent.map((item, index) => {
+                        {homepage .map((item, index) => {
                             return (
                                 <>
                                 <li>
