@@ -130,7 +130,7 @@ function CustomTabPanel(props) {
                         />
                         {/* Add more CustomAccordion components for different weeks */}
                     </Typography>
-                </Box>
+                </Box>               
             )}
         </div>
     );
@@ -171,7 +171,7 @@ export default function BasicTabs() {
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
                 Item Two
-            </CustomTabPanel>
+            </CustomTabPanel>    
             <CustomTabPanel value={value} index={2}>
                 Item Three
             </CustomTabPanel>
