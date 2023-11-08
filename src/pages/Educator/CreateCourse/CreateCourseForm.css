@@ -1,28 +1,63 @@
 .create-course-container {
+    width: 100%;
     display: flex;
-    /* width: 100vw; */
-    justify-content: space-between;
-    background: #f8f9fa;
-    padding: 1rem 9rem;
-    /* width: 100vw; */
-    /* padding-left: 50px; */
+    justify-content: center;
     color: black;
-    /* background-color: blue; */
+
 }
 
-.create-course-form {
+.form-pair {
+    display: flex;
+
+}
+
+.ccform{
+    position: relative;
+}
+
+.course-form {
+    width: 70%;
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+    align-items: center;
+    /* background-color: red; */
+    margin-top: 75px;
+
+}
+
+
+  
+  .course-form:before {
+    content: ' ';
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    background-image: url('./123.jpg');
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    background-size: cover;
+  }
+  
+  .demo-content {
+    position: relative;
+  }
+
+
+
+.create-course-left {
     flex: 1;
     padding: 20px;
-    /* background: rgba(0, 0, 0, 0.5); */
-    border-radius: 10px;
-    display: flex;
-    justify-content: space-between;
 }
 
-.ccform {
-    margin: auto;
-    background-color: #f8f9fa;
+.create-course-right {
+    flex: 1;
+    padding: 20px;
 }
+
+
 
 .no-button {
     display: inline-block;
@@ -30,7 +65,6 @@
 
 .create-course-image {
     margin: 30px;
-    /* width: 100%; */
     padding-left: 100px;
     display: flex;
     justify-content: center;
@@ -42,19 +76,24 @@
 }
 
 .form-group {
-    margin: 10px 0;
+    margin: 10px;
+    width: 50%;
 
+}
+
+.form-group-v {
+    width: 100% !important;
+    padding-right: 20px;
 }
 
 .form-group label {
     display: inline-flex;
     font-weight: bold;
-    color: #4b11bf;
+    color: 0C356A;
 }
 
 .form-group textarea {
     width: 250px;
-    /* height: 150px;  */
     padding: 10px;
     border: none;
     border-radius: 5px;
@@ -68,16 +107,15 @@
     width: 100%;
     padding: 10px;
     border: none;
-    border-bottom: 2px solid #4b11bf;
+    border-bottom: 2px solid 0C356A;
     color: black;
-    /* outline: none; */
-    /* border-radius: 5px; */
-    /* background: rgba(255, 255, 255, 0.1); */
+    border-radius: 5px;
+
 }
 
 .ccsubmit {
     display: block;
-    background: #f35e3d;
+    background:darkblue;
     color: white;
     border: none;
     border-radius: 5px;
@@ -90,20 +128,29 @@
 
 
 .ccsubmit:hover {
-    background: #4b11bf;
+    background-color: lightgreen;
 }
 
-.description {
-    height: 50px;
-}
 
-@media (max-width: 600px) {
+@media (max-width: 668px) {
     .create-course-image {
         display: none;
     }
 
-    .create-course-container{
+    .form-pair {
+        flex-direction: column;
+    }
+
+    .form-group {
+        width: 100%;
+
+    }
+
+
+
+    .create-course-container {
         padding: 0;
+        padding-top: 10px;
     }
 }
 

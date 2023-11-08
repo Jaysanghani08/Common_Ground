@@ -168,6 +168,16 @@ export const getStudentProfile = async () => {
     }
 }
 
+export const getCourseData = async (courseId) => {
+    try {
+        const response = await commonrequest("GET", `${BACKEND_URL}/query/getCourse/${courseId}`, null, {
+            'authorization': `Bearer ${token}`
+        });
+        return response.data.course;
+    } catch (error) {
+        throw new Error("Error fetching course data");
+    }
+}
 
 
 

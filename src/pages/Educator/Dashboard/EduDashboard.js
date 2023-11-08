@@ -28,11 +28,6 @@ function EduDashboard() {
     }
 
     console.log(profile)
-    // if (profile) {
-    //     const originalString = profile.profilePic;
-        
-    //     console.log(modifiedString);
-    // }
 
     const token = getToken('educator');
 

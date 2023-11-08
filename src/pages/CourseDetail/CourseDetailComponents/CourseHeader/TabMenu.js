@@ -26,9 +26,9 @@ function CustomAccordion(props) {
     return (
         <Accordion style={{ margin: '10px 0' }} className='accordion'>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              
-                <Typography color="primary" style={{fontSize: '18px' }}>{title}</Typography>
-                
+
+                <Typography color="primary" style={{ fontSize: '18px' }}>{title}</Typography>
+
             </AccordionSummary>
             <AccordionDetails>
                 <div className='accordion-week'>
@@ -39,15 +39,15 @@ function CustomAccordion(props) {
                         <CourseAccordion
                             key={index}
                             content={course}
-                            pdfTitle={pdfTitle[index]} 
-                            AssignmentTitle={AssignmentTitle[index]} 
-                            pdfLink={pdfLink[index]} 
-                            assignmentLink={assignmentLink[index]} 
+                            pdfTitle={pdfTitle[index]}
+                            AssignmentTitle={AssignmentTitle[index]}
+                            pdfLink={pdfLink[index]}
+                            assignmentLink={assignmentLink[index]}
                         />
                     ))}
                 </div>
                 {posts}
-                <FileUploadForm/>
+                <FileUploadForm />
             </AccordionDetails>
         </Accordion>
     );
@@ -58,13 +58,14 @@ CustomAccordion.propTypes = {
     pdfLink: PropTypes.string.isRequired,
     assignmentLink: PropTypes.string.isRequired,
     details: PropTypes.string.isRequired,
-    pdfTitle: PropTypes.arrayOf(PropTypes.string), 
-    AssignmentTitle: PropTypes.arrayOf(PropTypes.string), 
-    content: PropTypes.arrayOf(PropTypes.string), 
+    pdfTitle: PropTypes.arrayOf(PropTypes.string),
+    AssignmentTitle: PropTypes.arrayOf(PropTypes.string),
+    content: PropTypes.arrayOf(PropTypes.string),
     posts: PropTypes.node,
 };
 
 function CustomTabPanel(props) {
+    console.log(props)
     const { children, value, index, ...other } = props;
 
     return (
@@ -80,10 +81,10 @@ function CustomTabPanel(props) {
                     <Typography color={'gray'}>
                         <CustomAccordion
                             title="Week 1"
-                            pdfLink={["link-to-pdf-1","link-to-pdf-2"]}
-                            pdfTitle={["Matrial-1", "Matrial-2"]} 
-                            assignmentLink={["link-to-assignment-1", "link-to-assignment-2"]} 
-                            AssignmentTitle={["Assignment 1", "Assignment 2"]} 
+                            pdfLink={["link-to-pdf-1", "link-to-pdf-2"]}
+                            pdfTitle={["Matrial-1", "Matrial-2"]}
+                            assignmentLink={["link-to-assignment-1", "link-to-assignment-2"]}
+                            AssignmentTitle={["Assignment 1", "Assignment 2"]}
                             details="This is the details for Week 1."
                             content={[
                                 'Course content goes here 1.1',
@@ -92,10 +93,10 @@ function CustomTabPanel(props) {
                         />
                         <CustomAccordion
                             title="Week 2"
-                            pdfLink={["link-to-pdf-1","link-to-pdf-2","link-to-pdf-3"]}
-                            pdfTitle={["Matrial-1", "Matrial-2","Matrial-3"]} 
-                            assignmentLink={["link-to-assignment-1", "link-to-assignment-2" , "link-to-assignment-3"]} 
-                            AssignmentTitle={["Assignment 1", "Assignment 2","Assignment 3"]} 
+                            pdfLink={["link-to-pdf-1", "link-to-pdf-2", "link-to-pdf-3"]}
+                            pdfTitle={["Matrial-1", "Matrial-2", "Matrial-3"]}
+                            assignmentLink={["link-to-assignment-1", "link-to-assignment-2", "link-to-assignment-3"]}
+                            AssignmentTitle={["Assignment 1", "Assignment 2", "Assignment 3"]}
                             details="This is the details for Week 2."
                             content={[
                                 'Course content goes here 2.1',
@@ -106,9 +107,9 @@ function CustomTabPanel(props) {
                         <CustomAccordion
                             title="Week 3"
                             pdfLink={["link-to-pdf-1"]}
-                            pdfTitle={["Matrial-1"]} 
-                            assignmentLink={["link-to-assignment-1"]} 
-                            AssignmentTitle={["Assignment 1"]} 
+                            pdfTitle={["Matrial-1"]}
+                            assignmentLink={["link-to-assignment-1"]}
+                            AssignmentTitle={["Assignment 1"]}
                             details="This is the details for Week 3."
                             content={[
                                 'Course content goes here 3.1'
@@ -116,17 +117,17 @@ function CustomTabPanel(props) {
                         />
                         <CustomAccordion
                             title="Week 4"
-                            pdfLink={["link-to-pdf-1","link-to-pdf-2","link-to-pdf-3","link-to-pdf-4"]}
-                            pdfTitle={["Matrial-1", "Matrial-2","Matrial-3","Matrial-4"]} // Example array of pdf titles
-                            assignmentLink={["link-to-assignment-1", "link-to-assignment-2" , "link-to-assignment-3","link-to-assignment-4"]} // Example array of assignment links
-                            AssignmentTitle={["Assignment 1", "Assignment 2","Assignment 3","Assignment 4"]} // Example array of assignment titles
+                            pdfLink={["link-to-pdf-1", "link-to-pdf-2", "link-to-pdf-3", "link-to-pdf-4"]}
+                            pdfTitle={["Matrial-1", "Matrial-2", "Matrial-3", "Matrial-4"]} // Example array of pdf titles
+                            assignmentLink={["link-to-assignment-1", "link-to-assignment-2", "link-to-assignment-3", "link-to-assignment-4"]} // Example array of assignment links
+                            AssignmentTitle={["Assignment 1", "Assignment 2", "Assignment 3", "Assignment 4"]} // Example array of assignment titles
                             details="This is the details for Week 4."
                             content={[
                                 'Course content goes here 4.1',
                                 'Course content goes here 4.2',
                                 'Course content goes here 4.3',
                                 'Course content goes here 4.4',
-                            ]}  
+                            ]}
                         />
                         {/* Add more CustomAccordion components for different weeks */}
                     </Typography>
@@ -151,31 +152,33 @@ function a11yProps(index) {
 
 export default function BasicTabs() {
     const [value, setValue] = useState(0);
+    console.log(value)
 
     const handleChange = (event, newValue) => {
+        // console.log(newValue)
         setValue(newValue);
     };
 
     return (
         <div>
-        <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }} style={{ backgroundColor: 'white' }}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" style={{color: '#fff' }}>
-                    <Tab style={{fontSize: '18px' }} label="Item One" {...a11yProps(0)} />
-                    <Tab style={{fontSize: '18px' }} label="Item Two" {...a11yProps(1)} />
-                    <Tab style={{fontSize: '18px' }} label="Item Three" {...a11yProps(2)} />
-                </Tabs>
+            <Box sx={{ width: '100%' }}>
+                <Box sx={{ borderBottom: 1, borderColor: 'divider' }} style={{ backgroundColor: 'white' }}>
+                    <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" style={{ color: '#fff' }}>
+                        <Tab style={{ fontSize: '18px' }} label="Sections" {...a11yProps(0)} />
+                        <Tab style={{ fontSize: '18px' }} label="Assignments" {...a11yProps(1)} />
+                        <Tab style={{ fontSize: '18px' }} label="Discussions" {...a11yProps(2)} />
+                    </Tabs>
+                </Box>
+                <CustomTabPanel value={value} index={0} >
+                    Sections
+                </CustomTabPanel>
+                <CustomTabPanel value={value} index={1}>
+                    Assignments
+                </CustomTabPanel>
+                <CustomTabPanel value={value} index={2}>
+                    Discussions
+                </CustomTabPanel>
             </Box>
-            <CustomTabPanel value={value} index={0} >
-                Item One
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={1}>
-                Item Two
-            </CustomTabPanel>    
-            <CustomTabPanel value={value} index={2}>
-                Item Three
-            </CustomTabPanel>
-        </Box>
         </div>
     );
 }
