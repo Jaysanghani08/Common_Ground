@@ -1,7 +1,4 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const crypto = require('crypto');
 
 const Discussion = require('../models/discussion');
 const Student = require('../models/student');
@@ -11,8 +8,6 @@ const Course = require('../models/course');
 
 exports.addMessage = async (req, res, next) => {
     try {
-        req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
-
         let message;
         if (req.userData.userType === 'student') {
             message = {
@@ -47,12 +42,12 @@ exports.addMessage = async (req, res, next) => {
         discussion.messages.push(message);
         await discussion.save();
 
-        res.status(201).json({
+        return res.status(201).json({
             message: 'Message added to discussion forum'
         });
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
@@ -60,8 +55,6 @@ exports.addMessage = async (req, res, next) => {
 
 exports.editMessage = async (req, res, next) => {
     try {
-        req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
-
         const course = await Course.findById(req.params.courseId).exec();
 
         if (!course) {
@@ -105,12 +98,12 @@ exports.editMessage = async (req, res, next) => {
         message.message = req.body.message;
         await discussion.save();
 
-        res.status(200).json({
+        return res.status(200).json({
             message: 'Message edited'
         });
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
@@ -118,8 +111,6 @@ exports.editMessage = async (req, res, next) => {
 
 exports.deleteMessage = async (req, res, next) => {
     try {
-        req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
-
         const course = await Course.findById(req.params.courseId).exec();
 
         if (!course) {
@@ -163,12 +154,12 @@ exports.deleteMessage = async (req, res, next) => {
         await discussion.messages.pull(req.params.messageId);
         await discussion.save();
 
-        res.status(200).json({
+        return res.status(200).json({
             message: 'Message deleted'
         });
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }

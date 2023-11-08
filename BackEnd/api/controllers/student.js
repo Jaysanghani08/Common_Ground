@@ -50,6 +50,7 @@ exports.userSignup = async (req, res, next) => {
         if (req.file) {
             profilePic = req.file.path;
         }
+
         const newUser = new Student({
             fname: req.body.fname,
             lname: req.body.lname,
@@ -68,15 +69,15 @@ exports.userSignup = async (req, res, next) => {
 
         const result = await newUser.save();
 
-        res.status(201).json({
+        return res.status(201).json({
             message: 'Student created'
         });
     } catch (err) {
         console.log(err);
-        if (req.file)
+        if (req.file) {
             deleteFile.deleteFile(req.file.path);
-
-        res.status(500).json({
+        }
+        return res.status(500).json({
             error: err
         });
     }
@@ -117,7 +118,7 @@ exports.userLogin = async (req, res, next) => {
         }
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
@@ -159,8 +160,9 @@ exports.userEdit = async (req, res, next) => {
         });
     } catch (err) {
         console.log(err);
-        if (req.file)
+        if (req.file) {
             deleteFile.deleteFile(req.file.path);
+        }
         return res.status(500).json({
             error: err
         });
@@ -177,15 +179,15 @@ exports.userDelete = async (req, res, next) => {
                 message: 'Student not found'
             });
         }
-        if (profilePic.profilePic)
+        if (profilePic.profilePic) {
             deleteFile.deleteFile(profilePic.profilePic);
-
-        res.status(200).json({
+        }
+        return res.status(200).json({
             message: 'Student deleted'
         });
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
@@ -193,8 +195,6 @@ exports.userDelete = async (req, res, next) => {
 
 
 exports.resetPassword = async (req, res, next) => {
-    console.log(req.body.email);
-
     try {
         const user = await Student.findOne({email: req.body.email}).exec();
 
@@ -214,7 +214,7 @@ exports.resetPassword = async (req, res, next) => {
         }
 
         const resetLink = `http://localhost:3000/student/resetpassword/${user._id}/${token.token}`;
-        const subject = 'Password Change - Common Ground'
+        const subject = 'Reset Password - Common Ground'
         const body = `
             <html>
               <head>
@@ -259,7 +259,7 @@ exports.resetPassword = async (req, res, next) => {
               </head>
               <body>
                 <div class="container">
-                  <img src="https://user-images.githubusercontent.com/94957904/268924860-0c79050a-ab46-47ab-856c-f26909c185df.jpg" alt="Common Ground" />
+                  <img src="https://i.ibb.co/sHdDQCH/Logo.png" alt="Common Ground" />
                   <p>Hello ${user.username},</p>
                   <p>You have requested to reset your password. Please click on the following link to reset your password:</p>
                   <a class="reset-button" href="${resetLink}">Reset Password</a>
@@ -304,12 +304,12 @@ exports.updatePassword = async (req, res, next) => {
 
         await user.save();
 
-        res.status(200).json({
+        return res.status(200).json({
             message: 'Password updated successfully'
         });
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }

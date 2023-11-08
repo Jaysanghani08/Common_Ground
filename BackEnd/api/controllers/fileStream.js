@@ -77,7 +77,7 @@ exports.streamFile = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
@@ -157,7 +157,7 @@ exports.testStream = async (req, res, next) => {
         }
     } catch (err) {
         console.error(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err.message
         });
     }

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const fs = require('fs');
@@ -114,8 +113,6 @@ exports.editCourse = async (req, res, next) => {
 
 exports.deleteCourse = async (req, res, next) => {
     try {
-        req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
-
         const courseId = req.params.courseId;
         const course = await Course.findOne({_id: courseId}).exec();
 
@@ -181,7 +178,7 @@ exports.deleteCourse = async (req, res, next) => {
                 </head>
                 <body>
                   <div class="container">
-                    <img src="https://user-images.githubusercontent.com/94957904/268924860-0c79050a-ab46-47ab-856c-f26909c185df.jpg" alt="Common Ground" />
+                    <img src="https://i.ibb.co/sHdDQCH/Logo.png" alt="Common Ground" />
                     <p>Hello ${user.username},</p>
                     <p>You have requested to delete your course titled "${course.courseTitle}".</p>
                     <p>To confirm the deletion, please click on the following link:</p>
@@ -231,7 +228,10 @@ exports.sudoDeleteLecture = async (req, res, next) => {
         }
 
         const coursePath = `uploads\\course\\${course.courseCode}-${course.courseTitle}`;
-        deleteFolder(coursePath);
+
+        if (fs.existsSync(coursePath)) {
+            deleteFolder(coursePath);
+        }
 
         const assignments = course.courseAssignments;
         await Assignment.deleteMany({_id: {$in: assignments}}).exec();
@@ -280,7 +280,6 @@ exports.enrollCourse = async (req, res, next) => {
             });
         }
 
-        req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
         if (course.enrolledStudents.includes(req.userData.userId)) {
             return res.status(401).json({
                 message: 'Already enrolled'
@@ -300,7 +299,7 @@ exports.enrollCourse = async (req, res, next) => {
         });
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
@@ -316,8 +315,6 @@ exports.unenrollCourse = async (req, res, next) => {
             });
         }
 
-        req.userData = await jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_KEY);
-
         const student = await Student.findById(req.userData.userId).exec();
         student.enrolledCourses.pull(req.params.courseId);
         course.enrolledStudents.pull(req.userData.userId);
@@ -326,11 +323,11 @@ exports.unenrollCourse = async (req, res, next) => {
         await student.save();
 
         return res.status(200).json({
-            message: 'Unenrolled'
+            message: 'Unenrolled Successfully'
         });
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
@@ -358,7 +355,7 @@ exports.removeStudent = async (req, res, next) => {
         });
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
@@ -396,10 +393,10 @@ exports.rateCourse = async (req, res, next) => {
         });
 
     } catch (err) {
-            return res.status(500).json({
-                error: err
-            });
-        }
+        return res.status(500).json({
+            error: err
+        });
+    }
 }
 
 exports.getCertificate = async (req, res, next) => {
@@ -514,7 +511,7 @@ exports.getCertificate = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             error: err
         });
     }
