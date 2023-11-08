@@ -38,9 +38,8 @@ app.use((req, res, next) => {
 });
 
 // static files
-const checkAuth = require("./api/middleware/checkAuth");
 // app.use(express.static(path.join(__dirname, 'public')));
-// app.use(express.static(path.join(__dirname, 'uploads')));
+app.use(express.static(path.join(__dirname, 'uploads/profilePic')));
 
 // Request handling
 app.use("/student", studentRoutes);
