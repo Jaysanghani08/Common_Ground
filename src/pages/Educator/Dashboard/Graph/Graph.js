@@ -39,6 +39,7 @@ export default function SimpleBarChart() {
 
   return (
     <BarChart
+    className="chart-container"
       width={800}
       height={300}
       series={[

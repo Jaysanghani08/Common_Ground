@@ -7,28 +7,32 @@
 }
 
 .card {
-    border-radius: 10px;
-    background-color: #f9985cdd;
+    /* border-radius: 10px; */
+    background: rgba(255, 255, 255, 0.7);
     box-shadow: 0 6px 19px rgb(75, 17, 191, 0.30), 0 15px 31px rgb(75, 17, 191, 0.22);
-    margin: 0 10px;
+    margin: 0 30px;
     /* border: 2px solid rgb(75, 17, 191, 0.50); */
-    padding: 20px;
-    height: 100px;
+    /* padding: 20px; */
+    /* height: 100px; */
     /* background: white; */
     color: black;
     width: 250px;
     display: flex;
     justify-content: space-around;
-
     align-items: center;
     padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .rightcontent{
     color: black;
 }
 
-
+.icon-value-container{
+    display: flex;
+    gap: 75px;
+}
 @media (max-width: 600px){
 .cards {
     width: 100%;
