@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const commonrequest = async(methods,url,body,header)=>{
+export const commonrequest = async(methods,url,body,header, queryParams={})=>{
     let config = {
         method:methods,
         url,
@@ -8,7 +8,8 @@ export const commonrequest = async(methods,url,body,header)=>{
         :{
             "Content-Type":"application/json"
         },
-        data:body
+        data:body,
+        params: queryParams
     }
 
     // axios call and handling response
