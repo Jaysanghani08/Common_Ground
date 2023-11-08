@@ -99,10 +99,19 @@ exports.testStream = async (req, res, next) => {
             });
         }
 
-        if (!course.enrolledStudents.includes(req.userData.userId)) {
-            return res.status(401).json({
-                message: 'You are not enrolled in this course'
-            });
+        if (req.userData.userType === 'student') {
+            if (!course.enrolledStudents.includes(req.userData.userId)) {
+                return res.status(401).json({
+                    message: 'You are not enrolled in this course'
+                });
+            }
+        }
+        else {
+            if (!course.createdBy.equals(req.userData.userId)) {
+                return res.status(401).json({
+                    message: 'You are not the creator of this course'
+                });
+            }
         }
 
         const videoPath = req.query.path;
