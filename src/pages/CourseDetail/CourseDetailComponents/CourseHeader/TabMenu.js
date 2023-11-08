@@ -131,7 +131,7 @@ function CustomTabPanel(props) {
                         />
                         {/* Add more CustomAccordion components for different weeks */}
                     </Typography>
-                </Box>
+                </Box>               
             )}
         </div>
     );
