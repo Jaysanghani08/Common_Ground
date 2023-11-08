@@ -20,4 +20,5 @@ router.get('/getCourse/:courseId', checkAuth, checkEnroll, QueryController.getCo
 router.get('/coursebyeducator', checkAuth, QueryController.getCourseByEducator);
 router.get('/recommended-course', checkAuth, QueryController.getRecommendedCourse);
 router.get('/generateGraph', checkAuth, QueryController.generateGraph);
+
 module.exports = router;

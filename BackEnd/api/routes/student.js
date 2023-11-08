@@ -1,7 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const { profilePhoto } = require("../middleware/multerProfile");
-const { submission } = require("../middleware/multerSubmission");
 
 const StudentController = require("../controllers/student");
 const CourseController = require("../controllers/course");
@@ -12,6 +10,8 @@ const checkAuth = require("../middleware/checkAuth");
 const checkEnroll = require("../middleware/checkEnroll");
 
 // multer middleware
+const { profilePhoto } = require("../middleware/multerProfile");
+const { submission } = require("../middleware/multerSubmission");
 const profileUpload = profilePhoto.single('profilePic');
 const submissionUpload = submission.array('submission');
 
@@ -23,7 +23,7 @@ router.patch("/edit-profile", checkAuth, profileUpload, StudentController.userEd
 router.delete("/:email", checkAuth, StudentController.userDelete);
 
 router.post("/enroll/:courseId", checkAuth, CourseController.enrollCourse);
-router.post("/unenroll/:courseId", checkAuth, CourseController.unenrollCourse);
+router.post("/unroll/:courseId", checkAuth, CourseController.unenrollCourse);
 router.post("/rating/:courseId", checkAuth, checkEnroll, CourseController.rateCourse);
 
 router.post("/:courseId/discussion", checkAuth, checkEnroll, DiscussionController.addMessage);
@@ -31,7 +31,7 @@ router.patch("/:courseId/discussion/:messageId", checkAuth, checkEnroll, Discuss
 router.delete("/:courseId/discussion/:messageId", checkAuth, checkEnroll, DiscussionController.deleteMessage);
 router.get("/:courseId/certificate", checkAuth, checkEnroll, CourseController.getCertificate);
 
-router.post("/submit-assignment/:assignmentId", submissionUpload, checkAuth, SubmissionController.submitSubmission);
+router.post("/submit-assignment/:assignmentId", checkAuth, submissionUpload, SubmissionController.submitSubmission);
 router.delete("/delete-submission/:submissionId", checkAuth, SubmissionController.deleteSubmission);
 
 module.exports = router;

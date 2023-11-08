@@ -1,9 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const { profilePhoto } = require("../middleware/multerProfile");
-const { course } = require("../middleware/multerCourse");
-const { section } = require("../middleware/multerSection");
-const { assignment } = require("../middleware/multerAssignment");
 
 const EducatorController = require("../controllers/educator");
 const CourseController = require("../controllers/course");
@@ -15,6 +11,10 @@ const checkAuth = require("../middleware/checkAuth");
 const checkEnroll = require("../middleware/checkEnroll");
 
 // multer middleware
+const { profilePhoto } = require("../middleware/multerProfile");
+const { course } = require("../middleware/multerCourse");
+const { section } = require("../middleware/multerSection");
+const { assignment } = require("../middleware/multerAssignment");
 const profileUpload = profilePhoto.single('profilePic');
 const courseUpload = course.single('thumbnail');
 const sectionUpload = section.array('attachments', 10);

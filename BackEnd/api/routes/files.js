@@ -8,4 +8,5 @@ const checkEnroll = require("../middleware/checkEnroll");
 
 router.get("/video/:courseId/:sectionId/:postId/:fileName", FileController.streamFile);
 router.get("/retrieve", checkAuth, FileController.testStream);
+
 module.exports = router;
