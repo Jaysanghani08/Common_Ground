@@ -1,4 +1,7 @@
-
+.chart-container {
+    background: rgba(255, 255, 255, 0.7);
+    /* Add other styling as needed */
+  }
 @media (max-width: 768px){
     .css-q3wnbe-MuiResponsiveChart-container{
     width: auto;

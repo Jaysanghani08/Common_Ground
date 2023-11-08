@@ -8,12 +8,13 @@ import OnlineCourses from './TopBar/OurCourses/OnlineCourses';
 import ChooseUs from './ChooseUs/ChooseUs';
 import AboutUs from './AboutUS/AboutUs';
 import Footer from './Footer/Footer';
+import HomeNavbar from './Navbar/HomeNavbar';
 // import OurCourses from './TopBar/OurCourses/OurCourses';
 
 const HomePage = () => {
   return (
     <div>
-      <Sidebar />
+      <HomeNavbar/>
       <TopBar />
       <StudentsAbout />
       <EducatorAbout/>

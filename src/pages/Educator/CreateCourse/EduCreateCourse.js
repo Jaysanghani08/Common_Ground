@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import { educreatecoursefunction } from '../../../services/Apis';
 import getToken from '../../../services/getToken';
 import { Navigate } from 'react-router-dom';
+import EdNavbar from '../Dashboard/Sidebar/Navbar';
 
 function EduCreateCourse() {
 
@@ -112,7 +113,7 @@ function EduCreateCourse() {
     return (
         <>
             <div className="container1">
-                <Sidebar />
+                <EdNavbar/>
                 <div className="create-course-container maindash">
                     <form className='ccform' encType='multipart/form-data'>
                         <div className=".create-course-form">

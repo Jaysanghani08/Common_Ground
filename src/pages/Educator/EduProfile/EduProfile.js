@@ -5,6 +5,7 @@ import './EduProfile.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faGlobe, faEnvelope, faPhone, faBook } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import EdNavbar from '../Dashboard/Sidebar/Navbar';
 
 const EduProfile = () => {
 
@@ -25,7 +26,7 @@ const EduProfile = () => {
     return (
 
         <div className='container1'>
-            <Sidebar />
+            <EdNavbar/>
             {/* <div className='ep-profile maindash'> */}
 
             <div className='ep-profile maindash'>

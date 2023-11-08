@@ -1,98 +1,128 @@
+/* CSS for EduDashboard */
+
 .container1 {
-    display: flex;
-    background-color: #f8f9fa;
+    /* background-color: #f8f9fa; */
     width: 100vw;
-    height: 100vh;
-    /* overflow: hidden; */
-    /* justify-content: space-between; */
+    /* height: 100vh; */
     overflow: hidden;
-    /* position: fixed; */
-    /* align-items: ; */
-
-}
-
-.maindash{
-    padding: 4rem;
-    /* height: fit-content; */
+    position: relative; 
+  }
+  
+  .maindash {
+    /* padding: 0.5rem; */
     display: flex;
-    overflow: hidden;
     flex-direction: column;
     justify-content: space-between;
-    /* flex-wrap: wrap; */
     align-items: left;
     margin-top: 83px;
-    background-image: url('./../../../data/imgs/StuDashCourseSec.jpg') ;
-    /* background: url(../images/Student\ dash.jpg) center center no-repeat; */
-  /* background-color: #e5e5e5; */
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
-  -o-background-size: cover;
-  /* background-attachment: fixed; */
-
-}
-
-.header{
+    position: sticky;
+    background-image: url('./../../../data/imgs/StuDashCourseSec.jpg');
+    background-size: cover;
+  }
+  
+  .maindash::before {
+    content: "";
+    background-color: rgba(12, 53, 106, 0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+  
+  .header {
     margin-top: 1.3rem;
     display: flex;
     justify-content: space-between;
     margin-left: 10px;
     align-items: center;
     font-size: 26px;
-}
-/* 
-.heading{
-} */
-
-.heading > h1 > span{
-    /* font-size: 26px; */
-    color: #4f39bf;
-}
-
-.profilephoto{
-    background-color: #4f39bf;
+  }
+  .heading{
+    color: #0174be;
+  }
+  .heading > h1 > span {
+    color: white;
+  }
+  
+  .profilephoto {
+    background-color: #f8f9fa;
     border-radius: 50%;
     margin-right: 10px;
     cursor: pointer;
-}
-
-.profilephoto img{
-    border : 2px solid #4f39bf;
+  }
+  
+  .profilephoto img {
+    border: 2px solid white;
     border-radius: 50%;
     padding: 6px;
-}
-
-.graphcal{
+  }
+  
+  .cards {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    align-items: center;
-    padding-bottom: 72px;
-}
-.courses{
+    margin-bottom: 20px; 
+    gap: 20px;
+  }
+  
+  .graphcal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start; 
+    padding-bottom: 20px; 
+    gap: 15px;
+    
+  }
+  
+  
+  .courses {
+    margin-top: 20px;
     color: black;
-    box-shadow: 0 6px 19px rgb(75, 17, 191, 0.30), 0 15px 31px rgb(75, 17, 191, 0.22);
-}
+    box-shadow: 0 6px 19px rgba(75, 17, 191, 0.30), 0 15px 31px rgba(75, 17, 191, 0.22);
+  }
+  
+  
+  
+  
+  
+  
+  .graph,
+  .calendar {
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 6px 19px rgba(75, 17, 191, 0.30), 0 15px 31px rgba(75, 17, 191, 0.22);
+  }
+  
 
-@media (max-width: 600px){
-    .maindash{
-        grid-template-columns: 1fr;
-        overflow-y: scroll;    
-    }
-    .maindash::-webkit-scrollbar{
-        display: none;
-    }
-    .calendar{
-        margin: auto;
-    }
-}
-
-@media (min-width: 601px) and (max-width: 1200px){
+  
+  
+  /* Media Queries */
+  
+  @media (max-width: 600px) {
     .maindash {
-        padding: 15px 25px;
-        overflow-y: scroll;
+      grid-template-columns: 1fr;
+      overflow-y: scroll;
     }
-    .calendar{
-        margin: auto;
+  
+    .maindash::-webkit-scrollbar {
+      display: none;
     }
-}
+  
+    .calendar {
+      margin: auto;
+    }
+  }
+  
+  @media (min-width: 601px) and (max-width: 1200px) {
+    .maindash {
+      padding: 15px 25px;
+      overflow-y: scroll;
+    }
+  
+    .calendar {
+      margin: auto;
+    }
+  }
+  

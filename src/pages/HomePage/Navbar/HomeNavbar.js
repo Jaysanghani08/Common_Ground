@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
-// import { SidebarData } from "../../../../data/Edusidebar";
-import logo from "./../../../../data/imgs/Logo.png"
-import {SidebarData} from "./Navbar_data";
-const EdNavbar = (props) => {
+import { NavLink, useLocation, Link } from "react-router-dom";
+import { homepage  } from "../../../data/Edusidebar";
+import logo from "../../../data/imgs/Logo.png";
+// import './Sidebar.css'
+
+const HomeNavbar = (props) => {
     const location = useLocation();
 
     const [selected, setSelected] = useState(0);
@@ -36,22 +37,31 @@ const EdNavbar = (props) => {
                 >
                     <ul className="nav navbar-nav navbar-right">
 
-                        {SidebarData.map((item, index) => {
+                        {homepage .map((item, index) => {
                             return (
+                                <>
                                 <li>
-                                    <NavLink to={item.route} key={index} className='page-scroll'
+                                    {/* <NavLink to={item.route} key={index} className='page-scroll'
                                     style={location.pathname === item.route ? {color: "0C356a"} : {}}>
                                             {item.heading}
-                                    </NavLink>
+                                    </NavLink> */}
+                                    <a href={item.route}>{item.heading}</a> 
+                                    
                                 </li>
-
+                                                       
+                                                     </>
                             );
                         })}
+                        
+                        
                     </ul>
+                    
+
                 </div>
+                
             </div>
         </nav>
     );
 };
 
-export default EdNavbar
+export default HomeNavbar

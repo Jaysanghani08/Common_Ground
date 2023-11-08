@@ -1,36 +1,36 @@
 // Sidebar imports
-import {
-    UilEstate,
-    UilBookAlt,
-    UilPlus,
-    UilUser,
-    UilSignOutAlt,
-} from "@iconscout/react-unicons";
+// import {
+//     UilEstate,
+//     UilBookAlt,
+//     UilPlus,
+//     UilUser,
+//     UilSignOutAlt,
+// } from "@iconscout/react-unicons";
 
 // Sidebar Data
 export const SidebarData = [
     {
-        icon: UilEstate,
+        // icon: UilEstate,
         heading: "Dashboard",
         route: "/educator/dashboard",
     },
     {
-        icon: UilBookAlt,
+        // icon: UilBookAlt,
         heading: "Your Courses",
         route: "/educator/offered-courses",
     },
     {
-        icon: UilPlus,
+        // icon: UilPlus,
         heading: "Create Courses",
         route: "/educator/create-course",
     },
     {
-        icon: UilUser,
+        // icon: UilUser,
         heading: 'Profile',
         route: "/educator/profile",
     },
     {
-        icon: UilSignOutAlt,
+        // icon: UilSignOutAlt,
         heading: 'Logout',
         route: "/educator/logout",
     },
@@ -44,12 +44,12 @@ export const SidebarDataForStudent = [
     },
     {
         // icon: UilBookAlt,
-        heading: "View Courses",
+        heading: "Your Courses",
         route: "/student/view-courses",
     },
     {
         // icon: UilPlus,
-        heading: "Enrolled Courses",
+        heading: "Create Courses",
         route: "/student/enrolled-courses",
     },
     {
@@ -61,5 +61,45 @@ export const SidebarDataForStudent = [
         // icon: UilSignOutAlt,
         heading: 'Logout',
         route: "/student/logout",
+    },
+];
+
+export const homepage = [
+    {
+        // icon: UilEstate,
+        heading: "Home",
+        route: "/homepage",
+    },
+    {
+        // icon: UilBookAlt,
+        heading: "Courses",
+        route: "/homepage#our-free-courses",
+    },
+    {
+        // icon: UilPlus,
+        heading: "Category",
+        route: "/homepage#courses",
+    },
+    {
+        // icon: UilUser,
+        heading: 'About Us',
+        route: "/homepage#aboutus",
+    },
+    {
+        // icon: UilUser,
+        heading: 'Contact Us',
+        route: "/homepage#contactus",
+    },
+    {
+        // icon: UilSignOutAlt,
+        heading: 'Log in Student',
+        route: "/student/login",
+        
+    },
+    {
+        // icon: UilSignOutAlt,
+        heading: 'Log in Educator',
+        route: "/educator/login",
+        
     },
 ];

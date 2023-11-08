@@ -1,5 +1,5 @@
 .scheduler {
-    width: 250px;
+    width: 260px;
     margin: 0 auto;
     font-family: Arial, sans-serif;
   }
@@ -7,7 +7,7 @@
   .header {
     text-align: center;
     font-size: 20px;
-    margin-bottom: 30px;
+   color: #0c356a ;
   }
   
   .weekdays {
@@ -15,7 +15,7 @@
     grid-template-columns: repeat(7, 1fr);
     gap: 2px;
     /* background-color: #007acc; */
-    color: black;
+    color: #0c356a ;
     font-weight: 500;
     padding: 10px 0;
     margin-bottom: 15px;
@@ -43,7 +43,7 @@
     position: absolute;
     top: 0;
     left: 2px;
-    background-color: #cf662481;
+    background-color: #0176be5c;
     /* color: black; */
     border-radius: 50%;
     width: 30px;
