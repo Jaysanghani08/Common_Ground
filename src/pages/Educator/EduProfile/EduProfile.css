@@ -1,7 +1,7 @@
 .ep-profile{ 
     /* height: fit-content; */
     width: 100vw;
-    border-radius: 5px;
+    border-radius: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
