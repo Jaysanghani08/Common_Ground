@@ -2,13 +2,14 @@ import Sidebar from '../Dashboard/Sidebar/Sidebar'
 import Star from './stars'
 import './EduOfferedCourses.css'
 import React, { useState, useEffect } from 'react';
-import Coursescard from '../../student/Dashboard/Coursescard/Coursescard';
+import Coursescard from './EduCourseCard';
 import getToken from '../../../services/getToken';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import LoadingComponent from '../../Loading/Loading';
 import { getEducatorcourses, getEducatorProfile } from '../../../services/Apis';
 import EdNavbar from '../Dashboard/Sidebar/Navbar';
+import Button from '@mui/material/Button';
 
 const EduOfferedCourses = () => {
 
@@ -80,7 +81,34 @@ const EduOfferedCourses = () => {
     return (
         <div className="container1">
             <EdNavbar/>
+        <div className='edc_container1'>
+        <div className="edu_overlay">
+        <div className='edc_background_img '> 
+        <div className="search-bar">
+       
+            <div className='edu_search_bar'> 
+            <input
+                                className='edu_stu-viewcourses-large-input'
+                                type="text"
+                                placeholder="Search by course title"/>
+
+            <Button variant="contained">Search</Button>  
+
+ </div>
+        </div>
+                 <div className='edc_align_items'>
             <Coursescard coursesData={offeredcourses}/>
+            <Coursescard coursesData={offeredcourses}/>
+            <Coursescard coursesData={offeredcourses}/>
+            <Coursescard coursesData={offeredcourses}/>
+            <Coursescard coursesData={offeredcourses}/>
+            <Coursescard coursesData={offeredcourses}/>
+            </div>
+            </div>  
+            </div>
+            </div>
+           
+          
             {/* <div className="maindash">
                 <div className="oc-search-bar">
                     <input
