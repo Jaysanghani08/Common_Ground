@@ -25,7 +25,7 @@ const EduProfile = () => {
 
     return (
 
-        <div className='container1'>
+        <div className='ep-container1'>
             <EdNavbar/>
             {/* <div className='ep-profile maindash'> */}
 
@@ -105,16 +105,13 @@ const EduProfile = () => {
 
                     <div className='ep-lover-container'>
 
-        <Link to={'/educator/update'} className='ep-edit-button'>Edit Profile</Link>    
-        {/* <button to={'/update'} className='ep-button'>Edit Profile</button>     */}
-
                         {about.map(Sahil => (
                             <div className='ep-about'>I hold {Sahil.Degree} in {Sahil.Field}, and my educational background is complemented by {Sahil.Place}. This academic foundation forms the basis of my commitment to providing high-quality education in my course.</div>
                         ))}
 
                         <div className='ep-edbutton'>
 
-                            <Link to={'/update'} className='ep-edit-button'>Edit Profile</Link>
+                            <Link to={'/educator/update'} className='ep-edit-button'>Edit Profile</Link>
                             {/* <button to={'/update'} className='ep-button'>Edit Profile</button>     */}
 
                         </div>
