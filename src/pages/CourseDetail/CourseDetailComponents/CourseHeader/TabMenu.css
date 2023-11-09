@@ -38,3 +38,7 @@
  .accordion-week{
   font-size: 16px;
  }
+
+ .css-o4b71y-MuiAccordionSummary-content{
+  justify-content: space-between;
+ }
