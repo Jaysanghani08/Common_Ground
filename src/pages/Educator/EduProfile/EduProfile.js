@@ -1,9 +1,6 @@
 import React from 'react'
-import Sidebar from '../Dashboard/Sidebar/Sidebar'
 import { useRef, useState, useEffect } from 'react';
 import './EduProfile.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faGlobe, faEnvelope, faPhone, faBook } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import EdNavbar from '../Dashboard/Sidebar/Navbar';
 

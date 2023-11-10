@@ -1,99 +1,181 @@
-.edp-main-container {
-  margin: 20px;
-  padding: 20px;
-  background-color: #f2f2f2;
+.epn-container1{
+  height: fit-content;
 }
-#line{
+.epn-profile{ 
+  height: 100%;
+  width: 100%;
+  padding-top: 40px;
+  border-radius: 5px;
+  background-color: #0c356a;
+  position: relative;
   color: white;
 }
-.edp-heading {
-  color: #007bff;
+
+.epn-profile::before{
+  content: ' ';
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  /* width: 1500px; */
+  left: 0px;
+  bottom: 0px;
+  background-image: url(/public/images/Profilepage.jpg);
+  background-position: center center;
+  /* background-attachment: fixed; */
+  background-size: cover;
+  opacity: 0.3;
 }
 
-.edp-sub-main {
+.epn-upper{
+  /* padding: 100px; */
   display: flex;
-  width: 70%;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #0c356a;
+  position: relative;
 }
-
-.edp-photo-edit {
-  padding: 0 15px;
-  margin-left: 100px;
-}
-
-.edp-personal-info {
-  flex: 0 0 75%;
-  max-width: 75%;
+.epn-sub-upper{
   display: flex;
+  height: 250px;
+}
+.epn-image-container1{
+  /* height: 300px; */
+  width: 350px;
+  /* margin-left: 100px; */
+  /* margin-top: 25px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.edp-avatar {
-  border-radius: 50%;
+.epn-image-container1 img{
+  background-color: #0c356a;
+  height: 170px;
   width: 150px;
-  height: 150px;
+  padding: 2px;
+  /* border-style: solid; */
+  border-radius: 10px;
 }
 
-.edp-photo-edit h6 {
-  font-size: 1rem;
-  color: #333;
+.epn-user{
+  width: 500px;
+}
+.epn-username1{
+  /* color: black; */
+  margin-top: 40px;
+  font-weight: bolder;
+  font-size: 3rem;
 }
 
-.edp-form-group {
-  margin-top: 10px;
-  display: table-caption;
+.epn-about{
+  margin-top: 20px;
+  font-size: 1.7rem;
 }
 
-.edp-form-control {
-  width: 200px;
-  height: 30px;
-  border-radius: 5px;
+.epn-lover{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.epn-personalinfo{
+  margin-left: 80px;
+}
+
+.epn-basicinfo{
+  padding: 30px;
+  margin-bottom: 20px;
+  margin-top: -35px;
+  height: 560px;
+  width: 600px;
+  font-size: 2rem;
+  font-weight: bold;
+  background-color: white;
+  position: relative;
+  color: #0c356a;
+  /* border-radius: 10px; */
+}
+.epn-Sub-basicinfo{
+  display: flex;
   margin-top: 5px;
 }
-.edp-about{
-  display: block;
+.epn-basic-heading{
+  font-size: 2.5rem;
 }
-form h3 {
-  font-size: 1.5rem;
-  margin-top: 15px;
+.epn-info-submain{
+  margin-top: 20px;
+  border-bottom: 1px solid #0c356a;
+  padding-bottom: 10px;
 }
-.edp-second-col{
-  margin-left: 20px;
-}
-.edp-form-group label {
-  font-weight: bold;
-}
-
-.edp-submit-button{
-  background-color: #007bff;
-  width: 100px;
-  margin-left: 300px;
-  margin-top: 50px;
+.epn-edit-button{
+  width: 150px;
+  height: 30px;
   color: white;
-  font-weight: bolder;
-  border-radius: 5px;
+  margin-top: 25px;
+  margin-left: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0c356a;
+  font-weight: normal;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   padding: 5px;
+  font-size: 1.6rem;
+  border-radius: 5px;
   text-decoration: none;
 }
 
+.epn-edit-button:hover{
+  color: white;
+  background-color: #1a083f;
+}
+
 @media (max-width:600px){
-  .edp-main-container{
-    width: fit-content;
+  .epn-profile{
+      padding-top: 70px;
   }
-  .edp-sub-main{
-    display: inline-block;
+  .epn-upper{
+      height: 450px;
+      padding: 20px;
   }
-  .edp-sec-form{
-    margin-top: 30px;
+  .epn-sub-upper{
+      display: inline-block;
+      height: 395px;
   }
-  .edp-first-form{
-    width: fit-content;
+  .epn-image-container1{
+      width: -webkit-fill-available;
+  }
+  .epn-user{
+      width: -webkit-fill-available;
+  }
+  .epn-about{
+      font-size: 1.5rem;
+  }
+  .epn-basicinfo{
+      font-size: 1.5rem;
+      height: -webkit-fill-available;
+      width: auto;
+  }
+  .epn-username1{
+      font-size: 2.1rem;
+  }
+  .epn-personalinfo{
+      margin-left: 5px;
+  }
+  .epn-edit-button{
+      margin-left: initial;
   }
 }
 
 @media (min-width: 601px) and (max-width: 1200px){
-  .edp-main-container{
+  .epn-profile{
       height: fit-content;
       width: fit-content;
+      padding-top: 75px;
+  }
+  .epn-sub-upper{
+      padding: 20px;
   }
 
 }
