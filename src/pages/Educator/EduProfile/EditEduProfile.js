@@ -41,16 +41,12 @@ const EduProfile = () => {
             
                          <div className='epn-edit-user'>
                             <div className='epn-edit-username1'>
-                                
-                                {about.map( Sahil => (
-                                    <div>{Sahil.username}</div>
-                                ))}
+                              <input className="edp-edit-form-control" type="text" name='username' value="Edit_Profile" />
                             </div>
         
                             <div className='epn-edit-about'>
-                                {about.map( Sahil => (
-                                            <div className='epn-edit-about'>I hold {Sahil.Degree} in {Sahil.Field}, and my educational background is complemented by {Sahil.Place}. This academic foundation forms the basis of my commitment to providing high-quality education in my course.</div>
-                                        ))}
+                              <textarea className="edp-edit-form-control" name="bio" placeholder="Write a brief bio about yourself..." rows="4" cols="50"></textarea>
+                              <input className="edp-edit-form-control" type="submit"value="Save" />
                             </div>
                          </div>
                                                 
@@ -103,7 +99,7 @@ const EduProfile = () => {
                                 </div>
                                
                                 <div className='epn-edit-info-submain2'>
-                                  <input className="edp-edit-form-control" type="string" name='phone' value="1234567891" />  
+                                  <input className="edp-edit-form-control" type="string" name='phone' value="1234567890" />  
                                 </div>
                                 
                             </div>
