@@ -27,102 +27,119 @@ const EduProfile = () => {
 
         <div className='ep-container1'>
             <EdNavbar/>
-            {/* <div className='ep-profile maindash'> */}
-
-            <div className='ep-profile maindash'>
-
-                <h2 className='ep-pro-heading'>Profile Page</h2>
-                <div className='ep-sub-profile'>
-
-                    <div className='ep-upper-container'>
-
-                        <div className='ep-image-container'>
-
-                            <div className='ep-img-user'>
-                                {image ? <img src={URL.createObjectURL(image)} alt='' />
-                                    : <img src='https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=400' alt='no image' />}
-                                {/* : <img src='https://img.freepik.com/premium-vector/man-character_665280-46970.jpg' alt='no image'/>} */}
-
-                                <div className='ep-username'>
-                                    {/* <h2>{props.name}</h2> */}
-                                    {about.map(Sahil => (
-                                        <div>{Sahil.username}</div>
-                                    ))}
-                                </div>
+        
+            <div className='epn-profile maindash'>
+        
+                <div className='epn-upper'>
+        
+                    <div className='epn-sub-upper'>
+        
+                        <div className='epn-image-container1'>
+                            <div className='epn-img1'>
+                                {image ? <img src={URL.createObjectURL(image)} alt=''/> 
+                                    : <img src='https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=400' alt='no image'/>}
+                                    {/* : <img src='https://img.freepik.com/premium-vector/man-character_665280-46970.jpg' alt='no image'/>} */}
                             </div>
-
-                        </div>
-
-                        <div className='ep-personalinfo'>
-
-                            <div className='ep-profilename'>
-                                {about.map(Sahil => (
-                                    <div>{Sahil.fname} {Sahil.sname}</div>
+                         </div> 
+            
+                         <div className='epn-user'>
+                            <div className='epn-username1'>
+                                {/* <h2>{props.name}</h2> */}
+                                {about.map( Sahil => (
+                                    <div>{Sahil.username}</div>
                                 ))}
                             </div>
-
-                            <div className='ep-Icon'>
-                                <div className='ep-age-icon'>
-                                    <FontAwesomeIcon icon={faUser} />
-                                    {about.map(Sahil => (
-                                        <div >{Sahil.Age} year old {Sahil.gender}</div>
-                                    ))}
-                                </div>
-
-                                <div className='ep-country-icon'>
-                                    <FontAwesomeIcon icon={faGlobe} />
-                                    {about.map(Sahil => (
-                                        <div >{Sahil.Country}</div>
-                                    ))}
-                                </div>
-
+        
+                            <div className='epn-about'>
+                                {about.map( Sahil => (
+                                            <div className='epn-about'>I hold {Sahil.Degree} in {Sahil.Field}, and my educational background is complemented by {Sahil.Place}. This academic foundation forms the basis of my commitment to providing high-quality education in my course.</div>
+                                        ))}
                             </div>
-
-                            <div className='ep-email'>
-                                <FontAwesomeIcon icon={faBook} />
-                                {about.map(Sahil => (
-                                    <div className='ep-email1'>{Sahil.Degree}</div>
-                                ))}
-                            </div>
-
-                            <div className='ep-email'>
-                                <FontAwesomeIcon icon={faEnvelope} />
-                                {about.map(Sahil => (
-                                    <div className='ep-email1'>{Sahil.email}</div>
-                                ))}
-                            </div>
-
-                            <div className='ep-mo-number'>
-                                <FontAwesomeIcon icon={faPhone} />
-                                {about.map(Sahil => (
-                                    <div className='ep-mo-number1'>{Sahil.mobilenumber}</div>
-                                ))}
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div className='ep-lover-container'>
-
-                        {about.map(Sahil => (
-                            <div className='ep-about'>I hold {Sahil.Degree} in {Sahil.Field}, and my educational background is complemented by {Sahil.Place}. This academic foundation forms the basis of my commitment to providing high-quality education in my course.</div>
-                        ))}
-
-                        <div className='ep-edbutton'>
-
-                            <Link to={'/educator/update'} className='ep-edit-button'>Edit Profile</Link>
-                            {/* <button to={'/update'} className='ep-button'>Edit Profile</button>     */}
-
-                        </div>
-
-                    </div>
-
+                         </div>
+                                                
+                     </div>
+        
                 </div>
-
+        
+                <div className='epn-lover'>
+        
+                    <div className='epn-basicinfo'>
+        
+                        <div className='epn-basic-heading'>Basic Info</div>
+        
+                        <div className='epn-Sub-basicinfo'>
+        
+                            <div className='epn-info-main'>
+                                    <div className='epn-info-submain'>Name</div>
+                                    <div className='epn-info-submain'>Gender</div>
+                                    <div className='epn-info-submain'>Country</div>
+                                    <div className='epn-info-submain'>Dob</div>
+                                    <div className='epn-info-submain'>Education Level</div>
+                                    <div className='epn-info-submain'>Email</div>                                
+                                    <div className='epn-info-submain'>Phone</div>      
+                            </div>
+        
+                            <div className='epn-personalinfo'>
+        
+                                <div className='epn-info-submain'>
+                                    {about.map( Sahil => (
+                                        <div>{Sahil.fname} {Sahil.sname}</div>
+                                    ))}
+                                </div>
+        
+                                <div className='epn-info-submain'>
+                                    {/* <FontAwesomeIcon icon={faUser} /> */}
+                                    {about.map( Sahil => (
+                                        <div >{Sahil.gender}</div>
+                                        ))}
+                                </div>
+                                    
+                                <div className='epn-info-submain'>
+                                    {/* <FontAwesomeIcon icon={faGlobe} /> */}
+                                    {about.map( Sahil => (
+                                        <div >{Sahil.Country}</div>
+                                        ))}
+                                </div>                            
+        
+                                <div className='epn-info-submain'>
+                                    {/* <FontAwesomeIcon icon={faUser} /> */}
+                                    {about.map( Sahil => (
+                                        <div >{Sahil.Age} year old</div>
+                                        ))}
+                                </div>
+                                
+                                <div className='epn-info-submain'>
+                                    {/* <FontAwesomeIcon icon={faBook} /> */}
+                                    {about.map( Sahil => (
+                                        <div className='epn-email1'>{Sahil.Degree}</div>
+                                        ))}
+                                </div>
+                                       
+                                <div className='epn-info-submain'>
+                                    {/* <FontAwesomeIcon icon={faEnvelope} /> */}
+                                    {about.map( Sahil => (
+                                        <div className='epn-email1'>{Sahil.email}</div>
+                                        ))}
+                                </div>
+                               
+                                <div className='epn-info-submain'>
+                                    {/* <FontAwesomeIcon icon={faPhone} /> */}
+                                    {about.map( Sahil => (
+                                        <div className='epn-mo-number1'>{Sahil.mobilenumber}</div>
+                                        ))}
+                                </div>
+                                
+                            </div>
+        
+                        </div>
+        
+                        <Link to={'/update'} className='epn-edit-button'>Edit Profile</Link> 
+        
+                    </div>  
+        
+                </div>
+        
             </div>
-
-            {/* </div> */}
 
         </div>
     )
