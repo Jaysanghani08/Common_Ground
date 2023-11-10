@@ -25,10 +25,10 @@ const EduProfile = () => {
 
     return (
 
-        <div className='ep-container1'>
-            <EdNavbar/>
+        <div className='epn-container1'>
         
-            <div className='epn-profile maindash'>
+                <EdNavbar/>
+        <div className='epn-profile'>
         
                 <div className='epn-upper'>
         
