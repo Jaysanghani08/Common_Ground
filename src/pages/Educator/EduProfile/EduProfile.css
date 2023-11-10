@@ -80,18 +80,14 @@
     justify-content: center;
 }
 .epn-personalinfo{
-    /* padding: 50px; */
-    /* height: 300px; */
-    /* width: 300px; */
     margin-left: 80px;
-    /* background-color: grey; */
 }
 
 .epn-basicinfo{
     padding: 30px;
     margin-bottom: 20px;
     margin-top: -35px;
-    height: 570px;
+    height: 560px;
     width: 600px;
     font-size: 2rem;
     font-weight: bold;
@@ -102,7 +98,7 @@
 }
 .epn-Sub-basicinfo{
     display: flex;
-    margin-top: 20px;
+    margin-top: 5px;
 }
 .epn-basic-heading{
     font-size: 2.5rem;
@@ -136,6 +132,9 @@
 }
 
 @media (max-width:600px){
+    .epn-profile{
+        padding-top: 70px;
+    }
     .epn-upper{
         height: 450px;
         padding: 20px;
@@ -151,15 +150,15 @@
         width: -webkit-fill-available;
     }
     .epn-about{
-        font-size: 1.1rem;
+        font-size: 1.5rem;
     }
     .epn-basicinfo{
-        font-size: 1.1rem;
+        font-size: 1.5rem;
         height: -webkit-fill-available;
         width: auto;
     }
     .epn-username1{
-        font-size: 1.5rem;
+        font-size: 2.1rem;
     }
     .epn-personalinfo{
         margin-left: 5px;
@@ -173,6 +172,7 @@
     .epn-profile{
         height: fit-content;
         width: fit-content;
+        padding-top: 75px;
     }
     .epn-sub-upper{
         padding: 20px;

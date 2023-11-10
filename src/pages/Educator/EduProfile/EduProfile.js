@@ -44,7 +44,7 @@ const EduProfile = () => {
             
                          <div className='epn-user'>
                             <div className='epn-username1'>
-                                {/* <h2>{props.name}</h2> */}
+                                
                                 {about.map( Sahil => (
                                     <div>{Sahil.username}</div>
                                 ))}
@@ -88,42 +88,42 @@ const EduProfile = () => {
                                 </div>
         
                                 <div className='epn-info-submain'>
-                                    {/* <FontAwesomeIcon icon={faUser} /> */}
+                                    
                                     {about.map( Sahil => (
                                         <div >{Sahil.gender}</div>
                                         ))}
                                 </div>
                                     
                                 <div className='epn-info-submain'>
-                                    {/* <FontAwesomeIcon icon={faGlobe} /> */}
+                                    
                                     {about.map( Sahil => (
                                         <div >{Sahil.Country}</div>
                                         ))}
                                 </div>                            
         
                                 <div className='epn-info-submain'>
-                                    {/* <FontAwesomeIcon icon={faUser} /> */}
+                                    
                                     {about.map( Sahil => (
                                         <div >{Sahil.Age} year old</div>
                                         ))}
                                 </div>
                                 
                                 <div className='epn-info-submain'>
-                                    {/* <FontAwesomeIcon icon={faBook} /> */}
+                                    
                                     {about.map( Sahil => (
                                         <div className='epn-email1'>{Sahil.Degree}</div>
                                         ))}
                                 </div>
                                        
                                 <div className='epn-info-submain'>
-                                    {/* <FontAwesomeIcon icon={faEnvelope} /> */}
+            
                                     {about.map( Sahil => (
                                         <div className='epn-email1'>{Sahil.email}</div>
                                         ))}
                                 </div>
                                
                                 <div className='epn-info-submain'>
-                                    {/* <FontAwesomeIcon icon={faPhone} /> */}
+
                                     {about.map( Sahil => (
                                         <div className='epn-mo-number1'>{Sahil.mobilenumber}</div>
                                         ))}
@@ -133,7 +133,7 @@ const EduProfile = () => {
         
                         </div>
         
-                        <Link to={'/update'} className='epn-edit-button'>Edit Profile</Link> 
+                        <Link to={'/educator/update'} className='epn-edit-button'>Edit Profile</Link> 
         
                     </div>  
         
