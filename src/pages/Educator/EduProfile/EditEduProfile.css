@@ -1,7 +1,7 @@
 .epn-container1{
   height: fit-content;
 }
-.epn-profile{ 
+.epn-edit-profile{ 
   height: 100%;
   width: 100%;
   padding-top: 40px;
@@ -11,7 +11,7 @@
   color: white;
 }
 
-.epn-profile::before{
+.epn-edit-profile::before{
   content: ' ';
   position: absolute;
   top: 0px;
@@ -26,7 +26,7 @@
   opacity: 0.3;
 }
 
-.epn-upper{
+.epn-edit-upper{
   /* padding: 100px; */
   display: flex;
   align-items: center;
@@ -36,11 +36,11 @@
   color: #0c356a;
   position: relative;
 }
-.epn-sub-upper{
+.epn-edit-sub-upper{
   display: flex;
   height: 250px;
 }
-.epn-image-container1{
+.epn-edit-image-container1{
   /* height: 300px; */
   width: 350px;
   /* margin-left: 100px; */
@@ -50,7 +50,7 @@
   justify-content: center;
 }
 
-.epn-image-container1 img{
+.epn-edit-image-container1 img{
   background-color: #0c356a;
   height: 170px;
   width: 150px;
@@ -59,31 +59,31 @@
   border-radius: 10px;
 }
 
-.epn-user{
+.epn-edit-user{
   width: 500px;
 }
-.epn-username1{
+.epn-edit-username1{
   /* color: black; */
   margin-top: 40px;
   font-weight: bolder;
   font-size: 3rem;
 }
 
-.epn-about{
+.epn-edit-about{
   margin-top: 20px;
   font-size: 1.7rem;
 }
 
-.epn-lover{
+.epn-edit-lover{
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.epn-personalinfo{
+.epn-edit-personalinfo{
   margin-left: 80px;
 }
 
-.epn-basicinfo{
+.epn-edit-basicinfo{
   padding: 30px;
   margin-bottom: 20px;
   margin-top: -35px;
@@ -96,19 +96,28 @@
   color: #0c356a;
   /* border-radius: 10px; */
 }
-.epn-Sub-basicinfo{
+.epn-edit-Sub-basicinfo{
   display: flex;
   margin-top: 5px;
 }
-.epn-basic-heading{
+.epn-edit-basic-heading{
   font-size: 2.5rem;
 }
-.epn-info-submain{
+.epn-edit-info-submain{
   margin-top: 20px;
   border-bottom: 1px solid #0c356a;
   padding-bottom: 10px;
 }
-.epn-edit-button{
+.epn-edit-info-submain2{
+  margin-top: 20px;
+}
+.edp-edit-form-control {
+  width: 200px;
+  height: 30px;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+.epn-cancel-button{
   width: 150px;
   height: 30px;
   color: white;
@@ -125,56 +134,73 @@
   border-radius: 5px;
   text-decoration: none;
 }
+.epn-submit-button{
+  width: 150px;
+  height: 31px;
+  color: white;
+  margin-top: -32px;
+  margin-left: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0c356a;
+  font-weight: normal;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  padding: 5px;
+  font-size: 1.6rem;
+  border-radius: 5px;
+  text-decoration: none;
+}
 
-.epn-edit-button:hover{
+.epn-cancel-button:hover{
   color: white;
   background-color: #1a083f;
 }
 
 @media (max-width:600px){
-  .epn-profile{
+  .epn-edit-profile{
       padding-top: 70px;
   }
-  .epn-upper{
+  .epn-edit-upper{
       height: 450px;
       padding: 20px;
   }
-  .epn-sub-upper{
+  .epn-edit-sub-upper{
       display: inline-block;
       height: 395px;
   }
-  .epn-image-container1{
+  .epn-edit-image-container1{
       width: -webkit-fill-available;
   }
-  .epn-user{
+  .epn-edit-user{
       width: -webkit-fill-available;
   }
-  .epn-about{
+  .epn-edit-about{
       font-size: 1.5rem;
   }
-  .epn-basicinfo{
+  .epn-edit-basicinfo{
       font-size: 1.5rem;
       height: -webkit-fill-available;
       width: auto;
   }
-  .epn-username1{
+  .epn-edit-username1{
       font-size: 2.1rem;
   }
-  .epn-personalinfo{
+  .epn-edit-personalinfo{
       margin-left: 5px;
   }
-  .epn-edit-button{
+  .epn-cancel-button{
       margin-left: initial;
   }
 }
 
 @media (min-width: 601px) and (max-width: 1200px){
-  .epn-profile{
+  .epn-edit-profile{
       height: fit-content;
       width: fit-content;
       padding-top: 75px;
   }
-  .epn-sub-upper{
+  .epn-edit-sub-upper{
       padding: 20px;
   }
 
