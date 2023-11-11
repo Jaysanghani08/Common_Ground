@@ -9,8 +9,9 @@ import LoadingComponent from '../Loading/Loading'
 import getToken from '../../services/getToken'
 import { getCourseData, getStudentProfile } from '../../services/Apis';
 import { Navigate } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify';
 
-const CourseDetails = ({ courseId = "654a495aac365ab95062b4a1" }) => {
+const CourseDetails = ({ courseId = "654d072a4f095401ca4384d0" }) => {
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -18,9 +19,9 @@ const CourseDetails = ({ courseId = "654a495aac365ab95062b4a1" }) => {
     const [profile, setProfile] = useState(null);
 
     console.log(coursedata)
-    console.log(profile)
+    // console.log(profile)
 
-    const token = getToken('student');
+    const token = getToken('educator');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -44,7 +45,7 @@ const CourseDetails = ({ courseId = "654a495aac365ab95062b4a1" }) => {
     }, []);
 
     if (!token) {
-        return <Navigate to="/student/login" />;
+        return <Navigate to="/educator/login" />;
     }
 
     if (loading) {
@@ -56,30 +57,33 @@ const CourseDetails = ({ courseId = "654a495aac365ab95062b4a1" }) => {
     }
 
     return (
-        <div>
-            <Sidebar />
-            <div className="course-container">
-                <CourseHeader
-                    courseCode={coursedata.courseCode}
-                    courseTitle={coursedata.courseTitle}
-                    courseDescriptionLong={coursedata.courseDescriptionLong}
-                    createdBy={`${coursedata.createdBy.fname} ${coursedata.createdBy.lname}`}
-                    enrolledStudents={coursedata.enrolledStudents.length || 0}
-                    language={coursedata.language}
-                    courseLevel={coursedata.courseLevel}
-                />
+        <>
+            <div>
+                <Sidebar />
+                <div className="course-container">
+                    <CourseHeader
+                        courseCode={coursedata.courseCode}
+                        courseTitle={coursedata.courseTitle}
+                        courseDescriptionLong={coursedata.courseDescriptionLong}
+                        createdBy={`${coursedata.createdBy.fname} ${coursedata.createdBy.lname}`}
+                        enrolledStudents={coursedata.enrolledStudents.length || 0}
+                        language={coursedata.language}
+                        courseLevel={coursedata.courseLevel}
+                    />
 
-                <div className="course-content">
-                    <BasicTabs />
-                    <BasicTextFields />
-                    <div className="dicussion-forum">
-                        <DicussionForum />
+                    <div className="course-content">
+                        <BasicTabs sections={coursedata.courseSections} courseId={coursedata._id} />
+                        <BasicTextFields />
+                        <div className="dicussion-forum">
+                            <DicussionForum />
+                        </div>
                     </div>
                 </div>
+
             </div>
 
-        </div>
-
+            <ToastContainer />
+        </>
 
 
     )

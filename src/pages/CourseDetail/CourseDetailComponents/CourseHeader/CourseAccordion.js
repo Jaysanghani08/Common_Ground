@@ -30,7 +30,8 @@ CourseContent.propTypes = {
 };
 
 export function CourseAccordion(props) {
-    const { content, pdfLink, assignmentLink,pdfTitle,AssignmentTitle } = props;
+    console.log(props)  
+    const { content, pdfLink="/vgnn", assignmentLink={}, pdfTitle="hjhjb", AssignmentTitle={} } = props;
     const [expanded, setExpanded] = useState(false);
     const [openPdfDialog, setOpenPdfDialog] = useState(false);
     const [openAssignmentDialog, setOpenAssignmentDialog] = useState(false);
@@ -67,32 +68,26 @@ export function CourseAccordion(props) {
         <div className='accordion'>
             <IconButton onClick={toggleContent} style={{ color: 'blue' }}>
                 {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-                {expanded ? 'Hide Post' : 'Show Post'}
+                {content.title}
             </IconButton>
             {expanded && (
                 <div>
-                    <CourseContent content={content} />
+                    <CourseContent content={content.body} />
                     <ul>
                         <li>
                             <IconButton onClick={handleOpenPdfDialog}>
                                 <PictureAsPdfIcon style={{ fontSize: '25px' }} />
+                            PDF Material
                             </IconButton>
-                            <a href={pdfLink}>PDF Material</a>
-                        </li>
-                        <li>
-                            <IconButton onClick={handleOpenAssignmentDialog}>
-                                <AssignmentIcon style={{ fontSize: '25px' }} />
-                            </IconButton>
-                            <a href={assignmentLink}>Assignment</a>
                         </li>
                     </ul>
-                   
                 </div>
             )}
+
             <Dialog
                 open={openPdfDialog}
                 onClose={handleClosePdfDialog}
-                fullScreen={fullScreenDialog || fullScreen} // Set full screen
+                fullScreen={fullScreenDialog || fullScreen}
                 classes={{ paper: 'custom-paper' }}
             >
                 <DialogTitle>
@@ -114,7 +109,7 @@ export function CourseAccordion(props) {
             </Dialog>
 
             {/* Assignment Dialog */}
-            <Dialog
+            {/* <Dialog
                 open={openAssignmentDialog}
                 onClose={handleCloseAssignmentDialog}
                 fullScreen={fullScreenDialog || fullScreen} // Set full screen
@@ -136,7 +131,7 @@ export function CourseAccordion(props) {
                         Close
                     </Button>
                 </DialogActions>
-            </Dialog>
+            </Dialog> */}
         </div>
     );
 }
