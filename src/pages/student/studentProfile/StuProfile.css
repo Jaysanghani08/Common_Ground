@@ -1,0 +1,187 @@
+.spn-container1{
+    height: fit-content;
+}
+.spn-profile{ 
+    height: 100%;
+    width: 100%;
+    padding-top: 40px;
+    border-radius: 5px;
+    background-color: #0c356a;
+    position: relative;
+    color: white;
+}
+
+.spn-profile::before{
+    content: ' ';
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    /* width: 1500px; */
+    left: 0px;
+    bottom: 0px;
+    background-image: url(/public/images/Profilepage.jpg);
+    background-position: center center;
+    /* background-attachment: fixed; */
+    background-size: cover;
+    opacity: 0.3;
+}
+
+.spn-upper{
+    /* padding: 100px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #0c356a;
+    position: relative;
+}
+.spn-sub-upper{
+    display: flex;
+    height: 250px;
+}
+.spn-image-container1{
+    /* height: 300px; */
+    width: 350px;
+    /* margin-left: 100px; */
+    /* margin-top: 25px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spn-image-container1 img{
+    background-color: #0c356a;
+    height: 170px;
+    width: 150px;
+    margin-left: 60px;
+    padding: 2px;
+    /* border-style: solid; */
+    border-radius: 10px;
+}
+
+.spn-user{
+    width: 500px;
+}
+.spn-username1{
+    /* color: black; */
+    margin-top: 80px;
+    font-weight: bolder;
+    font-size: 3.5rem;
+}
+
+.spn-about{
+    margin-top: 20px;
+    font-size: 1.7rem;
+}
+
+.spn-lover{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.spn-personalinfo{
+    margin-left: 80px;
+}
+
+.spn-basicinfo{
+    padding: 30px;
+    margin-bottom: 20px;
+    margin-top: -35px;
+    height: 560px;
+    width: 600px;
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: white;
+    position: relative;
+    color: #0c356a;
+    /* border-radius: 10px; */
+}
+.spn-Sub-basicinfo{
+    display: flex;
+    margin-top: 5px;
+}
+.spn-basic-heading{
+    font-size: 2.5rem;
+}
+.spn-info-submain{
+    margin-top: 20px;
+    border-bottom: 1px solid #0c356a;
+    padding-bottom: 10px;
+}
+.spn-edit-button{
+    width: 150px;
+    height: 30px;
+    color: white;
+    margin-top: 25px;
+    margin-left: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0c356a;
+    font-weight: normal;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding: 5px;
+    font-size: 1.6rem;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.spn-edit-button:hover{
+    color: white;
+    background-color: #1a083f;
+}
+
+@media (max-width:600px){
+    .spn-profile{
+        padding-top: 70px;
+    }
+    .spn-upper{
+        height: 300px;
+        padding: 20px;
+    }
+    .spn-sub-upper{
+        display: inline-block;
+        height: 250px;
+    }
+    .spn-image-container1{
+        width: -webkit-fill-available;
+    }
+    .spn-user{
+        width: -webkit-fill-available;
+        text-align: center;
+    }
+    /* .spn-about{
+        font-size: 1.5rem;
+    } */
+    .spn-basicinfo{
+        font-size: 1.5rem;
+        height: -webkit-fill-available;
+        width: auto;
+    }
+    .spn-username1{
+        font-size: 2.3rem;
+        margin-top: 20px;
+    }
+    .spn-personalinfo{
+        margin-left: 5px;
+    }
+    .spn-edit-button{
+        margin-left: initial;
+    }
+    .spn-image-container1 img{
+        margin-left: 0px;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1200px){
+    .spn-profile{
+        height: fit-content;
+        width: fit-content;
+        padding-top: 75px;
+    }
+    .spn-sub-upper{
+        padding: 20px;
+    }
+
+}
