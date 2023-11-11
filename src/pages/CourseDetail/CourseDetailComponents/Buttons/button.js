@@ -16,7 +16,7 @@ import { toast } from 'react-toastify';
 import { createSection } from '../../../../services/Apis';
 
 
-export default function BasicTextFields({courseId}) {
+export default function BasicTextFields() {
 
     const [openPdfDialog, setOpenPdfDialog] = useState(false);
     const [fullScreen, setFullScreen] = useState(false);

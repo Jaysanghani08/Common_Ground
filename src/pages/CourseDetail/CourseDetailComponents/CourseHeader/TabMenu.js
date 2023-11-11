@@ -21,7 +21,8 @@ import CourseAccordion from './CourseAccordion';
 import FileUploadForm from '../Buttons/video_and_pdf_button';
 import DicussionForum from "../DicussionForum/DicussionForum";
 import BasicTextFields from "../Buttons/button"
-
+import Assignments from './Assignments';
+import StudentList from './StudentList';
 Dialog.propTypes = {
     open: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
@@ -30,30 +31,47 @@ Dialog.propTypes = {
 };
 
 function CustomAccordion(props) {
-    const { index, title, posts } = props;
+    const { index, title, pdfLink, assignmentLink, details, AssignmentTitle, pdfTitle, content, posts, editSection, deleteSection } = props;
 
-    // const [editDialogOpen, setEditDialogOpen] = useState(false);
-    // const [editedTitle, setEditedTitle] = useState(title);
-    // const [editedDescription, setEditedDescription] = useState(details);
+    const [editDialogOpen, setEditDialogOpen] = useState(false);
+    const [editedTitle, setEditedTitle] = useState(title);
+    const [editedDescription, setEditedDescription] = useState(details);
 
     // const handleEditSection = () => {
     //     setEditDialogOpen(true);
     // };
 
-    // const handleSaveEdit = () => {
-    //     editSection(index, editedTitle, editedDescription);
-    //     setEditDialogOpen(false);
-    // };
+    const handleSaveEdit = () => {
+        // Implement the logic to save the edited section
+        // Update the section title and content as needed
+        editSection(index, editedTitle, editedDescription);
+        setEditDialogOpen(false);
+    };
 
     // const handleCancelEdit = () => {
     //     setEditDialogOpen(false);
     //     setEditedTitle(title);
     // };
 
-    // const handleDeleteSection = () => {
-    //     deleteSection(index);
-    // };
+    const handleDeleteSection = () => {
+        // Implement the logic to delete the section
+        deleteSection(index);
+    };
 
+    const handleEditContent = (contentIndex, editedContent) => {
+        // Implement the logic to edit content within the section
+        const updatedContent = [...content];
+        updatedContent[contentIndex] = editedContent;
+        editSection(index, editedTitle, editedDescription, updatedContent);
+      };
+    
+      const handleDeleteContent = (contentIndex) => {
+        // Implement the logic to delete content within the section
+        const updatedContent = [...content];
+        updatedContent.splice(contentIndex, 1);
+        editSection(index, editedTitle, editedDescription, updatedContent);
+      };
+    
 
     return (
         <Accordion style={{ margin: '10px 0' }} className='accordion'>
@@ -67,17 +85,18 @@ function CustomAccordion(props) {
             </AccordionSummary>
             <AccordionDetails>
                 <div>
-                    {posts.map((post, index) => (
+                    {content.map((course, index) => (
                         <CourseAccordion
                             key={index}
-                            content={post}
-                        // pdfTitle={pdfTitle[index]}
-                        // AssignmentTitle={AssignmentTitle[index]}
-                        // pdfLink={pdfLink[index]}
-                        // assignmentLink={assignmentLink[index]}
-                        /> 
+                            content={course}
+                            pdfTitle={pdfTitle[index]}
+                            AssignmentTitle={AssignmentTitle[index]}
+                            pdfLink={pdfLink[index]}
+                            assignmentLink={assignmentLink[index]}
+                        />
                     ))}
                 </div>
+                {posts}
                 <FileUploadForm />
             </AccordionDetails>
 
@@ -122,10 +141,9 @@ function CustomAccordion(props) {
 CustomAccordion.propTypes = {
     index: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
+    details: PropTypes.string.isRequired, // Change 'description' to 'details'
     pdfLink: PropTypes.string.isRequired,
     assignmentLink: PropTypes.string.isRequired,
-    details: PropTypes.string.isRequired,
     pdfTitle: PropTypes.arrayOf(PropTypes.string),
     AssignmentTitle: PropTypes.arrayOf(PropTypes.string),
     content: PropTypes.arrayOf(PropTypes.string),
@@ -179,47 +197,69 @@ export default function BasicTabs({ sections, courseId }) {
         setValue(newValue);
     };
 
-    // const [sections, setSections] = useState([
-    //     {
-    //         title: 'Week 1',
-    //         details: 'This is the details for Week 1.',
-    //         pdfLink: ["link-to-pdf-1", "link-to-pdf-2"],
-    //         pdfTitle: ["Matrial-1", "Matrial-2"],
-    //         assignmentLink: ["link-to-assignment-1", "link-to-assignment-2"],
-    //         AssignmentTitle: ["Assignment 1", "Assignment 2"],
-    //         content: ['Course content goes here 1.1', 'Course content goes here 1.2'],
-    //         posts: null,
-    //     },
-    //     {
-    //         title: 'Week 2',
-    //         details: 'This is the details for Week 1.',
-    //         pdfLink: ["link-to-pdf-1", "link-to-pdf-2"],
-    //         pdfTitle: ["Matrial-1", "Matrial-2"],
-    //         assignmentLink: ["link-to-assignment-1", "link-to-assignment-2"],
-    //         AssignmentTitle: ["Assignment 1", "Assignment 2"],
-    //         content: ['Course content goes here 1.1', 'Course content goes here 1.2'],
-    //         posts: null,
-    //     },
-    //     // Add more sections as needed...
-    // ]);
+    const [sections, setSections] = useState([
+        {
+            title: 'Week 1',
+            details: 'This is the details for Week 1.',
+            pdfLink: ["link-to-pdf-1", "link-to-pdf-2"],
+            pdfTitle: ["Matrial-1", "Matrial-2"],
+            assignmentLink: ["link-to-assignment-1", "link-to-assignment-2"],
+            AssignmentTitle: ["Assignment 1", "Assignment 2"],
+            content: ['Course content goes here 1.1', 'Course content goes here 1.2'],
+            posts: null,
+        },
+        {
+            title: 'Week 2',
+            details: 'This is the details for Week 1.',
+            pdfLink: ["link-to-pdf-1", "link-to-pdf-2"],
+            pdfTitle: ["Matrial-1", "Matrial-2"],
+            assignmentLink: ["link-to-assignment-1", "link-to-assignment-2"],
+            AssignmentTitle: ["Assignment 1", "Assignment 2"],
+            content: ['Course content goes here 1.1', 'Course content goes here 1.2'],
+            posts: null,
+        },
+        // Add more sections as needed...
+    ]);
 
-    const editSection = (index, editedTitle, editedDescription) => {
+    const students = [
+        { id: 1, name: 'John Doe' },
+        { id: 2, name: 'Jane Smith' },
+        // Add more students as needed
+      ];
+
+      const editSection = (index, editedTitle, editedDescription, updatedContent) => {
+        // Update the section's title, description, and content in the state
         const updatedSections = [...sections];
         updatedSections[index] = {
             ...sections[index],
             title: editedTitle,
             details: editedDescription,
+            content: updatedContent,
         };
-        // setSections(updatedSections); // This should update the state
+        setSections(updatedSections); // This should update the state
 
     };
 
     const deleteSection = (index) => {
+        // Delete the section from the state
         const updatedSections = [...sections];
         updatedSections.splice(index, 1);
-        // setSections(updatedSections);
+        setSections(updatedSections);
     };
 
+    const handleEditContent = (sectionIndex, contentIndex, editedContent) => {
+        // Implement the logic to edit content within the section
+        const updatedContent = [...sections[sectionIndex].content];
+        updatedContent[contentIndex] = editedContent;
+        editSection(sectionIndex, sections[sectionIndex].title, sections[sectionIndex].details, updatedContent);
+    };
+
+    const handleDeleteContent = (sectionIndex, contentIndex) => {
+        // Implement the logic to delete content within the section
+        const updatedContent = [...sections[sectionIndex].content];
+        updatedContent.splice(contentIndex, 1);
+        editSection(sectionIndex, sections[sectionIndex].title, sections[sectionIndex].details, updatedContent);
+    };
     return (
 
 
@@ -230,36 +270,91 @@ export default function BasicTabs({ sections, courseId }) {
                         <Tab style={{ fontSize: '18px' }} label="SECTIONS" {...a11yProps(0)} />
                         <Tab style={{ fontSize: '18px' }} label="ASSIGNMENTS" {...a11yProps(1)} />
                         <Tab style={{ fontSize: '18px' }} label="DISCUSSIONFORUM" {...a11yProps(2)} />
+                        <Tab style={{fontSize: '18px' }} label="STUDENTS" {...a11yProps(2)} />
                     </Tabs>
                 </Box>
                 <CustomTabPanel value={value} index={0}>
-                    {sections && sections.map((section, index) => (
+                    Item One
+                    {sections.map((section, index) => (
                         <CustomAccordion
                             key={index}
                             index={index}
                             title={section.title}
-                            posts={section.posts}
-                        // pdfLink={section.pdfLink}
-                        // pdfTitle={section.pdfTitle}
-                        // assignmentLink={section.assignmentLink}
-                        // AssignmentTitle={section.AssignmentTitle}
-                        // details={section.details}
-                        // content={section.content}
-                        // posts={section.posts}
-                        // editSection={editSection}
-                        // deleteSection={deleteSection}
+                            description={section.description}
+                            // pdfLink={section.pdfLink}
+                            // pdfTitle={section.pdfTitle}
+                            // assignmentLink={section.assignmentLink}
+                            // AssignmentTitle={section.AssignmentTitle}
+                            // details={section.details}
+                            // content={section.content}
+                            // posts={section.posts}
+                            // editSection={editSection}
+                            // deleteSection={deleteSection}
                         />
                     ))}
-                    <BasicTextFields courseId={courseId}/>
+                    <BasicTextFields />
                 </CustomTabPanel>
 
-
+                {/* <CustomAccordion
+                            title="Week 2"
+                            pdfLink={["link-to-pdf-1","link-to-pdf-2","link-to-pdf-3"]}
+                            pdfTitle={["Matrial-1", "Matrial-2","Matrial-3"]} 
+                            assignmentLink={["link-to-assignment-1", "link-to-assignment-2" , "link-to-assignment-3"]} 
+                            AssignmentTitle={["Assignment 1", "Assignment 2","Assignment 3"]} 
+                            details="This is the details for Week 2."
+                            content={[
+                                'Course content goes here 2.1',
+                                'Course content goes here 2.2',
+                                'Course content goes here 2.3',
+                            ]}
+                        />
+                        <CustomAccordion
+                            title="Week 3"
+                            pdfLink={["link-to-pdf-1"]}
+                            pdfTitle={["Matrial-1"]} 
+                            assignmentLink={["link-to-assignment-1"]} 
+                            AssignmentTitle={["Assignment 1"]} 
+                            details="This is the details for Week 3."
+                            content={[
+                                'Course content goes here 3.1'
+                            ]}
+                        />
+                        <CustomAccordion
+                            title="Week 4"
+                            pdfLink={["link-to-pdf-1","link-to-pdf-2","link-to-pdf-3","link-to-pdf-4"]}
+                            pdfTitle={["Matrial-1", "Matrial-2","Matrial-3","Matrial-4"]} // Example array of pdf titles
+                            assignmentLink={["link-to-assignment-1", "link-to-assignment-2" , "link-to-assignment-3","link-to-assignment-4"]} // Example array of assignment links
+                            AssignmentTitle={["Assignment 1", "Assignment 2","Assignment 3","Assignment 4"]} // Example array of assignment titles
+                            details="This is the details for Week 4."
+                            content={[
+                                'Course content goes here 4.1',
+                                'Course content goes here 4.2',
+                                'Course content goes here 4.3',
+                                'Course content goes here 4.4',
+                            ]}  
+                        /> */}
+                {/* <BasicTextFields />
+            </CustomTabPanel> */}
                 <CustomTabPanel value={value} index={1}>
                     Assignments
+                    <Assignments
+                        title={["Assigments"]}
+                        assignmentLink={["link-to-assignment-1", "link-to-assignment-2"]}
+                        AssignmentTitle={["Assignment 1", "Assignment 2"]}
+                    />
+                    <Assignments
+                        title={["Assigments"]}
+                        assignmentLink={["link-to-assignment-1", "link-to-assignment-2"]}
+                        AssignmentTitle={["Assignment 1", "Assignment 2"]}
+                    />
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={2}>
                     Item Three
                     <DicussionForum />
+                </CustomTabPanel>
+                <CustomTabPanel value={value} index={3}>
+                    STUDENTS
+                    <StudentList students={students} />
                 </CustomTabPanel>
             </Box>
         </div>

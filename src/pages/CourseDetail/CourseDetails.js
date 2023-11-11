@@ -57,6 +57,7 @@ const CourseDetails = ({ courseId = "654d072a4f095401ca4384d0" }) => {
     }
 
     return (
+<<<<<<< HEAD
         <>
             <div>
                 <Sidebar />
@@ -78,8 +79,27 @@ const CourseDetails = ({ courseId = "654d072a4f095401ca4384d0" }) => {
                             <DicussionForum />
                         </div>
                     </div>
-                </div>
+=======
+        <div>
+            <Sidebar />
+            <div className="course-container">
+                <CourseHeader
+                    courseCode={coursedata.courseCode}
+                    courseTitle={coursedata.courseTitle}
+                    courseDescriptionLong={coursedata.courseDescriptionLong}
+                    createdBy={`${coursedata.createdBy.fname} ${coursedata.createdBy.lname}`}
+                    enrolledStudents={coursedata.enrolledStudents.length || 0}
+                    language={coursedata.language}
+                    courseLevel={coursedata.courseLevel}
+                />
 
+                <div className="course-content">
+                    <BasicTabs />
+                    <BasicTextFields />
+                    <div className="dicussion-forum">
+                        <DicussionForum />
+                    </div>
+                </div>
             </div>
 
             <ToastContainer />

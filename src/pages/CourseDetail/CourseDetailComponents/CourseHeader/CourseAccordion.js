@@ -13,77 +13,197 @@ import Button from '@mui/material/Button';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import { useMediaQuery, useTheme } from '@mui/material';
-import "./CourseAccordion.css";
-function CourseContent(props) {
+import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
+import TextField from '@mui/material/TextField';
+
+const VideoStreamingComponent = ({ videoLink }) => (
+    <video width="100%" height="100%" controls>
+      <source src={videoLink} type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  );
+  function CourseContent(props) {
     const { content } = props;
     return (
-        <div>
-            {/* Render course content here */}
-            {/* <Typography variant="h5">Course Content</Typography> */}
-            <h5>{content}</h5>
-        </div>
+      <div>
+        {/* Render course content here */}
+        <h5>{content}</h5>
+      </div>
     );
-}
-
-CourseContent.propTypes = {
+  }
+  
+  CourseContent.propTypes = {
     content: PropTypes.node,
 };
 
 export function CourseAccordion(props) {
-    console.log(props)  
-    const { content, pdfLink="/vgnn", assignmentLink={}, pdfTitle="hjhjb", AssignmentTitle={} } = props;
+    const { content, pdfLink, assignmentLink,pdfTitle,AssignmentTitle } = props;
     const [expanded, setExpanded] = useState(false);
     const [openPdfDialog, setOpenPdfDialog] = useState(false);
     const [openAssignmentDialog, setOpenAssignmentDialog] = useState(false);
     const [fullScreen, setFullScreen] = useState(false);
-
+    const [openVideoDialog, setOpenVideoDialog] = useState(false);
+    const [openEditForm, setOpenEditForm] = useState(false);
+  
     const toggleContent = () => {
-        setExpanded(!expanded);
+      setExpanded(!expanded);
     };
-
+  
     const handleOpenPdfDialog = () => {
-        setOpenPdfDialog(true);
+      setOpenPdfDialog(true);
     };
-
+  
     const handleClosePdfDialog = () => {
-        setOpenPdfDialog(false);
+      setOpenPdfDialog(false);
     };
-
+  
     const handleOpenAssignmentDialog = () => {
-        setOpenAssignmentDialog(true);
+      setOpenAssignmentDialog(true);
     };
-
+  
+    const handleOpenVideoDialog = () => {
+      setOpenVideoDialog(true);
+    };
+  
+    const handleCloseVideoDialog = () => {
+      setOpenVideoDialog(false);
+    };
+  
     const handleCloseAssignmentDialog = () => {
-        setOpenAssignmentDialog(false);
+      setOpenAssignmentDialog(false);
     };
-
+  
     const toggleFullScreen = () => {
-        setFullScreen(!fullScreen);
+      setFullScreen(!fullScreen);
     };
-
+  
     const theme = useTheme();
     const fullScreenDialog = useMediaQuery(theme.breakpoints.down('sm'));
+  
 
+    const [editedContent, setEditedContent] = useState(content);
+    const [editedPdfFile, setEditedPdfFile] = useState(null);
+    const [editedVideoFile, setEditedVideoFile] = useState(null);
+
+    const handleEditFormOpen = () => {
+      setEditedContent(content);
+      setEditedPdfFile(null); // Add this line if you're using file input for PDF
+      setEditedVideoFile(null); // Add this line if you're using file input for video
+      setOpenEditForm(true);
+    };
+    
+
+  const handleEditFormClose = () => {
+    setOpenEditForm(false);
+  };
+
+  const handleEditFormSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission for editing
+    // Update the main content with the edited data
+    // ...
+    // Close the edit form
+    props.editContent(editedContent, editedPdfFile, editedVideoFile);
+    setOpenEditForm(false);
+  };
+
+  const handleEditInputChange = (e) => {
+    setEditedContent(e.target.value);
+  };
+
+  const handlePdfFileChange = (e) => {
+    const file = e.target.files[0];
+    setEditedPdfFile(file);
+  };
+  
+  const handleVideoFileChange = (e) => {
+    const file = e.target.files[0];
+    setEditedVideoFile(file);
+  };
+  
+
+  // Logic for deleting content
+  const handleDelete = () => {
+    // Handle delete logic
+    // You might want to show a confirmation dialog before deleting
+    // ...
+    props.deleteContent();
+  };
     return (
-        <div className='accordion'>
-            <IconButton onClick={toggleContent} style={{ color: 'blue' }}>
-                {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-                {content.title}
-            </IconButton>
-            {expanded && (
-                <div>
-                    <CourseContent content={content.body} />
-                    <ul>
-                        <li>
-                            <IconButton onClick={handleOpenPdfDialog}>
-                                <PictureAsPdfIcon style={{ fontSize: '25px' }} />
-                            PDF Material
-                            </IconButton>
-                        </li>
-                    </ul>
-                </div>
-            )}
+      <div>
+        <IconButton onClick={toggleContent} style={{ color: 'blue' }}>
+          {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          {expanded ? 'Hide Post' : 'Show Post'}
+        </IconButton>
+        {expanded && (
+          <div>
+            <CourseContent content={content} />
+            <div>
+            <Button onClick={handleEditFormOpen}>Edit</Button>
+            <Button onClick={handleDelete}>Delete</Button>
+          </div>
+            <ul>
+              <li>
+                <IconButton onClick={handleOpenPdfDialog}>
+                  <PictureAsPdfIcon style={{ fontSize: '25px' }} />
+                </IconButton>
+                <a href={pdfLink}>PDF Material</a>
+              </li>
+              <li>
+              <IconButton onClick={handleOpenVideoDialog}>
+              <VideoLibraryIcon style={{ fontSize: '25px' }} />
+                   </IconButton>
+                    <a href={videoLink}>Video</a>
+              </li>
+            </ul>
+          </div>
+        )}
+        
 
+ {/* Edit Form Dialog */}
+ <Dialog open={openEditForm} onClose={handleEditFormClose}>
+        <DialogTitle>Edit Content</DialogTitle>
+        <DialogContent>
+          <form onSubmit={handleEditFormSubmit}>
+            <TextField
+              label="Content"
+              variant="outlined"
+              fullWidth
+              value={editedContent}
+              onChange={handleEditInputChange}
+            />
+            <input
+                type="file"
+                accept=".pdf"
+                onChange={handlePdfFileChange}
+              />
+              <input
+                type="file"
+                accept="video/*"
+                onChange={handleVideoFileChange}
+              />
+              <DialogActions>
+                <Button type="submit" color="primary">
+                  Save
+                </Button>
+                <Button onClick={handleEditFormClose} color="secondary">
+                  Cancel
+                </Button>
+              </DialogActions>
+            <DialogActions>
+              <Button type="submit" color="primary">
+                Save
+              </Button>
+              <Button onClick={handleEditFormClose} color="secondary">
+                Cancel
+              </Button>
+            </DialogActions>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+
+         {/* PDF */}
             <Dialog
                 open={openPdfDialog}
                 onClose={handleClosePdfDialog}
@@ -108,30 +228,32 @@ export function CourseAccordion(props) {
                 </DialogActions>
             </Dialog>
 
-            {/* Assignment Dialog */}
-            {/* <Dialog
-                open={openAssignmentDialog}
-                onClose={handleCloseAssignmentDialog}
-                fullScreen={fullScreenDialog || fullScreen} // Set full screen
+            {/* Video Streaming Dialog */}
+           <Dialog
+                open={openVideoDialog}
+                onClose={handleCloseVideoDialog}
+                fullScreen={fullScreenDialog || fullScreen}
                 classes={{ paper: 'custom-paper' }}
             >
                 <DialogTitle>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        {AssignmentTitle} - Assignment
+                        {VideoTitle}
                         <IconButton edge="end" color="inherit" onClick={toggleFullScreen} aria-label="fullscreen">
                             {fullScreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
                         </IconButton>
                     </div>
                 </DialogTitle>
+                {/* Replace the iframe with your video streaming component */}
                 <DialogContent className="custom-dialog-content">
-                    <iframe title="Assignment Viewer" width="100%" height="100%" src={assignmentLink} />
+                    {/* Your video streaming component goes here */}
+                    <VideoStreamingComponent videoLink={videoLink} />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleCloseAssignmentDialog} color="primary">
+                    <Button onClick={handleCloseVideoDialog} color="primary">
                         Close
                     </Button>
                 </DialogActions>
-            </Dialog> */}
+            </Dialog> 
         </div>
     );
 }
@@ -140,9 +262,10 @@ CourseAccordion.propTypes = {
     content: PropTypes.node,
     pdfLink: PropTypes.string,
     assignmentLink: PropTypes.string,
-    pdfTitle:PropTypes.string,
-    AssignmentTitle:PropTypes.string,
-    posts: PropTypes.arrayOf(PropTypes.node),
-};
+    pdfTitle: PropTypes.string,
+    AssignmentTitle: PropTypes.string,
+    videoLink: PropTypes.string,
+    VideoTitle: PropTypes.string,
+  };
 
 export default CourseAccordion;
