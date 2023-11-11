@@ -4,7 +4,7 @@ import './StuProfile.css'
 import { Link } from 'react-router-dom';
 import Navbar from '../Dashboard/Sidebar/Sidebar'
 
-const EduProfile = () => {
+const StuProfile = () => {
 
     const inputRef = useRef(null);
     const [image, setimage] = useState("");
@@ -66,7 +66,7 @@ const EduProfile = () => {
                                     <div className='spn-info-submain'>Gender</div>
                                     <div className='spn-info-submain'>Country</div>
                                     <div className='spn-info-submain'>Dob</div>
-                                    <div className='spn-info-submain'>Education Level</div>
+                                    {/* <div className='spn-info-submain'>Education Level</div> */}
                                     <div className='spn-info-submain'>Email</div>                                
                                     <div className='spn-info-submain'>Phone</div>      
                             </div>
@@ -100,12 +100,12 @@ const EduProfile = () => {
                                         ))}
                                 </div>
                                 
-                                <div className='spn-info-submain'>
+                                {/* <div className='spn-info-submain'>
                                     
                                     {about.map( Sahil => (
                                         <div className='spn-email1'>{Sahil.Degree}</div>
                                         ))}
-                                </div>
+                                </div> */}
                                        
                                 <div className='spn-info-submain'>
             
@@ -137,4 +137,4 @@ const EduProfile = () => {
     )
 }
 
-export default EduProfile
+export default StuProfile
