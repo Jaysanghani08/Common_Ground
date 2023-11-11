@@ -71,10 +71,10 @@ const CourseDetails = ({ courseId = "654a495aac365ab95062b4a1" }) => {
 
                 <div className="course-content">
                     <BasicTabs />
-                    <BasicTextFields />
-                    <div className="dicussion-forum">
+                    {/* <BasicTextFields /> */}
+                    {/* <div className="dicussion-forum">
                         <DicussionForum />
-                    </div>
+                    </div> */}
                 </div>
             </div>
 

@@ -14,7 +14,7 @@ import './button.css'
 import Stack from '@mui/material/Stack';
 
 
-export default function BasicTextFields() {
+export default function BasicTextFields({ sections, setSections }) {
 
 const [openPdfDialog, setOpenPdfDialog] = useState(false);
 const [fullScreen, setFullScreen] = useState(false);
@@ -58,7 +58,9 @@ const [formData, setFormData] = useState({
 
 const handle_Submit = (e) => {
     e.preventDefault();
+    console.log('Form submitted!');
     const apiUrl = 'https://6517e4a9582f58d62d353374.mockapi.io/anand';
+    console.log('Data to be submitted:', formData);
     fetch(apiUrl, {
       method: 'POST',
       headers: {
@@ -68,7 +70,16 @@ const handle_Submit = (e) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Data sent to the API:', data);
+        setSections([...sections, {
+          title: "Ankur", // Assuming 'name' is the title of the section
+          details: "yess", // Assuming 'description' is the details of the section
+          pdfLink: [], // You can set the initial values as needed
+          pdfTitle: [],
+          assignmentLink: [],
+          AssignmentTitle: [],
+          content: [],
+          
+      }]);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -104,7 +115,7 @@ const handle_Submit = (e) => {
       noValidate
       autoComplete="off"
     >         
-    <form onSubmit={handle_Submit}>
+    <form onSubmit={(e) => handle_Submit(e)}>
     <div className="bn-main-button">
        <div className="bn-section-name">
       <TextField  id="outlined-basic" label="SectionName" variant="outlined" value={formData.name} name="name" onChange={handle_Change}/>
@@ -113,7 +124,7 @@ const handle_Submit = (e) => {
       <TextField  id="outlined-basic" label="SectionDiscription" variant="outlined"  value={formData.description} name='description' onChange={handle_Change}/>
       </div>
       <div className="bn-submit-button">
-      <Button variant="contained" >Submit</Button>
+      <Button variant="contained" onClick={(e) => handle_Submit(e)} >Submit</Button>
       </div>
       </div>
     </form>

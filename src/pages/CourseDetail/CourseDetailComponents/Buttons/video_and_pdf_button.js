@@ -12,7 +12,7 @@ import { useMediaQuery, useTheme } from '@mui/material';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import './video_and_pdf_button.css'
 
-const FileUploadForm = () => {
+const FileUploadForm = ({ sections, setSections }) => {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const [openPdfDialog, setOpenPdfDialog] = useState(false);
@@ -68,6 +68,16 @@ const handle_Submit = (e) => {
       .then((response) => response.json())
       .then((data) => {
         console.log('Data sent to the API:', data);
+        setSections([...sections, {
+          title: formData.name,
+          details: formData.description, // Assuming 'description' is the details of the section
+          pdfLink: [], // You can set the initial values as needed
+          pdfTitle: [],
+          assignmentLink: [],
+          AssignmentTitle: [],
+          content: ["Added Post"],
+          
+      }]);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -115,7 +125,7 @@ const handle_Submit = (e) => {
       noValidate
       autoComplete="off"
     >         
-    <form onSubmit={handle_Submit}>
+    <form onSubmit={(e) => handle_Submit(e)}>
     <div className="bn-main-button">
     <div className="bn-section-name">
       <TextField  id="outlined-basic" label="PostName" variant="outlined" value={formData.name} name="name" onChange={handle_Change}/>
@@ -125,7 +135,7 @@ const handle_Submit = (e) => {
       </div>
       
     <div >
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e) => handle_Submit(e)}>
         <div >
           <label className="post-pdf">PDF File:</label>
           <div className="post-pdf">
@@ -150,7 +160,7 @@ const handle_Submit = (e) => {
         </div>
 
       <div className="bn-submit-button">
-      <Button variant="contained" >Submit</Button>
+      <Button variant="contained" onClick={(e) => handle_Submit(e)} >Submit</Button>
       </div>
         
       </form>
