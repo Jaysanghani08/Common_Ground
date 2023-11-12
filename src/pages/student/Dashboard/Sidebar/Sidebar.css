@@ -62,6 +62,11 @@ img{
   bottom: 0;
   background:radial-gradient(circle at top left, #fff0 72%, #f8f9fa 75%);
 }
+.navbar-brand {
+    display: flex;
+    padding: 0px;
+    margin: 0px
+}
 
 .active:after {
   right: 0;
