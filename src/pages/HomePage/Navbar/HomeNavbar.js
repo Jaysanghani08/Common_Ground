@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { NavLink, useLocation, Link } from "react-router-dom";
-import { homepage  } from "../../../data/Edusidebar";
+import { NavLink, useLocation } from "react-router-dom";
+import { HashLink as Link } from 'react-router-hash-link';
+import { homepage } from "../../../data/Edusidebar";
 import logo from "../../../data/imgs/Logo.png";
-// import './Sidebar.css'
 
 const HomeNavbar = (props) => {
     const location = useLocation();
-
     const [selected, setSelected] = useState(0);
 
     return (
@@ -19,16 +18,14 @@ const HomeNavbar = (props) => {
                         data-toggle="collapse"
                         data-target="#bs-example-navbar-collapse-1"
                     >
-                        {" "}
-                        <span className="sr-only">Toggle navigation</span>{" "}
-                        <span className="icon-bar"></span>{" "}
-                        <span className="icon-bar"></span>{" "}
-                        <span className="icon-bar"></span>{" "}
+                        <span className="sr-only">Toggle navigation</span>
+                        <span className="icon-bar"></span>
+                        <span className="icon-bar"></span>
+                        <span className="icon-bar"></span>
                     </button>
                     <NavLink className="navbar-brand page-scroll" to="#page-top">
-                        {/* change the color of logo */}
-                        <img src={logo} alt="" height={40} /> 
-                    </NavLink>{" "}
+                        <img src={logo} alt="" height={40} />
+                    </NavLink>
                 </div>
 
                 <div
@@ -36,32 +33,46 @@ const HomeNavbar = (props) => {
                     id="bs-example-navbar-collapse-1"
                 >
                     <ul className="nav navbar-nav navbar-right">
+                        {homepage.map((item, index) => (
+                        <li key={index}>
+                            <Link
+                            smooth
+                            to={item.route}
+                            className="page-scroll"
+                            style={
+                                location.pathname === item.route ? { color: "0C356a" } : {}
+                            }
+                            >
+                            {item.heading}
+                            </Link>
+                        </li>
+                        ))}
 
-                        {homepage .map((item, index) => {
-                            return (
-                                <>
+                        <li className="dropdown">
+                            <a
+                                href="#"
+                                className="dropdown-toggle"
+                                data-toggle="dropdown"
+                                role="button"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                            >
+                                Log in <span className="caret"></span>
+                            </a>
+                            <ul className="dropdown-menu">
                                 <li>
-                                    {/* <NavLink to={item.route} key={index} className='page-scroll'
-                                    style={location.pathname === item.route ? {color: "0C356a"} : {}}>
-                                            {item.heading}
-                                    </NavLink> */}
-                                    <a href={item.route}>{item.heading}</a> 
-                                    
+                                    <NavLink to="/student/login" >Student Login</NavLink>
                                 </li>
-                                                       
-                                                     </>
-                            );
-                        })}
-                        
-                        
+                                <li>
+                                    <NavLink to="/educator/login">Educator Login</NavLink>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
-                    
-
                 </div>
-                
             </div>
         </nav>
     );
 };
 
-export default HomeNavbar
+export default HomeNavbar;

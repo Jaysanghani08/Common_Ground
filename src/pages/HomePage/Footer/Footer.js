@@ -1,10 +1,10 @@
 import React from "react"
 import "./Footer.css"
 
-const Footer = () => {
+const Footer = ({id}) => {
   return (
     <>
-    
+    <div id={id}>
       
     
       <footer>
@@ -58,8 +58,9 @@ const Footer = () => {
       </footer>
       <div className='legal'>
         <p>
-          Copyright ©2022 All rights reserved | Common Ground <i className='fa fa-heart'></i>
+          Copyright ©2023 All rights reserved | Common Ground <i className='fa fa-heart'></i>
         </p>
+      </div>
       </div>
     </>
   )
