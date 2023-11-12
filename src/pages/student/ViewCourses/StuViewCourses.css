@@ -235,10 +235,17 @@
     /* width :  */
 }
 
+.viewcourse-title{
+    padding-inline: 10rem;
+}
+
 
 @media (max-width: 768px) {
     .stu-viewcourses-section1 {
         padding: 20px;
+    }
+    .viewcourse-title{
+        padding: 1rem;
     }
 
     .stu-viewcourses-search-bar input[type="text"],
@@ -246,6 +253,12 @@
     .stu-viewcourses-search-bar select,
     .stu-viewcourses-search-bar button {
         width: 100%;
+    }
+    .stu-viewcourses-heading{
+        font-size: 4rem; 
+    }
+    .stu-viewcourses-subheading{
+        font-size: 2.5rem;
     }
 }
 
