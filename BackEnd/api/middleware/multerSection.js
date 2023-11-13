@@ -11,12 +11,12 @@ const storage = multerProfile.diskStorage({
 
         try {
             if (!courseId) {
-                throw new Error('Course ID is missing');
+                return cb('Course ID is missing', null);
             }
 
             const course = await Course.findById(courseId);
             if (!course) {
-                throw new Error('Course not found in the database');
+                return cb('Course not found', null);
             }
 
             if (sectionId) {
