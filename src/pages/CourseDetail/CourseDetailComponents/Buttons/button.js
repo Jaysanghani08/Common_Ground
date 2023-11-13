@@ -21,7 +21,7 @@ export default function BasicTextFields() {
 
     // const [courseID, setCourseID] = useState(courseId)
 
-    const {courseId} = useParams();
+    const { courseId } = useParams();
 
     // console.log(courseId)
     const [openPdfDialog, setOpenPdfDialog] = useState(false);
@@ -41,10 +41,6 @@ export default function BasicTextFields() {
 
     const handleOpenAssignmentDialog = () => {
         setOpenAssignmentDialog(true);
-    };
-
-    const handleCloseAssignmentDialog = () => {
-        setOpenAssignmentDialog(false);
     };
 
     const toggleFullScreen = () => {
@@ -69,25 +65,25 @@ export default function BasicTextFields() {
     const handle_Submit = async (e) => {
         // e.preventDefault();
 
-        if(!formData.title){
+        if (!formData.title) {
             toast.error('Please enter section name')
             return
         }
 
-        if(!courseId){
+        if (!courseId) {
             toast.error('Course ID is not defined')
             return
         }
 
-        const response = await createSection(courseId , formData);
+        const response = await createSection(courseId, formData);
         console.log(response);
-        if(response?.message === "Section created"){
+        if (response?.message === "Section created") {
             toast.success('Section created successfully')
             // setCourseID(courseId)
             handleClosePdfDialog();
             window.location.reload(true);
         }
-        else{
+        else {
             toast.error('Something went wrong')
         }
     };
@@ -103,8 +99,8 @@ export default function BasicTextFields() {
                 fullScreen={fullScreenDialog || fullScreen}
                 classes={{ paper: 'custom-paper' }}
             >
-                <DialogTitle>
 
+                <DialogTitle>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
 
                         <Button edge="end" color="inherit" onClick={toggleFullScreen} aria-label="fullscreen">

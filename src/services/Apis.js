@@ -204,13 +204,34 @@ export const getFilteredCourses = async (queryParams = {}) => {
 }
 
 export const createSection = async (courseId, sectionData) => {
-    console.log(sectionData)
-    console.log(courseId)   
     try {
         const response = await commonrequest("POST" ,`${BACKEND_URL}/educator/create-section/${courseId}`, sectionData, {
                 'authorization': `Bearer ${token}`
         });
         return response.data;
+    } catch (error) {
+        throw new Error("Error creating section");
+    }
+}
+
+export const editSection = async (courseId, sectionId, sectionData) => {
+    console.log(sectionData)
+    try {
+        const response = await commonrequest("PATCH" ,`${BACKEND_URL}/educator/edit-section/${courseId}/${sectionId}`, sectionData, {
+                'authorization': `Bearer ${token}`
+        });
+        return response;
+    } catch (error) {
+        throw new Error("Error creating section");
+    }
+}
+
+export const deleteSection = async (courseId, sectionId) => {
+    try {
+        const response = await commonrequest("DELETE" ,`${BACKEND_URL}/educator/delete-section/${courseId}/${sectionId}`, {}, {
+                'authorization': `Bearer ${token}`
+        });
+        return response;
     } catch (error) {
         throw new Error("Error creating section");
     }
