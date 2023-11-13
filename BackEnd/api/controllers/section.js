@@ -227,19 +227,24 @@ exports.editPost = async (req, res, next) => {
                 message: 'Post not found'
             });
         }
-        // if (req.file)
-        // {
-        //     const newTitle = req.body.title;
-        //     let filePath = post.title;
-        //     const lastIndex = filePath.lastIndexOf('\\');
-        //     filePath = filePath.slice(0, lastIndex);
-        //     filePath = filePath + '\\' + newTitle;
-        //     fs.renameSync(post.attachments[0], filePath);
-        //     console.log(filePath);
-        // }
+
+        if (req.body.attachments) {
+            // check is req.body.attachments is an array
+            if (!Array.isArray(req.body.attachments)) {
+                fs.unlinkSync(req.body.attachments);
+                post.attachments.pull(req.body.attachments);
+            }
+            else {
+                for (let i = 0; i < req.body.attachments.length; i++) {
+                    post.attachments.pull(req.body.attachments[i]);
+                    fs.unlinkSync(req.body.attachments[i]);
+                }
+            }
+        }
+
         if (req.files) {
             const attachments = req.files.map(file => file.path);
-            post.attachments = attachments;
+            post.attachments.push(...attachments);
         }
         if (req.body.title) {
             post.title = req.body.title;
@@ -247,7 +252,7 @@ exports.editPost = async (req, res, next) => {
         if (req.body.body) {
             post.body = req.body.body;
         }
-        console.log(post);
+
         await section.save();
 
         return res.status(200).json({
