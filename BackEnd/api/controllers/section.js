@@ -69,8 +69,8 @@ exports.editSection = async (req, res, next) => {
                 message: 'Section not found'
             });
         }
-        const oldDirectoryName = course.courseCode + '-' + course.courseTitle + '/' + section.title;
-        const newDirectoryName = course.courseCode + '-' + course.courseTitle + '/' + req.body.title;
+        const oldDirectoryName = course.courseCode + '-' + course.courseTitle + '/' + section.title + '-' + req.params.sectionId;
+        const newDirectoryName = course.courseCode + '-' + course.courseTitle + '/' + req.body.title + '-' + req.params.sectionId;
 
         const courseDirectory = path.join('./uploads/course', oldDirectoryName);
         const newCourseDirectory = path.join('./uploads/course', newDirectoryName);
@@ -95,7 +95,8 @@ exports.editSection = async (req, res, next) => {
         await Section.updateOne({_id: req.params.sectionId}, {$set: updateData}).exec();
 
         return res.status(201).json({
-            message: 'Section edited'
+            message: 'Section edited',
+            section: section
         });
     } catch
         (err) {
@@ -127,7 +128,8 @@ exports.deleteSection = async (req, res, next) => {
                 message: 'Section not found'
             });
         }
-        const sectionPath = `uploads/course/${course.courseCode}-${course.courseTitle}/${section.title}`;
+        const sectionPath = `uploads/course/${course.courseCode}-${course.courseTitle}/${section.title}-${req.params.sectionId}`;
+
         if (fs.existsSync(sectionPath)){
             deleteFolder(sectionPath);
         }
@@ -225,7 +227,6 @@ exports.editPost = async (req, res, next) => {
                 message: 'Post not found'
             });
         }
-
         // if (req.file)
         // {
         //     const newTitle = req.body.title;
@@ -236,12 +237,22 @@ exports.editPost = async (req, res, next) => {
         //     fs.renameSync(post.attachments[0], filePath);
         //     console.log(filePath);
         // }
-        await section.posts.id(req.params.postId).set(req.body);
-
+        if (req.files) {
+            const attachments = req.files.map(file => file.path);
+            post.attachments = attachments;
+        }
+        if (req.body.title) {
+            post.title = req.body.title;
+        }
+        if (req.body.body) {
+            post.body = req.body.body;
+        }
+        console.log(post);
         await section.save();
 
         return res.status(200).json({
-            message: 'Post edited'
+            message: 'Post edited',
+            post: post
         });
 
     } catch (err) {
@@ -284,8 +295,10 @@ exports.deletePost = async (req, res, next) => {
             });
         }
 
-        const postPath = `uploads/course/${course.courseCode}-${course.courseTitle}/${section.title}/${post.title}`;
-        deleteFolder(postPath);
+        const postPath = `uploads/course/${course.courseCode}-${course.courseTitle}/${section.title}-${req.params.sectionId}/${post.title}`;
+        if (fs.existsSync(postPath)) {
+            deleteFolder(postPath);
+        }
 
         await section.posts.pull(req.params.postId);
 
