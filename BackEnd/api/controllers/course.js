@@ -26,6 +26,13 @@ exports.createCourse = async (req, res, next) => {
             thumbnail = req.file.path;
         }
 
+        const course = await Course.findOne({courseCode: req.body.courseCode}).exec();
+        if (course) {
+            return res.status(409).json({
+                message: 'Course code already exist'
+            });
+        }
+
         const newCourse = new Course({
             courseTitle: req.body.courseTitle,
             courseDescription: req.body.courseDescription,
