@@ -196,7 +196,7 @@ export const getFilteredCourses = async (queryParams = {}) => {
         const response = await commonrequest("GET", `${BACKEND_URL}/query/search-filter`, null, {
             'authorization': `Bearer ${token}`
         }, queryParams);
-        console.log(response.dataco);
+        // console.log(response.data);
         return response.data.courses;
     } catch (error) {
         throw new Error("Error fetching filtered courses");
@@ -204,11 +204,11 @@ export const getFilteredCourses = async (queryParams = {}) => {
 }
 
 export const createSection = async (courseId, sectionData) => {
+    console.log(sectionData)
+    console.log(courseId)   
     try {
         const response = await commonrequest("POST" ,`${BACKEND_URL}/educator/create-section/${courseId}`, sectionData, {
-            headers: {
                 'authorization': `Bearer ${token}`
-            }
         });
         return response.data;
     } catch (error) {
@@ -250,6 +250,7 @@ export const handleAddPost = async () => {
         }
     }
 };
+
 // extra
 export const sentOtpFunction = async (data) => {
     return await commonrequest("POST", `${BACKEND_URL}/user/sendotp`, data)

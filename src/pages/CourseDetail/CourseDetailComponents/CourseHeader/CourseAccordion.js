@@ -147,13 +147,13 @@ export function CourseAccordion(props) {
                 <IconButton onClick={handleOpenPdfDialog}>
                   <PictureAsPdfIcon style={{ fontSize: '25px' }} />
                 </IconButton>
-                <a href={pdfLink}>PDF Material</a>
+                <a href={"pdfLink"}>PDF Material</a>
               </li>
               <li>
               <IconButton onClick={handleOpenVideoDialog}>
               <VideoLibraryIcon style={{ fontSize: '25px' }} />
                    </IconButton>
-                    <a href={videoLink}>Video</a>
+                    <a href={"videoLink"}>Video</a>
               </li>
             </ul>
           </div>
@@ -237,7 +237,7 @@ export function CourseAccordion(props) {
             >
                 <DialogTitle>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        {VideoTitle}
+                        {"VideoTitle"}
                         <IconButton edge="end" color="inherit" onClick={toggleFullScreen} aria-label="fullscreen">
                             {fullScreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
                         </IconButton>
@@ -246,7 +246,7 @@ export function CourseAccordion(props) {
                 {/* Replace the iframe with your video streaming component */}
                 <DialogContent className="custom-dialog-content">
                     {/* Your video streaming component goes here */}
-                    <VideoStreamingComponent videoLink={videoLink} />
+                    <VideoStreamingComponent videoLink={"videoLink"} />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleCloseVideoDialog} color="primary">

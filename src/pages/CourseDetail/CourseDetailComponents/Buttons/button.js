@@ -14,10 +14,16 @@ import './button.css'
 import Stack from '@mui/material/Stack';
 import { toast } from 'react-toastify';
 import { createSection } from '../../../../services/Apis';
+import { useLocation, useParams } from 'react-router-dom';
 
 
 export default function BasicTextFields() {
 
+    // const [courseID, setCourseID] = useState(courseId)
+
+    const {courseId} = useParams();
+
+    // console.log(courseId)
     const [openPdfDialog, setOpenPdfDialog] = useState(false);
     const [fullScreen, setFullScreen] = useState(false);
     const [openAssignmentDialog, setOpenAssignmentDialog] = useState(false);
@@ -55,19 +61,35 @@ export default function BasicTextFields() {
             ...formData,
             [name]: value,
         });
+
+        // setCourseID(courseId)
     };
     // console.log(formData);
 
     const handle_Submit = async (e) => {
-        e.preventDefault();
+        // e.preventDefault();
 
-        if(!formData.name){
+        if(!formData.title){
             toast.error('Please enter section name')
+            return
+        }
+
+        if(!courseId){
+            toast.error('Course ID is not defined')
             return
         }
 
         const response = await createSection(courseId , formData);
         console.log(response);
+        if(response?.message === "Section created"){
+            toast.success('Section created successfully')
+            // setCourseID(courseId)
+            handleClosePdfDialog();
+            window.location.reload(true);
+        }
+        else{
+            toast.error('Something went wrong')
+        }
     };
 
     return (
@@ -102,7 +124,7 @@ export default function BasicTextFields() {
                         <form>
                             <div className="bn-main-button">
                                 <div className="bn-section-name">
-                                    <TextField id="outlined-basic" label="SectionName" variant="outlined" value={formData.name} name="name" onChange={handle_Change} />
+                                    <TextField id="outlined-basic" label="SectionName" variant="outlined" value={formData.name} name="title" onChange={handle_Change} />
                                 </div>
                                 {/* <div className="bn-section-description">
                                     <TextField id="outlined-basic" label="SectionDiscription" variant="outlined" value={formData.description} name='description' onChange={handle_Change} />
