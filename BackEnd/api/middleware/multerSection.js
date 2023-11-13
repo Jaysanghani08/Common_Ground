@@ -26,7 +26,7 @@ const storage = multerProfile.diskStorage({
 
                     const sectionDirectory = path.join(
                         `./uploads/course/${course.courseCode}-${course.courseTitle}`,
-                        sectionTitle
+                        sectionTitle + '-' + sectionId
                     );
 
                     if (!fs.existsSync(sectionDirectory)) {
