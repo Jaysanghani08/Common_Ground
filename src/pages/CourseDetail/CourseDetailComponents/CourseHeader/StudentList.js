@@ -14,7 +14,7 @@ function StudentList(props) {
     }
   
     return (
-      <List >
+      <List style={{ fontSize: '30px' }}>
         {students.map((student, index) => (
           <ListItem key={index} button  style={{ backgroundColor: 'white' }}>
             <ListItemIcon>

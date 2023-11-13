@@ -82,6 +82,7 @@ export function CourseAccordion(props) {
   
 
     const [editedContent, setEditedContent] = useState(content);
+    const [editedPostName, setEditedPostName] = useState(postName);
     const [editedPdfFile, setEditedPdfFile] = useState(null);
     const [editedVideoFile, setEditedVideoFile] = useState(null);
 
@@ -103,12 +104,18 @@ export function CourseAccordion(props) {
     // Update the main content with the edited data
     // ...
     // Close the edit form
-    props.editContent(editedContent, editedPdfFile, editedVideoFile);
+    props.editContent(editedContent,editedPostName);
+    // props.editPostName(editedPostName);
+
     setOpenEditForm(false);
   };
 
   const handleEditInputChange = (e) => {
     setEditedContent(e.target.value);
+  };
+
+  const handleEditPostNameChange = (e) => {
+    setEditedPostName(e.target.value);
   };
 
   const handlePdfFileChange = (e) => {
@@ -133,7 +140,7 @@ export function CourseAccordion(props) {
       <div>
         <IconButton onClick={toggleContent} style={{ color: 'blue' }}>
           {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          {expanded ? 'Hide Post' : 'Show Post'}
+          {expanded ? 'Hide Post' : 'Show Post'}- {postName}
         </IconButton>
         {expanded && (
           <div>
@@ -165,6 +172,15 @@ export function CourseAccordion(props) {
         <DialogTitle>Edit Content</DialogTitle>
         <DialogContent>
           <form onSubmit={handleEditFormSubmit}>
+
+          <TextField
+              label="Post Name"
+              variant="outlined"
+              fullWidth
+              value={editedPostName}
+              onChange={handleEditPostNameChange}
+            />
+
             <TextField
               label="Content"
               variant="outlined"
@@ -172,7 +188,7 @@ export function CourseAccordion(props) {
               value={editedContent}
               onChange={handleEditInputChange}
             />
-            <input
+            {/* <input
                 type="file"
                 accept=".pdf"
                 onChange={handlePdfFileChange}
@@ -181,15 +197,8 @@ export function CourseAccordion(props) {
                 type="file"
                 accept="video/*"
                 onChange={handleVideoFileChange}
-              />
-              <DialogActions>
-                <Button type="submit" color="primary">
-                  Save
-                </Button>
-                <Button onClick={handleEditFormClose} color="secondary">
-                  Cancel
-                </Button>
-              </DialogActions>
+              /> */}
+             
             <DialogActions>
               <Button type="submit" color="primary">
                 Save
@@ -260,6 +269,7 @@ export function CourseAccordion(props) {
 
 CourseAccordion.propTypes = {
     content: PropTypes.node,
+    postName: PropTypes.string.isRequired,
     pdfLink: PropTypes.string,
     assignmentLink: PropTypes.string,
     pdfTitle: PropTypes.string,

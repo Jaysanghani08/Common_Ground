@@ -31,9 +31,10 @@ export const online = [
   },
   
 ]
-const OnlineCourses = () => {
+const OnlineCourses = ({id}) => {
   return (
     <>
+     <div id={id}>
       <section className='online'>
         <div className='container'>
           <h2>COURSES</h2>
@@ -52,6 +53,7 @@ const OnlineCourses = () => {
           </div>
         </div>
       </section>
+      </div>
     </>
   )
 }

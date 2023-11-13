@@ -41,9 +41,10 @@ export const coursesCard = [
   }
   
 ]
-const CoursesCard = () => {
+const CoursesCard = ({id}) => {
   return (
     <>
+    <div id={id}>
     <div className="container">
       <section className='coursesCard'>
         <h2>Ouer free Courses</h2>
@@ -87,6 +88,7 @@ const CoursesCard = () => {
           ))}
         </div>
       </section>
+      </div>
       </div>
     </>
   )

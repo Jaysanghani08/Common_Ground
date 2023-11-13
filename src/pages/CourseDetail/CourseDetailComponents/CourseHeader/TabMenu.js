@@ -31,15 +31,17 @@ Dialog.propTypes = {
 };
 
 function CustomAccordion(props) {
-    const { index, title, content} = props;
+    const { index, title, pdfLink, assignmentLink, details, AssignmentTitle, pdfTitle, content, editSection, deleteSection,sectionName, sections, setSections } = props;
 
     const [editDialogOpen, setEditDialogOpen] = useState(false);
-    // const [editedTitle, setEditedTitle] = useState(title);
-    // const [editedDescription, setEditedDescription] = useState(details);
+    const [editedTitle, setEditedTitle] = useState(title);
+    const [editedDescription, setEditedDescription] = useState(details);
 
-    // const handleEditSection = () => {
-    //     setEditDialogOpen(true);
-    // };
+   
+
+    const handleEditSection = () => {
+        setEditDialogOpen(true);
+    };
 
     const handleSaveEdit = () => {
         // Implement the logic to save the edited section
@@ -58,13 +60,21 @@ function CustomAccordion(props) {
         // deleteSection(index);
     };
 
-    const handleEditContent = (contentIndex, editedContent) => {
+    const handleEditContent = (contentIndex, editedContent,editedPoatName) => {
         // Implement the logic to edit content within the section
-        // const updatedContent = [...content];
-        // updatedContent[contentIndex] = editedContent;
-        // editSection(index, editedTitle, editedDescription, updatedContent);
+        const updatedContent = [...content];
+        updatedContent[contentIndex] = editedContent;
+        editSection(index, editedTitle, editedDescription, updatedContent);
       };
     
+      const handleEditPostName = (contentIndex, editedPoatName) => {
+        // Implement the logic to edit content within the section
+        const updatedPostName = [...postName];
+        updatedPostName[contentIndex] = editedPoatName;
+        editSection(index, editedTitle, editedDescription, updatedPostName);
+      };
+      
+
       const handleDeleteContent = (contentIndex) => {
         // Implement the logic to delete content within the section
         // const updatedContent = [...content];
@@ -85,12 +95,21 @@ function CustomAccordion(props) {
             </AccordionSummary>
             <AccordionDetails>
                 <div>
-                    {content && content.map((course, index) => (
-                        <CourseAccordion
-                            key={index}
-                            content={course}
-                        />
-                    ))}
+                {content && content.map((course, courseIndex) => (
+            <CourseAccordion
+            key={courseIndex}
+            postTitle={sectionName}
+            content={course}
+            pdfTitle={pdfTitle[courseIndex]}
+            AssignmentTitle={AssignmentTitle[courseIndex]}
+            pdfLink={pdfLink[courseIndex]}
+            assignmentLink={assignmentLink[courseIndex]}
+            editSection={editSection}
+            deleteSection={deleteSection}
+            editContent={(editedContent) => handleEditContent(courseIndex, editedContent)}
+                  deleteContent={() => handleDeleteContent(courseIndex)}
+            />
+          ))}
                 </div>
                 {/* {posts} */}
                 <FileUploadForm />
@@ -223,14 +242,14 @@ export default function BasicTabs({ sections, courseId }) {
         // Add more students as needed
       ];
 
-      const editSection = (index, editedTitle, editedDescription, updatedContent) => {
+      const editSection = (index, editedTitle, editedDescription, updatedContent,newPostName) => {
         // Update the section's title, description, and content in the state
         const updatedSections = [...sections];
         updatedSections[index] = {
-            ...sections[index],
-            title: editedTitle,
-            details: editedDescription,
-            content: updatedContent,
+          ...sections[index],
+          title: editedTitle,
+          details: editedDescription,
+          content: updatedContent,
         };
         // setSections(updatedSections); // This should update the state
 
@@ -248,9 +267,15 @@ export default function BasicTabs({ sections, courseId }) {
         const updatedContent = [...sections[sectionIndex].content];
         updatedContent[contentIndex] = editedContent;
         editSection(sectionIndex, sections[sectionIndex].title, sections[sectionIndex].details, updatedContent);
-    };
+      };
 
-    const handleDeleteContent = (sectionIndex, contentIndex) => {
+      const handleEditPostName = (sectionIndex, postIndex,newPostName) => {
+        const updatedPostName = [...sections[sectionIndex].postName];
+        updatedPostName[postIndex] = newPostName;
+        editSection(sectionIndex, sections[sectionIndex].title, sections[sectionIndex].details,newPostName);
+      };
+    
+      const handleDeleteContent = (sectionIndex, contentIndex) => {
         // Implement the logic to delete content within the section
         const updatedContent = [...sections[sectionIndex].content];
         updatedContent.splice(contentIndex, 1);

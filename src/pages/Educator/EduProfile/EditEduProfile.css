@@ -54,6 +54,7 @@
   background-color: #0c356a;
   height: 170px;
   width: 150px;
+  margin-left: 20px;
   padding: 2px;
   /* border-style: solid; */
   border-radius: 10px;
@@ -212,6 +213,9 @@
   }
   .epn-edit-info-submain2{
     margin-top: 15px;
+  }
+  .epn-edit-image-container1 img{
+    margin-left: 0px;
   }
 }
 

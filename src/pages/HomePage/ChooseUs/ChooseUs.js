@@ -2,8 +2,9 @@ import React from "react";
 import "./ChooseUs.css";
 import chooseBackgroundImg from "../Images/why-choose-us.png";
 
-const ChooseUs = () => {
+const ChooseUs = ({id}) => {
   return (
+    <div id={id}>
     <div className="container">
       <div className="choose-container">
         <div className="choose__content">
@@ -22,6 +23,7 @@ const ChooseUs = () => {
           <img src={chooseBackgroundImg} alt="Choose Us Background" />
         </div>
       </div>
+    </div>
     </div>
   );
 };

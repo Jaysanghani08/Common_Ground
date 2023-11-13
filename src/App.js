@@ -23,6 +23,8 @@ import HomePage from "./pages/HomePage/HomePage";
 import StuViewCourses from "./pages/student/ViewCourses/StuViewcourses";
 import Logout from "./pages/Logout/Logout"
 import EnrolledCourses from "./pages/student/EnrolledCourses/EnrolledCourses";
+import StuProfile from "./pages/student/studentProfile/StuProfile"
+import EditStuProfile from "./pages/student/studentProfile/EditStuProfile"
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
     speed: 1000,
@@ -47,7 +49,8 @@ function App() {
                     <Route path='dashboard' element={<StuDashboard />} />
                     <Route path='view-courses' element={<StuViewCourses />} />
                     <Route path='enrolled-courses' element={<EnrolledCourses />} />
-                    <Route path='profile' element={<StuDashboard />} />
+                    <Route path='profile' element={<StuProfile />} />
+                    <Route path='update' element={<EditStuProfile />} />
                 </Route>
                 <Route path='/educator'>
                     <Route index element={<EduRegister />} />

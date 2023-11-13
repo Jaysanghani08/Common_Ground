@@ -151,15 +151,17 @@ const StuViewCourses = () => {
                 <div className="stu-viewcourses-content">
                     <div className="stu-viewcourses-section-cover stu-viewcourses-section1-cover"></div>
                     <div className="stu-viewcourses-section1">
-                        <h1 className='stu-viewcourses-heading'>
+                        <div className='viewcourse-title'>
+                        <h1 className='stu-viewcourses-heading' >
                             We help you to upgrade your knowledege effectively
                         </h1>
                         <h2 className='stu-viewcourses-subheading'>
                             Enjoy the freedom to learn the way you want
                         </h2>
+                        </div>
                         <div className="stu-viewcourses-search-bar">
                             <input
-                                className='stu-viewcourses-large-input'
+                                className='stu-viewcourses-small-input'
                                 type="text"
                                 placeholder="Search by course title"
                                 value={searchTerm}
@@ -172,13 +174,19 @@ const StuViewCourses = () => {
                                 value={priceLimit}
                                 onChange={(e) => setPriceLimit(e.target.value)}
                             />
-                            <input
-                                className='stu-viewcourses-small-input'
-                                type="number"
-                                placeholder="Max Rating"
+                            <select
                                 value={maxRating}
                                 onChange={(e) => setmaxRating(e.target.value)}
-                            />
+                            >
+                                <option value="">Select Rating</option>
+                                <option value="R1"> 1</option>
+                                <option value="R2"> 2</option>
+                                <option value="R3"> 3</option>
+                                <option value="R4"> 4</option>
+                                <option value="R5"> 5</option>
+                                {/* Add more category options as needed */}
+                            </select>
+                            
                             <select
                                 value={category}
                                 onChange={(e) => setCategory(e.target.value)}
@@ -197,6 +205,15 @@ const StuViewCourses = () => {
                                 <option value="english">English </option>
                                 <option value="hindi">Hindi</option>
                                 <option value="spanish">Spanish</option>
+                                {/* Add more category options as needed */}
+                            </select>
+                            <select
+                                value={category}
+                                onChange={(e) => setCategory(e.target.value)}
+                            >
+                                <option value="">Select Language</option>
+                                <option value="l1">English</option>
+                                <option value="l2">Hindi</option>
                                 {/* Add more category options as needed */}
                             </select>
                             <input
