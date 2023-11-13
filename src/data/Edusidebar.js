@@ -44,12 +44,12 @@ export const SidebarDataForStudent = [
     },
     {
         // icon: UilBookAlt,
-        heading: "Your Courses",
+        heading: "View Courses",
         route: "/student/view-courses",
     },
     {
         // icon: UilPlus,
-        heading: "Create Courses",
+        heading: "Enrolled Courses",
         route: "/student/enrolled-courses",
     },
     {

@@ -14,14 +14,21 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
+import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
+import { useMediaQuery, useTheme } from '@mui/material';
 import './TabMenu.css';
+import { handleAddPost, handleDeletePost, handleEditPost, } from './../../../../services/Apis';
 import CourseAccordion from './CourseAccordion';
 import FileUploadForm from '../Buttons/video_and_pdf_button';
 import DicussionForum from "../DicussionForum/DicussionForum";
 import BasicTextFields from "../Buttons/button"
 import Assignments from './Assignments';
 import StudentList from './StudentList';
+import { deleteSection, editSection } from './../../../../services/Apis';
+import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 Dialog.propTypes = {
     open: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
@@ -30,128 +37,171 @@ Dialog.propTypes = {
 };
 
 function CustomAccordion(props) {
-    const { index, title, pdfFiles, assignmentFilespdfFiles, details, AssignmentTitle, pdfTitle,videoFiles, content, editSection, deleteSection,sectionName, sections, setSections,postName } = props;
+    const { index, title, content, sectionId } = props;
+
+    const { courseId } = useParams();
 
     const [editDialogOpen, setEditDialogOpen] = useState(false);
     const [editedTitle, setEditedTitle] = useState(title);
-    const [editedDescription, setEditedDescription] = useState(details);
+    const [fullScreen, setFullScreen] = useState(false);
+    const theme = useTheme();
+    const fullScreenDialog = useMediaQuery(theme.breakpoints.down('sm'));
     
-   
+    const toggleFullScreen = () => {
+        setFullScreen(!fullScreen);
+    };
+
+    const [formData, setFormData] = useState({
+        title: '',
+    });
+
+    const handleOpenPdfDialog = () => {
+        setEditDialogOpen(true);
+    };
+
+    const handleCloseEditSectionDialog = () => {
+        setEditDialogOpen(false);
+    };
 
     const handleEditSection = () => {
         setEditDialogOpen(true);
     };
 
-    const handleSaveEdit = () => {
-        // Implement the logic to save the edited section
-        // Update the section title and content as needed
-        editSection(index, editedTitle, editedDescription);
-        setEditDialogOpen(false);
-        // Add this line to update the sections state
-      };
+    const handle_Change = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
 
-    const handleCancelEdit = () => {
-        setEditDialogOpen(false);
-        setEditedTitle(title);
+        // setCourseID(courseId)
+    };
+    // console.log(formData);
+
+    const handleEditSectionSubmit = async (e) => {
+        // e.preventDefault();
+
+        if (!formData.title) {
+            toast.error('Please enter section name')
+            return
+        }
+
+        if (!courseId) {
+            toast.error('Course ID is not defined')
+            return
+        }
+
+        const response = await editSection(courseId, sectionId, formData);
+        console.log(response);
+        if (response?.status === 201) {
+            toast.success('Section created successfully')
+            // setCourseID(courseId)
+            handleCloseEditSectionDialog();
+            window.location.reload(true);
+        }
+        else {
+            toast.error('Something went wrong')
+        }
     };
 
-    const handleDeleteSection = () => {
-        // Implement the logic to delete the section
-        deleteSection(index);
+
+    const handleDeleteSection = async () => {
+        const deleted = await deleteSection(courseId, sectionId);
+        if (deleted?.status === 201) {
+            toast.success("Section deleted Successfully.")
+            window.location.reload(true);
+        }
+        else{
+            toast.error("Somthing went wrong.")
+        }
     };
 
-    const handleEditContent = (contentIndex, editedContent,editedPoatName) => {
-        // Implement the logic to edit content within the section
-        const updatedContent = [...content];
-        updatedContent[contentIndex] = editedContent;
-        const updatedPostName = [...postName];
-        updatedPostName[contentIndex] = editedPoatName;
-        editSection(index, editedTitle, editedDescription, updatedContent,updatedPostName);
-      };
-    
-      const handleEditPostName = (contentIndex, editedPoatName) => {
-        // Implement the logic to edit content within the section
-        const updatedPostName = [...postName];
-        updatedPostName[contentIndex] = editedPoatName;
-        editSection(index, editedTitle, editedDescription, updatedPostName);
-      };
-      
+    const handleEditContent = (contentIndex, editedContent, editedPoatName) => {
+    }
 
-      const handleDeleteContent = (contentIndex) => {
-        // Implement the logic to delete content within the section
-        const updatedContent = [...content];
-        updatedContent.splice(contentIndex, 1);
-        editSection(index, editedTitle, editedDescription, updatedContent);
-      };
-    
+    const handleEditPostName = (contentIndex, editedPoatName) => {
+    };
+
+
+    const handleDeleteContent = (contentIndex) => {
+    };
+
 
     return (
         <Accordion style={{ margin: '10px 0' }} className='accordion'>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              
-                <Typography color="primary" style={{fontSize: '18px' }}>{title}</Typography>
+
+                {/* title of accordian */}
+                <Typography color="primary" style={{ fontSize: '18px' }}>{title}</Typography>
+
+                {/* edit and delete sections */}
                 <div >
-                 <Button variant="outlined"  onClick={handleEditSection}>Edit</Button>
-                <Button variant="outlined"  onClick={handleDeleteSection}>Delete</Button>
+                    <Button variant="outlined" onClick={handleEditSection} >Edit</Button>
+                    <Button variant="outlined" onClick={handleDeleteSection}>Delete</Button>
                 </div>
             </AccordionSummary>
-            <AccordionDetails>
-                <div className='accordion-week'>
-                    <h5>{details}</h5>
-                </div>
-                <div>
-                {content && content.map((course, courseIndex) => (
-            <CourseAccordion
-            key={courseIndex}
-            postTitle={sectionName}
-            content={content && content[courseIndex]}
-            postName={postName && postName[courseIndex]}
-            pdfTitle={pdfTitle && pdfTitle[courseIndex]}
-            AssignmentTitle={AssignmentTitle && AssignmentTitle[courseIndex]}
-            pdfFiles={pdfFiles && pdfFiles[courseIndex]}
-            videoFiles={videoFiles && videoFiles[courseIndex]}
-            editSection={editSection}
-            deleteSection={deleteSection}
-            editContent={(editedContent,editedPoatName) => handleEditContent(courseIndex, editedContent,editedPoatName)}
-            // editPostName ={(editedPoatName)=>   handleEditPostName (courseIndex, editedPoatName)}
-            deleteContent={() => handleDeleteContent(courseIndex)}
-            />
-          ))}
-                </div>
-                <FileUploadForm sections={sections} setSections={setSections}/>
-            </AccordionDetails>
 
             <Dialog
                 open={editDialogOpen}
-                onClose={handleCancelEdit}
-                fullWidth
-                maxWidth="md"
+                onClose={handleCloseEditSectionDialog}
+                fullScreen={fullScreenDialog || fullScreen}
+                classes={{ paper: 'custom-paper' }}
             >
-                <DialogTitle>Edit Section</DialogTitle>
-                <DialogContent>
-                    <Stack spacing={2}>
-                        <TextField
-                            label="Section Title"
-                            value={editedTitle}
-                            onChange={(e) => setEditedTitle(e.target.value)}
-                        />
-                        <TextField
-                            label="Section Description"
-                            value={editedDescription}
-                            onChange={(e) => setEditedDescription(e.target.value)}
-                        />
-                        {/* Add other fields for editing content as needed */}
-                    </Stack>
+
+                <DialogTitle>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+
+                        <Button edge="end" color="inherit" onClick={toggleFullScreen} aria-label="fullscreen">
+                            {fullScreen ? <FullscreenExitIcon /> : <FullscreenIcon />} Add Section
+                        </Button>
+                    </div>
+                </DialogTitle>
+                <DialogContent className="custom-dialog-content">
+                    <Box
+                        component="form"
+                        sx={{
+                            '& > :not(style)': { m: 1, width: '25ch' },
+                        }}
+                        noValidate
+                        autoComplete="off"
+                    >
+                        <form>
+                            <div className="bn-main-button">
+                                <div className="bn-section-name">
+                                    <TextField id="outlined-basic" label="SectionName" variant="outlined" value={formData.name} name="title" onChange={handle_Change} />
+                                </div>
+                                {/* <div className="bn-section-description">
+                                    <TextField id="outlined-basic" label="SectionDiscription" variant="outlined" value={formData.description} name='description' onChange={handle_Change} />
+                                </div> */}
+                                <div className="bn-submit-button">
+                                    <Button variant="contained" onClick={handleEditSectionSubmit}>Submit</Button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </Box>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleCancelEdit} color="primary">
-                        Cancel
-                    </Button>
-                    <Button onClick={handleSaveEdit} color="primary">
-                        Save
+                    <Button onClick={handleCloseEditSectionDialog} color="primary">
+                        Close
                     </Button>
                 </DialogActions>
             </Dialog>
+
+            <AccordionDetails>
+                <div>
+                    {content && content.map((course, courseIndex) => (
+                        <CourseAccordion
+                            key={courseIndex}
+                            content={course}
+                            editContent={(editedContent) => handleEditContent(courseIndex, editedContent)}
+                            deleteContent={() => handleDeleteContent(courseIndex)}
+                        />
+                    ))}
+                </div>
+                {/* {posts} */}
+                <FileUploadForm />
+            </AccordionDetails>
         </Accordion>
     );
 }
@@ -184,11 +234,11 @@ function CustomTabPanel(props) {
             {value === index && (
                 <Box sx={{ p: 3 }}>
                     <Typography color={'gray'}>
-                       {children}
+                        {children}
                         {/* Add more CustomAccordion components for different weeks */}
                     </Typography>
                 </Box>
-                 
+
             )}
         </div>
     );
@@ -208,190 +258,79 @@ function a11yProps(index) {
     };
 }
 
-export default function BasicTabs() {
+export default function BasicTabs({ sections, courseId }) {
     const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
-
-    
-    const [sections, setSections] = useState([
-        {
-            title: 'Week 1',
-            postTitle:'Lab1',
-            details: 'This is the details for Week 1.',
-            pdfFiles: [" "],
-            pdfTitle: ["Matrial-1", "Matrial-2"],
-            videoFiles: [/* array of File objects */],
-            AssignmentTitle: ["Assignment 1", "Assignment 2"],
-            content: ['Course content goes here 1.1'],
-            postName:['1.1'],
-            
-        },
-        {
-            title: 'Week 2',
-            details: 'This is the details for Week 1.',
-            pdfFiles: [/* array of File objects */],
-            pdfTitle: ["Matrial-1", "Matrial-2"],
-            videoFiles: [/* array of File objects */],
-            AssignmentTitle: ["Assignment 1", "Assignment 2"],
-            content: ['Course content goes here 1.1', 'Course content goes here 1.2'],
-            postName:['1.1',"1.2"],
-        },
-        // Add more sections as needed...
-    ]);
-
     const students = [
         { id: 1, name: 'John Doe' },
         { id: 2, name: 'Jane Smith' },
         // Add more students as needed
-      ];
+    ];
 
-      const editSection = (index, editedTitle, editedDescription, updatedContent,newPostName) => {
-        // Update the section's title, description, and content in the state
-        const updatedSections = [...sections];
-        updatedSections[index] = {
-          ...sections[index],
-          title: editedTitle,
-          details: editedDescription,
-          content: updatedContent,
-          postName:newPostName,
-        };
-        setSections(updatedSections); // This should update the state
-      };
+    const editSection = (index, editedTitle) => {
 
-      const deleteSection = (sectionIndex) => {
-        // Delete the section from the state
-        const updatedSections = [...sections];
-        updatedSections.splice(sectionIndex, 1);
-        setSections(updatedSections);
-      };
 
-      const handleEditContent = (sectionIndex, contentIndex, editedContent) => {
-        // Implement the logic to edit content within the section
-        const updatedContent = [...sections[sectionIndex].content];
-        updatedContent[contentIndex] = editedContent;
-        editSection(sectionIndex, sections[sectionIndex].title, sections[sectionIndex].details, updatedContent);
-      };
+    };
 
-      const handleEditPostName = (sectionIndex, postIndex,newPostName) => {
-        const updatedPostName = [...sections[sectionIndex].postName];
-        updatedPostName[postIndex] = newPostName;
-        editSection(sectionIndex, sections[sectionIndex].title, sections[sectionIndex].details,newPostName);
-      };
-    
-      const handleDeleteContent = (sectionIndex, contentIndex) => {
-        // Implement the logic to delete content within the section
-        const updatedContent = [...sections[sectionIndex].content];
-        updatedContent.splice(contentIndex, 1);
-        editSection(sectionIndex, sections[sectionIndex].title, sections[sectionIndex].details, updatedContent);
-      };
+    const deleteSection = (index) => {
+
+    };
+
+
     return (
 
 
         <div>
-        <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }} style={{ backgroundColor: 'white' }}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" style={{color: '#fff' }}>
-                    <Tab style={{fontSize: '18px' }} label="SECTIONS" {...a11yProps(0)} />
-                    <Tab style={{fontSize: '18px' }} label="ASSIGNMENTS" {...a11yProps(1)} />
-                    <Tab style={{fontSize: '18px' }} label="DISCUSSIONFORUM" {...a11yProps(2)} />
-                    <Tab style={{fontSize: '18px' }} label="STUDENTS" {...a11yProps(2)} />
-                </Tabs>
-            </Box>
-            <CustomTabPanel value={value} index={0}>
-                            Item One
-                            {sections.map((section, sectionIndex) => (
-            <CustomAccordion
-              key={sectionIndex}
-              index={sectionIndex}
-              title={section.title}
-              details={section.details}
-              editSection={editSection}
-              deleteSection={deleteSection}
-              content={section.content}
-              postName={section.postName}
-              pdfFiles={section.pdfFiles}
-              assignmentFiles={section.videoFiles}
-              pdfTitle={section.pdfTitle}
-              AssignmentTitle={section.AssignmentTitle}
-              VideoTitle={section.VideoTitle}
-              videoFilespdfFiles={section.videoFilespdfFiles}
-              editContent={(contentIndex, editedContent) => handleEditContent(sectionIndex, contentIndex, editedContent)}
-              deleteContent={(contentIndex) => handleDeleteContent(sectionIndex, contentIndex)}
-              editPostName={(postIndex,newPostName) => handleEditPostName(sectionIndex,postIndex, newPostName)}
-              setSections={setSections}
-            />
-          ))}
-                            <BasicTextFields sections={sections} setSections={setSections} />
-                        </CustomTabPanel>
+            <Box sx={{ width: '100%' }}>
+                <Box sx={{ borderBottom: 1, borderColor: 'divider' }} style={{ backgroundColor: 'white' }}>
+                    <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" style={{ color: '#fff' }}>
+                        <Tab style={{ fontSize: '18px' }} label="SECTIONS" {...a11yProps(0)} />
+                        <Tab style={{ fontSize: '18px' }} label="ASSIGNMENTS" {...a11yProps(1)} />
+                        <Tab style={{ fontSize: '18px' }} label="DISCUSSIONFORUM" {...a11yProps(2)} />
+                        <Tab style={{ fontSize: '18px' }} label="STUDENTS" {...a11yProps(2)} />
+                    </Tabs>
+                </Box>
+                <CustomTabPanel value={value} index={0}>
+                    {sections && sections.map((section, index) => (
+                        <CustomAccordion
+                            key={index}
+                            sectionId={section._id}
+                            index={index}
+                            title={section.title}
+                            editSection={editSection}
+                            deleteSection={deleteSection}
+                            content={section.posts}
+                        />
+                    ))}
+                    <BasicTextFields />
+                </CustomTabPanel>
 
-                        {/* <CustomAccordion
-                            title="Week 2"
-                            pdfFiles={["FilespdfFiles-to-pdf-1","FilespdfFiles-to-pdf-2","FilespdfFiles-to-pdf-3"]}
-                            pdfTitle={["Matrial-1", "Matrial-2","Matrial-3"]} 
-                            assignmentFilespdfFiles={["FilespdfFiles-to-assignment-1", "FilespdfFiles-to-assignment-2" , "FilespdfFiles-to-assignment-3"]} 
-                            AssignmentTitle={["Assignment 1", "Assignment 2","Assignment 3"]} 
-                            details="This is the details for Week 2."
-                            content={[
-                                'Course content goes here 2.1',
-                                'Course content goes here 2.2',
-                                'Course content goes here 2.3',
-                            ]}
-                        />
-                        <CustomAccordion
-                            title="Week 3"
-                            pdfFiles={["FilespdfFiles-to-pdf-1"]}
-                            pdfTitle={["Matrial-1"]} 
-                            assignmentFilespdfFiles={["FilespdfFiles-to-assignment-1"]} 
-                            AssignmentTitle={["Assignment 1"]} 
-                            details="This is the details for Week 3."
-                            content={[
-                                'Course content goes here 3.1'
-                            ]}
-                        />
-                        <CustomAccordion
-                            title="Week 4"
-                            pdfFiles={["FilespdfFiles-to-pdf-1","FilespdfFiles-to-pdf-2","FilespdfFiles-to-pdf-3","FilespdfFiles-to-pdf-4"]}
-                            pdfTitle={["Matrial-1", "Matrial-2","Matrial-3","Matrial-4"]} // Example array of pdf titles
-                            assignmentFilespdfFiles={["FilespdfFiles-to-assignment-1", "FilespdfFiles-to-assignment-2" , "FilespdfFiles-to-assignment-3","FilespdfFiles-to-assignment-4"]} // Example array of assignment FilespdfFiless
-                            AssignmentTitle={["Assignment 1", "Assignment 2","Assignment 3","Assignment 4"]} // Example array of assignment titles
-                            details="This is the details for Week 4."
-                            content={[
-                                'Course content goes here 4.1',
-                                'Course content goes here 4.2',
-                                'Course content goes here 4.3',
-                                'Course content goes here 4.4',
-                            ]}  
-                        /> */}
-                        {/* <BasicTextFields />
-            </CustomTabPanel> */}
-            <CustomTabPanel value={value} index={1}>
-                     Assignments
-                     <Assignments 
-                         title="Assignment Section"
-                         content="Some content here."
-                         assignmentLink={["link1", "link2"]}
-                         AssignmentTitle={["Assignment 1", "Assignment 2"]}
-                     />
-                       <Assignments 
-                         title="Assignment Section"
-                         content="Some content here."
-                         assignmentLink={["link1", "link2"]}
-                         AssignmentTitle={["Assignment 1", "Assignment 2"]}
-                     />
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={2}>
-                Item Three
-                <DicussionForum/>
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={3}>
-                STUDENTS
-              <StudentList students={students} />
-            </CustomTabPanel>
-        </Box>
+                <CustomTabPanel value={value} index={1}>
+                    Assignments
+                    <Assignments
+                        title={["Assigments"]}
+                        assignmentLink={["link-to-assignment-1", "link-to-assignment-2"]}
+                        AssignmentTitle={["Assignment 1", "Assignment 2"]}
+                    />
+                    <Assignments
+                        title={["Assigments"]}
+                        assignmentLink={["link-to-assignment-1", "link-to-assignment-2"]}
+                        AssignmentTitle={["Assignment 1", "Assignment 2"]}
+                    />
+                </CustomTabPanel>
+                <CustomTabPanel value={value} index={2}>
+                    Item Three
+                    <DicussionForum />
+                </CustomTabPanel>
+                <CustomTabPanel value={value} index={3}>
+                    STUDENTS
+                    <StudentList students={students} />
+                </CustomTabPanel>
+            </Box>
         </div>
     );
 }

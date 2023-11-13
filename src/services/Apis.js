@@ -5,7 +5,7 @@ import Cookies from "js-cookie"
 const BASE_URL2 = "https://65435b7a01b5e279de203893.mockapi.io/"
 
 const token = Cookies.get('token')
-// console.log(`Bearer ${token}`)
+console.log(`Bearer ${token}`)
 
 // public pages
 //student
@@ -168,6 +168,17 @@ export const getStudentProfile = async () => {
     }
 }
 
+export const getRecommendedCourses = async (queryParams = {}) => {
+    try {
+        const response = await commonrequest("GET", `${BACKEND_URL}/query/recommended-course`, null, {
+            'authorization': `Bearer ${token}`
+        }, queryParams);
+        return response.data.courses;
+    } catch (error) {
+        throw new Error("Error fetching enrolled courses");
+    }
+}
+
 export const getCourseData = async (courseId) => {
     try {
         const response = await commonrequest("GET", `${BACKEND_URL}/query/getCourse/${courseId}`, null, {
@@ -179,7 +190,87 @@ export const getCourseData = async (courseId) => {
     }
 }
 
+export const getFilteredCourses = async (queryParams = {}) => {
+    // console.log(queryParams)
+    try {
+        const response = await commonrequest("GET", `${BACKEND_URL}/query/search-filter`, null, {
+            'authorization': `Bearer ${token}`
+        }, queryParams);
+        // console.log(response.data);
+        return response.data.courses;
+    } catch (error) {
+        throw new Error("Error fetching filtered courses");
+    }
+}
 
+export const createSection = async (courseId, sectionData) => {
+    try {
+        const response = await commonrequest("POST" ,`${BACKEND_URL}/educator/create-section/${courseId}`, sectionData, {
+                'authorization': `Bearer ${token}`
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error("Error creating section");
+    }
+}
+
+export const editSection = async (courseId, sectionId, sectionData) => {
+    console.log(sectionData)
+    try {
+        const response = await commonrequest("PATCH" ,`${BACKEND_URL}/educator/edit-section/${courseId}/${sectionId}`, sectionData, {
+                'authorization': `Bearer ${token}`
+        });
+        return response;
+    } catch (error) {
+        throw new Error("Error creating section");
+    }
+}
+
+export const deleteSection = async (courseId, sectionId) => {
+    try {
+        const response = await commonrequest("DELETE" ,`${BACKEND_URL}/educator/delete-section/${courseId}/${sectionId}`, {}, {
+                'authorization': `Bearer ${token}`
+        });
+        return response;
+    } catch (error) {
+        throw new Error("Error creating section");
+    }
+}
+
+export const handleEditPost = async (index) => {
+    const newContent = prompt('Enter new content:');
+    if (newContent) {
+        try {
+            // const updatedPost = await editPost(posts[index].id, newContent);
+            // setPosts(posts.map((post, i) => i === index ? updatedPost : post));
+        } catch (error) {
+            console.error('Error editing post:', error);
+        }
+    }
+};
+
+export const handleDeletePost = async (index) => {
+    if (window.confirm('Are you sure you want to delete this post?')) {
+        try {
+            // await deletePost(posts[index].id);
+            // setPosts(posts.filter((post, i) => i !== index));
+        } catch (error) {
+            console.error('Error deleting post:', error);
+        }
+    }
+};
+
+export const handleAddPost = async () => {
+    const newContent = prompt('Enter new content:');
+    if (newContent) {
+        try {
+            // const newPost = await addPost(newContent);
+            // // setPosts([...posts, newPost]);
+        } catch (error) {
+            console.error('Error adding post:', error);
+        }
+    }
+};
 
 // extra
 export const sentOtpFunction = async (data) => {
