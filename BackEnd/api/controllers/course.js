@@ -67,7 +67,8 @@ exports.createCourse = async (req, res, next) => {
         await educator.save();
 
         return res.status(201).json({
-            message: 'Course created'
+            message: 'Course created',
+            course: newCourse
         });
 
     } catch (err) {

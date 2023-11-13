@@ -36,7 +36,8 @@ exports.createSection = async (req, res, next) => {
         await course.save();
 
         return res.status(201).json({
-            message: 'Section created'
+            message: 'Section created',
+            sectionId: section
         });
     } catch
         (err) {
@@ -181,7 +182,8 @@ exports.addPost = async (req, res, next) => {
         await section.save();
 
         return res.status(201).json({
-            message: 'Post added'
+            message: 'Post added',
+            post: post
         });
 
     } catch (err) {
