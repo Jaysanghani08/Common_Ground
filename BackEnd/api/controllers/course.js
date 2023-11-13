@@ -14,6 +14,7 @@ const Discussion = require("../models/discussion");
 const Assignment = require('../models/assignment');
 const Section = require('../models/section');
 const Certificate = require('../models/certificate');
+const Submission = require('../models/submission');
 
 const sendEmail = require("../../utils/sendEmail");
 const {deleteFile, deleteFolder} = require("../../utils/deleteFile");
@@ -445,16 +446,33 @@ exports.getCertificate = async (req, res, next) => {
             });
         }
 
-        const certificate = await Certificate.findOne({course: req.params.courseId, student: req.userData.userId}).exec();
+        let certificate = await Certificate.findOne({course: req.params.courseId, student: req.userData.userId}).exec();
         if (!certificate) {
+            const assignments = await Assignment.find({
+                course: req.params.courseId,
+                submission: { $ne: [] } // Exclude assignments with empty submissions
+            })
+                .populate({
+                    path: 'submission',
+                    match: { submittedBy: req.userData.userId },
+                })
+                .exec();
+
+            const courseAssignments = course.courseAssignments;
+            if (assignments.length !== courseAssignments.length) {
+                return res.status(401).json({
+                    message: 'Please First Complete All Assignments'
+                });
+            }
+
             console.log('Certificate not found');
-            const newCertificate = new Certificate({
+            certificate = new Certificate({
                 student: req.userData.userId,
                 educator: course.createdBy,
                 course: req.params.courseId,
             });
-            await newCertificate.save();
-            await student.certificates.push(newCertificate._id);
+            await certificate.save();
+            await student.certificates.push(certificate._id);
             await student.save();
         }
 
@@ -503,7 +521,7 @@ exports.getCertificate = async (req, res, next) => {
         addWrappedText(`${formattedDate}`, yPos, 400, 10, 5, fontPath);
         yPos += doc.heightOfString(`${formattedDate}`, { width: 400 }) + 15;
 
-        addWrappedText(`${student.username}`, yPos, 400, 27, 5, fontPath2);
+        addWrappedText(`${student.fname} ${student.lname}`, yPos, 400, 27, 5, fontPath2);
         yPos += doc.heightOfString(`${student.username}`, { width: 400 }) + 20;
 
         addWrappedText("has successfully completed", yPos, 400, 12, 5, fontPath);
@@ -523,12 +541,12 @@ exports.getCertificate = async (req, res, next) => {
         doc
             .font(fontPath)
             .fontSize(7)
-            .text(`Verify at coursera.org/verify/${certificate._id}`, 585, 490);
+            .text(`Verify at coursera.org/file/verify/${certificate._id}`, 575, 485);
 
         doc
             .font(fontPath)
             .fontSize(7)
-            .text("Common Ground has confirmed the identity of this individual and their participation in the course.", 585, 500, { width: 200 });
+            .text("Common Ground has confirmed the identity of this individual and their participation in the course.", 575, 500, { width: 200 });
 
         doc.end();
 
