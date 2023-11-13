@@ -9,6 +9,7 @@ const Student = require('../models/student');
 const Educator = require('../models/educator');
 const Course = require('../models/course');
 const Section = require('../models/section');
+const Certificate = require('../models/certificate');
 
 exports.streamFile = async (req, res, next) => {
     try {
@@ -181,5 +182,33 @@ function getContentType(filePath) {
             return 'application/pdf';
         default:
             return 'application/octet-stream';
+    }
+}
+
+exports.verifyCertificate = async (req, res, next) => {
+    try {
+        const certificate = await Certificate.findById(req.params.certificateId).exec();
+        if (!certificate) {
+            return res.status(404).json({
+                message: 'Certificate not found'
+            });
+        }
+
+        const student = await Student.findById(certificate.student).select('fname lname').exec();
+        const educator = await Educator.findById(certificate.educator).select('fname lname').exec();
+        const course = await Course.findById(certificate.course).select('courseCode courseTitle').exec();
+
+        return res.status(200).json({
+            student: student,
+            educator: educator,
+            course: course,
+            dateCreated: certificate.dateCreated
+        });
+
+    } catch(err) {
+        console.error(err);
+        return res.status(500).json({
+            error: err.message
+        });
     }
 }
