@@ -30,12 +30,12 @@ Dialog.propTypes = {
 };
 
 function CustomAccordion(props) {
-    const { index, title, pdfLink, assignmentLink, details, AssignmentTitle, pdfTitle, content, editSection, deleteSection,sectionName, sections, setSections } = props;
+    const { index, title, pdfLink, assignmentLink, details, AssignmentTitle, pdfTitle, content, editSection, deleteSection,sectionName, sections, setSections,postName } = props;
 
     const [editDialogOpen, setEditDialogOpen] = useState(false);
     const [editedTitle, setEditedTitle] = useState(title);
     const [editedDescription, setEditedDescription] = useState(details);
-
+    
    
 
     const handleEditSection = () => {
@@ -60,13 +60,23 @@ function CustomAccordion(props) {
         deleteSection(index);
     };
 
-    const handleEditContent = (contentIndex, editedContent) => {
+    const handleEditContent = (contentIndex, editedContent,editedPoatName) => {
         // Implement the logic to edit content within the section
         const updatedContent = [...content];
         updatedContent[contentIndex] = editedContent;
-        editSection(index, editedTitle, editedDescription, updatedContent);
+        const updatedPostName = [...postName];
+        updatedPostName[contentIndex] = editedPoatName;
+        editSection(index, editedTitle, editedDescription, updatedContent,updatedPostName);
       };
     
+      const handleEditPostName = (contentIndex, editedPoatName) => {
+        // Implement the logic to edit content within the section
+        const updatedPostName = [...postName];
+        updatedPostName[contentIndex] = editedPoatName;
+        editSection(index, editedTitle, editedDescription, updatedPostName);
+      };
+      
+
       const handleDeleteContent = (contentIndex) => {
         // Implement the logic to delete content within the section
         const updatedContent = [...content];
@@ -94,15 +104,17 @@ function CustomAccordion(props) {
             <CourseAccordion
             key={courseIndex}
             postTitle={sectionName}
-            content={course}
-            pdfTitle={pdfTitle[courseIndex]}
-            AssignmentTitle={AssignmentTitle[courseIndex]}
-            pdfLink={pdfLink[courseIndex]}
-            assignmentLink={assignmentLink[courseIndex]}
+            content={content && content[courseIndex]}
+            postName={postName && postName[courseIndex]}
+            pdfTitle={pdfTitle && pdfTitle[courseIndex]}
+            AssignmentTitle={AssignmentTitle && AssignmentTitle[courseIndex]}
+            pdfLink={pdfLink && pdfLink[courseIndex]}
+            assignmentLink={assignmentLink && assignmentLink[courseIndex]}
             editSection={editSection}
             deleteSection={deleteSection}
-            editContent={(editedContent) => handleEditContent(courseIndex, editedContent)}
-                  deleteContent={() => handleDeleteContent(courseIndex)}
+            editContent={(editedContent,editedPoatName) => handleEditContent(courseIndex, editedContent,editedPoatName)}
+            // editPostName ={(editedPoatName)=>   handleEditPostName (courseIndex, editedPoatName)}
+            deleteContent={() => handleDeleteContent(courseIndex)}
             />
           ))}
                 </div>
@@ -215,6 +227,7 @@ export default function BasicTabs() {
             assignmentLink: ["link-to-assignment-1", "link-to-assignment-2"],
             AssignmentTitle: ["Assignment 1", "Assignment 2"],
             content: ['Course content goes here 1.1'],
+            postName:['1.1'],
             
         },
         {
@@ -225,6 +238,7 @@ export default function BasicTabs() {
             assignmentLink: ["link-to-assignment-1", "link-to-assignment-2"],
             AssignmentTitle: ["Assignment 1", "Assignment 2"],
             content: ['Course content goes here 1.1', 'Course content goes here 1.2'],
+            postName:['1.1',"1.2"],
         },
         // Add more sections as needed...
     ]);
@@ -235,7 +249,7 @@ export default function BasicTabs() {
         // Add more students as needed
       ];
 
-      const editSection = (index, editedTitle, editedDescription, updatedContent) => {
+      const editSection = (index, editedTitle, editedDescription, updatedContent,newPostName) => {
         // Update the section's title, description, and content in the state
         const updatedSections = [...sections];
         updatedSections[index] = {
@@ -243,6 +257,7 @@ export default function BasicTabs() {
           title: editedTitle,
           details: editedDescription,
           content: updatedContent,
+          postName:newPostName,
         };
         setSections(updatedSections); // This should update the state
       };
@@ -259,6 +274,12 @@ export default function BasicTabs() {
         const updatedContent = [...sections[sectionIndex].content];
         updatedContent[contentIndex] = editedContent;
         editSection(sectionIndex, sections[sectionIndex].title, sections[sectionIndex].details, updatedContent);
+      };
+
+      const handleEditPostName = (sectionIndex, postIndex,newPostName) => {
+        const updatedPostName = [...sections[sectionIndex].postName];
+        updatedPostName[postIndex] = newPostName;
+        editSection(sectionIndex, sections[sectionIndex].title, sections[sectionIndex].details,newPostName);
       };
     
       const handleDeleteContent = (sectionIndex, contentIndex) => {
@@ -291,6 +312,7 @@ export default function BasicTabs() {
               editSection={editSection}
               deleteSection={deleteSection}
               content={section.content}
+              postName={section.postName}
               pdfLink={section.pdfLink}
               assignmentLink={section.assignmentLink}
               pdfTitle={section.pdfTitle}
@@ -299,6 +321,7 @@ export default function BasicTabs() {
               videoLink={section.videoLink}
               editContent={(contentIndex, editedContent) => handleEditContent(sectionIndex, contentIndex, editedContent)}
               deleteContent={(contentIndex) => handleDeleteContent(sectionIndex, contentIndex)}
+              editPostName={(postIndex,newPostName) => handleEditPostName(sectionIndex,postIndex, newPostName)}
               setSections={setSections}
             />
           ))}
