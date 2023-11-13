@@ -94,16 +94,31 @@ exports.editCourse = async (req, res, next) => {
         let oldThumbLink = course.thumbnail;
         const newFolderName = `${req.body.courseCode}-${req.body.courseTitle}`;
         const newPath = path.join(__dirname, `../../uploads/course/${newFolderName}`);
-        console.log(newPath);
 
         if (req.file && oldThumbLink != null && course.courseTitle != req.body.courseTitle) {
             oldThumbLink = newPath + '/' + path.basename(oldThumbLink);
-            console.log(oldThumbLink);
             deleteFile(oldThumbLink);
         }
 
         req.body.thumbnail = req.file.path;
         const updateData = req.body;
+
+        const sections = course.courseSections;
+        for (let i = 0; i < sections.length; i++) {
+            const section = await Section.findById(sections[i]).exec();
+            if (section) {
+                for (let i = 0; i < section.posts.length; i++) {
+                    for (let j = 0; j < section.posts[i].attachments.length; j++) {
+                        let filePath = section.posts[i].attachments[j];
+                        filePath = filePath.replace(course.courseTitle, req.body.courseTitle);
+                        console.log(filePath);
+                        section.posts[i].attachments[j] = filePath;
+                    }
+                }
+            }
+            await section.save();
+        }
+        await course.save();
         await Course.updateOne({_id: courseId}, {$set: updateData}).exec();
 
         return res.status(200).json({
