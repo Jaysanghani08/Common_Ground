@@ -11,17 +11,17 @@ const storage = multerProfile.diskStorage({
     destination: async function (req, file, cb) {
         try {
             if (!req.params.assignmentId) {
-                throw new Error('Assignment ID is missing');
+                return cb('Assignment ID is missing', null);
             }
 
             const assignment = await Assignment.findById(req.params.assignmentId);
             if (!assignment) {
-                throw new Error('Assignment not found in the database');
+                return cb('Assignment not found', null);
             }
 
             const course = await Course.findById(assignment.course);
             if (!course) {
-                throw new Error('Course not found in the database');
+                return cb('Course not found', null);
             }
 
             const assignmentDirectory = path.join(`./uploads/course/${course.courseCode}-${course.courseTitle}/assignments/${assignment.title}/submissions`);

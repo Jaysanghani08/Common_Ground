@@ -9,12 +9,12 @@ const storage = multerProfile.diskStorage({
         const courseId = req.params.courseId;
         try {
             if (!courseId) {
-                throw new Error('Course ID is missing');
+                return cb('Course ID is missing', null);
             }
 
             const course = await Course.findById(courseId);
             if (!course) {
-                throw new Error('Course not found in the database');
+                return cb('Course not found', null);
             }
             const assignmentDirectory = path.join(`./uploads/course/${course.courseCode}-${course.courseTitle}/assignments`);
             if (!fs.existsSync(assignmentDirectory)) {
