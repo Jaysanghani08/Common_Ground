@@ -50,7 +50,8 @@ exports.createAssignment = async (req, res, next) => {
 
         await course.save();
         return res.status(201).json({
-            message: 'Assignment created'
+            message: 'Assignment created',
+            assignment: assignment
         });
     } catch (err) {
         return res.status(500).json({

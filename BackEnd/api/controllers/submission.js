@@ -55,10 +55,16 @@ exports.submitSubmission = async (req, res, next) => {
         await assignment.save();
 
         return res.status(201).json({
-            message: "Submission successful"
+            message: "Submission successful",
+            submission: submission
         });
     } catch (err) {
         console.error(err);
+        if (req.files) {
+            req.files.forEach(file => {
+                deleteFile(file.path);
+            });
+        }
         return res.status(500).json({
             error: err.message
         });
@@ -100,7 +106,9 @@ exports.deleteSubmission = async (req, res, next) => {
             });
         }
 
-        await deleteFile(submission.submission.toString());
+        if (fs.existsSync(submission.submission.toString())) {
+            deleteFile(submission.submission.toString());
+        }
 
         await assignment.submission.pull(submission._id);
         await assignment.save();

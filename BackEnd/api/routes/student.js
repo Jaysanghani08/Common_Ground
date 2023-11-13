@@ -31,7 +31,7 @@ router.patch("/:courseId/discussion/:messageId", checkAuth, checkEnroll, Discuss
 router.delete("/:courseId/discussion/:messageId", checkAuth, checkEnroll, DiscussionController.deleteMessage);
 router.get("/:courseId/certificate", checkAuth, checkEnroll, CourseController.getCertificate);
 
-router.post("/submit-assignment/:assignmentId", checkAuth, submissionUpload, SubmissionController.submitSubmission);
-router.delete("/delete-submission/:submissionId", checkAuth, SubmissionController.deleteSubmission);
+router.post("/submit-assignment/:courseId/:assignmentId", checkAuth, checkEnroll, submissionUpload, SubmissionController.submitSubmission);
+router.delete("/delete-submission/:courseId/:submissionId", checkAuth, checkEnroll, SubmissionController.deleteSubmission);
 
 module.exports = router;
