@@ -27,8 +27,8 @@ router.post('/update-password', EducatorController.updatePassword);
 router.patch("/edit-profile", checkAuth, profileUpload, EducatorController.userEdit);
 router.delete("/:email", checkAuth, EducatorController.userDelete);
 
-router.post("/create-course", courseUpload, checkAuth, CourseController.createCourse);
-router.patch("/edit-course/:courseId", courseUpload, checkAuth, CourseController.editCourse);
+router.post("/create-course", checkAuth, courseUpload, CourseController.createCourse);
+router.patch("/edit-course/:courseId", checkAuth, courseUpload, CourseController.editCourse);
 router.post("/delete-course/:courseId", checkAuth, CourseController.deleteCourse);
 router.delete("/delete-course/:courseId/:token", checkAuth, CourseController.sudoDeleteLecture);
 router.post("/remove-student/:courseId/:studentId", checkAuth, CourseController.removeStudent);
@@ -37,15 +37,15 @@ router.post("/create-section/:courseId", checkAuth, SectionController.createSect
 router.patch("/edit-section/:courseId/:sectionId", checkAuth, SectionController.editSection);
 router.delete("/delete-section/:courseId/:sectionId", checkAuth, SectionController.deleteSection);
 
-router.post("/add-post/:courseId/:sectionId", sectionUpload, checkAuth, SectionController.addPost);
-router.patch("/edit-post/:courseId/:sectionId/:postId", sectionUpload, checkAuth, SectionController.editPost);
+router.post("/add-post/:courseId/:sectionId", checkAuth, sectionUpload, SectionController.addPost);
+router.patch("/edit-post/:courseId/:sectionId/:postId", checkAuth, sectionUpload, SectionController.editPost);
 router.delete("/delete-post/:courseId/:sectionId/:postId", checkAuth, SectionController.deletePost);
 
 router.post("/:courseId/discussion", checkAuth, checkEnroll, DiscussionController.addMessage);
 router.patch("/:courseId/discussion/:messageId", checkAuth, checkEnroll, DiscussionController.editMessage);
 router.delete("/:courseId/discussion/:messageId", checkAuth, checkEnroll, DiscussionController.deleteMessage);
 
-router.post("/create-assignment/:courseId", assignmentUpload, checkAuth, AssignmentController.createAssignment);
+router.post("/create-assignment/:courseId", checkAuth, assignmentUpload, AssignmentController.createAssignment);
 // router.patch("/edit-assignment/:courseId/:assignmentId", assignmentUpload, checkAuth, AssignmentController.editAssignment);
 router.delete("/delete-assignment/:courseId/:assignmentId", checkAuth, AssignmentController.deleteAssignment);
 router.post("/grade-assignment/:courseId/:assignmentId/:submissionId", checkAuth, AssignmentController.gradeAssignment);
