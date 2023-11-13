@@ -30,7 +30,7 @@ Dialog.propTypes = {
 };
 
 function CustomAccordion(props) {
-    const { index, title, pdfLink, assignmentLink, details, AssignmentTitle, pdfTitle, content, editSection, deleteSection,sectionName, sections, setSections,postName } = props;
+    const { index, title, pdfFiles, assignmentFilespdfFiles, details, AssignmentTitle, pdfTitle,videoFiles, content, editSection, deleteSection,sectionName, sections, setSections,postName } = props;
 
     const [editDialogOpen, setEditDialogOpen] = useState(false);
     const [editedTitle, setEditedTitle] = useState(title);
@@ -108,8 +108,8 @@ function CustomAccordion(props) {
             postName={postName && postName[courseIndex]}
             pdfTitle={pdfTitle && pdfTitle[courseIndex]}
             AssignmentTitle={AssignmentTitle && AssignmentTitle[courseIndex]}
-            pdfLink={pdfLink && pdfLink[courseIndex]}
-            assignmentLink={assignmentLink && assignmentLink[courseIndex]}
+            pdfFiles={pdfFiles && pdfFiles[courseIndex]}
+            videoFiles={videoFiles && videoFiles[courseIndex]}
             editSection={editSection}
             deleteSection={deleteSection}
             editContent={(editedContent,editedPoatName) => handleEditContent(courseIndex, editedContent,editedPoatName)}
@@ -160,8 +160,8 @@ CustomAccordion.propTypes = {
     index: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     details: PropTypes.string.isRequired, // Change 'description' to 'details'
-    pdfLink: PropTypes.string.isRequired,
-    assignmentLink: PropTypes.string.isRequired,
+    pdfFiles: PropTypes.string.isRequired,
+    assignmentFilespdfFiles: PropTypes.string.isRequired,
     pdfTitle: PropTypes.arrayOf(PropTypes.string),
     AssignmentTitle: PropTypes.arrayOf(PropTypes.string),
     content: PropTypes.arrayOf(PropTypes.string),
@@ -222,9 +222,9 @@ export default function BasicTabs() {
             title: 'Week 1',
             postTitle:'Lab1',
             details: 'This is the details for Week 1.',
-            pdfLink: ["link-to-pdf-1", "link-to-pdf-2"],
+            pdfFiles: [" "],
             pdfTitle: ["Matrial-1", "Matrial-2"],
-            assignmentLink: ["link-to-assignment-1", "link-to-assignment-2"],
+            videoFiles: [/* array of File objects */],
             AssignmentTitle: ["Assignment 1", "Assignment 2"],
             content: ['Course content goes here 1.1'],
             postName:['1.1'],
@@ -233,9 +233,9 @@ export default function BasicTabs() {
         {
             title: 'Week 2',
             details: 'This is the details for Week 1.',
-            pdfLink: ["link-to-pdf-1", "link-to-pdf-2"],
+            pdfFiles: [/* array of File objects */],
             pdfTitle: ["Matrial-1", "Matrial-2"],
-            assignmentLink: ["link-to-assignment-1", "link-to-assignment-2"],
+            videoFiles: [/* array of File objects */],
             AssignmentTitle: ["Assignment 1", "Assignment 2"],
             content: ['Course content goes here 1.1', 'Course content goes here 1.2'],
             postName:['1.1',"1.2"],
@@ -313,12 +313,12 @@ export default function BasicTabs() {
               deleteSection={deleteSection}
               content={section.content}
               postName={section.postName}
-              pdfLink={section.pdfLink}
-              assignmentLink={section.assignmentLink}
+              pdfFiles={section.pdfFiles}
+              assignmentFiles={section.videoFiles}
               pdfTitle={section.pdfTitle}
               AssignmentTitle={section.AssignmentTitle}
               VideoTitle={section.VideoTitle}
-              videoLink={section.videoLink}
+              videoFilespdfFiles={section.videoFilespdfFiles}
               editContent={(contentIndex, editedContent) => handleEditContent(sectionIndex, contentIndex, editedContent)}
               deleteContent={(contentIndex) => handleDeleteContent(sectionIndex, contentIndex)}
               editPostName={(postIndex,newPostName) => handleEditPostName(sectionIndex,postIndex, newPostName)}
@@ -330,9 +330,9 @@ export default function BasicTabs() {
 
                         {/* <CustomAccordion
                             title="Week 2"
-                            pdfLink={["link-to-pdf-1","link-to-pdf-2","link-to-pdf-3"]}
+                            pdfFiles={["FilespdfFiles-to-pdf-1","FilespdfFiles-to-pdf-2","FilespdfFiles-to-pdf-3"]}
                             pdfTitle={["Matrial-1", "Matrial-2","Matrial-3"]} 
-                            assignmentLink={["link-to-assignment-1", "link-to-assignment-2" , "link-to-assignment-3"]} 
+                            assignmentFilespdfFiles={["FilespdfFiles-to-assignment-1", "FilespdfFiles-to-assignment-2" , "FilespdfFiles-to-assignment-3"]} 
                             AssignmentTitle={["Assignment 1", "Assignment 2","Assignment 3"]} 
                             details="This is the details for Week 2."
                             content={[
@@ -343,9 +343,9 @@ export default function BasicTabs() {
                         />
                         <CustomAccordion
                             title="Week 3"
-                            pdfLink={["link-to-pdf-1"]}
+                            pdfFiles={["FilespdfFiles-to-pdf-1"]}
                             pdfTitle={["Matrial-1"]} 
-                            assignmentLink={["link-to-assignment-1"]} 
+                            assignmentFilespdfFiles={["FilespdfFiles-to-assignment-1"]} 
                             AssignmentTitle={["Assignment 1"]} 
                             details="This is the details for Week 3."
                             content={[
@@ -354,9 +354,9 @@ export default function BasicTabs() {
                         />
                         <CustomAccordion
                             title="Week 4"
-                            pdfLink={["link-to-pdf-1","link-to-pdf-2","link-to-pdf-3","link-to-pdf-4"]}
+                            pdfFiles={["FilespdfFiles-to-pdf-1","FilespdfFiles-to-pdf-2","FilespdfFiles-to-pdf-3","FilespdfFiles-to-pdf-4"]}
                             pdfTitle={["Matrial-1", "Matrial-2","Matrial-3","Matrial-4"]} // Example array of pdf titles
-                            assignmentLink={["link-to-assignment-1", "link-to-assignment-2" , "link-to-assignment-3","link-to-assignment-4"]} // Example array of assignment links
+                            assignmentFilespdfFiles={["FilespdfFiles-to-assignment-1", "FilespdfFiles-to-assignment-2" , "FilespdfFiles-to-assignment-3","FilespdfFiles-to-assignment-4"]} // Example array of assignment FilespdfFiless
                             AssignmentTitle={["Assignment 1", "Assignment 2","Assignment 3","Assignment 4"]} // Example array of assignment titles
                             details="This is the details for Week 4."
                             content={[
@@ -371,14 +371,16 @@ export default function BasicTabs() {
             <CustomTabPanel value={value} index={1}>
                      Assignments
                      <Assignments 
-                        title={["Assigments"]}
-                        assignmentLink= {["link-to-assignment-1", "link-to-assignment-2"]}
-                        AssignmentTitle= {["Assignment 1", "Assignment 2"]}
+                         title="Assignment Section"
+                         content="Some content here."
+                         assignmentLink={["link1", "link2"]}
+                         AssignmentTitle={["Assignment 1", "Assignment 2"]}
                      />
-                      <Assignments 
-                        title={["Assigments"]}
-                        assignmentLink= {["link-to-assignment-1", "link-to-assignment-2"]}
-                        AssignmentTitle= {["Assignment 1", "Assignment 2"]}
+                       <Assignments 
+                         title="Assignment Section"
+                         content="Some content here."
+                         assignmentLink={["link1", "link2"]}
+                         AssignmentTitle={["Assignment 1", "Assignment 2"]}
                      />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>

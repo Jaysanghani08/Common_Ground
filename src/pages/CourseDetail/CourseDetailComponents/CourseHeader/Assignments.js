@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import { useMediaQuery, useTheme, Accordion, AccordionSummary, AccordionDetails, Typography } from '@mui/material';
-import './CourseAccordion.css';
+// import './Assigments.css';
 
 function CourseContent(props) {
   const { content } = props;
@@ -27,7 +27,7 @@ CourseContent.propTypes = {
   content: PropTypes.node,
 };
 
-export function CourseAccordion(props) {
+export function Assigments(props) {
   const { title, content, assignmentLink, AssignmentTitle } = props;
   const [openAssignmentDialog, setOpenAssignmentDialog] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
@@ -100,11 +100,11 @@ export function CourseAccordion(props) {
   );
 }
 
-CourseAccordion.propTypes = {
+Assigments.propTypes = {
   title: PropTypes.string,
   content: PropTypes.node,
   assignmentLink: PropTypes.string,
   AssignmentTitle: PropTypes.string,
 };
 
-export default CourseAccordion;
+export default Assigments;

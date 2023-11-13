@@ -201,7 +201,7 @@ const VideoStreamingComponent = ({ videoLink }) => (
               value={editedContent}
               onChange={handleEditInputChange}
             />
-            {/* <input
+            <input
                 type="file"
                 accept=".pdf"
                 onChange={handlePdfFileChange}
@@ -210,7 +210,7 @@ const VideoStreamingComponent = ({ videoLink }) => (
                 type="file"
                 accept="video/*"
                 onChange={handleVideoFileChange}
-              /> */}
+              />
              
             <DialogActions>
               <Button type="submit" color="primary">
@@ -241,7 +241,7 @@ const VideoStreamingComponent = ({ videoLink }) => (
                     </div>
                 </DialogTitle>
                 <DialogContent className="custom-dialog-content">
-                    <iframe title="PDF Viewer" width="100%" height="100%" src={pdfLink} />
+                  {editedPdfFile && <iframe title="PDF Viewer" width="100%" height="100%" src={URL.createObjectURL(editedPdfFile)} />}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClosePdfDialog} color="primary">
@@ -267,8 +267,7 @@ const VideoStreamingComponent = ({ videoLink }) => (
                 </DialogTitle>
                 {/* Replace the iframe with your video streaming component */}
                 <DialogContent className="custom-dialog-content">
-                    {/* Your video streaming component goes here */}
-                    <VideoStreamingComponent videoLink={videoLink} />
+                  {editedVideoFile && <VideoStreamingComponent videoLink={URL.createObjectURL(editedVideoFile)} />}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleCloseVideoDialog} color="primary">
