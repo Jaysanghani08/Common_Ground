@@ -37,7 +37,8 @@ CourseContent.propTypes = {
 };
 
 export function CourseAccordion(props) {
-    const { content, pdfLink, assignmentLink, pdfTitle, AssignmentTitle, postName } = props;
+    const {post, content, pdfLink, assignmentLink, pdfTitle, AssignmentTitle, postName } = props;
+    console.log(post)
     const [expanded, setExpanded] = useState(false);
     const [openPdfDialog, setOpenPdfDialog] = useState(false);
     const [openAssignmentDialog, setOpenAssignmentDialog] = useState(false);

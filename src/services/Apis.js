@@ -205,8 +205,8 @@ export const getFilteredCourses = async (queryParams = {}) => {
 
 export const createSection = async (courseId, sectionData) => {
     try {
-        const response = await commonrequest("POST" ,`${BACKEND_URL}/educator/create-section/${courseId}`, sectionData, {
-                'authorization': `Bearer ${token}`
+        const response = await commonrequest("POST", `${BACKEND_URL}/educator/create-section/${courseId}`, sectionData, {
+            'authorization': `Bearer ${token}`
         });
         return response.data;
     } catch (error) {
@@ -217,8 +217,8 @@ export const createSection = async (courseId, sectionData) => {
 export const editSection = async (courseId, sectionId, sectionData) => {
     console.log(sectionData)
     try {
-        const response = await commonrequest("PATCH" ,`${BACKEND_URL}/educator/edit-section/${courseId}/${sectionId}`, sectionData, {
-                'authorization': `Bearer ${token}`
+        const response = await commonrequest("PATCH", `${BACKEND_URL}/educator/edit-section/${courseId}/${sectionId}`, sectionData, {
+            'authorization': `Bearer ${token}`
         });
         return response;
     } catch (error) {
@@ -228,14 +228,29 @@ export const editSection = async (courseId, sectionId, sectionData) => {
 
 export const deleteSection = async (courseId, sectionId) => {
     try {
-        const response = await commonrequest("DELETE" ,`${BACKEND_URL}/educator/delete-section/${courseId}/${sectionId}`, {}, {
-                'authorization': `Bearer ${token}`
+        const response = await commonrequest("DELETE", `${BACKEND_URL}/educator/delete-section/${courseId}/${sectionId}`, {}, {
+            'authorization': `Bearer ${token}`
         });
         return response;
     } catch (error) {
         throw new Error("Error creating section");
     }
 }
+
+export const createPost = async (courseId, sectionId, postData) => {
+    console.log(postData)
+    try {
+        const response = await commonrequest("POST", `${BACKEND_URL}/educator/add-post/${courseId}/${sectionId}`, postData, {
+            'authorization': `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
+        });
+        console.log(response)
+        return response;
+    } catch (error) {
+        throw new Error("Error creating post");
+    }
+
+};
 
 export const handleEditPost = async (index) => {
     const newContent = prompt('Enter new content:');
@@ -256,18 +271,6 @@ export const handleDeletePost = async (index) => {
             // setPosts(posts.filter((post, i) => i !== index));
         } catch (error) {
             console.error('Error deleting post:', error);
-        }
-    }
-};
-
-export const handleAddPost = async () => {
-    const newContent = prompt('Enter new content:');
-    if (newContent) {
-        try {
-            // const newPost = await addPost(newContent);
-            // // setPosts([...posts, newPost]);
-        } catch (error) {
-            console.error('Error adding post:', error);
         }
     }
 };

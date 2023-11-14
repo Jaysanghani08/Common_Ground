@@ -94,7 +94,7 @@ function CustomAccordion(props) {
         const response = await editSection(courseId, sectionId, formData);
         console.log(response);
         if (response?.status === 201) {
-            toast.success('Section created successfully')
+            toast.success('Section edited successfully')
             // setCourseID(courseId)
             handleCloseEditSectionDialog();
             window.location.reload(true);
@@ -114,16 +114,6 @@ function CustomAccordion(props) {
         else{
             toast.error("Somthing went wrong.")
         }
-    };
-
-    const handleEditContent = (contentIndex, editedContent, editedPoatName) => {
-    }
-
-    const handleEditPostName = (contentIndex, editedPoatName) => {
-    };
-
-
-    const handleDeleteContent = (contentIndex) => {
     };
 
 
@@ -190,17 +180,15 @@ function CustomAccordion(props) {
 
             <AccordionDetails>
                 <div>
-                    {content && content.map((course, courseIndex) => (
+                    {content && content.map((post, courseIndex) => (
                         <CourseAccordion
                             key={courseIndex}
-                            content={course}
-                            editContent={(editedContent) => handleEditContent(courseIndex, editedContent)}
-                            deleteContent={() => handleDeleteContent(courseIndex)}
+                            post={post}
                         />
                     ))}
                 </div>
                 {/* {posts} */}
-                <FileUploadForm />
+                <FileUploadForm sectionId={sectionId}/>
             </AccordionDetails>
         </Accordion>
     );
@@ -243,7 +231,6 @@ function CustomTabPanel(props) {
         </div>
     );
 }
-
 
 CustomTabPanel.propTypes = {
     children: PropTypes.node,
