@@ -198,8 +198,8 @@ CustomAccordion.propTypes = {
     index: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     details: PropTypes.string.isRequired, // Change 'description' to 'details'
-    pdfLink: PropTypes.string.isRequired,
-    assignmentLink: PropTypes.string.isRequired,
+    pdfFiles: PropTypes.string.isRequired,
+    assignmentFilespdfFiles: PropTypes.string.isRequired,
     pdfTitle: PropTypes.arrayOf(PropTypes.string),
     AssignmentTitle: PropTypes.arrayOf(PropTypes.string),
     content: PropTypes.arrayOf(PropTypes.string),

@@ -229,7 +229,7 @@ export function CourseAccordion(props) {
                     </div>
                 </DialogTitle>
                 <DialogContent className="custom-dialog-content">
-                    <iframe title="PDF Viewer" width="100%" height="100%" src={pdfLink} />
+                  {editedPdfFile && <iframe title="PDF Viewer" width="100%" height="100%" src={URL.createObjectURL(editedPdfFile)} />}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClosePdfDialog} color="primary">
