@@ -149,11 +149,6 @@ const FileUploadForm = ({ sectionId }) => {
                                             />
                                         </div>
                                     </div>
-                                    {/* <ul>
-                                        {selectedFile}
-                                    </ul> */}
-
-
                                     <div className="bn-submit-button">
                                         <Button onClick={handleSubmit} variant="contained">Submit</Button>
                                     </div>

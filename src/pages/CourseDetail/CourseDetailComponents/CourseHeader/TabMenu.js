@@ -182,6 +182,7 @@ function CustomAccordion(props) {
                 <div>
                     {content && content.map((post, courseIndex) => (
                         <CourseAccordion
+                            sectionId={sectionId}
                             key={courseIndex}
                             post={post}
                         />
@@ -303,11 +304,11 @@ export default function BasicTabs({ sections, courseId }) {
                         assignmentLink={["link-to-assignment-1", "link-to-assignment-2"]}
                         AssignmentTitle={["Assignment 1", "Assignment 2"]}
                     />
-                    <Assignments
+                    {/* <Assignments
                         title={["Assigments"]}
                         assignmentLink={["link-to-assignment-1", "link-to-assignment-2"]}
                         AssignmentTitle={["Assignment 1", "Assignment 2"]}
-                    />
+                    /> */}
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={2}>
                     Item Three

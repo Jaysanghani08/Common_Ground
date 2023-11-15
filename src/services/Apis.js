@@ -138,9 +138,7 @@ export const getAllCourses = async (data) => {
     }
 }
 
-
 // Student
-
 export const getStudentDashboard = async (data) => {
     // console.log(data)
     try {
@@ -227,13 +225,15 @@ export const editSection = async (courseId, sectionId, sectionData) => {
 }
 
 export const deleteSection = async (courseId, sectionId) => {
-    try {
-        const response = await commonrequest("DELETE", `${BACKEND_URL}/educator/delete-section/${courseId}/${sectionId}`, {}, {
-            'authorization': `Bearer ${token}`
-        });
-        return response;
-    } catch (error) {
-        throw new Error("Error creating section");
+    if (window.confirm('Are you sure you want to delete this section?')) {
+        try {
+            const response = await commonrequest("DELETE", `${BACKEND_URL}/educator/delete-section/${courseId}/${sectionId}`, {}, {
+                'authorization': `Bearer ${token}`
+            });
+            return response;
+        } catch (error) {
+            throw new Error("Error creating section");
+        }
     }
 }
 
@@ -249,26 +249,26 @@ export const createPost = async (courseId, sectionId, postData) => {
     } catch (error) {
         throw new Error("Error creating post");
     }
-
 };
 
-export const handleEditPost = async (index) => {
-    const newContent = prompt('Enter new content:');
-    if (newContent) {
-        try {
-            // const updatedPost = await editPost(posts[index].id, newContent);
-            // setPosts(posts.map((post, i) => i === index ? updatedPost : post));
-        } catch (error) {
-            console.error('Error editing post:', error);
-        }
+export const editPost = async ({ courseId, sectionId, postId, newData }) => {
+    try {
+        const response = await commonrequest("PATCH", `${BACKEND_URL}/educator/edit-post/${courseId}/${sectionId}/${postId}`, newData, {
+            'authorization': `Bearer ${token}`
+        });
+        return response;
+    } catch (error) {
+        console.error('Error editing post:', error);
     }
 };
 
-export const handleDeletePost = async (index) => {
+export const deletePost = async ({ courseId, sectionId, postId }) => {
     if (window.confirm('Are you sure you want to delete this post?')) {
         try {
-            // await deletePost(posts[index].id);
-            // setPosts(posts.filter((post, i) => i !== index));
+            const response = await commonrequest("DELETE", `${BACKEND_URL}/educator/delete-post/${courseId}/${sectionId}/${postId}`, {}, {
+                'authorization': `Bearer ${token}`
+            });
+            return response;
         } catch (error) {
             console.error('Error deleting post:', error);
         }

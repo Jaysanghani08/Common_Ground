@@ -15,6 +15,9 @@ import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import { useMediaQuery, useTheme } from '@mui/material';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import TextField from '@mui/material/TextField';
+import { useParams } from 'react-router-dom';
+import {deletePost, editPost} from './../../../../services/Apis';
+import { toast } from 'react-toastify';
 
 const VideoStreamingComponent = ({ videoLink }) => (
     <video width="100%" height="100%" controls>
@@ -37,14 +40,16 @@ CourseContent.propTypes = {
 };
 
 export function CourseAccordion(props) {
-    const {post, content, pdfLink, assignmentLink, pdfTitle, AssignmentTitle, postName } = props;
-    console.log(post)
+    const {post, sectionId, content, pdfLink, assignmentLink, pdfTitle, AssignmentTitle, postName } = props;
+    // console.log(post)
     const [expanded, setExpanded] = useState(false);
     const [openPdfDialog, setOpenPdfDialog] = useState(false);
     const [openAssignmentDialog, setOpenAssignmentDialog] = useState(false);
     const [fullScreen, setFullScreen] = useState(false);
     const [openVideoDialog, setOpenVideoDialog] = useState(false);
     const [openEditForm, setOpenEditForm] = useState(false);
+
+    const {courseId} = useParams();
 
     const toggleContent = () => {
         setExpanded(!expanded);
@@ -82,32 +87,39 @@ export function CourseAccordion(props) {
     const fullScreenDialog = useMediaQuery(theme.breakpoints.down('sm'));
 
 
-    const [editedContent, setEditedContent] = useState(content);
-    const [editedPostName, setEditedPostName] = useState(postName);
+    const [editedContent, setEditedContent] = useState(post.body);
+    const [editedPostName, setEditedPostName] = useState(post.title);
     const [editedPdfFile, setEditedPdfFile] = useState(null);
     const [editedVideoFile, setEditedVideoFile] = useState(null);
 
     const handleEditFormOpen = () => {
-        setEditedContent(content);
+        setEditedContent(post.body);
         setEditedPdfFile(null); // Add this line if you're using file input for PDF
         setEditedVideoFile(null); // Add this line if you're using file input for video
         setOpenEditForm(true);
     };
 
-
     const handleEditFormClose = () => {
         setOpenEditForm(false);
     };
 
-    const handleEditFormSubmit = (e) => {
+    const handleEditFormSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission for editing
-        // Update the main content with the edited data
-        // ...
-        // Close the edit form
-        props.editContent(editedContent, editedPostName);
-        // props.editPostName(editedPostName);
+        
+        const data = new FormData();
 
+        data.append("title", editedPostName);
+        data.append("body", editedContent);
+
+        const edited = await editPost({courseId, sectionId, postId: post._id, newData: data});
+        // console.log(edited)
+
+        if(edited?.status === 200){
+            toast.success("Post Edited Successfully");
+            window.location.reload();
+        }else{
+            toast.error("Error Editing Post");
+        }
         setOpenEditForm(false);
     };
 
@@ -131,21 +143,28 @@ export function CourseAccordion(props) {
 
 
     // Logic for deleting content
-    const handleDelete = () => {
-        // Handle delete logic
-        // You might want to show a confirmation dialog before deleting
-        // ...
-        props.deleteContent();
+    const handleDelete =  async () => {
+        const deleted = await deletePost({courseId, sectionId, postId: post._id});
+        // console.log(deleted)
+
+        if(deleted?.status === 200){
+            toast.success("Post Deleted Successfully");
+            window.location.reload();
+        }else{
+            toast.error("Error Deleting Post");
+        }
+
     };
     return (
         <div>
             <IconButton onClick={toggleContent} style={{ color: 'blue' }}>
                 {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-                {expanded ? 'Hide Post' : 'Show Post'}- {postName}
+                {post.title}
             </IconButton>
             {expanded && (
                 <div>
                     <CourseContent content={content} />
+                    <h4>{post.body}</h4>
                     <div>
                         <Button onClick={handleEditFormOpen}>Edit</Button>
                         <Button onClick={handleDelete}>Delete</Button>
