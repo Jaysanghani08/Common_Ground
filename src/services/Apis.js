@@ -275,6 +275,20 @@ export const deletePost = async ({ courseId, sectionId, postId }) => {
     }
 };
 
+export const removeStudent = async ({courseId, studentId}) => {
+    if (window.confirm('Are you sure you want to remove this student?')) {
+        try {
+            const response = await commonrequest("POST", `${BACKEND_URL}/educator/remove-student/${courseId}/${studentId}`, {}, {
+                'authorization': `Bearer ${token}`
+            });
+            return response;
+        } catch (error) {
+            console.error('Error deleting post:', error);
+        }
+    }
+
+}
+
 // extra
 export const sentOtpFunction = async (data) => {
     return await commonrequest("POST", `${BACKEND_URL}/user/sendotp`, data)
