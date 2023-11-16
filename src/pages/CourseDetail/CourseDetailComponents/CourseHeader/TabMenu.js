@@ -302,7 +302,7 @@ export default function BasicTabs({ sections, enrolledStudents }) {
                     <BasicTextFields />
                 </CustomTabPanel>
 
-                <CustomTabPanel value={value} index={1}>
+                <CustomTabPanel value={value} index={1} >
                     Assignments
                     <Assignments
                         title="Assigments 1"
@@ -324,7 +324,9 @@ export default function BasicTabs({ sections, enrolledStudents }) {
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={2}>
                     Item Three
+                    <div className="dicussion-forum">
                     <DicussionForum />
+                    </div>
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={3}>
                     STUDENTS

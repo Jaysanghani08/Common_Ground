@@ -66,10 +66,9 @@ const Comments = ({ currentUserId }) => {
     }, []);
 
     return (
-        <div className="comments">
-            <h3 className="comments-title">Discussion Forum</h3>
-            <CommentForm submitLabel="Write" handleSubmit={createNewComment} />
+        <div className="comments" >
             <div className="comments-container">
+            <h3 className="comments-title">Discussion Forum</h3>
                 {comments
                     .filter((comment) => !comment.parentId)
                     .map((rootComment) => (
@@ -83,6 +82,8 @@ const Comments = ({ currentUserId }) => {
                             currentUserId={currentUserId}
                         />
                     ))}
+                     
+            <CommentForm submitLabel="Write" handleSubmit={createNewComment} />
             </div>
         </div>
     );
