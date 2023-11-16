@@ -247,7 +247,7 @@ function a11yProps(index) {
     };
 }
 
-export default function BasicTabs({ sections, courseId }) {
+export default function BasicTabs({ sections, enrolledStudents }) {
     const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
@@ -328,7 +328,7 @@ export default function BasicTabs({ sections, courseId }) {
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={3}>
                     STUDENTS
-                    <StudentList students={students} />
+                    <StudentList students={enrolledStudents} />
                 </CustomTabPanel>
             </Box>
         </div>

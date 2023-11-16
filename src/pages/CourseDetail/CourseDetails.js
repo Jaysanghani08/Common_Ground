@@ -74,7 +74,7 @@ const CourseDetails = () => {
                     />
 
                     <div className="course-content">
-                        <BasicTabs sections={coursedata.courseSections} courseId={coursedata._id} />
+                        <BasicTabs sections={coursedata.courseSections} enrolledStudents={coursedata.enrolledStudents} />
                         <BasicTextFields courseId={coursedata._id} />
                         {/* <div className="dicussion-forum">
                             <DicussionForum />
