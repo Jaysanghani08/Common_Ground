@@ -28,6 +28,7 @@ import StudentList from './StudentList';
 import { deleteSection, editSection } from './../../../../services/Apis';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import AssignmentUploadForm from '../Buttons/AssignmentUploadForm';
 
 Dialog.propTypes = {
     open: PropTypes.bool.isRequired,
@@ -261,13 +262,17 @@ export default function BasicTabs({ sections, courseId }) {
 
     const editSection = (index, editedTitle) => {
 
-
+        const handleAddAssignment = (newAssignment) => {
+            setAssignments([...assignments, newAssignment]);
+            toast.success('Assignment added successfully');
+          };
     };
 
     const deleteSection = (index) => {
 
     };
 
+    const [assignments, setAssignments] = useState([]);
 
     return (
 
@@ -300,15 +305,22 @@ export default function BasicTabs({ sections, courseId }) {
                 <CustomTabPanel value={value} index={1}>
                     Assignments
                     <Assignments
-                        title={["Assigments"]}
-                        assignmentLink={["link-to-assignment-1", "link-to-assignment-2"]}
-                        AssignmentTitle={["Assignment 1", "Assignment 2"]}
-                    />
-                    {/* <Assignments
-                        title={["Assigments"]}
-                        assignmentLink={["link-to-assignment-1", "link-to-assignment-2"]}
-                        AssignmentTitle={["Assignment 1", "Assignment 2"]}
-                    /> */}
+                        title="Assigments 1"
+                        description="Description...."
+                        deadline="2023-12-01T12:00:00"
+                        assignmentLink={["link-to-assignment-1"]}
+                        AssignmentTitle={["Assignment 1"]}
+                        />
+
+                        <Assignments
+                        title="Assigments 2"
+                        description="Description...."
+                        deadline="2023-12-15T14:30:00"
+                        assignmentLink={["link-to-assignment-2"]}
+                        AssignmentTitle={["Assignment 2"]}
+                        />
+
+                        <AssignmentUploadForm/>
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={2}>
                     Item Three
