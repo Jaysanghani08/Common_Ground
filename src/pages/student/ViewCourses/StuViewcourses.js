@@ -9,240 +9,139 @@ import coding from "./../../../data/imgs/Categories/coding.png"
 import design from "./../../../data/imgs/Categories/sketch.png"
 import pd from "./../../../data/imgs/Categories/growth.png"
 import dm from "./../../../data/imgs/Categories/digital-marketing.png"
+import getToken from '../../../services/getToken';
+import LoadingComponent from '../../Loading/Loading';
+import { Navigate } from 'react-router-dom';
+import { getRecommendedCourses, getStudentProfile, getFilteredCourses } from '../../../services/Apis';
 
 const coursesData = [
     {
-        "_id": "6542229da115d21516a05823",
+        "_id": "654a495aac365ab95062b4a1",
         "courseTitle": "Software Engineering",
-        "courseDescription": "rfedvhbgtvrfedfrgvth",
-        "courseDescriptionLong": "dcfrgvhbyhtgfds",
+        "courseDescription": "Short Change",
+        "courseCode": "IT314",
+        "courseLevel": "Intermidiate",
         "coursePrice": 50,
-        "thumbnail": "uploads/course/IW212-Software gfxdgfhfjgk/Software gfxdgfhfjgk-Thumbnail-Screenshot 2023-10-03 at 3.46.25 PM.png",
-        "tags": [
-            "dtufchgh",
-            " cgj",
-            " vghvihjhb"
-        ],
-        "courseLevel": "beginner",
-        "courseCode": "IW212",
-        "language": "spanish",
-        "courseSections": [],
-        "courseAssignments": [],
-        "prerequisites": [
-            "IT203",
-            " IT123",
-            " It123"
-        ],
-        "visibility": "public",
-        "createdBy": "65420b2f5a21c7fb3483d956",
-        "enrolledStudents": [
-            "65423daebfe3173d23a49899",
-            "6540d1ac8af5f77c89278b39"
-        ],
-        "dateCreated": "2023-11-01T10:04:13.398Z",
-        "courseFeedback": [
-            {
-                "student": "65423daebfe3173d23a49899",
-                "rating": 10,
-                "comment": "hello",
-                "_id": "6543a950c4fb28f4d9ab5011"
-            },
-            {
-                "_id": "65453f22a0cbc35d709b837a",
-                "student:": "5849583498938988858445",
-                "rating": 100,
-                "comment": "jay"
-            }
-        ],
-        "__v": 8
+        "language": "English",
+        "createdBy": {
+            "fname": "Saurabh",
+            "lname": "Tiwari"
+        },
+        "rating": 0,
+        "ratio": 0
     },
     {
-        "_id": "6542229da115d21516a05823",
-        "courseTitle": "Software Engineering",
-        "courseDescription": "rfedvhbgtvrfedfrgvth",
-        "courseDescriptionLong": "dcfrgvhbyhtgfds",
-        "coursePrice": 50,
-        "thumbnail": "uploads/course/IW212-Software gfxdgfhfjgk/Software gfxdgfhfjgk-Thumbnail-Screenshot 2023-10-03 at 3.46.25 PM.png",
-        "tags": [
-            "dtufchgh",
-            " cgj",
-            " vghvihjhb"
-        ],
-        "courseLevel": "beginner",
-        "courseCode": "IW212",
-        "language": "spanish",
-        "courseSections": [],
-        "courseAssignments": [],
-        "prerequisites": [
-            "IT203",
-            " IT123",
-            " It123"
-        ],
-        "visibility": "public",
-        "createdBy": "65420b2f5a21c7fb3483d956",
-        "enrolledStudents": [
-            "65423daebfe3173d23a49899",
-            "6540d1ac8af5f77c89278b39"
-        ],
-        "dateCreated": "2023-11-01T10:04:13.398Z",
-        "courseFeedback": [
-            {
-                "student": "65423daebfe3173d23a49899",
-                "rating": 10,
-                "comment": "hello",
-                "_id": "6543a950c4fb28f4d9ab5011"
-            },
-            {
-                "_id": "65453f22a0cbc35d709b837a",
-                "student:": "5849583498938988858445",
-                "rating": 100,
-                "comment": "jay"
-            }
-        ],
-        "__v": 8
-    },
-    {
-        "_id": "6542229da115d21516a05823",
-        "courseTitle": "Software Engineering",
-        "courseDescription": "rfedvhbgtvrfedfrgvth",
-        "courseDescriptionLong": "dcfrgvhbyhtgfds",
-        "coursePrice": 50,
-        "thumbnail": "uploads/course/IW212-Software gfxdgfhfjgk/Software gfxdgfhfjgk-Thumbnail-Screenshot 2023-10-03 at 3.46.25 PM.png",
-        "tags": [
-            "dtufchgh",
-            " cgj",
-            " vghvihjhb"
-        ],
-        "courseLevel": "beginner",
-        "courseCode": "IW212",
-        "language": "spanish",
-        "courseSections": [],
-        "courseAssignments": [],
-        "prerequisites": [
-            "IT203",
-            " IT123",
-            " It123"
-        ],
-        "visibility": "public",
-        "createdBy": "65420b2f5a21c7fb3483d956",
-        "enrolledStudents": [
-            "65423daebfe3173d23a49899",
-            "6540d1ac8af5f77c89278b39"
-        ],
-        "dateCreated": "2023-11-01T10:04:13.398Z",
-        "courseFeedback": [
-            {
-                "student": "65423daebfe3173d23a49899",
-                "rating": 10,
-                "comment": "hello",
-                "_id": "6543a950c4fb28f4d9ab5011"
-            },
-            {
-                "_id": "65453f22a0cbc35d709b837a",
-                "student:": "5849583498938988858445",
-                "rating": 100,
-                "comment": "jay"
-            }
-        ],
-        "__v": 8
+        "_id": "654a9c9696e13c973b41443a",
+        "courseTitle": "Digital logic",
+        "courseDescription": "The Software Engineering course introduces the basic principles, practices, tools.",
+        "coursePrice": 50000,
+        "courseLevel": "Beginner",
+        "courseCode": "IT31452",
+        "language": "English",
+        "createdBy": {
+            "fname": "Param",
+            "lname": "Patel"
+        },
+        "rating": 0,
+        "ratio": 0
     }
 ]
 const categoryData = [
     {
         "index": "1",
-        "categoryName" : "Development",
-        "course_id" : "1",
-        "image" : coding
-    }, 
+        "categoryName": "Development",
+        "course_id": "1",
+        "image": coding
+    },
     {
         "index": "2",
-        "categoryName" : "Designing",
-        "course_id" : "2",
-        "image" : design
-    }, 
+        "categoryName": "Designing",
+        "course_id": "2",
+        "image": design
+    },
     {
         "index": "3",
-        "categoryName" : "Personality Development",
-        "course_id" : "3",
-        "image" : pd
-        
-    }, 
+        "categoryName": "Personality Development",
+        "course_id": "3",
+        "image": pd
+
+    },
     {
         "index": "4",
-        "categoryName" : "Digital Marketing",
-        "course_id" : "4",
-        "image" : dm
-    }, 
+        "categoryName": "Digital Marketing",
+        "course_id": "4",
+        "image": dm
+    },
 
 ]
 
 const StuViewCourses = () => {
-
-    // const cardsData = [];
     const [searchTerm, setSearchTerm] = useState('');
     const [priceLimit, setPriceLimit] = useState('');
-    const [enrollmentLimit, setEnrollmentLimit] = useState('');
+    const [maxRating, setmaxRating] = useState('');
     const [category, setCategory] = useState('');
     const [tags, setTags] = useState('');
+    const [language, setLanguage] = useState('');
 
-    const [filteredCourses, setFilteredCourses] = useState([]);
     const [courses, setCourses] = useState([]);
 
-    useEffect(() => {
-        // Fetch courses data from API using Axios (replace with your API endpoint)
-        // axios.get('https://api.example.com/courses')
-        //     .then(response => {
-        //         setCourses(response.data); // Assuming the response data is an array of courses
-        //     })
-        //     .catch(error => {
-        //         console.error('Error fetching courses:', error);
-        //     });
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [profile, setProfile] = useState(null);
 
-        //     console.log(getCourses)
+    console.log(courses)
+    // console.log(profile)
+
+
+    const token = getToken('student');
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                if (token) {
+                    const [recommendedCourses, profile] = await Promise.all([
+                        getRecommendedCourses(),
+                        getStudentProfile()
+                    ]);
+                    setCourses(recommendedCourses);
+                    setProfile(profile);
+                    setLoading(false);
+                }
+            } catch (error) {
+                setError(error.message);
+                setLoading(false);
+            }
+        };
+
+        fetchData();
     }, []);
 
-    const applyFilters = () => {
-        const filtered = courses.filter(course => {
-            const matchesSearch = course.title.toLowerCase().includes(searchTerm.toLowerCase());
-            const matchesPrice = !priceLimit || course.price <= parseInt(priceLimit);
-            const matchesEnrollment = !enrollmentLimit || course.enrollment <= parseInt(enrollmentLimit);
-            const matchesCategory = !category || course.category === category;
-            const matchesTags = !tags || course.tags.includes(tags);
-
-            return matchesSearch && matchesPrice && matchesEnrollment && matchesCategory && matchesTags;
-        });
-
-        setFilteredCourses(filtered);
+    const handleSearchSubmit = async () => {
+        try {
+            const filteredCourses = await getFilteredCourses({
+                title: searchTerm,
+                price: priceLimit,
+                rating: maxRating,
+                category: category,
+                tag: tags
+            });
+            setCourses(filteredCourses);
+        } catch (error) {
+            console.log('Error performing search:', error);
+        }
     };
 
-    const handleSearch = () => {
-        applyFilters();
-    };
+    if (!token) {
+        return <Navigate to="/student/login" />;
+    }
 
-    useEffect(() => {
-        applyFilters();
-    }, [searchTerm, priceLimit, enrollmentLimit, category, tags, courses]);
+    if (loading) {
+        return <LoadingComponent />;
+    }
 
-    const handleSearchSubmit = () => {
-        // Perform Axios POST request with search and filter parameters
-        // axios.post('https://api.example.com/search', {
-        //     searchTerm,
-        //     priceLimit,
-        //     enrollmentLimit,
-        //     category,
-        //     tags,
-        // })
-        //     .then(response => {
-        //         // Handle the response if needed
-        //         console.log('Search results:', response.data);
-        //     })
-        //     .catch(error => {
-        //         // Handle errors
-        //         console.error('Error performing search:', error);
-        //     });
-
-        console.log("search submit");
-    };
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
 
     return (
         <>
@@ -252,15 +151,17 @@ const StuViewCourses = () => {
                 <div className="stu-viewcourses-content">
                     <div className="stu-viewcourses-section-cover stu-viewcourses-section1-cover"></div>
                     <div className="stu-viewcourses-section1">
-                        <h1 className='stu-viewcourses-heading'>
+                        <div className='viewcourse-title'>
+                        <h1 className='stu-viewcourses-heading' >
                             We help you to upgrade your knowledege effectively
                         </h1>
                         <h2 className='stu-viewcourses-subheading'>
                             Enjoy the freedom to learn the way you want
                         </h2>
+                        </div>
                         <div className="stu-viewcourses-search-bar">
                             <input
-                                className='stu-viewcourses-large-input'
+                                className='stu-viewcourses-small-input'
                                 type="text"
                                 placeholder="Search by course title"
                                 value={searchTerm}
@@ -273,20 +174,46 @@ const StuViewCourses = () => {
                                 value={priceLimit}
                                 onChange={(e) => setPriceLimit(e.target.value)}
                             />
-                            <input
-                                className='stu-viewcourses-small-input'
-                                type="number"
-                                placeholder="Enrollment Limit"
-                                value={enrollmentLimit}
-                                onChange={(e) => setEnrollmentLimit(e.target.value)}
-                            />
+                            <select
+                                value={maxRating}
+                                onChange={(e) => setmaxRating(e.target.value)}
+                            >
+                                <option value="">Select Rating</option>
+                                <option value="R1"> 1</option>
+                                <option value="R2"> 2</option>
+                                <option value="R3"> 3</option>
+                                <option value="R4"> 4</option>
+                                <option value="R5"> 5</option>
+                                {/* Add more category options as needed */}
+                            </select>
+                            
                             <select
                                 value={category}
                                 onChange={(e) => setCategory(e.target.value)}
                             >
                                 <option value="">Select Category</option>
-                                <option value="category1">Category 1</option>
-                                <option value="category2">Category 2</option>
+                                <option value="beginner">Beginner </option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                                {/* Add more category options as needed */}
+                            </select>
+                            <select
+                                value={language}
+                                onChange={(e) => setLanguage(e.target.value)}
+                            >
+                                <option value="">Select Language</option>
+                                <option value="english">English </option>
+                                <option value="hindi">Hindi</option>
+                                <option value="spanish">Spanish</option>
+                                {/* Add more category options as needed */}
+                            </select>
+                            <select
+                                value={category}
+                                onChange={(e) => setCategory(e.target.value)}
+                            >
+                                <option value="">Select Language</option>
+                                <option value="l1">English</option>
+                                <option value="l2">Hindi</option>
                                 {/* Add more category options as needed */}
                             </select>
                             <input
@@ -303,10 +230,10 @@ const StuViewCourses = () => {
 
                     <div className="stu-viewcourses-section-cover stu-viewcourses-section2-cover"></div>
                     <div className="stu-viewcourses-section1 stu-viewcourses-section2">
-                        <h2>Recommended Courses</h2>
+                        <h2>Explore Our Courses</h2>
                         <div className="stu-viewcourses-card-container">
-                            {coursesData.map((course, index) => (
-                                <Card course />
+                            {courses.map((course, index) => (
+                                <Card course={course} key={index} />
                             ))}
                         </div>
                     </div>

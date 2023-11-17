@@ -32,15 +32,21 @@
   }
   
   .header {
-    margin-top: 1.3rem;
     display: flex;
+    margin-top: 1.3rem;
+    margin-bottom: 1.3rem;
     justify-content: space-between;
     margin-left: 10px;
     align-items: center;
     font-size: 26px;
+  
   }
   .heading{
     color: #0174be;
+  }
+  .heading > h1 {
+    padding-left: 14rem;
+
   }
   .heading > h1 > span {
     color: white;
@@ -49,14 +55,19 @@
   .profilephoto {
     background-color: #f8f9fa;
     border-radius: 50%;
-    margin-right: 10px;
+    margin-right: 15rem;
+    height: 50px;
+    width: 50px;
     cursor: pointer;
+   
   }
   
   .profilephoto img {
     border: 2px solid white;
     border-radius: 50%;
     padding: 6px;
+    height: 50px;
+    width: 50px;
   }
   
   .cards {
@@ -112,6 +123,14 @@
   
     .calendar {
       margin: auto;
+    }
+    .heading > h1 {
+      padding-left: 3rem;
+      font-size: 3rem;
+  
+    }
+    .profilephoto{
+      margin-right: 3rem;
     }
   }
   

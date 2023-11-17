@@ -18,11 +18,11 @@ const HomePage = () => {
       <TopBar />
       <StudentsAbout />
       <EducatorAbout/>
-      <CoursesCard/>
-      <OnlineCourses/>
-      <ChooseUs/>
-      <AboutUs/>
-      <Footer/>
+      <CoursesCard id="our-free-courses"/>
+      <OnlineCourses id="courses"/>
+      <ChooseUs id="aboutus"/>
+      <AboutUs />
+      <Footer id="contactus"/>
     </div>
   );
 };

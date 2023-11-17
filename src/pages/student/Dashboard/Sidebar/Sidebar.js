@@ -24,7 +24,7 @@ const StuNavbar = (props) => {
                         <span className="icon-bar"></span>{" "}
                         <span className="icon-bar"></span>{" "}
                     </button>
-                    <NavLink className="navbar-brand page-scroll" to="#page-top">
+                    <NavLink className="navbar-brand page-scroll" style={{display:"flex", alignItems:"center",height:"50px"}} to="#page-top">
                         {/* change the color of logo */}
                         <img src={logo} alt="" height={40} /> 
                     </NavLink>{" "}

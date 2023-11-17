@@ -44,12 +44,12 @@ export const SidebarDataForStudent = [
     },
     {
         // icon: UilBookAlt,
-        heading: "Your Courses",
+        heading: "View Courses",
         route: "/student/view-courses",
     },
     {
         // icon: UilPlus,
-        heading: "Create Courses",
+        heading: "Enrolled Courses",
         route: "/student/enrolled-courses",
     },
     {
@@ -66,40 +66,28 @@ export const SidebarDataForStudent = [
 
 export const homepage = [
     {
-        // icon: UilEstate,
-        heading: "Home",
-        route: "/homepage",
+      heading: "Home",
+      route: "/homepage",
     },
     {
-        // icon: UilBookAlt,
-        heading: "Courses",
-        route: "/homepage#our-free-courses",
+      heading: "Courses",
+      route: "/homepage#our-free-courses",
     },
     {
-        // icon: UilPlus,
-        heading: "Category",
-        route: "/homepage#courses",
+      heading: "Category",
+      route: "/homepage#courses",
     },
     {
-        // icon: UilUser,
-        heading: 'About Us',
-        route: "/homepage#aboutus",
+      heading: 'About Us',
+      route: "/homepage#aboutus",
     },
     {
-        // icon: UilUser,
-        heading: 'Contact Us',
-        route: "/homepage#contactus",
+      heading: 'Contact Us',
+      route: "/homepage#contactus",
     },
-    {
-        // icon: UilSignOutAlt,
-        heading: 'Log in Student',
-        route: "/student/login",
-        
-    },
-    {
-        // icon: UilSignOutAlt,
-        heading: 'Log in Educator',
-        route: "/educator/login",
-        
-    },
-];
+  ];
+  
+  
+  
+  
+  

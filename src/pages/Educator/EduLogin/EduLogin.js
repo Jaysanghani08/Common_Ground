@@ -51,7 +51,7 @@ const EduLogin = () => {
             }
 
             const response = await eduloginfunction(data);
-            // console.log(response)
+            console.log(response)
 
             if (response.status === 200) {
                 toast.success(response.data.message);
