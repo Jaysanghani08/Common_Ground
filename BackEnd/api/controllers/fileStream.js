@@ -86,6 +86,9 @@ exports.streamFile = async (req, res, next) => {
 
 exports.testStream = async (req, res, next) => {
     try {
+        const jwttoken = req.query.jwt;
+        req.userData = jwt.verify(jwttoken, process.env.JWT_KEY);
+
         const courseId = req.query.courseId;
         if (!courseId) {
             return res.status(400).json({

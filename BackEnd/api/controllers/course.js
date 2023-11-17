@@ -116,8 +116,8 @@ exports.editCourse = async (req, res, next) => {
                         section.posts[i].attachments[j] = filePath;
                     }
                 }
+                await section.save();
             }
-            await section.save();
         }
         await course.save();
         await Course.updateOne({_id: courseId}, {$set: updateData}).exec();

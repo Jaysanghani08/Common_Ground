@@ -93,6 +93,9 @@ exports.searchFilter = async (req, res, next) => {
         if (req.query.rating) {
             filters.rating = { $gte: req.query.rating };
         }
+        if (req.query.courseCode) {
+            filters.courseCode = { $regex: new RegExp(req.query.courseCode, 'i') };
+        }
 
         const courses = await Course.find(filters)
             .select('_id courseTitle courseDescription coursePrice courseLevel courseCode language rating createdBy')
@@ -242,7 +245,7 @@ exports.getEnrolledCourse = async (req, res, next) => {
 
 exports.getCourse = async (req, res, next) => {
     try {
-        const course = await Course.findById({_id :req.params.courseId, visibility: 'public'}).select('_id courseTitle courseDescriptionLong coursePrice courseLevel courseCode courseSections courseAssignments language prerequisites courseFeedback discussionForum enrolledStudents createdBy').populate('courseSections').populate('courseAssignments').populate('discussionForum').populate({path: 'enrolledStudents', model: 'Student', select: 'username'}).exec();
+        const course = await Course.findById({_id :req.params.courseId, visibility: 'public'}).select('_id courseTitle courseDescriptionLong coursePrice courseLevel courseCode courseSections courseAssignments language prerequisites rating courseFeedback discussionForum enrolledStudents createdBy').populate('courseSections').populate('courseAssignments').populate('discussionForum').populate({path: 'enrolledStudents', model: 'Student', select: 'username'}).exec();
         if (!course) {
             return res.status(404).json({
                 message: 'Course not found'
