@@ -13,288 +13,327 @@ import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import Typography from '@mui/material/Typography';
 import { useMediaQuery, useTheme, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import TextField from '@mui/material/TextField';
+import { useParams } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
+import { deleteAssignment } from '../../../../services/Apis';
+
 function CourseContent(props) {
-  const { description } = props;
-  return (
-    <div>
-      {/* Render course content here */}
-      <h5>{description}</h5>
-    </div>
-  );
+    const { description } = props;
+    return (
+        <div>
+            {/* Render course content here */}
+            <h5>{description}</h5>
+        </div>
+    );
 }
 
 CourseContent.propTypes = {
-  content: PropTypes.node,
+    content: PropTypes.node,
 };
 
 
 
 // AssignmentEditForm component
 function AssignmentEditForm({ open, onClose, onEditSubmit, initialData }) {
-  const [editedData, setEditedData] = useState(initialData);
+    const [editedData, setEditedData] = useState(initialData);
 
-  const handleEditPostNameChange = (e) => {
-    setEditedData({
-      ...editedData,
-      title: e.target.value,
-    });
-  };
+    const handleEditPostNameChange = (e) => {
+        setEditedData({
+            ...editedData,
+            title: e.target.value,
+        });
+    };
 
-  const handleEditInputChange = (e) => {
-    setEditedData({
-      ...editedData,
-      description: e.target.value,
-    });
-  };
+    const handleEditInputChange = (e) => {
+        setEditedData({
+            ...editedData,
+            description: e.target.value,
+        });
+    };
 
-  const handleEditDeadlineChange = (date) => {
-    setEditedData({
-      ...editedData,
-      deadline: date.toISOString(), 
-    });
-  };
+    const handleEditDeadlineChange = (date) => {
+        setEditedData({
+            ...editedData,
+            deadline: date.toISOString(),
+        });
+    };
 
-  const handlePdfFileChange = (e) => {
-    
-    console.log('PDF file uploaded:', e.target.files[0]);
-  };
+    const handlePdfFileChange = (e) => {
 
-  const handleEditFormSubmit = (e) => {
-    e.preventDefault();
-    onEditSubmit(editedData);
-  };
+        console.log('PDF file uploaded:', e.target.files[0]);
+    };
 
-  return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Edit Assignment</DialogTitle>
-      <DialogContent>
-        <form onSubmit={handleEditFormSubmit}>
-          <TextField
-            label="Assignment Title"
-            variant="outlined"
-            fullWidth
-            value={editedData.title}
-            onChange={handleEditPostNameChange}
-          />
-          <TextField
-            label="Description"
-            variant="outlined"
-            fullWidth
-            value={editedData.description}
-            onChange={handleEditInputChange}
-          />
-         <TextField
-            label="Deadline"
-            type="datetime-local"
-            variant="outlined"
-            fullWidth
-            value={editedData.deadline}
-            onChange={(e) => handleEditDeadlineChange(new Date(e.target.value))}
-          />
-          <input
-            type="file"
-            accept=".pdf"
-            onChange={handlePdfFileChange}
-          />
-          <DialogActions>
-            <Button type="submit" color="primary">
-              Save
-            </Button>
-            <Button onClick={onClose} color="secondary">
-              Cancel
-            </Button>
-          </DialogActions>
-        </form>
-      </DialogContent>
-    </Dialog>
-  );
+    const handleEditFormSubmit = (e) => {
+        e.preventDefault();
+        onEditSubmit(editedData);
+    };
+
+    return (
+        <Dialog open={open} onClose={onClose}>
+            <DialogTitle>Edit Assignment</DialogTitle>
+            <DialogContent>
+                <form onSubmit={handleEditFormSubmit}>
+                    <TextField
+                        label="Assignment Title"
+                        variant="outlined"
+                        fullWidth
+                        value={editedData.title}
+                        onChange={handleEditPostNameChange}
+                    />
+                    <TextField
+                        label="Description"
+                        variant="outlined"
+                        fullWidth
+                        value={editedData.description}
+                        onChange={handleEditInputChange}
+                    />
+                    <TextField
+                        label="Deadline"
+                        type="datetime-local"
+                        variant="outlined"
+                        fullWidth
+                        value={editedData.deadline}
+                        onChange={(e) => handleEditDeadlineChange(new Date(e.target.value))}
+                    />
+                    <input
+                        type="file"
+                        accept=".pdf"
+                        onChange={handlePdfFileChange}
+                    />
+                    <DialogActions>
+                        <Button type="submit" color="primary">
+                            Save
+                        </Button>
+                        <Button onClick={onClose} color="secondary">
+                            Cancel
+                        </Button>
+                    </DialogActions>
+                </form>
+            </DialogContent>
+        </Dialog>
+    );
 }
 
 AssignmentEditForm.propTypes = {
-  open: PropTypes.bool,
-  onClose: PropTypes.func,
-  onEditSubmit: PropTypes.func,
-  initialData: PropTypes.object,
+    open: PropTypes.bool,
+    onClose: PropTypes.func,
+    onEditSubmit: PropTypes.func,
+    initialData: PropTypes.object,
 };
+
+export function Tmp({ link, title, filename }) {
+    const [openAssignmentDialog, setOpenAssignmentDialog] = useState(false);
+    const [fullScreen, setFullScreen] = useState(false);
+    const theme = useTheme();
+    const fullScreenDialog = useMediaQuery(theme.breakpoints.down('sm'));
+
+    
+
+    const toggleFullScreen = () => {
+        setFullScreen(!fullScreen);
+    };
+
+    const handleOpenAssignmentDialog = () => {
+        setOpenAssignmentDialog(true);
+    };
+
+    const handleCloseAssignmentDialog = () => {
+        setOpenAssignmentDialog(false);
+    };
+
+    return (
+
+
+        <li>
+            <IconButton onClick={handleOpenAssignmentDialog}>
+                <AssignmentIcon style={{ fontSize: '25px' }} />
+                {filename}
+            </IconButton>
+            {/* <a href={link}>{title}</a> */}
+
+            <Dialog
+                open={openAssignmentDialog}
+                onClose={handleCloseAssignmentDialog}
+                fullScreen={fullScreenDialog || fullScreen}
+                classes={{ paper: 'custom-paper' }}
+            >
+                <DialogTitle>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        {title}
+                        <IconButton edge="end" color="inherit" onClick={toggleFullScreen} aria-label="fullscreen">
+                            {fullScreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
+                        </IconButton>
+                    </div>
+                </DialogTitle>
+                <DialogContent className="custom-dialog-content">
+                    {/* {link} */}
+                    <iframe title="Assignment Viewer" width="100%" height="100%" src={link} />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCloseAssignmentDialog} color="primary">
+                        Close
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+        </li>
+    );
+}
 
 
 export function Assigments(props) {
-  const { title, description, assignmentLink, AssignmentTitle, deadline } = props;
-  const [openAssignmentDialog, setOpenAssignmentDialog] = useState(false);
-  const [fullScreen, setFullScreen] = useState(false);
-  const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining(deadline));
-  const [openEditForm, setOpenEditForm] = useState(false);
+    const { title, description, assignmentLink, assignmentId, deadline } = props;
 
-  const handleOpenAssignmentDialog = () => {
-    setOpenAssignmentDialog(true);
-  };
+    const { courseId } = useParams();
+    const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining(deadline));
+    const [openEditForm, setOpenEditForm] = useState(false);
+    // console.log(assignmentLink);
 
-  const handleCloseAssignmentDialog = () => {
-    setOpenAssignmentDialog(false);
-  };
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setTimeRemaining(calculateTimeRemaining(deadline));
+        }, 1000);
 
-  const toggleFullScreen = () => {
-    setFullScreen(!fullScreen);
-  };
 
-  const theme = useTheme();
-  const fullScreenDialog = useMediaQuery(theme.breakpoints.down('sm'));
+        return () => clearInterval(intervalId);
+    }, [deadline]);
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setTimeRemaining(calculateTimeRemaining(deadline));
-    }, 1000);
 
- 
-    return () => clearInterval(intervalId);
-  }, [deadline]);
 
-  function calculateTimeRemaining(endTime) {
-    const deadlineTime = new Date(endTime).getTime();
-    const currentTime = new Date().getTime();
-    const timeDifference = deadlineTime - currentTime;
+    function calculateTimeRemaining(endTime) {
+        const deadlineTime = new Date(endTime).getTime();
+        const currentTime = new Date().getTime();
+        const timeDifference = deadlineTime - currentTime;
 
-    if (timeDifference <= 0) {
-      // Deadline 
-      return 'Deadline has passed';
+        if (timeDifference <= 0) {
+            // Deadline 
+            return 'Deadline has passed';
+        }
+
+        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+        return `${days}d ${hours}h ${minutes}m ${seconds}s`;
     }
 
-    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+    const handleOpenEditForm = () => {
+        setOpenEditForm(true);
+    };
 
-    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
-  }
+    const handleCloseEditForm = () => {
+        setOpenEditForm(false);
+    };
 
-  const handleOpenEditForm = () => {
-    setOpenEditForm(true);
-  };
+    const handleEditSubmit = (editedData) => {
 
-  const handleCloseEditForm = () => {
-    setOpenEditForm(false);
-  };
+        console.log('Edit submission:', editedData);
+        handleCloseEditForm();
+    };
 
-  const handleEditSubmit = (editedData) => {
-    
-    console.log('Edit submission:', editedData);
-    handleCloseEditForm();
-  };
+    const handleDelete = async () => {
 
-  const handleDelete = () => {
-  
-    console.log('Delete action');
-    handleCloseAssignmentDialog();
-  };
+        const confirmDelete = await deleteAssignment(courseId, assignmentId);
 
+        if(confirmDelete?.status === 200){
+            toast.success('Assignment deleted successfully');
+            window.location.reload(true);
+        }
+        else{
+            toast.error('Error deleting assignment');
+        }
+    };
 
-  return (
-    <Accordion>
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel-content"
-        id="panel-header"
-      >
-        <Typography variant="h6">{title}</Typography>
-      </AccordionSummary>
-      <AccordionDetails>
-        <div>
-          <CourseContent description={description} />
-          <ul>
-            {assignmentLink.map((link, index) => (
-              <li key={index}>
-                <IconButton onClick={handleOpenAssignmentDialog}>
-                  <AssignmentIcon style={{ fontSize: '25px' }} />
-                </IconButton>
-                <a href={link}>{AssignmentTitle[index]}</a>
-              </li>
-            ))}
-          </ul>
-
-          {deadline && (
-            <div>
-              <Typography variant="subtitle1" style={{ fontWeight: 'bold', marginBottom: '8px' }} >Deadline: {formatDeadline(deadline)}</Typography>
-              <Typography variant="subtitle1" style={{ marginBottom: '8px' }} >Time remaining: {timeRemaining}</Typography>
-            </div>
-          )}
-        </div>
+    const token = Cookies.get('token')
 
 
-        
-        {/* Edit and Delete Buttons */}
-        <div style={{ marginTop: '16px' }}>
-            <Button variant="outlined" color="primary" onClick={handleOpenEditForm}>
-              Edit
-            </Button>
-            <Button variant="outlined" color="secondary" onClick={handleDelete}>
-              Delete
-            </Button>
-          </div>
-        
+    return (
+        <Accordion>
+            <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel-content"
+                id="panel-header"
+            >
+                <Typography variant="h6">{title}</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+                <div>
+                    <CourseContent description={description} />
+                    <ul>
+                        {assignmentLink?.map((link, index) => (
+                            <Tmp
+                                link={`http://localhost:8000/file/retrieve?courseId=${courseId}&path=${link}&jwt=${token}`}
+                                key={index}
+                                title={title}
+                                filename={link.split("/")[5]}
+                            />
+                        ))}
+                    </ul>
+
+                    {deadline && (
+                        <div>
+                            <Typography variant="subtitle1" style={{ fontWeight: 'bold', marginBottom: '8px' }} >Deadline: {formatDeadline(deadline)}</Typography>
+                            <Typography variant="subtitle1" style={{ marginBottom: '8px' }} >Time remaining: {timeRemaining}</Typography>
+                        </div>
+                    )}
+                </div>
 
 
-        {/* Assignment Dialog */}
-        <Dialog
-          open={openAssignmentDialog}
-          onClose={handleCloseAssignmentDialog}
-          fullScreen={fullScreenDialog || fullScreen}
-          classes={{ paper: 'custom-paper' }}
-        >
-          <DialogTitle>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              {AssignmentTitle} - Assignment
-              <IconButton edge="end" color="inherit" onClick={toggleFullScreen} aria-label="fullscreen">
-                {fullScreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
-              </IconButton>
-            </div>
-          </DialogTitle>
-          <DialogContent className="custom-dialog-content">
-            <iframe title="Assignment Viewer" width="100%" height="100%" src={assignmentLink} />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseAssignmentDialog} color="primary">
-              Close
-            </Button>
-          </DialogActions>
-        </Dialog>
 
-        {/* Edit Form */}
-        <AssignmentEditForm
-          open={openEditForm}
-          onClose={handleCloseEditForm}
-          onEditSubmit={handleEditSubmit}
-          initialData={{
-            title,
-            description,
-            deadline,
-            // Add other fields you want to edit
-          }}
-        />
-      </AccordionDetails>
-    </Accordion>
-  );
+                {/* Edit and Delete Buttons */}
+                <div style={{ marginTop: '16px' }}>
+                    {/* <Button variant="outlined" color="primary" onClick={handleOpenEditForm}>
+                        Edit
+                    </Button> */}
+                    <Button variant="outlined" color="secondary" onClick={handleDelete}>
+                        Delete
+                    </Button>
+                </div>
 
-  function formatDeadline(deadline) {
-    const formattedDeadline = new Date(deadline).toLocaleString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-      hour12: true,
-    });
 
-    return formattedDeadline;
-  }
+
+                {/* Assignment Dialog */}
+
+
+                {/* Edit Form */}
+                <AssignmentEditForm
+                    open={openEditForm}
+                    onClose={handleCloseEditForm}
+                    onEditSubmit={handleEditSubmit}
+                    initialData={{
+                        title,
+                        description,
+                        deadline,
+                        // Add other fields you want to edit
+                    }}
+                />
+            </AccordionDetails>
+        </Accordion>
+    );
+
+    function formatDeadline(deadline) {
+        const formattedDeadline = new Date(deadline).toLocaleString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true,
+        });
+
+        return formattedDeadline;
+    }
 
 }
 
 Assigments.propTypes = {
-  title: PropTypes.string,
-  description: PropTypes.node,
-  assignmentLink: PropTypes.arrayOf(PropTypes.string),
-  AssignmentTitle: PropTypes.arrayOf(PropTypes.string),
-  deadline: PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.node,
+    assignmentLink: PropTypes.arrayOf(PropTypes.string),
+    AssignmentTitle: PropTypes.arrayOf(PropTypes.string),
+    deadline: PropTypes.string,
 };
 
 export default Assigments;

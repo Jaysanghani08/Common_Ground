@@ -47,7 +47,7 @@ function CustomAccordion(props) {
     const [fullScreen, setFullScreen] = useState(false);
     const theme = useTheme();
     const fullScreenDialog = useMediaQuery(theme.breakpoints.down('sm'));
-    
+
     const toggleFullScreen = () => {
         setFullScreen(!fullScreen);
     };
@@ -112,7 +112,7 @@ function CustomAccordion(props) {
             toast.success("Section deleted Successfully.")
             window.location.reload(true);
         }
-        else{
+        else {
             toast.error("Somthing went wrong.")
         }
     };
@@ -190,7 +190,7 @@ function CustomAccordion(props) {
                     ))}
                 </div>
                 {/* {posts} */}
-                <FileUploadForm sectionId={sectionId}/>
+                <FileUploadForm sectionId={sectionId} />
             </AccordionDetails>
         </Accordion>
     );
@@ -247,7 +247,7 @@ function a11yProps(index) {
     };
 }
 
-export default function BasicTabs({ sections, enrolledStudents }) {
+export default function BasicTabs({ sections, courseAssignments, enrolledStudents }) {
     const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
@@ -265,7 +265,7 @@ export default function BasicTabs({ sections, enrolledStudents }) {
         const handleAddAssignment = (newAssignment) => {
             setAssignments([...assignments, newAssignment]);
             toast.success('Assignment added successfully');
-          };
+        };
     };
 
     const deleteSection = (index) => {
@@ -303,29 +303,26 @@ export default function BasicTabs({ sections, enrolledStudents }) {
                 </CustomTabPanel>
 
                 <CustomTabPanel value={value} index={1} >
-                    Assignments
-                    <Assignments
-                        title="Assigments 1"
-                        description="Description...."
-                        deadline="2023-12-01T12:00:00"
-                        assignmentLink={["link-to-assignment-1"]}
-                        AssignmentTitle={["Assignment 1"]}
-                        />
+                    {
+                        courseAssignments &&
+                        courseAssignments.map((assignment, index) => (
+                            <Assignments
+                                key={index}
+                                title={assignment.title}
+                                description={assignment.description}
+                                deadline={assignment.dueDate}
+                                assignmentLink={assignment.attachment}
+                                assignmentId={assignment._id}
+                                // AssignmentTitle={assignment.AssignmentTitle}
+                            />
+                        ))
+                    }
 
-                        <Assignments
-                        title="Assigments 2"
-                        description="Description...."
-                        deadline="2023-12-15T14:30:00"
-                        assignmentLink={["link-to-assignment-2"]}
-                        AssignmentTitle={["Assignment 2"]}
-                        />
-
-                        <AssignmentUploadForm/>
+                    <AssignmentUploadForm />
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={2}>
-                    Item Three
                     <div className="dicussion-forum">
-                    <DicussionForum />
+                        <DicussionForum />
                     </div>
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={3}>

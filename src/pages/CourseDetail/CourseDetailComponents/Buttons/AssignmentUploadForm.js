@@ -12,7 +12,7 @@ import { useMediaQuery, useTheme } from '@mui/material';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import './video_and_pdf_button.css';
 import { toast } from 'react-toastify';
-// import { createAssignment } from '../../../../services/Apis';
+import { createAssignment } from '../../../../services/Apis';
 import { useParams } from 'react-router-dom';
 
 const AssignmentUploadForm = ({ sectionId }) => {
@@ -40,6 +40,8 @@ const AssignmentUploadForm = ({ sectionId }) => {
         deadline: '',
     });
 
+    console.log(formData);
+
     const handle_Change = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -49,35 +51,40 @@ const AssignmentUploadForm = ({ sectionId }) => {
     };
 
     const handleFileChange = (e) => {
-        const file = e.target.files[0];
+        const file = e.target.files;
         setSelectedFile(file);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+    
         const data = new FormData();
         data.append('title', formData.title);
-        data.append('deadline', formData.deadline);
-        data.append('attachment', selectedFile);
+        data.append('dueDate', formData.deadline);
+        data.append('description', 'fisesufjsefsdbdsufsd');
+        for (let i = 0; i < selectedFile.length; i++) {
+            data.append('attachments', selectedFile[i]);
+        }
+        console.log(data)
 
-        // if (!formData.title) {
-        //   toast.error('Enter Assignment Title');
-        // } else if (!formData.deadline) {
-        //   toast.error('Enter Assignment Deadline');
-        // } else if (!selectedFile) {
-        //   toast.error('Upload Assignment (PDF)');
-        // } else {
-        //   const newAssignment = await createAssignment(courseId, sectionId, data);
+        if (!formData.title) {
+            toast.error('Enter Assignment Title');
+        } else if (!formData.deadline) {
+            toast.error('Enter Assignment Deadline');
+        } else if (!selectedFile) {
+            toast.error('Upload Assignment (PDF)');
+        } else {
+            const newAssignment = await createAssignment(courseId, data);
 
-        //   if (newAssignment?.status === 201) {
-        //     toast.success('Assignment created successfully');
-        //     handleClosePdfDialog();
-        //     window.location.reload(true);
-        //   } else {
-        //     toast.error('Something went wrong');
-        //   }
-        // }
+            if (newAssignment?.status === 201) {
+                toast.success('Assignment created successfully');
+                handleClosePdfDialog();
+                window.location.reload(true);
+            } else {
+                toast.error('Something went wrong');
+            }
+        }
 
     };
 
@@ -141,6 +148,7 @@ const AssignmentUploadForm = ({ sectionId }) => {
                                             name="attachment"
                                             accept=".pdf"
                                             onChange={handleFileChange}
+                                            multiple
                                         />
                                     </div>
                                 </div>

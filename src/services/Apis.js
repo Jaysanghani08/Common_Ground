@@ -275,6 +275,31 @@ export const deletePost = async ({ courseId, sectionId, postId }) => {
     }
 };
 
+export const createAssignment = async (courseId, assignmentData) => {
+    try {
+        const response = await commonrequest("POST", `${BACKEND_URL}/educator/create-assignment/${courseId}`, assignmentData, {
+            'authorization': `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
+        });
+        return response;
+    } catch (error) {
+        throw new Error("Error creating assignment");
+    }
+}
+
+export const deleteAssignment = async (courseId, assignmentId) => {
+    if (window.confirm('Are you sure you want to delete this assignment?')) {
+        try {
+            const response = await commonrequest("DELETE", `${BACKEND_URL}/educator/delete-assignment/${courseId}/${assignmentId}`, {}, {
+                'authorization': `Bearer ${token}`
+            });
+            return response;
+        } catch (error) {
+            console.error('Error deleting post:', error);
+        }
+    }
+}
+
 export const removeStudent = async ({courseId, studentId}) => {
     if (window.confirm('Are you sure you want to remove this student?')) {
         try {

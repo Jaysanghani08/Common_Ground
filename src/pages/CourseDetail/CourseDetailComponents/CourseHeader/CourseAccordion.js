@@ -174,13 +174,13 @@ export function CourseAccordion(props) {
                             <IconButton onClick={handleOpenPdfDialog}>
                                 <PictureAsPdfIcon style={{ fontSize: '25px' }} />
                             </IconButton>
-                            <a href={"pdfLink"}>PDF Material</a>
+                            {/* <a href={"pdfLink"}>PDF Material</a> */}
                         </li>
                         <li>
                             <IconButton onClick={handleOpenVideoDialog}>
                                 <VideoLibraryIcon style={{ fontSize: '25px' }} />
                             </IconButton>
-                            <a href={"videoLink"}>Video</a>
+                            {/* <a href={"videoLink"}>Video</a> */}
                         </li>
                     </ul>
                 </div>

@@ -62,11 +62,6 @@ const FileUploadForm = ({ sectionId }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // setFormData({
-        //     ...formData,
-        //     attachments: selectedFile
-        // })
-
         const data = new FormData();
         data.append('title', formData.title);
         data.append('body', formData.body);
