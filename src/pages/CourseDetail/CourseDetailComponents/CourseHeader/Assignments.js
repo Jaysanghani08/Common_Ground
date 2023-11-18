@@ -61,7 +61,7 @@ function AssignmentEditForm({ open, onClose, onEditSubmit, initialData }) {
 
     const handlePdfFileChange = (e) => {
 
-        console.log('PDF file uploaded:', e.target.files[0]);
+        // console.log('PDF file uploaded:', e.target.files[0]);
     };
 
     const handleEditFormSubmit = (e) => {
@@ -229,7 +229,7 @@ export function Assigments(props) {
 
     const handleEditSubmit = (editedData) => {
 
-        console.log('Edit submission:', editedData);
+        // console.log('Edit submission:', editedData);
         handleCloseEditForm();
     };
 

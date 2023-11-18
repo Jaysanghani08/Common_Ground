@@ -93,7 +93,7 @@ function CustomAccordion(props) {
         }
 
         const response = await editSection(courseId, sectionId, formData);
-        console.log(response);
+        // console.log(response);
         if (response?.status === 201) {
             toast.success('Section edited successfully')
             // setCourseID(courseId)
@@ -199,9 +199,9 @@ function CustomAccordion(props) {
 CustomAccordion.propTypes = {
     index: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    details: PropTypes.string.isRequired, // Change 'description' to 'details'
-    pdfFiles: PropTypes.string.isRequired,
-    assignmentFilespdfFiles: PropTypes.string.isRequired,
+    details: PropTypes.string, // Change 'description' to 'details'
+    pdfFiles: PropTypes.string,
+    assignmentFilespdfFiles: PropTypes.string,
     pdfTitle: PropTypes.arrayOf(PropTypes.string),
     AssignmentTitle: PropTypes.arrayOf(PropTypes.string),
     content: PropTypes.arrayOf(PropTypes.string),

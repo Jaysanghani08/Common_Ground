@@ -10,25 +10,24 @@ console.log(`Bearer ${token}`)
 // public pages
 //student
 export const studentregisterfunction = async (data) => {
-    console.log(data)
+    // console.log(data)
     return await commonrequest("POST", `${BACKEND_URL}/student/signup`, data)
 }
 
 export const studentloginfunction = async (data) => {
-    console.log(data)
+    // console.log(data)
     return await commonrequest("POST", `${BACKEND_URL}/student/login`, data)
 }
 
 export const studentresetpasswordfunction = async (data) => {
-    console.log(data)
+    // console.log(data)
     return await commonrequest("POST", `${BACKEND_URL}/student/reset-password`, data)
 }
 
 export const studentupdatepasswordfunction = async (data) => {
-    console.log(data)
+    // console.log(data)
     return await commonrequest("POST", `${BACKEND_URL}/student/update-password`, data)
 }
-
 // export const studentdeletefunction = async(data)=>{
 //     console.log(data)
 //     return await commonrequest("POST",`${BACKEND_URL}/student/delete`,data)
@@ -36,7 +35,7 @@ export const studentupdatepasswordfunction = async (data) => {
 
 // educator
 export const eduregisterfunction = async (data) => {
-    console.log(data)
+    // console.log(data)
     return await commonrequest("POST", `${BACKEND_URL}/educator/signup`, data, {
         'Content-Type': 'multipart/form-data'
     })
@@ -44,17 +43,17 @@ export const eduregisterfunction = async (data) => {
 }
 
 export const eduloginfunction = async (data) => {
-    console.log(data)
+    // console.log(data)
     return await commonrequest("POST", `${BACKEND_URL}/educator/login`, data)
 }
 
 export const eduresetpasswordfunction = async (data) => {
-    console.log(data)
+    // console.log(data)
     return await commonrequest("POST", `${BACKEND_URL}/educator/reset-password`, data)
 }
 
 export const eduupdatepasswordfunction = async (data) => {
-    console.log(data)
+    // console.log(data)
     return await commonrequest("POST", `${BACKEND_URL}/educator/update-password`, data)
 }
 
@@ -63,7 +62,7 @@ export const eduupdatepasswordfunction = async (data) => {
 // Educator
 
 export const educreatecoursefunction = async (data) => {
-    console.log(data)
+    // console.log(data)
     return await commonrequest("POST", `${BACKEND_URL}/educator/create-course`, data, {
         'authorization': `Bearer ${token}`,
         'Content-Type': 'multipart/form-data'
@@ -85,7 +84,6 @@ export const getEducatorDashboard = async (data) => {
 }
 
 export const getEducatorProfile = async () => {
-    // console.log(data)
     try {
         // console.log(data);
         const response = await commonrequest("GET", `${BACKEND_URL}/query/profile`, {}, {
@@ -123,84 +121,6 @@ export const getIncome = async (data) => {
     }
 }
 
-
-export const getAllCourses = async (data) => {
-    // console.log(data)
-    try {
-        // console.log(data);
-        const response = await commonrequest("GET", `${BASE_URL2}/user/edu-earning`, data, {
-            'authorization': `Bearer ${token}`
-        });
-        // console.log(response.data[0].earning)
-        return response.data[0].earning;
-    } catch (error) {
-        throw new Error("Error fetching user data");
-    }
-}
-
-// Student
-export const getStudentDashboard = async (data) => {
-    // console.log(data)
-    try {
-        // console.log(data);
-        const response = await commonrequest("GET", `${BACKEND_URL}/query/enrolled-course`, data, {
-            'authorization': `Bearer ${token}`
-        });
-        // console.log(response.data)
-        return response.data ? response.data.courses : null;
-    } catch (error) {
-        throw new Error("Error fetching user data");
-    }
-}
-
-export const getStudentProfile = async () => {
-    // console.log(data)
-    try {
-        // console.log(data);
-        const response = await commonrequest("GET", `${BACKEND_URL}/query/profile`, {}, {
-            'authorization': `Bearer ${token}`
-        });
-        return response.data.student;
-    } catch (error) {
-        throw new Error("Error fetching user data");
-    }
-}
-
-export const getRecommendedCourses = async (queryParams = {}) => {
-    try {
-        const response = await commonrequest("GET", `${BACKEND_URL}/query/recommended-course`, null, {
-            'authorization': `Bearer ${token}`
-        }, queryParams);
-        return response.data.courses;
-    } catch (error) {
-        throw new Error("Error fetching enrolled courses");
-    }
-}
-
-export const getCourseData = async (courseId) => {
-    try {
-        const response = await commonrequest("GET", `${BACKEND_URL}/query/getCourse/${courseId}`, null, {
-            'authorization': `Bearer ${token}`
-        });
-        return response.data.course;
-    } catch (error) {
-        throw new Error("Error fetching course data");
-    }
-}
-
-export const getFilteredCourses = async (queryParams = {}) => {
-    // console.log(queryParams)
-    try {
-        const response = await commonrequest("GET", `${BACKEND_URL}/query/search-filter`, null, {
-            'authorization': `Bearer ${token}`
-        }, queryParams);
-        // console.log(response.data);
-        return response.data.courses;
-    } catch (error) {
-        throw new Error("Error fetching filtered courses");
-    }
-}
-
 export const createSection = async (courseId, sectionData) => {
     try {
         const response = await commonrequest("POST", `${BACKEND_URL}/educator/create-section/${courseId}`, sectionData, {
@@ -213,7 +133,7 @@ export const createSection = async (courseId, sectionData) => {
 }
 
 export const editSection = async (courseId, sectionId, sectionData) => {
-    console.log(sectionData)
+    // console.log(sectionData)
     try {
         const response = await commonrequest("PATCH", `${BACKEND_URL}/educator/edit-section/${courseId}/${sectionId}`, sectionData, {
             'authorization': `Bearer ${token}`
@@ -238,13 +158,13 @@ export const deleteSection = async (courseId, sectionId) => {
 }
 
 export const createPost = async (courseId, sectionId, postData) => {
-    console.log(postData)
+    // console.log(postData)
     try {
         const response = await commonrequest("POST", `${BACKEND_URL}/educator/add-post/${courseId}/${sectionId}`, postData, {
             'authorization': `Bearer ${token}`,
             'Content-Type': 'multipart/form-data'
         });
-        console.log(response)
+        // console.log(response)
         return response;
     } catch (error) {
         throw new Error("Error creating post");
@@ -300,7 +220,7 @@ export const deleteAssignment = async (courseId, assignmentId) => {
     }
 }
 
-export const removeStudent = async ({courseId, studentId}) => {
+export const removeStudent = async ({ courseId, studentId }) => {
     if (window.confirm('Are you sure you want to remove this student?')) {
         try {
             const response = await commonrequest("POST", `${BACKEND_URL}/educator/remove-student/${courseId}/${studentId}`, {}, {
@@ -314,6 +234,107 @@ export const removeStudent = async ({courseId, studentId}) => {
 
 }
 
+export const editEduProfile = async (data) => {
+    try {
+        const response = await commonrequest("PATCH", `${BACKEND_URL}/educator/edit-profile`, data, {
+            'authorization': `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error("Error editing profile");
+    }
+}
+
+// Student
+export const getStudentDashboard = async (data) => {
+    // console.log(data)
+    try {
+        // console.log(data);
+        const response = await commonrequest("GET", `${BACKEND_URL}/query/enrolled-course`, data, {
+            'authorization': `Bearer ${token}`
+        });
+        // console.log(response.data)
+        return response.data ? response.data.courses : null;
+    } catch (error) {
+        throw new Error("Error fetching user data");
+    }
+}
+
+export const getStudentProfile = async () => {
+    // console.log(data)
+    try {
+        // console.log(data);
+        const response = await commonrequest("GET", `${BACKEND_URL}/query/profile`, {}, {
+            'authorization': `Bearer ${token}`
+        });
+        // console.log(response.data)
+        return response.data.student;
+    } catch (error) {
+        throw new Error("Error fetching user data");
+    }
+}
+
+export const getRecommendedCourses = async (queryParams = {}) => {
+    try {
+        const response = await commonrequest("GET", `${BACKEND_URL}/query/recommended-course`, null, {
+            'authorization': `Bearer ${token}`
+        }, queryParams);
+        return response.data.courses;
+    } catch (error) {
+        throw new Error("Error fetching enrolled courses");
+    }
+}
+
+export const getCourseData = async (courseId) => {
+    try {
+        const response = await commonrequest("GET", `${BACKEND_URL}/query/getCourse/${courseId}`, null, {
+            'authorization': `Bearer ${token}`
+        });
+        return response.data.course;
+    } catch (error) {
+        throw new Error("Error fetching course data");
+    }
+}
+
+export const getFilteredCourses = async (queryParams = {}) => {
+    // console.log(queryParams)
+    try {
+        const response = await commonrequest("GET", `${BACKEND_URL}/query/search-filter`, null, {
+            'authorization': `Bearer ${token}`
+        }, queryParams);
+        // console.log(response.data);
+        return response.data.courses;
+    } catch (error) {
+        throw new Error("Error fetching filtered courses");
+    }
+}
+
+export const getAllCourses = async (data) => {
+    // console.log(data)
+    try {
+        // console.log(data);
+        const response = await commonrequest("GET", `${BASE_URL2}/user/edu-earning`, data, {
+            'authorization': `Bearer ${token}`
+        });
+        // console.log(response.data[0].earning)
+        return response.data[0].earning;
+    } catch (error) {
+        throw new Error("Error fetching user data");
+    }
+}
+
+export const editStudentProfile = async (data) => { 
+    try {
+        const response = await commonrequest("PATCH", `${BACKEND_URL}/student/edit-profile`, data, {
+            'authorization': `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error("Error editing profile");
+    }
+}
 // extra
 export const sentOtpFunction = async (data) => {
     return await commonrequest("POST", `${BACKEND_URL}/user/sendotp`, data)

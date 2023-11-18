@@ -4,7 +4,6 @@ import IconButton from '@mui/material/IconButton';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
-import AssignmentIcon from '@mui/icons-material/Assignment';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -289,7 +288,7 @@ export function CourseAccordion(props) {
 
 CourseAccordion.propTypes = {
     content: PropTypes.node,
-    postName: PropTypes.string.isRequired,
+    postName: PropTypes.string,
     pdfLink: PropTypes.string,
     assignmentLink: PropTypes.string,
     pdfTitle: PropTypes.string,

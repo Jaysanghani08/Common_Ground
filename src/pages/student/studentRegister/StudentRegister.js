@@ -23,7 +23,7 @@ const StudentRegister = () => {
         location: ""
     });
 
-    console.log(inputdata)
+    // console.log(inputdata)
 
     const navigate = useNavigate();
 
@@ -94,7 +94,7 @@ const StudentRegister = () => {
         else {
             const response = await studentregisterfunction(inputdata);
 
-            console.log(response)
+            // console.log(response)
 
             if (response.status === 201) {
                 setInputdata({

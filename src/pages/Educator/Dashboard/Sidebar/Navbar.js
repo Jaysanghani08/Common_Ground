@@ -38,8 +38,8 @@ const EdNavbar = (props) => {
 
                         {SidebarData.map((item, index) => {
                             return (
-                                <li>
-                                    <NavLink to={item.route} key={index} className='page-scroll'
+                                <li key={index}>
+                                    <NavLink to={item.route} className='page-scroll'
                                     style={location.pathname === item.route ? {color: "0C356a"} : {}}>
                                             {item.heading}
                                     </NavLink>

@@ -69,7 +69,7 @@ const FileUploadForm = ({ sectionId }) => {
             data.append('attachments', selectedFile[i]);
         }
 
-        console.log(data)
+        // console.log(data)
 
         if (!formData.title) {
             toast.error("Enter Post Title")

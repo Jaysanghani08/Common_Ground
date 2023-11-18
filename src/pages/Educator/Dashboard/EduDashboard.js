@@ -27,7 +27,7 @@ function EduDashboard() {
         navigate("/educator/profile");
     }
 
-    console.log(profile)
+    // console.log(profile)
 
     const token = getToken('educator');
 
@@ -81,7 +81,7 @@ function EduDashboard() {
                         <div className="profilephoto" onClick={navigateToProfile}>
                             {
                             profile && profile.profilePic ? 
-                            <img src={`http://localhost:8000/${profile.profilePic.replace(/\\/g, '/').slice(8)}`} alt="user" width={150} srcset="" />
+                            <img src={`http://localhost:8000/${profile.profilePic?.split('/').pop()}`} alt="user" width={150} srcset="" />
                             :<UilUser size='100' />
                             }
                         </div>

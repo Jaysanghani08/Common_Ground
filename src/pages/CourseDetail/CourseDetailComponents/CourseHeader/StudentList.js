@@ -50,10 +50,10 @@ function StudentList(props) {
 StudentList.propTypes = {
     students: PropTypes.arrayOf(
         PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
+            id: PropTypes.number,
+            name: PropTypes.string,
         })
-    ).isRequired,
+    ),
 };
 
 export default StudentList;
