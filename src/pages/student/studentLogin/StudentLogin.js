@@ -59,6 +59,7 @@ const StudentLogin = () => {
 
                 setTimeout(() => {
                     navigate("/student/dashboard")
+                    window.location.reload();
                 }, 1000);
             } else {
                 toast.error(response.response.data.message);

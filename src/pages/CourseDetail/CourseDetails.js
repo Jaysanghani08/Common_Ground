@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Sidebar from './../student/Dashboard/Sidebar/Sidebar'
+import EdNavbar from './../Educator/Dashboard/Sidebar/Navbar'
 import "./CourseDetails.css"
 import CourseHeader from './CourseDetailComponents/CourseHeader/CourseHeader'
 import BasicTabs from './CourseDetailComponents/CourseHeader/TabMenu'
@@ -61,7 +61,7 @@ const CourseDetails = () => {
     return (
         <>
             <div>
-                <Sidebar />
+                <EdNavbar />
                 <div className="course-container">
                     <CourseHeader
                         courseCode={coursedata.courseCode}
@@ -74,7 +74,7 @@ const CourseDetails = () => {
                     />
 
                     <div className="course-content">
-                        <BasicTabs sections={coursedata.courseSections} enrolledStudents={coursedata.enrolledStudents} />
+                        <BasicTabs sections={coursedata.courseSections} enrolledStudents={coursedata.enrolledStudents} courseAssignments={coursedata.courseAssignments}/>
                         <BasicTextFields courseId={coursedata._id} />
                          <div className="dicussion-forum">
                             <DicussionForum />

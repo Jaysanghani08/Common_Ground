@@ -16,152 +16,152 @@ import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
 
 const AssignmentUploadForm = ({ sectionId }) => {
-  const { courseId } = useParams();
-  const [selectedFile, setSelectedFile] = useState();
-  const [openPdfDialog, setOpenPdfDialog] = useState(false);
-  const [fullScreen, setFullScreen] = useState(false);
-  const theme = useTheme();
-  const fullScreenDialog = useMediaQuery(theme.breakpoints.down('sm'));
+    const { courseId } = useParams();
+    const [selectedFile, setSelectedFile] = useState();
+    const [openPdfDialog, setOpenPdfDialog] = useState(false);
+    const [fullScreen, setFullScreen] = useState(false);
+    const theme = useTheme();
+    const fullScreenDialog = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const handleOpenPdfDialog = () => {
-    setOpenPdfDialog(true);
-  };
+    const handleOpenPdfDialog = () => {
+        setOpenPdfDialog(true);
+    };
 
-  const handleClosePdfDialog = () => {
-    setOpenPdfDialog(false);
-  };
+    const handleClosePdfDialog = () => {
+        setOpenPdfDialog(false);
+    };
 
-  const toggleFullScreen = () => {
-    setFullScreen(!fullScreen);
-  };
+    const toggleFullScreen = () => {
+        setFullScreen(!fullScreen);
+    };
 
-  const [formData, setFormData] = useState({
-    title: '',
-    deadline: '',
-  });
-
-  const handle_Change = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
+    const [formData, setFormData] = useState({
+        title: '',
+        deadline: '',
     });
-  };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setSelectedFile(file);
-  };
+    const handle_Change = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setSelectedFile(file);
+    };
 
-    const data = new FormData();
-    data.append('title', formData.title);
-    data.append('deadline', formData.deadline);
-    data.append('attachment', selectedFile);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-    // if (!formData.title) {
-    //   toast.error('Enter Assignment Title');
-    // } else if (!formData.deadline) {
-    //   toast.error('Enter Assignment Deadline');
-    // } else if (!selectedFile) {
-    //   toast.error('Upload Assignment (PDF)');
-    // } else {
-    //   const newAssignment = await createAssignment(courseId, sectionId, data);
+        const data = new FormData();
+        data.append('title', formData.title);
+        data.append('deadline', formData.deadline);
+        data.append('attachment', selectedFile);
 
-    //   if (newAssignment?.status === 201) {
-    //     toast.success('Assignment created successfully');
-    //     handleClosePdfDialog();
-    //     window.location.reload(true);
-    //   } else {
-    //     toast.error('Something went wrong');
-    //   }
-    // }
-    
-  };
+        // if (!formData.title) {
+        //   toast.error('Enter Assignment Title');
+        // } else if (!formData.deadline) {
+        //   toast.error('Enter Assignment Deadline');
+        // } else if (!selectedFile) {
+        //   toast.error('Upload Assignment (PDF)');
+        // } else {
+        //   const newAssignment = await createAssignment(courseId, sectionId, data);
 
-  return (
-    <>
-      <Button variant="contained" onClick={handleOpenPdfDialog}>
-        Add Assignment
-      </Button>
-      <Dialog
-        open={openPdfDialog}
-        onClose={handleClosePdfDialog}
-        fullScreen={fullScreenDialog || fullScreen}
-        classes={{ paper: 'custom-paper' }}
-      >
-        <DialogTitle>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Button variant="contained" edge="end" color="inherit" onClick={toggleFullScreen} aria-label="fullscreen">
-              {fullScreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
+        //   if (newAssignment?.status === 201) {
+        //     toast.success('Assignment created successfully');
+        //     handleClosePdfDialog();
+        //     window.location.reload(true);
+        //   } else {
+        //     toast.error('Something went wrong');
+        //   }
+        // }
+
+    };
+
+    return (
+        <>
+            <Button variant="contained" onClick={handleOpenPdfDialog}>
+                Add Assignment
             </Button>
-          </div>
-        </DialogTitle>
-        <DialogContent className="custom-dialog-content">
-          <Box
-            component="form"
-            sx={{
-              '& > :not(style)': { m: 1, width: '25ch' },
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            
-              <div className="bn-main-button">
-                <div className="bn-section-name">
-                  <TextField
-                    id="outlined-basic"
-                    label="Assignment Title"
-                    variant="outlined"
-                    value={formData.title}
-                    name="title"
-                    onChange={handle_Change}
-                  />
-                </div>
-                <div className="bn-section-description">
-                  
-                  <TextField
-                    id="outlined-basic"
-                    label="Assignment Deadline"
-                    variant="outlined"
-                    type="datetime-local"
-                    value={formData.deadline}
-                    name="deadline"
-                    onChange={handle_Change}
-                  />
-                </div>
-                <div>
-                  <div>
-                    <label className="assignment-pdf">PDF File:</label>
-                    <div className="assignment-pdf">
-                      <input
-                        type="file"
-                        name="attachment"
-                        accept=".pdf"
-                        onChange={handleFileChange}
-                      />
+            <Dialog
+                open={openPdfDialog}
+                onClose={handleClosePdfDialog}
+                fullScreen={fullScreenDialog || fullScreen}
+                classes={{ paper: 'custom-paper' }}
+            >
+                <DialogTitle>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Button variant="contained" edge="end" color="inherit" onClick={toggleFullScreen} aria-label="fullscreen">
+                            {fullScreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
+                        </Button>
                     </div>
-                  </div>
-                  <div className="bn-submit-button">
-                    <Button onClick={handleSubmit} variant="contained">
-                      Submit
+                </DialogTitle>
+                <DialogContent className="custom-dialog-content">
+                    <Box
+                        component="form"
+                        sx={{
+                            '& > :not(style)': { m: 1, width: '25ch' },
+                        }}
+                        noValidate
+                        autoComplete="off"
+                    >
+
+                        <div className="bn-main-button">
+                            <div className="bn-section-name">
+                                <TextField
+                                    id="outlined-basic"
+                                    label="Assignment Title"
+                                    variant="outlined"
+                                    value={formData.title}
+                                    name="title"
+                                    onChange={handle_Change}
+                                />
+                            </div>
+                            <div className="bn-section-description">
+
+                                <TextField
+                                    id="outlined-basic"
+                                    label="Assignment Deadline"
+                                    variant="outlined"
+                                    type="datetime-local"
+                                    value={formData.deadline}
+                                    name="deadline"
+                                    onChange={handle_Change}
+                                />
+                            </div>
+                            <div>
+                                <div>
+                                    <label className="assignment-pdf">PDF File:</label>
+                                    <div className="assignment-pdf">
+                                        <input
+                                            type="file"
+                                            name="attachment"
+                                            accept=".pdf"
+                                            onChange={handleFileChange}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="bn-submit-button">
+                                    <Button onClick={handleSubmit} variant="contained">
+                                        Submit
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </Box>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClosePdfDialog} color="primary">
+                        Close
                     </Button>
-                  </div>
-                </div>
-              </div>
-          
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClosePdfDialog} color="primary">
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </>
-  );
+                </DialogActions>
+            </Dialog>
+        </>
+    );
 };
 
 export default AssignmentUploadForm;
