@@ -91,8 +91,7 @@ const courseSchema = new mongoose.Schema({
         ref: 'Discussion',
     },
     thumbnail: {
-        type: String,
-        required: true
+        type: String
     },
     courseCertificate: {
         type: String,

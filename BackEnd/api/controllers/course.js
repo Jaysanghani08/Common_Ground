@@ -22,6 +22,11 @@ const {deleteFile, deleteFolder} = require("../../utils/deleteFile");
 
 exports.createCourse = async (req, res, next) => {
     try {
+        if (req.userData.userType == "student") {
+            return res.status(401).json({
+                message: 'Unauthorized'
+            });
+        }
         let thumbnail = null;
         if (req.file) {
             thumbnail = req.file.path;
@@ -30,7 +35,7 @@ exports.createCourse = async (req, res, next) => {
         const course = await Course.findOne({courseCode: req.body.courseCode}).exec();
         if (course) {
             return res.status(409).json({
-                message: 'Course code already exist'
+                message: 'Course code already exists'
             });
         }
 
@@ -92,6 +97,12 @@ exports.editCourse = async (req, res, next) => {
             });
         }
 
+        if (course.createdBy.toString() !== req.userData.userId.toString()) {
+            return res.status(401).json({
+                message: 'Unauthorized'
+            });
+        }
+
         let oldThumbLink = course.thumbnail;
         const newFolderName = `${req.body.courseCode}-${req.body.courseTitle}`;
         const newPath = path.join(__dirname, `../../uploads/course/${newFolderName}`);
@@ -99,9 +110,9 @@ exports.editCourse = async (req, res, next) => {
         if (req.file && oldThumbLink != null && course.courseTitle != req.body.courseTitle) {
             oldThumbLink = newPath + '/' + path.basename(oldThumbLink);
             deleteFile(oldThumbLink);
+            req.body.thumbnail = req.file.path;
         }
 
-        req.body.thumbnail = req.file.path;
         const updateData = req.body;
 
         const sections = course.courseSections;
