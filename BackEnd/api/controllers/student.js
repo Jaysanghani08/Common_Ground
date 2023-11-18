@@ -200,7 +200,7 @@ exports.resetPassword = async (req, res, next) => {
 
         if (!user) {
             return res.status(404).json({
-                message: 'User not found - Educator'
+                message: 'User not found - Student'
             });
         }
 
