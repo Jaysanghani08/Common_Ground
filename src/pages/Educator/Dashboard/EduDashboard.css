@@ -18,6 +18,7 @@
     position: sticky;
     background-image: url('./../../../data/imgs/StuDashCourseSec.jpg');
     background-size: cover;
+    height: 88.85vh;
   }
   
   .maindash::before {
