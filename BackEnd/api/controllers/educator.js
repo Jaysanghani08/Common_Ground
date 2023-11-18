@@ -169,8 +169,8 @@ exports.userEdit = async (req, res, next) => {
 
 exports.userDelete = async (req, res, next) => {
     try {
-        const profilePic = await Educator.findOne({email: req.params.email}).select('profilePic').exec();
-        const result = await Educator.deleteOne({email: req.params.email}).exec();
+        const profilePic = await Educator.findOne({email: req.userData.email}).select('profilePic').exec();
+        const result = await Educator.deleteOne({email: req.userData.email}).exec();
 
         if (result.deletedCount === 0) {
             return res.status(404).json({
