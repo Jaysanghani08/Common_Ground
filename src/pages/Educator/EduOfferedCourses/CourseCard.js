@@ -51,7 +51,7 @@ const CourseCard = ({ course }) => {
                         </span>
                         <span className="edu_courses_product-price">
                             {/* <span> {course.coursePrice === 0 ? "Free" : `Rs. ${course.coursePrice}`} </span> */}
-                            <button type="button" className="btn" ><NavLink to={`/view-course/${course._id}`} style={{ color: "white" }}>View Course </NavLink></button>
+                            <button type="button" className="btn" ><NavLink to={`/course/${course._id}`} style={{ color: "white" }}>View Course </NavLink></button>
                         </span>
                     </div>
                 </div>

@@ -19,7 +19,7 @@ const Card = ({ course }) => {
             </span>
 
             <span className="stu-viewcourses-courses_product-button">
-                <button type="button" className="btn" ><NavLink to={`/view-course/${course._id}`} style={{ color: "white" }}>View Course </NavLink></button>
+                <button type="button" className="btn" ><NavLink to={`/course/${course._id}`} style={{ color: "white" }}>View Course </NavLink></button>
             </span>
         </div>
     );
