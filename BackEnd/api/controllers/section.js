@@ -171,9 +171,10 @@ exports.addPost = async (req, res, next) => {
             });
         }
 
-        // Get the uploaded files and add their paths to an array
-        const attachments = req.files.map(file => file.path);
-
+        let attachments = [];
+        if(req.file) {
+            attachments = req.files.map(file => file.path);
+        }
         const post = {
             title: req.body.title,
             body: req.body.body,
