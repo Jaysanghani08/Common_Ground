@@ -240,7 +240,7 @@ export const editEduProfile = async (data) => {
             'authorization': `Bearer ${token}`,
             'Content-Type': 'multipart/form-data'
         });
-        return response.data;
+        return response;
     } catch (error) {
         throw new Error("Error editing profile");
     }
@@ -330,7 +330,7 @@ export const editStudentProfile = async (data) => {
             'authorization': `Bearer ${token}`,
             'Content-Type': 'multipart/form-data'
         });
-        return response.data;
+        return response;
     } catch (error) {
         throw new Error("Error editing profile");
     }

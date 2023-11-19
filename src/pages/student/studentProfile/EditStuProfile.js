@@ -114,7 +114,7 @@ const EditStuProfile = () => {
             fname: inputData.fname? inputData.fname : profile.fname,
             lname: inputData.lname? inputData.lname : profile.lname ,
             gender: inputData.gender?inputData.gender : profile.gender ,
-            country: inputData.country? inputData.country : profile.country ,
+            location: inputData.country? inputData.country : profile.country ,
             dob: inputData.dob? inputData.dob : profile.dob ,
             educationLevel: inputData.educationLevel? inputData.educationLevel : profile.educationLevel ,
             email: inputData.email? inputData.email : profile.email ,
@@ -127,7 +127,7 @@ const EditStuProfile = () => {
 
         const edited = await editStudentProfile(formData);
 
-        if (edited) {
+        if (edited?.status === 200) {
             toast.success('Profile edited successfully');
             navigate('/student/profile')
             window.location.reload(true);

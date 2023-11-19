@@ -56,7 +56,7 @@ const EduProfile = () => {
         fetchData();
     }, []);
 
-    console.log(profile)
+    // console.log(profile)
 
     if (!token) {
         return <Navigate to="/educator/login" />;
@@ -129,7 +129,7 @@ const EduProfile = () => {
 
         const edited = await editEduProfile(formData);
 
-        if (edited) {
+        if (edited?.status === 200) {
             toast.success('Profile edited successfully');
             navigate('/educator/profile')
             window.location.reload(true);
@@ -200,7 +200,7 @@ const EduProfile = () => {
                             <div className='epn-edit-personalinfo'>
 
                                 <div className='epn-edit-info-submain2'>
-                                    <input className="edp-edit-form-control" type="text" name='fname' onChange={handleChange} value={inputData.fname} placeholder={profile.fname}/>
+                                    <input className="edp-edit-form-control" type="text" name='fname' onChange={handleChange} value={inputData.fname} placeholder={profile.fname} />
                                 </div>
                                 <div className='epn-edit-info-submain2'>
                                     <input className="edp-edit-form-control" type="text" name='lname' onChange={handleChange} value={inputData.lname} placeholder={profile.lname} />
@@ -235,7 +235,7 @@ const EduProfile = () => {
                         </div>
 
                         <Link to={'/educator/profile'} className='epn-cancel-button'>Cancel</Link>
-                        <button className='epn-submit-button'>Submit</button>
+                        <button className='epn-submit-button' onClick={handleSubmit}>Submit</button>
 
                     </div>
 
