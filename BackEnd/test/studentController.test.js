@@ -2,11 +2,12 @@ const mongoose = require('mongoose');
 const app = require('../app');
 const Student = require('../api/models/student');
 const request = require('supertest');
+const {expect} = require("chai");
+
 beforeAll(async () => {
     const testDbUrl = 'mongodb+srv://Group16:Group16@cluster0.vfhbrkw.mongodb.net/Test_Common_Ground?retryWrites=true&w=majority';
     await mongoose.disconnect();
     await mongoose.connect(testDbUrl, {useNewUrlParser: true, useUnifiedTopology: true});
-    await mongoose.connection.db.dropDatabase();
 });
 
 beforeEach(async () => {
@@ -39,8 +40,8 @@ describe('Student Controller - userSignup', () => {
             .post('/student/signup')
             .send(testStudent);
 
-        expect(res.status).toBe(201);
-        expect(res.body.message).toBe('Student created');
+        expect(res.status).to.equal(201);
+        expect(res.body.message).to.equal('Student created');
     });
 
     it('should handle duplicate email during signup', async () => {
@@ -83,8 +84,8 @@ describe('Student Controller - userSignup', () => {
             .post('/student/signup')
             .send(duplicateStudent);
 
-        expect(res.status).toBe(409);
-        expect(res.body.message).toBe('Mail is already in use - Student');
+        expect(res.status).to.equal(409);
+        expect(res.body.message).to.equal('Mail is already in use - Student');
     });
 
     it('should handle duplicate username during signup', async () => {
@@ -127,8 +128,8 @@ describe('Student Controller - userSignup', () => {
             .post('/student/signup')
             .send(duplicateUsernameStudent);
 
-        expect(res.status).toBe(409);
-        expect(res.body.message).toBe('Username is already in use - Student');
+        expect(res.status).to.equal(409);
+        expect(res.body.message).to.equal('Username is already in use - Student');
     });
 
     it('should handle duplicate phone number during signup', async () => {
@@ -171,8 +172,8 @@ describe('Student Controller - userSignup', () => {
             .post('/student/signup')
             .send(duplicatePhoneStudent);
 
-        expect(res.status).toBe(409);
-        expect(res.body.message).toBe('Phone number is already in use - Student');
+        expect(res.status).to.equal(409);
+        expect(res.body.message).to.equal('Phone number is already in use - Student');
     });
 });
 
@@ -187,9 +188,9 @@ describe('Student Controller - userLogin', () => {
             .post('/student/login')
             .send(student);
 
-        expect(res.status).toBe(200);
-        expect(res.body.message).toBe('Logged In Successfully - Student');
-        expect(res.body.token).toBeDefined();
+        expect(res.status).to.equal(200);
+        expect(res.body.message).to.equal('Logged In Successfully - Student');
+        expect(res.body).to.have.property('token');
     });
     it('should not login a student with incorrect password', async () => {
         const student = {
@@ -201,8 +202,8 @@ describe('Student Controller - userLogin', () => {
             .post('/student/login')
             .send(student);
 
-        expect(res.status).toBe(404);
-        expect(res.body.message).toBe('Wrong Password - Student');
+        expect(res.status).to.equal(404);
+        expect(res.body.message).to.equal('Wrong Password - Student');
     });
     it('should not login a student with incorrect email', async () => {
         const student = {
@@ -214,8 +215,8 @@ describe('Student Controller - userLogin', () => {
             .post('/student/login')
             .send(student);
 
-        expect(res.status).toBe(404);
-        expect(res.body.message).toBe('User does not exist - Student');
+        expect(res.status).to.equal(404);
+        expect(res.body.message).to.equal('User does not exist - Student');
     });
 });
 describe('Student Controller - userEdit', () => {
@@ -227,8 +228,8 @@ describe('Student Controller - userEdit', () => {
                 fname: 'EditedTest',
             });
 
-        expect(editRes.status).toBe(401);
-        expect(editRes.body.message).toBe('Invalid token');
+        expect(editRes.status).to.equal(401);
+        expect(editRes.body.message).to.equal('Invalid token');
     });
     it('should edit a student', async () => {
         const loginRes = await request(app)
@@ -246,9 +247,8 @@ describe('Student Controller - userEdit', () => {
                 fname: 'JaySabva',
             });
 
-        expect(editRes.status).toBe(200);
-        expect(editRes.body.message).toBe('Student updated');
-        expect(editRes.body.error).toBeUndefined();
+        expect(editRes.status).to.equal(200);
+        expect(editRes.body.message).to.equal('Student updated');
     });
     it('should handle errors during profile editing', async () => {
         // Force an error during profile editing
@@ -259,9 +259,9 @@ describe('Student Controller - userEdit', () => {
                 fname: 'EditedTest',
             });
 
-        expect(editRes.status).toBe(404);
-        expect(editRes.body.message).toBeUndefined();
-        expect(editRes.body.error).toBeDefined();
+        expect(editRes.status).to.equal(404);
+        expect(editRes.body).to.have.property('error');
+
     });
 });
 
@@ -277,8 +277,8 @@ describe('Student Controller - userDelete', () => {
             .delete('/student/teststudent@example.com')
             .set('Authorization', 'Bearer ' + loginRes.body.token);
 
-        expect(deleteRes.status).toBe(200);
-        expect(deleteRes.body.message).toBe('Student deleted');
+        expect(deleteRes.status).to.equal(200);
+        expect(deleteRes.body.message).to.equal('Student deleted');
     });
     it('should return 404 if student does not exist', async () => {
         const testStudent = {
@@ -300,8 +300,8 @@ describe('Student Controller - userDelete', () => {
             .post('/student/signup')
             .send(testStudent);
 
-        expect(res.status).toBe(201);
-        expect(res.body.message).toBe('Student created');
+        expect(res.status).to.equal(201);
+        expect(res.body.message).to.equal('Student created');
 
         const loginRes = await request(app)
             .post('/student/login')
@@ -318,8 +318,8 @@ describe('Student Controller - userDelete', () => {
             .delete('/student/teststudent@example.com')
             .set('Authorization', 'Bearer ' + loginRes.body.token);
 
-        expect(deleteRes2.status).toBe(404);
-        expect(deleteRes2.body.message).toBe('Student not found');
+        expect(deleteRes2.status).to.equal(404);
+        expect(deleteRes2.body.message).to.equal('Student not found');
     });
 });
 
@@ -344,16 +344,16 @@ describe('Student Controller - resetPassword', () => {
             .post('/student/signup')
             .send(testStudent);
 
-        expect(res.status).toBe(201);
-        expect(res.body.message).toBe('Student created');
+        expect(res.status).to.equal(201);
+        expect(res.body.message).to.equal('Student created');
 
         const resEmail = await request(app).post('/student/reset-password')
             .send({
                 email: 'teststudent@example.com',
             });
 
-        expect(resEmail.status).toBe(200);
-        expect(resEmail.body.message).toBe('Email sent successfully');
+        expect(resEmail.status).to.equal(200);
+        expect(resEmail.body.message).to.equal('Email sent successfully');
     });
     it('should return 404 if student does not exist', async () => {
         const resEmail = await request(app).post('/student/reset-password')
@@ -361,8 +361,8 @@ describe('Student Controller - resetPassword', () => {
                 email: 'teststudent@example1.com'
             });
 
-        expect(resEmail.status).toBe(404);
-        expect(resEmail.body.message).toBe('User not found - Student');
+        expect(resEmail.status).to.equal(404);
+        expect(resEmail.body.message).to.equal('User not found - Student');
     });
 });
 
@@ -373,8 +373,8 @@ describe('Student Controller - updatePassword', () => {
                 email: 'teststudent@example.com'
             });
 
-        expect(resEmail.status).toBe(404);
-        expect(resEmail.body.message).toBe('Token not found - Student');
+        expect(resEmail.status).to.equal(404);
+        expect(resEmail.body.message).to.equal('Token not found - Student');
     });
     it('should return 404 if student does not exist', async () => {
         const resEmail = await request(app).post('/student/update-password')
@@ -382,7 +382,7 @@ describe('Student Controller - updatePassword', () => {
                 email: 'teststudent@example1.com'
             });
 
-        expect(resEmail.status).toBe(404);
-        expect(resEmail.body.message).toBe('User not found - Student');
+        expect(resEmail.status).to.equal(404);
+        expect(resEmail.body.message).to.equal('User not found - Student');
     });
 });
