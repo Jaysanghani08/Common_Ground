@@ -95,8 +95,7 @@ const CourseDetails = () => {
                                 <div className="dicussion-forum">
                                  <DicussionForum 
                           courseId={coursedata._id}
-                          userType="educator"  
-                          userId={profile?._id}  
+                        //   currentUserId={profile?._id}  
                           />
                                 </div>
                             </div>
