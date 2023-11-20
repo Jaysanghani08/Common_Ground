@@ -82,6 +82,7 @@ const StuViewCourses = () => {
     const [category, setCategory] = useState('');
     const [tags, setTags] = useState('');
     const [language, setLanguage] = useState('');
+    const [courseCode, setCourseCode] = useState('');
 
     const [courses, setCourses] = useState([]);
 
@@ -122,8 +123,10 @@ const StuViewCourses = () => {
                 title: searchTerm,
                 price: priceLimit,
                 rating: maxRating,
-                category: category,
-                tag: tags
+                level: category,
+                tag: tags,
+                language: language,
+                courseCode: courseCode,
             });
             setCourses(filteredCourses);
         } catch (error) {
@@ -161,7 +164,7 @@ const StuViewCourses = () => {
                         </div>
                         <div className="stu-viewcourses-search-bar">
                             <input
-                                className='stu-viewcourses-small-input'
+                                className='stu-viewcourses-large-input'
                                 type="text"
                                 placeholder="Search by course title"
                                 value={searchTerm}
@@ -174,11 +177,25 @@ const StuViewCourses = () => {
                                 value={priceLimit}
                                 onChange={(e) => setPriceLimit(e.target.value)}
                             />
+                            <input
+                                className='stu-viewcourses-small-input'
+                                type="text"
+                                placeholder="Course Code"
+                                value={courseCode}
+                                onChange={(e) => setCourseCode(e.target.value)}
+                            />
+                            <input
+                                className='stu-viewcourses-small-input'
+                                type="text"
+                                placeholder="Tags"
+                                value={tags}
+                                onChange={(e) => setTags(e.target.value)}
+                            />
                             <select
                                 value={maxRating}
                                 onChange={(e) => setmaxRating(e.target.value)}
                             >
-                                <option value="">Select Rating</option>
+                                <option value="">Rating</option>
                                 <option value="R1"> 1</option>
                                 <option value="R2"> 2</option>
                                 <option value="R3"> 3</option>
@@ -191,7 +208,7 @@ const StuViewCourses = () => {
                                 value={category}
                                 onChange={(e) => setCategory(e.target.value)}
                             >
-                                <option value="">Select Category</option>
+                                <option value="">Difficulty Level</option>
                                 <option value="beginner">Beginner </option>
                                 <option value="intermediate">Intermediate</option>
                                 <option value="advanced">Advanced</option>
@@ -201,28 +218,22 @@ const StuViewCourses = () => {
                                 value={language}
                                 onChange={(e) => setLanguage(e.target.value)}
                             >
-                                <option value="">Select Language</option>
+                                <option value="">Language</option>
                                 <option value="english">English </option>
                                 <option value="hindi">Hindi</option>
                                 <option value="spanish">Spanish</option>
                                 {/* Add more category options as needed */}
                             </select>
-                            <select
+                            {/* <select
                                 value={category}
                                 onChange={(e) => setCategory(e.target.value)}
                             >
                                 <option value="">Select Language</option>
                                 <option value="l1">English</option>
                                 <option value="l2">Hindi</option>
-                                {/* Add more category options as needed */}
-                            </select>
-                            <input
-                                className='stu-viewcourses-small-input'
-                                type="text"
-                                placeholder="Tags"
-                                value={tags}
-                                onChange={(e) => setTags(e.target.value)}
-                            />
+                                {/* Add more category options as needed 
+                            </select> */}
+                            
                             <button onClick={handleSearchSubmit}>Search</button>
 
                         </div>
