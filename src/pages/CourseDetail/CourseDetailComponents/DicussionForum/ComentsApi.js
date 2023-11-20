@@ -1,23 +1,26 @@
-const API_BASE_URL = "http://localhost:3000/comments";
+import { commonrequest } from '../../../../services/ApiCall'
+const API= "http://localhost:8000";  
 
-export const getComments = async () => {
-  const response = await fetch(API_BASE_URL);
+export const getComments = async (courseId) => {
+  const response = await commonrequest(`${API}/educator/${courseId}/discussion`);
   if (!response.ok) {
     throw new Error('Failed to fetch comments');
   }
   return response.json();
 };
 
-export const createComment = async (text,userId, username) => {
-  const response = await fetch(API_BASE_URL, {
+
+export const createComment = async (courseId, text, userId, userType) => {
+  const response = await commonrequest(`${API}/educator/${courseId}/discussion`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      body: text,
+      message: text,
       userId, // user ID
-      username, // username
+      userType, // user
+      courseId,
       createdAt: new Date().toISOString(),
     }),
   });
@@ -27,13 +30,14 @@ export const createComment = async (text,userId, username) => {
   return response.json();
 };
 
-export const updateComment = async (text, commentId) => {
-  const response = await fetch(`${API_BASE_URL}/${commentId}`, {
-    method: 'PUT',
+
+export const updateComment = async (courseId, text, commentId) => {
+  const response = await commonrequest(`${API}/educator/${courseId}/discussion/${commentId}`, {
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ text }),
+    body: JSON.stringify({ message: text }),
   });
   if (!response.ok) {
     throw new Error('Failed to update the comment');
@@ -41,11 +45,16 @@ export const updateComment = async (text, commentId) => {
   return response.json();
 };
 
-export const deleteComment = async (commentId) => {
-  const response = await fetch(`${API_BASE_URL}/${commentId}`, {
+export const deleteComment = async (courseId, commentId) => {
+  const response = await commonrequest(`${API}/educator/${courseId}/discussion/${commentId}`, {
     method: 'DELETE',
   });
   if (!response.ok) {
     throw new Error('Failed to delete the comment');
   }
 };
+
+// extra
+export const sentOtpFunction = async (data) => {
+  return await commonrequest("POST", `${API}/user/sendotp`, data)
+}

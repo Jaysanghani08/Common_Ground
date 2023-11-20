@@ -1,6 +1,8 @@
 import { FaUser } from "react-icons/fa";
 import CommentForm from "./DicussionForm";
 import "./DicussionForum.css";
+
+// Update Comment component
 const Comment = ({
     comment,
     setActiveComment,
@@ -8,31 +10,33 @@ const Comment = ({
     updateComment,
     deleteComment,
     currentUserId,
+    userType,
+    courseId,
 }) => {
     const isEditing =
         activeComment &&
-        activeComment.id === comment.id &&
+        activeComment.id === comment._id &&
         activeComment.type === "editing";
-    const canDelete = currentUserId === comment.userId;
-    const canEdit = currentUserId === comment.userId;
+    const canDelete = currentUserId === comment.createdByStudent || currentUserId === comment.createdByEducator;
+    const canEdit = currentUserId === comment.createdByStudent || currentUserId === comment.createdByEducator;
 
     return (
-        <div key={comment.id} className="comment">
+        <div key={comment._id} className="comment">
             <div className="comment-image-container">
                 <FaUser />
             </div>
             <div className="comment-right-part">
                 <div className="comment-content">
-                    <div className="comment-author">{comment.username}</div>
-                    <div>{new Date(comment.createdAt).toLocaleDateString()}</div>
+                    <div className="comment-author">{comment.createdByStudent || comment.createdByEducator}</div>
+                    <div>{new Date(comment.dateCreated).toLocaleDateString()}</div>
                 </div>
-                {!isEditing && <div className="comment-text">{comment.body}</div>}
+                {!isEditing && <div className="comment-text">{comment.message}</div>}
                 {isEditing && (
                     <CommentForm
                         submitLabel="Update"
                         hasCancelButton
-                        initialText={comment.body}
-                        handleSubmit={(text) => updateComment(text, comment.id)}
+                        initialText={comment.message}
+                        handleSubmit={(text) => updateComment(courseId, text, comment._id)}
                         handleCancel={() => {
                             setActiveComment(null);
                         }}
@@ -43,7 +47,7 @@ const Comment = ({
                         <div
                             className="comment-action"
                             onClick={() =>
-                                setActiveComment({ id: comment.id, type: "editing" })
+                                setActiveComment({ id: comment._id, type: "editing" })
                             }
                         >
                             Edit
@@ -52,7 +56,7 @@ const Comment = ({
                     {canDelete && (
                         <div
                             className="comment-action"
-                            onClick={() => deleteComment(comment.id)}
+                            onClick={() => deleteComment(courseId, comment._id)}
                         >
                             Delete
                         </div>

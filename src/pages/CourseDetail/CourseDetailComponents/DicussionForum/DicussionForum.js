@@ -9,12 +9,12 @@ import {
     deleteComment,
 } from "./ComentsApi"; // Import the API functions
 
-const Comments = ({ currentUserId }) => {
+const DicussionForum = ({ currentUserId, courseId }) => {
     const [comments, setComments] = useState([]);
     const [activeComment, setActiveComment] = useState(null);
 
     const createNewComment = (text) => {
-        createComment(text, currentUserId, "Ankur")
+        createComment(courseId, text, currentUserId, "Ankur")
             .then((newComment) => {
                 setComments([newComment, ...comments]);
             })
@@ -24,7 +24,7 @@ const Comments = ({ currentUserId }) => {
     };
 
     const updateCommentText = (text, commentId) => {
-        updateComment(text, commentId)
+        updateComment(courseId, text, commentId)
             .then((updatedComment) => {
                 setComments((prevComments) => {
                     const updatedComments = prevComments.map((comment) =>
@@ -42,7 +42,7 @@ const Comments = ({ currentUserId }) => {
 
     const deleteCommentById = (commentId) => {
         if (window.confirm("Are you sure you want to remove this comment?")) {
-            deleteComment(commentId)
+            deleteComment(courseId, commentId)
                 .then(() => {
                     setComments((prevComments) =>
                         prevComments.filter((comment) => comment.id !== commentId).reverse()
@@ -56,37 +56,40 @@ const Comments = ({ currentUserId }) => {
     };
 
     useEffect(() => {
-        getComments()
+        getComments(courseId)
             .then((data) => {
+                console.log("Received comments:", data);  
                 setComments(data.reverse()); // Reverse to display newest comments first
             })
             .catch((error) => {
                 console.error("Error fetching comments: ", error);
             });
-    }, []);
+    }, [courseId]);
 
     return (
         <div className="comments" >
             <div className="comments-container">
-            <h3 className="comments-title">Discussion Forum</h3>
+                <h3 className="comments-title">Discussion Forum</h3>
                 {comments
-                    .filter((comment) => !comment.parentId)
+                  
                     .map((rootComment) => (
                         <Comment
-                            key={rootComment.id}
-                            comment={rootComment}
-                            setActiveComment={setActiveComment}
-                            activeComment={activeComment}
-                            updateComment={updateCommentText}
-                            deleteComment={deleteCommentById}
-                            currentUserId={currentUserId}
-                        />
+                        key={rootComment._id}
+                        comment={rootComment}
+                        setActiveComment={setActiveComment}
+                        activeComment={activeComment}
+                        updateComment={updateCommentText}
+                        deleteComment={deleteCommentById}
+                        currentUserId={currentUserId}
+                        courseId={courseId}
+                    />
+                    
                     ))}
                      
-            <CommentForm submitLabel="Write" handleSubmit={createNewComment} />
+                <CommentForm submitLabel="Write" handleSubmit={createNewComment} />
             </div>
         </div>
     );
 };
 
-export default Comments;
+export default DicussionForum;

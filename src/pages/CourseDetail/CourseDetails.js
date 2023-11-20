@@ -77,7 +77,11 @@ const CourseDetails = () => {
                         <BasicTabs sections={coursedata.courseSections} enrolledStudents={coursedata.enrolledStudents} courseAssignments={coursedata.courseAssignments}/>
                         <BasicTextFields courseId={coursedata._id} />
                          <div className="dicussion-forum">
-                            <DicussionForum />
+                         <DicussionForum 
+                          courseId={coursedata._id}
+                          userType="educator"  
+                          userId={profile?._id}  
+                          />
                         </div>
                     </div>
                 </div>
