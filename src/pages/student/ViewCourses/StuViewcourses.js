@@ -13,6 +13,7 @@ import getToken from '../../../services/getToken';
 import LoadingComponent from '../../Loading/Loading';
 import { Navigate } from 'react-router-dom';
 import { getRecommendedCourses, getStudentProfile, getFilteredCourses } from '../../../services/Apis';
+import {toast} from 'react-toastify';
 
 const coursesData = [
     {
@@ -90,7 +91,7 @@ const StuViewCourses = () => {
     const [error, setError] = useState(null);
     const [profile, setProfile] = useState(null);
 
-    console.log(courses)
+    // console.log(courses)
     // console.log(profile)
 
 
@@ -130,7 +131,7 @@ const StuViewCourses = () => {
             });
             setCourses(filteredCourses);
         } catch (error) {
-            console.log('Error performing search:', error);
+            toast.error('Error performing search:', error);
         }
     };
 

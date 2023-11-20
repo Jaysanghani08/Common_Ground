@@ -56,7 +56,7 @@ const EditStuProfile = () => {
         fetchData();
     }, []);
 
-    console.log(profile)
+    // console.log(profile)
 
     if (!token) {
         return <Navigate to="/student/login" />;
@@ -123,7 +123,7 @@ const EditStuProfile = () => {
             profilePic: profilePic ? profilePic : profile.profilePic
         };
 
-        console.log(formData);
+        // console.log(formData);
 
         const edited = await editStudentProfile(formData);
 

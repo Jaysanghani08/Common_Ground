@@ -15,7 +15,7 @@ const EnrolledCourses = () => {
     const [error, setError] = useState(null);
     // const [profile, setProfile] = useState(null);
     const [enrolledCourses, setEnrolledCourses] = useState(null);
-    console.log(enrolledCourses)
+    // console.log(enrolledCourses)
 
     // console.log(courses)
     // console.log(profile)
@@ -60,20 +60,21 @@ const EnrolledCourses = () => {
 
 
             <div className='edc_container_enrolled_course'>
-                <div className='edu_search_bar stu_margin'>
-                    <input
-                        className='edu_stu-viewcourses-large-input'
-                        type="text"
-                        placeholder="Search by course title" />
+                <div className="coverEnrolledCourses">
+                    <div className='edu_search_bar stu_margin'>
+                        <input
+                            className='edu_stu-viewcourses-large-input'
+                            type="text"
+                            placeholder="Search by course title" />
 
-                    <Button variant="contained">Search</Button>
+                        <Button variant="contained">Search</Button>
 
-                </div>
-                <div className='stu-main-container'>
+                    </div>
+                    <div className='stu-main-container'>
 
-                    {/* <video src='http://localhost:8000/Campus_Diaries_S1_Ep1.mp4' style={{ margin: "80px" }}> </video> */}
+                        {/* <video src='http://localhost:8000/Campus_Diaries_S1_Ep1.mp4' style={{ margin: "80px" }}> </video> */}
 
-                    {/* <video
+                        {/* <video
                 allow="fullscreen"
                 frameBorder="0"
                 width="100%"
@@ -84,14 +85,15 @@ const EnrolledCourses = () => {
                 <source src="http://localhost:8000/Campus_Diaries_S1_Ep1.mp4" />
             </video> */}
 
-                    {
-                        enrolledCourses && enrolledCourses.map((course) => (
-                            <StuCourseCard courseCode={course.courseCode} courseDescription={course.courseDescription} courseTitle={course.courseTitle} instructor={course.instructor} courserating={course.courserating} enrolledStudents={course.enrolledStudents} coursePrice={course.coursePrice} _id={course._id} />
-                        ))
-                    }
+                        {
+                            enrolledCourses && enrolledCourses.map((course, index) => (
+                                <StuCourseCard key={index} courseCode={course.courseCode} courseDescription={course.courseDescription} courseTitle={course.courseTitle} instructor={course.instructor} courserating={course.courserating} enrolledStudents={course.enrolledStudents} coursePrice={course.coursePrice} _id={course._id} />
+                            ))
+                        }
 
 
-                    {/* <StuCourseCard courseCode="IT213" courseDescription="This is Course Description" courseTitle="Software" instructor="DK joshi" courserating="4" enrolledStudents="1" coursePrice="20000" _id="1" /> */}
+                        {/* <StuCourseCard courseCode="IT213" courseDescription="This is Course Description" courseTitle="Software" instructor="DK joshi" courserating="4" enrolledStudents="1" coursePrice="20000" _id="1" /> */}
+                    </div>
                 </div>
             </div>
         </div>

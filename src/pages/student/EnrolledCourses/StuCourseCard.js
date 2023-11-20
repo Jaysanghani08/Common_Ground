@@ -51,7 +51,7 @@ const StuCourseCard = (props ) => {
                         </span>
                         <span className="stu_courses_product-price">
                             <span> {props.coursePrice === 0 ? "Free" : `Rs. ${props.coursePrice}`} </span>
-                            <button type="button" class="btn" ><NavLink to={`/course/${props._id}`} style={{ color: "white" }}>View Course </NavLink></button>
+                            <button type="button" className="btn" ><NavLink to={`/course/${props._id}`} style={{ color: "white" }}>View Course </NavLink></button>
                         </span>
                     </div>
                 </div>
