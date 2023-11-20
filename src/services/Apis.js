@@ -255,6 +255,20 @@ export const getStudentDashboard = async (data) => {
             'authorization': `Bearer ${token}`
         });
         // console.log(response.data)
+        return response.data ? response.data.courses.slice(0, 3) : null;
+    } catch (error) {
+        throw new Error("Error fetching user data");
+    }
+}
+
+export const getEnrolledCourses = async (data) => {
+    // console.log(data)
+    try {
+        // console.log(data);
+        const response = await commonrequest("GET", `${BACKEND_URL}/query/enrolled-course`, data, {
+            'authorization': `Bearer ${token}`
+        });
+        // console.log(response.data)
         return response.data ? response.data.courses : null;
     } catch (error) {
         throw new Error("Error fetching user data");

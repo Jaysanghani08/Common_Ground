@@ -39,7 +39,7 @@ const StuCourseCard = (props ) => {
                     <div className="stu_courses_product-desc">
                         <span className="stu_courses_product-caption">By {props.instructor}</span>
                         <span className="stu_courses_product-rating">
-                            <Star stars={props.courserating} />
+                            <Star stars={props.rating} />
                         </span>
                     </div>
                     <div className="stu_courses_product-properties">
