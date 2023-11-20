@@ -17,6 +17,7 @@ import { useParams } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import { deleteAssignment } from '../../../../services/Apis';
+import getToken from '../../../../services/getToken';
 
 function CourseContent(props) {
     const { description } = props;
@@ -61,7 +62,7 @@ function AssignmentEditForm({ open, onClose, onEditSubmit, initialData }) {
 
     const handlePdfFileChange = (e) => {
 
-        console.log('PDF file uploaded:', e.target.files[0]);
+        // console.log('PDF file uploaded:', e.target.files[0]);
     };
 
     const handleEditFormSubmit = (e) => {
@@ -122,20 +123,26 @@ AssignmentEditForm.propTypes = {
     initialData: PropTypes.object,
 };
 
-export function Tmp({ link, title, filename }) {
+export function Tmp({ link, title, filename, usertype, createdby, isEnrolled }) {
     const [openAssignmentDialog, setOpenAssignmentDialog] = useState(false);
     const [fullScreen, setFullScreen] = useState(false);
     const theme = useTheme();
     const fullScreenDialog = useMediaQuery(theme.breakpoints.down('sm'));
 
-    
+
 
     const toggleFullScreen = () => {
         setFullScreen(!fullScreen);
     };
 
     const handleOpenAssignmentDialog = () => {
-        setOpenAssignmentDialog(true);
+        if ((usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled)) {
+            setOpenAssignmentDialog(true)
+        }
+        else {
+            setOpenAssignmentDialog(false)
+            toast.error("You are not enrolled in this course")
+        }
     };
 
     const handleCloseAssignmentDialog = () => {
@@ -148,9 +155,15 @@ export function Tmp({ link, title, filename }) {
         <li>
             <IconButton onClick={handleOpenAssignmentDialog}>
                 <AssignmentIcon style={{ fontSize: '25px' }} />
-                {filename}
+                <span style={{
+                    filter: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'none' : 'blur(5px)',
+                    userSelect: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'auto' : 'none',
+                    pointerEvents: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'auto' : 'none',
+
+                }}>
+                    {filename}
+                </span>
             </IconButton>
-            {/* <a href={link}>{title}</a> */}
 
             <Dialog
                 open={openAssignmentDialog}
@@ -183,7 +196,7 @@ export function Tmp({ link, title, filename }) {
 
 
 export function Assigments(props) {
-    const { title, description, assignmentLink, assignmentId, deadline } = props;
+    const { title, description, assignmentLink, assignmentId, deadline, createdby, usertype, isEnrolled } = props;
 
     const { courseId } = useParams();
     const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining(deadline));
@@ -194,7 +207,6 @@ export function Assigments(props) {
         const intervalId = setInterval(() => {
             setTimeRemaining(calculateTimeRemaining(deadline));
         }, 1000);
-
 
         return () => clearInterval(intervalId);
     }, [deadline]);
@@ -220,7 +232,13 @@ export function Assigments(props) {
     }
 
     const handleOpenEditForm = () => {
-        setOpenEditForm(true);
+        if ((usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled)) {
+            setOpenEditForm(true)
+        }
+        else {
+            setOpenEditForm(false)
+            toast.error("You are not enrolled in this course")
+        }
     };
 
     const handleCloseEditForm = () => {
@@ -229,7 +247,7 @@ export function Assigments(props) {
 
     const handleEditSubmit = (editedData) => {
 
-        console.log('Edit submission:', editedData);
+        // console.log('Edit submission:', editedData);
         handleCloseEditForm();
     };
 
@@ -237,11 +255,11 @@ export function Assigments(props) {
 
         const confirmDelete = await deleteAssignment(courseId, assignmentId);
 
-        if(confirmDelete?.status === 200){
+        if (confirmDelete?.status === 200) {
             toast.success('Assignment deleted successfully');
             window.location.reload(true);
         }
-        else{
+        else {
             toast.error('Error deleting assignment');
         }
     };
@@ -256,11 +274,20 @@ export function Assigments(props) {
                 aria-controls="panel-content"
                 id="panel-header"
             >
-                <Typography variant="h6">{title}</Typography>
+                <Typography variant="h6">
+                    {title}
+                </Typography>
             </AccordionSummary>
             <AccordionDetails>
                 <div>
-                    <CourseContent description={description} />
+                    <span style={{
+                        filter: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'none' : 'blur(5px)',
+                        userSelect: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'auto' : 'none',
+                        pointerEvents: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'auto' : 'none',
+
+                    }}>
+                        <CourseContent description={description} />
+                    </span>
                     <ul>
                         {assignmentLink?.map((link, index) => (
                             <Tmp
@@ -268,11 +295,14 @@ export function Assigments(props) {
                                 key={index}
                                 title={title}
                                 filename={link.split("/")[5]}
+                                usertype={usertype}
+                                createdby={createdby}
+                                isEnrolled={isEnrolled}
                             />
                         ))}
                     </ul>
 
-                    {deadline && (
+                    {((usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled)) && deadline && (
                         <div>
                             <Typography variant="subtitle1" style={{ fontWeight: 'bold', marginBottom: '8px' }} >Deadline: {formatDeadline(deadline)}</Typography>
                             <Typography variant="subtitle1" style={{ marginBottom: '8px' }} >Time remaining: {timeRemaining}</Typography>
@@ -281,16 +311,16 @@ export function Assigments(props) {
                 </div>
 
 
-
-                {/* Edit and Delete Buttons */}
-                <div style={{ marginTop: '16px' }}>
-                    {/* <Button variant="outlined" color="primary" onClick={handleOpenEditForm}>
+                {((usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled)) &&
+                    <div style={{ marginTop: '16px' }}>
+                        {/* <Button variant="outlined" color="primary" onClick={handleOpenEditForm}>
                         Edit
                     </Button> */}
-                    <Button variant="outlined" color="secondary" onClick={handleDelete}>
-                        Delete
-                    </Button>
-                </div>
+                        <Button variant="outlined" color="secondary" onClick={handleDelete}>
+                            Delete
+                        </Button>
+                    </div>
+                }
 
 
 

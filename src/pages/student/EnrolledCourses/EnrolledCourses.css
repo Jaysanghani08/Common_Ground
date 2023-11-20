@@ -3,11 +3,15 @@
  padding-top: 150px;
 }
 
+.coverEnrolledCourses{
+    background-color: rgba(12, 53, 106, 0.7);
+    height: 100vh;
+}
 
 
 
 .stu_background_img{
     background: url(./../../../data/imgs/StuDashCourseSec.jpg);
     background-size: cover; 
-    background-color: rgba(12, 53, 106, 0.7);
+    height: 100vh;
 }

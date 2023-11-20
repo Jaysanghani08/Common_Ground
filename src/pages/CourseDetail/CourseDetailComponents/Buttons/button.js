@@ -76,7 +76,7 @@ export default function BasicTextFields() {
         }
 
         const response = await createSection(courseId, formData);
-        console.log(response);
+        // console.log(response);
         if (response?.message === "Section created") {
             toast.success('Section created successfully')
             // setCourseID(courseId)

@@ -62,7 +62,7 @@ const DicussionForum = ({ currentUserId, courseId }) => {
                 setComments(data.reverse()); // Reverse to display newest comments first
             })
             .catch((error) => {
-                console.error("Error fetching comments: ", error);
+                // console.error("Error fetching comments: ", error);
             });
     }, [courseId]);
 

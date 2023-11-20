@@ -32,8 +32,8 @@ const Calendar = () => {
     const weekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
     // Create weekday header
-    const weekdayHeader = weekdays.map((day) => (
-      <div key={day} className="weekday">
+    const weekdayHeader = weekdays.map((day, index) => (
+      <div key={index} className="weekday">
         {day}
       </div>
     ));

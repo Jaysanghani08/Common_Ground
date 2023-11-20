@@ -21,7 +21,7 @@ const EduOfferedCourses = () => {
     const [offeredcourses, setofferedcourses] = useState(null);
     const [profile, setProfile] = useState(null);
 
-    console.log(offeredcourses)
+    // console.log(offeredcourses)
 
 
     const token = getToken('educator');

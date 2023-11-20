@@ -29,6 +29,7 @@ import { deleteSection, editSection } from './../../../../services/Apis';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import AssignmentUploadForm from '../Buttons/AssignmentUploadForm';
+import getToken from '../../../../services/getToken';
 
 Dialog.propTypes = {
     open: PropTypes.bool.isRequired,
@@ -38,7 +39,7 @@ Dialog.propTypes = {
 };
 
 function CustomAccordion(props) {
-    const { index, title, content, sectionId } = props;
+    const { index, title, content, sectionId, usertype, createdby, isEnrolled } = props;
 
     const { courseId } = useParams();
 
@@ -93,7 +94,7 @@ function CustomAccordion(props) {
         }
 
         const response = await editSection(courseId, sectionId, formData);
-        console.log(response);
+        // console.log(response);
         if (response?.status === 201) {
             toast.success('Section edited successfully')
             // setCourseID(courseId)
@@ -126,10 +127,13 @@ function CustomAccordion(props) {
                 <Typography color="primary" style={{ fontSize: '18px' }}>{title}</Typography>
 
                 {/* edit and delete sections */}
-                <div >
-                    <Button variant="outlined" onClick={handleEditSection} >Edit</Button>
-                    <Button variant="outlined" onClick={handleDeleteSection}>Delete</Button>
-                </div>
+                {
+                    usertype === 'educator' && getToken('educator')?.userId === createdby &&
+                    <div >
+                        <Button variant="outlined" onClick={handleEditSection} >Edit</Button>
+                        <Button variant="outlined" onClick={handleDeleteSection}>Delete</Button>
+                    </div>
+                }
             </AccordionSummary>
 
             <Dialog
@@ -183,14 +187,19 @@ function CustomAccordion(props) {
                 <div>
                     {content && content.map((post, courseIndex) => (
                         <CourseAccordion
+                            createdby={createdby}
+                            usertype={usertype}
+                            isEnrolled={isEnrolled}
                             sectionId={sectionId}
                             key={courseIndex}
                             post={post}
                         />
                     ))}
                 </div>
-                {/* {posts} */}
-                <FileUploadForm sectionId={sectionId} />
+                {
+                    usertype === 'educator' && getToken('educator')?.userId === createdby &&
+                    <FileUploadForm sectionId={sectionId} />
+                }
             </AccordionDetails>
         </Accordion>
     );
@@ -199,15 +208,17 @@ function CustomAccordion(props) {
 CustomAccordion.propTypes = {
     index: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    details: PropTypes.string.isRequired, // Change 'description' to 'details'
-    pdfFiles: PropTypes.string.isRequired,
-    assignmentFilespdfFiles: PropTypes.string.isRequired,
+    details: PropTypes.string, // Change 'description' to 'details'
+    pdfFiles: PropTypes.string,
+    assignmentFilespdfFiles: PropTypes.string,
     pdfTitle: PropTypes.arrayOf(PropTypes.string),
     AssignmentTitle: PropTypes.arrayOf(PropTypes.string),
     content: PropTypes.arrayOf(PropTypes.string),
     posts: PropTypes.node,
     editSection: PropTypes.func.isRequired,
     deleteSection: PropTypes.func.isRequired,
+    usertype: PropTypes.string.isRequired,
+    createdby: PropTypes.string.isRequired,
 };
 
 function CustomTabPanel(props) {
@@ -247,7 +258,7 @@ function a11yProps(index) {
     };
 }
 
-export default function BasicTabs({ sections, courseAssignments, enrolledStudents }) {
+export default function BasicTabs({ sections, courseAssignments, enrolledStudents, usertype, createdby, isEnrolled }) {
     const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
@@ -284,12 +295,17 @@ export default function BasicTabs({ sections, courseAssignments, enrolledStudent
                         <Tab style={{ fontSize: '18px' }} label="SECTIONS" {...a11yProps(0)} />
                         <Tab style={{ fontSize: '18px' }} label="ASSIGNMENTS" {...a11yProps(1)} />
                         <Tab style={{ fontSize: '18px' }} label="DISCUSSIONFORUM" {...a11yProps(2)} />
-                        <Tab style={{ fontSize: '18px' }} label="STUDENTS" {...a11yProps(2)} />
+                        {
+                            (usertype === 'educator' && getToken('educator')?.userId === createdby) && <Tab style={{ fontSize: '18px' }} label="STUDENTS" {...a11yProps(2)} />
+                        }
                     </Tabs>
                 </Box>
                 <CustomTabPanel value={value} index={0}>
                     {sections && sections.map((section, index) => (
                         <CustomAccordion
+                            isEnrolled={isEnrolled}
+                            createdby={createdby}
+                            usertype={usertype}
                             key={index}
                             sectionId={section._id}
                             index={index}
@@ -299,7 +315,10 @@ export default function BasicTabs({ sections, courseAssignments, enrolledStudent
                             content={section.posts}
                         />
                     ))}
-                    <BasicTextFields />
+                    {
+                        usertype === 'educator' && getToken('educator')?.userId === createdby &&
+                        <BasicTextFields />
+                    }
                 </CustomTabPanel>
 
                 <CustomTabPanel value={value} index={1} >
@@ -307,18 +326,24 @@ export default function BasicTabs({ sections, courseAssignments, enrolledStudent
                         courseAssignments &&
                         courseAssignments.map((assignment, index) => (
                             <Assignments
+                                isEnrolled={isEnrolled}
+                                createdby={createdby}
+                                usertype={usertype}
                                 key={index}
                                 title={assignment.title}
                                 description={assignment.description}
                                 deadline={assignment.dueDate}
                                 assignmentLink={assignment.attachment}
                                 assignmentId={assignment._id}
-                                // AssignmentTitle={assignment.AssignmentTitle}
+                            // AssignmentTitle={assignment.AssignmentTitle}
                             />
                         ))
                     }
 
-                    <AssignmentUploadForm />
+                    {
+                        usertype === 'educator' && getToken('educator')?.userId === createdby &&
+                        <AssignmentUploadForm />
+                    }
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={2}>
                     <div className="dicussion-forum">
@@ -326,8 +351,11 @@ export default function BasicTabs({ sections, courseAssignments, enrolledStudent
                     </div>
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={3}>
-                    STUDENTS
-                    <StudentList students={enrolledStudents} />
+                    {/* <h2>STUDENTS</h2> */}
+                    {(usertype === 'educator' && getToken('educator')?.userId === createdby) ?
+                        <StudentList students={enrolledStudents} />
+                        : <h4 style={{ color: "white" }}>You are not authorized to see this content. </h4>
+                    }
                 </CustomTabPanel>
             </Box>
         </div>
