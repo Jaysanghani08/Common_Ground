@@ -324,6 +324,9 @@ export default function BasicTabs({ sections, courseAssignments, enrolledStudent
                         courseAssignments &&
                         courseAssignments.map((assignment, index) => (
                             <Assignments
+                                isEnrolled={isEnrolled}
+                                createdby={createdby}
+                                usertype={usertype}
                                 key={index}
                                 title={assignment.title}
                                 description={assignment.description}
@@ -335,7 +338,10 @@ export default function BasicTabs({ sections, courseAssignments, enrolledStudent
                         ))
                     }
 
-                    <AssignmentUploadForm />
+                    {
+                        usertype === 'educator' && getToken('educator')?.userId === createdby &&
+                        <AssignmentUploadForm />
+                    }
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={2}>
                     <div className="dicussion-forum">
