@@ -305,10 +305,14 @@ export const getCourseData = async (courseId) => {
         const response = await commonrequest("GET", `${BACKEND_URL}/query/getCourse/${courseId}`, null, {
             'authorization': `Bearer ${token}`
         });
-        return response.data.course;
+        return response.data?.course;
     } catch (error) {
         throw new Error("Error fetching course data");
     }
+}
+
+export const checkIfenrolled = async (courseId) => {
+    return false;
 }
 
 export const getFilteredCourses = async (queryParams = {}) => {

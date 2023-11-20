@@ -15,8 +15,9 @@ import { useMediaQuery, useTheme } from '@mui/material';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import TextField from '@mui/material/TextField';
 import { useParams } from 'react-router-dom';
-import {deletePost, editPost} from './../../../../services/Apis';
+import { deletePost, editPost } from './../../../../services/Apis';
 import { toast } from 'react-toastify';
+import getToken from '../../../../services/getToken';
 
 const VideoStreamingComponent = ({ videoLink }) => (
     <video width="100%" height="100%" controls>
@@ -39,7 +40,7 @@ CourseContent.propTypes = {
 };
 
 export function CourseAccordion(props) {
-    const {post, sectionId, content, pdfLink, assignmentLink, pdfTitle, AssignmentTitle, postName } = props;
+    const { post, sectionId, content, pdfLink, assignmentLink, pdfTitle, AssignmentTitle, postName, createdby, usertype, isEnrolled } = props;
     // console.log(post)
     const [expanded, setExpanded] = useState(false);
     const [openPdfDialog, setOpenPdfDialog] = useState(false);
@@ -48,14 +49,20 @@ export function CourseAccordion(props) {
     const [openVideoDialog, setOpenVideoDialog] = useState(false);
     const [openEditForm, setOpenEditForm] = useState(false);
 
-    const {courseId} = useParams();
+    const { courseId } = useParams();
 
     const toggleContent = () => {
         setExpanded(!expanded);
     };
 
     const handleOpenPdfDialog = () => {
-        setOpenPdfDialog(true);
+        if ((usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled)) {
+            setOpenPdfDialog(true)
+        }
+        else {
+            setOpenPdfDialog(false)
+            toast.error("You are not enrolled in this course")
+        }
     };
 
     const handleClosePdfDialog = () => {
@@ -67,7 +74,13 @@ export function CourseAccordion(props) {
     };
 
     const handleOpenVideoDialog = () => {
-        setOpenVideoDialog(true);
+        if ((usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled)) {
+            setOpenVideoDialog(true)
+        }
+        else {
+            setOpenVideoDialog(false)
+            toast.error("You are not enrolled in this course")
+        }
     };
 
     const handleCloseVideoDialog = () => {
@@ -104,19 +117,19 @@ export function CourseAccordion(props) {
 
     const handleEditFormSubmit = async (e) => {
         e.preventDefault();
-        
+
         const data = new FormData();
 
         data.append("title", editedPostName);
         data.append("body", editedContent);
 
-        const edited = await editPost({courseId, sectionId, postId: post._id, newData: data});
+        const edited = await editPost({ courseId, sectionId, postId: post._id, newData: data });
         // console.log(edited)
 
-        if(edited?.status === 200){
+        if (edited?.status === 200) {
             toast.success("Post Edited Successfully");
             window.location.reload();
-        }else{
+        } else {
             toast.error("Error Editing Post");
         }
         setOpenEditForm(false);
@@ -142,14 +155,14 @@ export function CourseAccordion(props) {
 
 
     // Logic for deleting content
-    const handleDelete =  async () => {
-        const deleted = await deletePost({courseId, sectionId, postId: post._id});
+    const handleDelete = async () => {
+        const deleted = await deletePost({ courseId, sectionId, postId: post._id });
         // console.log(deleted)
 
-        if(deleted?.status === 200){
+        if (deleted?.status === 200) {
             toast.success("Post Deleted Successfully");
             window.location.reload();
-        }else{
+        } else {
             toast.error("Error Deleting Post");
         }
 
@@ -163,27 +176,52 @@ export function CourseAccordion(props) {
             {expanded && (
                 <div>
                     <CourseContent content={content} />
-                    <h4>{post.body}</h4>
-                    <div>
-                        <Button onClick={handleEditFormOpen}>Edit</Button>
-                        <Button onClick={handleDelete}>Delete</Button>
-                    </div>
+                    <h4 style={{
+                        filter: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'none' : 'blur(5px)',
+                        userSelect: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'auto' : 'none',
+                        pointerEvents: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'auto' : 'none',
+
+                    }}>
+                        {post.body}</h4>
+
+                    {
+                        usertype === 'educator' && getToken('educator')?.userId === createdby &&
+                        <div>
+                            <Button onClick={handleEditFormOpen}>Edit</Button>
+                            <Button onClick={handleDelete}>Delete</Button>
+                        </div>
+                    }
                     <ul>
                         <li>
                             <IconButton onClick={handleOpenPdfDialog}>
                                 <PictureAsPdfIcon style={{ fontSize: '25px' }} />
+                                <span style={{
+                                    filter: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'none' : 'blur(5px)',
+                                    userSelect: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'auto' : 'none',
+                                    pointerEvents: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'auto' : 'none',
+
+                                }}>
+                                    {"title"} {/* Change this with the title of the PDF */}
+                                </span>
                             </IconButton>
-                            {/* <a href={"pdfLink"}>PDF Material</a> */}
                         </li>
                         <li>
                             <IconButton onClick={handleOpenVideoDialog}>
                                 <VideoLibraryIcon style={{ fontSize: '25px' }} />
+                                <span style={{
+                                    filter: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'none' : 'blur(5px)',
+                                    userSelect: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'auto' : 'none',
+                                    pointerEvents: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'auto' : 'none',
+
+                                }}>
+                                    {"title"} {/* Change this with the title of the PDF */}
+                                </span>
                             </IconButton>
-                            {/* <a href={"videoLink"}>Video</a> */}
                         </li>
                     </ul>
                 </div>
-            )}
+            )
+            }
 
 
             {/* Edit Form Dialog */}
@@ -247,7 +285,7 @@ export function CourseAccordion(props) {
                     </div>
                 </DialogTitle>
                 <DialogContent className="custom-dialog-content">
-                  {editedPdfFile && <iframe title="PDF Viewer" width="100%" height="100%" src={URL.createObjectURL(editedPdfFile)} />}
+                    {editedPdfFile && <iframe title="PDF Viewer" width="100%" height="100%" src={URL.createObjectURL(editedPdfFile)} />}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClosePdfDialog} color="primary">
@@ -277,12 +315,13 @@ export function CourseAccordion(props) {
                     <VideoStreamingComponent videoLink={"videoLink"} />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleCloseVideoDialog} color="primary">
-                        Close
-                    </Button>
+                    {
+                        <Button onClick={handleCloseVideoDialog} color="primary">
+                            Close
+                        </Button>}
                 </DialogActions>
             </Dialog>
-        </div>
+        </div >
     );
 }
 

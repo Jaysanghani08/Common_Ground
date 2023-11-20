@@ -1,52 +1,68 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
 import './Graph.css';
+import Cookies from 'js-cookie';
 
-const uData = [4000, 3000, 2000, 2780, 1890, 2390, 3490, 3766, 2113, 3213, 1232];
-const pData = [2400, 1398, 9800, 3908, 4800, 3800, 4300, 4000, 3000, 2000, 2780];
-const xLabels = [
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'H',
-  'I',
-  'J',
-  'K'
-];
 
 export default function SimpleBarChart() {
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 600px), (min-width: 601px) and (max-width: 1200px)');
+    const [yData, setYdata] = useState([0]);
+    const [xLabels, setXlabels] = useState(["courseTitle"]);
+    const [error, setError] = useState(null);
 
-    function handleMediaQueryChange(event) {
-      const chartContainer = document.querySelector('.css-q3wnbe-MuiResponsiveChart-container');
-      chartContainer.style.width = event.matches ? 'auto' : '800px';
-    }
+    useEffect(() => {
+        fetch('http://localhost:8000/query/generateGraph', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': ` Bearer ${Cookies.get('token')}`
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                // console.log(data);
+                setXlabels(data.courseTitle)
+                setYdata(data.enrolled)
+            })
+            .catch(err => {
+                setError(err);
+            })
+    } , []);
 
-    
-    handleMediaQueryChange(mediaQuery);
 
-    mediaQuery.addEventListener('change', handleMediaQueryChange);
 
-    return () => {
-      mediaQuery.removeEventListener('change', handleMediaQueryChange);
-    };
-  }, []);
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(max-width: 600px), (min-width: 601px) and (max-width: 1200px)');
 
-  return (
-    <BarChart
-    className="chart-container"
-      width={800}
-      height={300}
-      series={[
-        { data: pData, label: 'pv', color: "#4f39bf" },
-        { data: uData, label: 'uv', color: "#cf6624" },
-      ]}
-      xAxis={[{ scaleType: 'band', data: xLabels }]}
-    />
-  );
+        function handleMediaQueryChange(event) {
+            const chartContainer = document.querySelector('.css-q3wnbe-MuiResponsiveChart-container');
+            chartContainer.style.width = event.matches ? 'auto' : '800px';
+        }
+
+
+        handleMediaQueryChange(mediaQuery);
+
+        mediaQuery.addEventListener('change', handleMediaQueryChange);
+
+        return () => {
+            mediaQuery.removeEventListener('change', handleMediaQueryChange);
+        };
+    }, []);
+
+    if(!yData || !xLabels) return (<div>Loading...</div>)
+
+    if(error) return (<div>error : {error}</div>)
+
+    return (
+        
+            <BarChart
+            className="chart-container"
+            width={800}
+            height={300}
+            series={[
+                { data: yData, label: 'courseTitle', color: "#4f39bf" },
+                // { data: uData, label: 'uv', color: "#cf6624" },
+            ]}
+            xAxis={[{ scaleType: 'band', data: xLabels }]}
+        />
+    );
 }
