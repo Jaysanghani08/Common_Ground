@@ -295,7 +295,9 @@ export default function BasicTabs({ sections, courseAssignments, enrolledStudent
                         <Tab style={{ fontSize: '18px' }} label="SECTIONS" {...a11yProps(0)} />
                         <Tab style={{ fontSize: '18px' }} label="ASSIGNMENTS" {...a11yProps(1)} />
                         <Tab style={{ fontSize: '18px' }} label="DISCUSSIONFORUM" {...a11yProps(2)} />
-                        <Tab style={{ fontSize: '18px' }} label="STUDENTS" {...a11yProps(2)} />
+                        {
+                            (usertype === 'educator' && getToken('educator')?.userId === createdby) && <Tab style={{ fontSize: '18px' }} label="STUDENTS" {...a11yProps(2)} />
+                        }
                     </Tabs>
                 </Box>
                 <CustomTabPanel value={value} index={0}>
@@ -349,8 +351,11 @@ export default function BasicTabs({ sections, courseAssignments, enrolledStudent
                     </div>
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={3}>
-                    STUDENTS
-                    <StudentList students={enrolledStudents} />
+                    {/* <h2>STUDENTS</h2> */}
+                    {(usertype === 'educator' && getToken('educator')?.userId === createdby) ?
+                        <StudentList students={enrolledStudents} />
+                        : <h4 style={{ color: "white" }}>You are not authorized to see this content. </h4>
+                    }
                 </CustomTabPanel>
             </Box>
         </div>

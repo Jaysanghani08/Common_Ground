@@ -312,7 +312,7 @@ export const getCourseData = async (courseId) => {
 }
 
 export const checkIfenrolled = async (courseId) => {
-    return false;
+    return true;
 }
 
 export const getFilteredCourses = async (queryParams = {}) => {

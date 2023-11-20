@@ -275,7 +275,7 @@ export function Assigments(props) {
                 id="panel-header"
             >
                 <Typography variant="h6">
-                        {title}
+                    {title}
                 </Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -302,7 +302,7 @@ export function Assigments(props) {
                         ))}
                     </ul>
 
-                    {deadline && (
+                    {((usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled)) && deadline && (
                         <div>
                             <Typography variant="subtitle1" style={{ fontWeight: 'bold', marginBottom: '8px' }} >Deadline: {formatDeadline(deadline)}</Typography>
                             <Typography variant="subtitle1" style={{ marginBottom: '8px' }} >Time remaining: {timeRemaining}</Typography>
@@ -311,16 +311,15 @@ export function Assigments(props) {
                 </div>
 
 
-
-                {/* Edit and Delete Buttons */}
-                {<div style={{ marginTop: '16px' }}>
-                    {/* <Button variant="outlined" color="primary" onClick={handleOpenEditForm}>
+                {((usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled)) &&
+                    <div style={{ marginTop: '16px' }}>
+                        {/* <Button variant="outlined" color="primary" onClick={handleOpenEditForm}>
                         Edit
                     </Button> */}
-                    <Button variant="outlined" color="secondary" onClick={handleDelete}>
-                        Delete
-                    </Button>
-                </div>
+                        <Button variant="outlined" color="secondary" onClick={handleDelete}>
+                            Delete
+                        </Button>
+                    </div>
                 }
 
 
