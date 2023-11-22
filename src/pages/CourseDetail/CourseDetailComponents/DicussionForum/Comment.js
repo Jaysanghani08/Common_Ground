@@ -9,10 +9,10 @@ import getToken from '../../../../services/getToken'
 
 const Comment = ({ comment, setActiveComment, activeComment, currentUserId, usertype, createdby, isEnrolled }) => {
 
-    console.log(currentUserId)
-    console.log(usertype)
-    console.log(createdby)
-    console.log(isEnrolled)
+    // console.log(currentUserId)
+    // console.log(usertype)
+    // console.log(createdby)
+    // console.log(isEnrolled)
 
     const isEditing =
         activeComment &&
