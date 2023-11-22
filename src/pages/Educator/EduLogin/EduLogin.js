@@ -51,7 +51,7 @@ const EduLogin = () => {
             }
 
             const response = await eduloginfunction(data);
-            console.log(response)
+            // console.log(response)
 
             if (response.status === 200) {
                 toast.success(response.data.message);
@@ -60,7 +60,9 @@ const EduLogin = () => {
 
                 setTimeout(() => {
                     navigate("/educator/dashboard")
+                    window.location.reload();
                 }, 1000);
+                
             } else {
                 toast.error(response.response.data.message);
             }

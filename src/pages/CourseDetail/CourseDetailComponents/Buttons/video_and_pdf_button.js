@@ -62,11 +62,6 @@ const FileUploadForm = ({ sectionId }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // setFormData({
-        //     ...formData,
-        //     attachments: selectedFile
-        // })
-
         const data = new FormData();
         data.append('title', formData.title);
         data.append('body', formData.body);
@@ -74,7 +69,7 @@ const FileUploadForm = ({ sectionId }) => {
             data.append('attachments', selectedFile[i]);
         }
 
-        console.log(data)
+        // console.log(data)
 
         if (!formData.title) {
             toast.error("Enter Post Title")

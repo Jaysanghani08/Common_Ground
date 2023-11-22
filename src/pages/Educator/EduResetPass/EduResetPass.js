@@ -45,7 +45,7 @@ const EduResetPass = () => {
             }
 
             const response = await eduupdatepasswordfunction(data);
-            console.log(response)
+            // console.log(response)
 
             if (response.status === 200) {
                 setSpiner(false)

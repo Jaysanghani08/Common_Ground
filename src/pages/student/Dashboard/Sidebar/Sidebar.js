@@ -38,7 +38,7 @@ const StuNavbar = (props) => {
 
                         {SidebarDataForStudent.map((item, index) => {
                             return (
-                                <li>
+                                <li key={index}>
                                     <NavLink to={item.route} key={index} className='page-scroll'
                                     style={location.pathname === item.route ? {color: "0C356a"} : {}}>
                                             {item.heading}

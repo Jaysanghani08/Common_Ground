@@ -82,12 +82,12 @@ function EduCreateCourse() {
             toast.error("Enter Valid Course Price. ")
         }
         else {
-            console.log(formData)
+            // console.log(formData)
 
             const response = await educreatecoursefunction(formData, token);
             // const response = {};
 
-            console.log(response)
+            // console.log(response)
 
             if (response.status === 201) {
                 setInputdata({
