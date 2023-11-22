@@ -43,27 +43,6 @@ exports.getCourseByEducator = async (req, res, next) => {
     }
 }
 
-exports.getEnrolledCourse = async (req, res, next) => {
-    try {
-        const courses = await Course.find({enrolledStudents: req.query.studentId}).exec();
-
-        if (!courses) {
-            return res.status(200).json({
-                message: 'You have not enrolled in any courses yet'
-            });
-        }
-
-        return res.status(200).json({
-            courses: courses
-        });
-    } catch (err) {
-        console.log(err);
-        return res.status(500).json({
-            error: err
-        });
-    }
-};
-
 exports.searchFilter = async (req, res, next) => {
     try {
         let filters = {
@@ -210,32 +189,23 @@ exports.getCourses = async (req, res, next) => {
 
 exports.getEnrolledCourse = async (req, res, next) => {
     try {
-        let enrolledCourses = await Student.findById(req.userData.userId).populate('enrolledCourses').exec();
-        console.log(enrolledCourses);
+        const enrolledStudent = await Student.findById(req.userData.userId)
+            .populate({
+                path: 'enrolledCourses',
+                select: '_id courseTitle courseDescription coursePrice courseLevel courseCode language rating createdBy',
+                populate: {
+                    path: 'createdBy',
+                    select: 'fname lname',
+                },
+            })
+            .exec();
 
-        enrolledCourses = enrolledCourses.enrolledCourses;
-        enrolledCourses = enrolledCourses.map(course => {
-            return {
-                _id: course._id,
-                courseTitle: course.courseTitle,
-                courseDescription: course.courseDescription,
-                courseDescriptionLong: course.courseDescriptionLong,
-                coursePrice: course.coursePrice,
-                courseLevel: course.courseLevel,
-                courseCode: course.courseCode,
-                courseSections: course.courseSections,
-                courseAssignments: course.courseAssignments,
-                language: course.language,
-                prerequisites: course.prerequisites,
-                courseFeedback: course.courseFeedback
-            }
-        });
+        const enrolledCourses = enrolledStudent.enrolledCourses;
 
         return res.status(200).json({
-            courses: enrolledCourses
+            courses: enrolledCourses,
         });
-    } catch
-        (err) {
+    } catch (err) {
         console.log(err);
         return res.status(500).json({
             error: err
