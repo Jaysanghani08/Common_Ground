@@ -24,7 +24,7 @@ exports.getAllCourse = async (req, res, next) => {
 
 exports.getCourseByEducator = async (req, res, next) => {
     try {
-        const courses = await Course.find({ createdBy: req.userData.userId }).select('_id courseTitle courseDescription coursePrice courseLevel courseCode language rating createdBy').populate('createdBy', 'fname lname').exec();
+        const courses = await Course.find({createdBy: req.userData.userId}).select('_id courseTitle courseDescription coursePrice courseLevel courseCode language rating createdBy').populate('createdBy', 'fname lname').exec();
 
         if (!courses) {
             return res.status(404).json({
@@ -50,14 +50,14 @@ exports.searchFilter = async (req, res, next) => {
         };
 
         if (req.query.title) {
-            filters.courseTitle = { $regex: new RegExp(req.query.title, 'i') };
+            filters.courseTitle = {$regex: new RegExp(req.query.title, 'i')};
         }
         if (req.query.price) {
-            filters.coursePrice = { $lte: req.query.price };
+            filters.coursePrice = {$lte: req.query.price};
         }
         if (req.query.tag) {
             const tags = req.query.tag.split(',');
-            filters.tags = { $in: tags };
+            filters.tags = {$in: tags};
         }
         if (req.query.level) {
             filters.courseLevel = req.query.level;
@@ -70,10 +70,10 @@ exports.searchFilter = async (req, res, next) => {
         //     filters.prerequisites = { $in: prerequisites };
         // }
         if (req.query.rating) {
-            filters.rating = { $gte: req.query.rating };
+            filters.rating = {$gte: req.query.rating};
         }
         if (req.query.courseCode) {
-            filters.courseCode = { $regex: new RegExp(req.query.courseCode, 'i') };
+            filters.courseCode = {$regex: new RegExp(req.query.courseCode, 'i')};
         }
 
         const courses = await Course.find(filters)
@@ -81,11 +81,61 @@ exports.searchFilter = async (req, res, next) => {
             .populate('createdBy', 'fname lname')
             .exec();
 
+        if (req.headers.authorization) {
+            const token = req.headers.authorization.split(" ")[1];
+            const decoded = jwt.verify(token, process.env.JWT_KEY);
+
+            if (decoded.userType === "student") {
+                const newCourses = await Course.aggregate([
+                    {
+                        $match: filters,
+                    },
+                    {
+                        $addFields: {
+                            isEnrolled: {$in: [decoded.userId, '$enrolledStudents']},
+                        },
+                    },
+                    {
+                        $lookup: {
+                            from: 'educators',
+                            localField: 'createdBy',
+                            foreignField: '_id',
+                            as: 'educator',
+                        },
+                    },
+                    {
+                        $unwind: '$educator',
+                    },
+                    {
+                        $project: {
+                            _id: 1,
+                            courseTitle: 1,
+                            courseDescription: 1,
+                            coursePrice: 1,
+                            courseLevel: 1,
+                            courseCode: 1,
+                            language: 1,
+                            rating: 1,
+                            createdBy: {
+                                fname: '$educator.fname',
+                                lname: '$educator.lname',
+                            },
+                            isEnrolled: 1,
+                        },
+                    },
+                ]);
+
+                return res.status(200).json({
+                    courses: newCourses
+                });
+            }
+        }
+
         return res.status(200).json({
             courses: courses
         });
     } catch (err) {
-        console.error(err); // Log the error for debugging
+        console.error(err);
         return res.status(500).json({
             error: err.message
         });
@@ -268,7 +318,7 @@ exports.getRecommendedCourse = async (req, res, next) => {
         const courses = await Course.aggregate([
             {
                 $match: {
-                    enrolledStudents: { $exists: true, $ne: [] },
+                    enrolledStudents: {$exists: true, $ne: []},
                 },
             },
             {
@@ -280,12 +330,12 @@ exports.getRecommendedCourse = async (req, res, next) => {
                     courseCode: 1,
                     language: 1,
                     rating: 1,
-                    ratio: { $multiply: [{ $size: '$enrolledStudents' }, '$rating'] },
+                    ratio: {$multiply: [{$size: '$enrolledStudents'}, '$rating']},
                     createdBy: 1, // Include the createdBy field to be used for $lookup
                 },
             },
             {
-                $sort: { ratio: -1 },
+                $sort: {ratio: -1},
             },
             {
                 $limit: 5,
@@ -340,7 +390,7 @@ exports.getRecommendedCourse = async (req, res, next) => {
 
 exports.generateGraph = async (req, res, next) => {
     try {
-    //     sort by latest created date
+        //     sort by latest created date
 
         const courses = await Course.find({createdBy: req.userData.userId}).sort({dateCreated: -1}).exec();
         if (!courses) {
