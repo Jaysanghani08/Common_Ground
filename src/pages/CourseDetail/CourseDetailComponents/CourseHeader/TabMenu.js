@@ -294,9 +294,13 @@ export default function BasicTabs({ sections, courseAssignments, enrolledStudent
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" style={{ color: '#fff' }}>
                         <Tab style={{ fontSize: '18px' }} label="SECTIONS" {...a11yProps(0)} />
                         <Tab style={{ fontSize: '18px' }} label="ASSIGNMENTS" {...a11yProps(1)} />
-                        <Tab style={{ fontSize: '18px' }} label="DISCUSSIONFORUM" {...a11yProps(2)} />
                         {
-                            (usertype === 'educator' && getToken('educator')?.userId === createdby) && <Tab style={{ fontSize: '18px' }} label="STUDENTS" {...a11yProps(2)} />
+                            ((usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled))
+                            && <Tab style={{ fontSize: '18px' }} label="DISCUSSIONFORUM" {...a11yProps(2)} />
+                        }
+                        {
+                            (usertype === 'educator' && getToken('educator')?.userId === createdby) && 
+                            <Tab style={{ fontSize: '18px' }} label="STUDENTS" {...a11yProps(3)} />
                         }
                     </Tabs>
                 </Box>
@@ -347,7 +351,7 @@ export default function BasicTabs({ sections, courseAssignments, enrolledStudent
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={2}>
                     <div className="dicussion-forum">
-                        <DicussionForum data={discussionData} />
+                        <DicussionForum data={discussionData}  usertype={usertype} createdby={createdby} isEnrolled={isEnrolled}/>
                     </div>
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={3}>

@@ -3,9 +3,9 @@ import Cookies from "js-cookie";
 const token = Cookies.get('token');
 
 const API = "http://localhost:8000";
-export const createComment = async (courseId, data) => {
+export const createComment = async (courseId, usertype, data) => {
     try {
-        const response = await commonrequest("POST", `${API}/educator/${courseId}/discussion`, data, {
+        const response = await commonrequest("POST", `${API}/${usertype}/${courseId}/discussion`, data, {
             'authorization': `Bearer ${token}`
         });
         return response;
@@ -16,9 +16,9 @@ export const createComment = async (courseId, data) => {
 };
 
 
-export const updateComment = async (courseId, commentId, data) => {
+export const updateComment = async (courseId, commentId, usertype, data) => {
     try {
-        const response = await commonrequest("PATCH", `${API}/educator/${courseId}/discussion/${commentId}`, data, {
+        const response = await commonrequest("PATCH", `${API}/${usertype}/${courseId}/discussion/${commentId}`, data, {
             'authorization': `Bearer ${token}`
         });
         return response;
@@ -28,10 +28,10 @@ export const updateComment = async (courseId, commentId, data) => {
     }
 };
 
-export const deleteComment = async (courseId, commentId) => {
+export const deleteComment = async (courseId, commentId, usertype) => {
     if (window.confirm("Are you sure you want to remove this comment?")) {
         try {
-            const response = await commonrequest("DELETE", `${API}/educator/${courseId}/discussion/${commentId}`, {}, {
+            const response = await commonrequest("DELETE", `${API}/${usertype}/${courseId}/discussion/${commentId}`, {}, {
                 'authorization': `Bearer ${token}`
             });
             return response;

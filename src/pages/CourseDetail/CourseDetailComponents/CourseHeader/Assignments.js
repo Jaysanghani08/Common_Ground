@@ -311,7 +311,8 @@ export function Assigments(props) {
                 </div>
 
 
-                {((usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled)) &&
+                {
+                    (usertype === 'educator' && getToken('educator')?.userId === createdby) &&
                     <div style={{ marginTop: '16px' }}>
                         {/* <Button variant="outlined" color="primary" onClick={handleOpenEditForm}>
                         Edit
