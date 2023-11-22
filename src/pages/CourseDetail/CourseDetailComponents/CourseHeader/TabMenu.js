@@ -258,7 +258,7 @@ function a11yProps(index) {
     };
 }
 
-export default function BasicTabs({ sections, courseAssignments, enrolledStudents, usertype, createdby, isEnrolled }) {
+export default function BasicTabs({ sections, courseAssignments, enrolledStudents, discussionData, usertype, createdby, isEnrolled }) {
     const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
@@ -347,7 +347,7 @@ export default function BasicTabs({ sections, courseAssignments, enrolledStudent
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={2}>
                     <div className="dicussion-forum">
-                        <DicussionForum />
+                        <DicussionForum data={discussionData} />
                     </div>
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={3}>

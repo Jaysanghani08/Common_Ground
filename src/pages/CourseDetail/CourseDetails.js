@@ -90,14 +90,14 @@ const CourseDetails = () => {
                             />
 
                             <div className="course-content">
-                                <BasicTabs sections={coursedata.courseSections} enrolledStudents={coursedata.enrolledStudents} courseAssignments={coursedata.courseAssignments} usertype={usertype} createdby={coursedata.createdBy?._id} isEnrolled={isEnrolled}/>
+                                <BasicTabs sections={coursedata.courseSections} enrolledStudents={coursedata.enrolledStudents} courseAssignments={coursedata.courseAssignments} discussionData={coursedata.discussionForum?.messages} usertype={usertype} createdby={coursedata.createdBy?._id} isEnrolled={isEnrolled}/>
                                 {/* <BasicTextFields courseId={coursedata._id} /> */}
-                                <div className="dicussion-forum">
+                                {/* <div className="dicussion-forum">
                                  <DicussionForum 
-                          courseId={coursedata._id}
-                        //   currentUserId={profile?._id}  
+                                    data={coursedata.discussionForum.messages}
+                        //   currentUserId={profile?._id} 
                           />
-                                </div>
+                                </div> */}
                             </div>
                         </>
                     }

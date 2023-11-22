@@ -1,24 +1,53 @@
 import { FaUser } from "react-icons/fa";
 import CommentForm from "./DicussionForm";
 import "./DicussionForum.css";
+import { toast } from "react-toastify";
+import { updateComment, deleteComment } from "./ComentsApi"; // Import the API functions
+import { useParams } from "react-router-dom";
 
-// Update Comment component
 const Comment = ({
     comment,
     setActiveComment,
     activeComment,
-    updateComment,
-    deleteComment,
     currentUserId,
     userType,
-    courseId,
 }) => {
+
     const isEditing =
         activeComment &&
         activeComment.id === comment._id &&
         activeComment.type === "editing";
-    const canDelete = currentUserId === comment.createdByStudent || currentUserId === comment.createdByEducator;
-    const canEdit = currentUserId === comment.createdByStudent || currentUserId === comment.createdByEducator;
+    const canDelete = currentUserId;
+    const canEdit = currentUserId;
+    const {courseId} = useParams()
+
+    const handleUpdate = async (text, commentid) => {
+        const data = {
+            message: text,
+        };
+        const updated = await updateComment(courseId, commentid, data);
+
+        if (updated?.status === 200) { 
+            toast.success("Comment updated successfully")
+            window.location.reload()
+        }
+        else {
+            toast.error("Error in updating comment")
+        }
+
+    }
+
+    const handleDelete =async (commentId) => {
+        const updated = await deleteComment(courseId, commentId);
+
+        if (updated?.status === 200) { 
+            toast.success("Comment deleted successfully")
+            window.location.reload()
+        }
+        else {
+            toast.error("Error in updating comment")
+        }
+    }
 
     return (
         <div key={comment._id} className="comment">
@@ -27,8 +56,13 @@ const Comment = ({
             </div>
             <div className="comment-right-part">
                 <div className="comment-content">
-                    <div className="comment-author">{comment.createdByStudent || comment.createdByEducator}</div>
-                    <div>{new Date(comment.dateCreated).toLocaleDateString()}</div>
+                    <div className="comment-author">{
+                        comment.createdByStudent ?
+                    `${comment.createdByStudent?.lname} ${comment.createdByStudent?.fname}` 
+                    :`${comment.createdByEducator?.fname} ${comment.createdByEducator?.lname}`
+                    }
+                    </div>
+                    <div className="comment-date">{new Date(comment.dateCreated).toLocaleDateString()}</div>
                 </div>
                 {!isEditing && <div className="comment-text">{comment.message}</div>}
                 {isEditing && (
@@ -36,7 +70,7 @@ const Comment = ({
                         submitLabel="Update"
                         hasCancelButton
                         initialText={comment.message}
-                        handleSubmit={(text) => updateComment(courseId, text, comment._id)}
+                        handleSubmit={(text) => handleUpdate(text, comment._id)}
                         handleCancel={() => {
                             setActiveComment(null);
                         }}
@@ -56,7 +90,7 @@ const Comment = ({
                     {canDelete && (
                         <div
                             className="comment-action"
-                            onClick={() => deleteComment(courseId, comment._id)}
+                            onClick={() => handleDelete(comment._id)}
                         >
                             Delete
                         </div>

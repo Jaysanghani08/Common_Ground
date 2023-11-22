@@ -1,60 +1,48 @@
-import { commonrequest } from '../../../../services/ApiCall'
-const API= "http://localhost:8000";  
+import { commonrequest } from '../../../../services/ApiCall';
+import Cookies from "js-cookie";
+const token = Cookies.get('token');
 
-export const getComments = async (courseId) => {
-  const response = await commonrequest(`${API}/educator/${courseId}/discussion`);
-  if (!response.ok) {
-    throw new Error('Failed to fetch comments');
-  }
-  return response.json();
+const API = "http://localhost:8000";
+export const createComment = async (courseId, data) => {
+    try {
+        const response = await commonrequest("POST", `${API}/educator/${courseId}/discussion`, data, {
+            'authorization': `Bearer ${token}`
+        });
+        return response;
+    }
+    catch {
+        throw new Error("Error in creating comment")
+    }
 };
 
 
-export const createComment = async (courseId, text, userId, userType) => {
-  const response = await commonrequest(`${API}/educator/${courseId}/discussion`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      message: text,
-      userId, // user ID
-      userType, // user
-      courseId,
-      createdAt: new Date().toISOString(),
-    }),
-  });
-  if (!response.ok) {
-    throw new Error('Failed to create a comment');
-  }
-  return response.json();
-};
-
-
-export const updateComment = async (courseId, text, commentId) => {
-  const response = await commonrequest(`${API}/educator/${courseId}/discussion/${commentId}`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ message: text }),
-  });
-  if (!response.ok) {
-    throw new Error('Failed to update the comment');
-  }
-  return response.json();
+export const updateComment = async (courseId, commentId, data) => {
+    try {
+        const response = await commonrequest("PATCH", `${API}/educator/${courseId}/discussion/${commentId}`, data, {
+            'authorization': `Bearer ${token}`
+        });
+        return response;
+    }
+    catch {
+        throw new Error("Error in updating comment")
+    }
 };
 
 export const deleteComment = async (courseId, commentId) => {
-  const response = await commonrequest(`${API}/educator/${courseId}/discussion/${commentId}`, {
-    method: 'DELETE',
-  });
-  if (!response.ok) {
-    throw new Error('Failed to delete the comment');
-  }
+    if (window.confirm("Are you sure you want to remove this comment?")) {
+        try {
+            const response = await commonrequest("DELETE", `${API}/educator/${courseId}/discussion/${commentId}`, {}, {
+                'authorization': `Bearer ${token}`
+            });
+            return response;
+        }
+        catch {
+            throw new Error("Error in deleting comment")
+        }
+    }
 };
 
 // extra
 export const sentOtpFunction = async (data) => {
-  return await commonrequest("POST", `${API}/user/sendotp`, data)
+    return await commonrequest("POST", `${API}/user/sendotp`, data)
 }

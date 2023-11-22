@@ -315,6 +315,65 @@ export const checkIfenrolled = async (courseId) => {
     return true;
 }
 
+export const enrollInCourse = async (courseId) => {
+    try{
+        const response = await commonrequest("POST", `${BACKEND_URL}/student/enroll/${courseId}`, null, {
+            'authorization': `Bearer ${token}`
+        });
+        return response;
+    } catch(error){
+        throw new Error("Something went wrong");
+    }
+}
+
+export const UnenrollInCourse = async (courseId) => {
+    try{
+        const response = await commonrequest("POST", `${BACKEND_URL}/student/unroll/${courseId}`, null, {
+            'authorization': `Bearer ${token}`
+        });
+        return response;
+    } catch(error){
+        throw new Error("Something went wrong");
+    }
+}
+
+export const SubmitAssignment = async (courseId, assignmentId, data) => {
+    try{
+        const response = await commonrequest("POST", `${BACKEND_URL}/student/submit-assignment/${courseId}/${assignmentId}`, data, {
+            'authorization': `Bearer ${token}`
+        });
+        return response;
+    }
+    catch(error){
+        throw new Error("Error in Uploding the document.")
+    }
+}
+
+export const DeleteAssignmentSubmission = async ( submissionId) => {
+    try{
+        const response = await commonrequest("POST", `${BACKEND_URL}/student/delete-submission/${submissionId}`, {}, {
+            'authorization': `Bearer ${token}`
+        });
+        return response;
+    }
+    catch(error){
+        throw new Error("Error in Uploding the document.")
+    }
+}
+
+export const RateCourse = async ( courseId, data) => {
+    try{
+        const response = await commonrequest("POST", `${BACKEND_URL}student/rating/${courseId}`, data, {
+            'authorization': `Bearer ${token}`
+        });
+        return response;
+    }
+    catch(error){
+        throw new Error("Error in Uploding the document.")
+    }
+}
+
+
 export const getFilteredCourses = async (queryParams = {}) => {
     // console.log(queryParams)
     try {

@@ -2,25 +2,34 @@ import React, { useState, useEffect } from "react";
 import Comment from "./Comment";
 import CommentForm from "./DicussionForm";
 import "./DicussionForum.css";
+import { useParams } from "react-router-dom";
 import {
-    getComments,
     createComment,
     updateComment,
     deleteComment,
 } from "./ComentsApi"; // Import the API functions
+import { toast } from "react-toastify";
 
-const DicussionForum = ({ currentUserId, courseId }) => {
+const DicussionForum = ({ data }) => {
     const [comments, setComments] = useState([]);
     const [activeComment, setActiveComment] = useState(null);
 
-    const createNewComment = (text) => {
-        createComment(courseId, text, currentUserId, "Ankur")
-            .then((newComment) => {
-                setComments([newComment, ...comments]);
-            })
-            .catch((error) => {
-                console.error("Error creating comment: ", error);
-            });
+    const {courseId} = useParams()
+
+    const createNewComment = async (text) => {
+        const data = {
+            message: text,
+        };
+
+        const cc = await createComment(courseId, data);
+        if(cc?.status === 201){
+            console.log(cc);
+            toast.success("Comment created successfully")
+            window.location.reload()
+        }
+        else{
+            toast.error("Error in creating comment")
+        }
     };
 
     const updateCommentText = (text, commentId) => {
@@ -55,22 +64,22 @@ const DicussionForum = ({ currentUserId, courseId }) => {
         }
     };
 
-    useEffect(() => {
-        getComments(courseId)
-            .then((data) => {
-                console.log("Received comments:", data);  
-                setComments(data.reverse()); // Reverse to display newest comments first
-            })
-            .catch((error) => {
-                // console.error("Error fetching comments: ", error);
-            });
-    }, [courseId]);
+    // useEffect(() => {
+    //     getComments(courseId)
+    //         .then((data) => {
+    //             console.log("Received comments:", data);  
+    //             setComments(data.reverse()); // Reverse to display newest comments first
+    //         })
+    //         .catch((error) => {
+    //             // console.error("Error fetching comments: ", error);
+    //         });
+    // }, [courseId]);
 
     return (
         <div className="comments" >
             <div className="comments-container">
                 <h3 className="comments-title">Discussion Forum</h3>
-                {comments
+                {data
                   
                     .map((rootComment) => (
                         <Comment
@@ -80,10 +89,8 @@ const DicussionForum = ({ currentUserId, courseId }) => {
                         activeComment={activeComment}
                         updateComment={updateCommentText}
                         deleteComment={deleteCommentById}
-                        currentUserId={currentUserId}
-                        courseId={courseId}
+                        currentUserId={rootComment.createdByEducator?._id || rootComment.createdByStudent?._id}
                     />
-                    
                     ))}
                      
                 <CommentForm submitLabel="Write" handleSubmit={createNewComment} />
