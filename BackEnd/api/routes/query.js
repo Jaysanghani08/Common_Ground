@@ -16,7 +16,7 @@ router.get('/dashboard', checkAuth, QueryController.getDashboard);
 router.get('/profile', checkAuth, QueryController.getProfile);
 router.get('/getCourses', QueryController.getCourses);
 router.get('/enrolled-course', checkAuth, QueryController.getEnrolledCourse);
-router.get('/getCourse/:courseId', checkAuth, checkEnroll, QueryController.getCourse);
+router.get('/getCourse/:courseId', checkAuth, QueryController.getCourse);
 router.get('/coursebyeducator', checkAuth, QueryController.getCourseByEducator);
 router.get('/recommended-course', checkAuth, QueryController.getRecommendedCourse);
 router.get('/generateGraph', checkAuth, QueryController.generateGraph);

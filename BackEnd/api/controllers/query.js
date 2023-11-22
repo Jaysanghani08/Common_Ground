@@ -245,7 +245,28 @@ exports.getEnrolledCourse = async (req, res, next) => {
 
 exports.getCourse = async (req, res, next) => {
     try {
-        const course = await Course.findById({_id :req.params.courseId, visibility: 'public'}).select('_id courseTitle courseDescriptionLong coursePrice courseLevel courseCode courseSections courseAssignments language prerequisites rating courseFeedback discussionForum enrolledStudents createdBy').populate('courseSections').populate('courseAssignments').populate('discussionForum').populate({path: 'enrolledStudents', model: 'Student', select: 'username'}).exec();
+        const course = await Course.findById({_id: req.params.courseId, visibility: 'public'})
+            .select('_id courseTitle courseDescriptionLong coursePrice courseLevel courseCode courseSections courseAssignments language prerequisites rating courseFeedback discussionForum enrolledStudents createdBy')
+            .populate('courseSections')
+            .populate('courseAssignments')
+            .populate({
+                path: 'discussionForum',
+                populate: {
+                    path: 'messages.createdByEducator',
+                    model: 'Educator',
+                    select: 'fname lname',
+                },
+            })
+            .populate({
+                path: 'discussionForum',
+                populate: {
+                    path: 'messages.createdByStudent',
+                    model: 'Student',
+                    select: 'fname lname',
+                },
+            })
+            .exec();
+
         if (!course) {
             return res.status(404).json({
                 message: 'Course not found'
