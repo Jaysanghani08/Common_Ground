@@ -33,14 +33,17 @@ exports.createAssignment = async (req, res, next) => {
                 message: 'Unauthorized'
             });
         }
-
+        let attachment = [];
+        if (req.files) {
+            attachment = req.files.map(file => file.path);
+        }
         const assignment = new Assignment({
             title: req.body.title,
             description: req.body.description,
             assignedBy: req.userData.userId,
             course: req.params.courseId,
             dueDate: req.body.dueDate,
-            attachment: req.files.map(file => file.path)
+            attachment: attachment
         });
 
         await assignment.save();

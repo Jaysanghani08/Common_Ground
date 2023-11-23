@@ -42,11 +42,14 @@ exports.submitSubmission = async (req, res, next) => {
                 message: "You are not enrolled in this course"
             });
         }
-
+        let attachment = [];
+        if (req.files) {
+            attachment = req.files.map(file => file.path);
+        }
         const submission = new Submission({
             assignment: assignment._id,
             submittedBy: req.userData.userId,
-            submission: req.files.map(file => file.path),
+            submission: attachment,
         });
 
         await submission.save();
