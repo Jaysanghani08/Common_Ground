@@ -5,6 +5,8 @@ const Educator = require('../api/models/educator');
 const Course = require('../api/models/course');
 const request = require('supertest');
 const expect = require('chai').expect;
+const path = require('path');
+const fs = require('fs');
 
 beforeAll(async () => {
     const testDbUrl = 'mongodb+srv://Group16:Group16@cluster0.vfhbrkw.mongodb.net/Test_Common_Ground?retryWrites=true&w=majority';
@@ -259,6 +261,9 @@ describe('Section Controller - addPost', () => {
             .post('/educator/login')
             .send(educator1)
 
+        const imagePath = path.join(__dirname, 'images.png'); // Replace with the actual path to your educator's profile picture
+        const profilePic = fs.readFileSync(imagePath);
+
         let educator = await Educator.findOne({email: 'testeducator@example.com'}).populate('courseCreated').exec();
 
         const res2 = await request(app)
@@ -278,7 +283,9 @@ describe('Section Controller - addPost', () => {
         const res1 = await request(app)
             .post(`/educator/add-post/${educator.courseCreated[0]._id}/${educator.courseCreated[0].courseSections[0]}`)
             .set('Authorization', 'Bearer ' + res.body.token)
-            .send(post);
+            .field('title', post.title)
+            .field('body', post.body)
+            .attach('attachments', profilePic, 'profilePic.png');
 
         expect(res1.statusCode).to.equal(201);
         expect(res1.body.message).to.equal('Post added');
@@ -360,6 +367,9 @@ describe('Section Controller - editPost', () => {
             title: 'testPost',
             body: 'testContent',
         }
+        const imagePath = path.join(__dirname, 'images.png'); // Replace with the actual path to your educator's profile picture
+        const profilePic = fs.readFileSync(imagePath);
+
         const res = await request(app)
             .post('/educator/login')
             .send(educator1)
@@ -369,7 +379,9 @@ describe('Section Controller - editPost', () => {
         const res1 = await request(app)
             .patch(`/educator/edit-post/${course._id}/${course.courseSections[0]._id}/${course.courseSections[0].posts[0]._id}`)
             .set('Authorization', 'Bearer ' + res.body.token)
-            .send(post);
+            .field('title', post.title)
+            .field('body', post.body)
+            .attach('attachments', profilePic, 'profilePic.png');
 
         expect(res1.statusCode).to.equal(200);
         expect(res1.body.message).to.equal('Post edited');
