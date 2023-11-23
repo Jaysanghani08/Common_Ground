@@ -6,6 +6,7 @@ const crypto = require('crypto');
 const Course = require('../models/course');
 const Educator = require('../models/educator');
 const Student = require('../models/student');
+const Assignment = require("../models/assignment");
 
 exports.getAllCourse = async (req, res, next) => {
     try {
@@ -265,43 +266,95 @@ exports.getEnrolledCourse = async (req, res, next) => {
 
 exports.getCourse = async (req, res, next) => {
     try {
-        const course = await Course.findById({_id: req.params.courseId, visibility: 'public'})
-            .select('_id courseTitle courseDescriptionLong coursePrice courseLevel courseCode courseSections courseAssignments language prerequisites rating courseFeedback discussionForum enrolledStudents createdBy')
-            .populate('courseSections')
-            .populate('courseAssignments')
-            .populate({path: 'enrolledStudents', model: 'Student', select: 'username'})
-            .populate({
-                path: 'discussionForum',
-                populate: {
-                    path: 'messages.createdByEducator',
-                    model: 'Educator',
-                    select: 'fname lname',
-                },
-            })
-            .populate({
-                path: 'discussionForum',
-                populate: {
-                    path: 'messages.createdByStudent',
+        let course;
+        if (req.userData.userType == "educator") {
+            course = await Course.findById({_id: req.params.courseId, visibility: 'public'})
+                .select('_id courseTitle courseDescriptionLong coursePrice courseLevel courseCode courseSections courseAssignments language prerequisites rating courseFeedback discussionForum enrolledStudents createdBy')
+                .populate('courseSections')
+                .populate({
+                    path: 'courseAssignments',
+                    populate: {
+                        path: 'submission',
+                        model: 'Submission',
+                        select: 'submission grade gradedBy dateSubmitted',
+                        populate: {
+                            path: 'submittedBy',
+                            model: 'Student',
+                            select: 'username',
+                        }
+                    }
+                })
+                .populate({
+                    path: 'enrolledStudents',
                     model: 'Student',
                     select: 'username',
-                },
-            })
-            .exec();
+                })
+                .populate({
+                    path: 'discussionForum',
+                    populate: {
+                        path: 'messages.createdByEducator',
+                        model: 'Educator',
+                        select: 'fname lname',
+                    },
+                })
+                .populate({
+                    path: 'discussionForum',
+                    populate: {
+                        path: 'messages.createdByStudent',
+                        model: 'Student',
+                        select: 'fname lname',
+                    },
+                })
+                .populate('createdBy', 'fname lname')
+                .exec();
+        } else if (req.userData.userType == "student") {
+            course = await Course.findById({_id: req.params.courseId, visibility: 'public'})
+                .select('_id courseTitle courseDescriptionLong coursePrice courseLevel courseCode courseSections courseAssignments language prerequisites rating courseFeedback discussionForum enrolledStudents createdBy')
+                .populate('courseSections')
+                .populate({
+                    path: 'courseAssignments',
+                    populate: {
+                        path: 'submission',
+                        match: {'submittedBy': req.userData.userId},
+                        model: 'Submission',
+                        select: 'submission grade gradedBy dateSubmitted',
+                        populate: {
+                            path: 'submittedBy',
+                            model: 'Student',
+                            select: 'username',
+                        }
+                    }
+                })
+                .populate({
+                    path: 'enrolledStudents',
+                    model: 'Student',
+                    select: 'username',
+                })
+                .populate({
+                    path: 'discussionForum',
+                    populate: {
+                        path: 'messages.createdByEducator',
+                        model: 'Educator',
+                        select: 'fname lname',
+                    },
+                })
+                .populate({
+                    path: 'discussionForum',
+                    populate: {
+                        path: 'messages.createdByStudent',
+                        model: 'Student',
+                        select: 'fname lname',
+                    },
+                })
+                .populate('createdBy', 'fname lname')
+                .exec();
 
+        }
         if (!course) {
             return res.status(404).json({
                 message: 'Course not found'
             });
         }
-
-        const educator = await Educator.findById(course.createdBy).select('fname lname username').exec();
-        if (!educator) {
-            return res.status(404).json({
-                message: 'Educator not found'
-            });
-        }
-
-        course.createdBy = educator;
 
         return res.status(200).json({
             course: course
