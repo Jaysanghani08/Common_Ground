@@ -16,6 +16,12 @@ exports.addMessage = async (req, res, next) => {
             }
         }
         else {
+            const course = await Course.findById(req.params.courseId).exec();
+            if (course.createdBy.toString() !== req.userData.userId.toString()) {
+                return res.status(403).json({
+                    message: 'You are not authorized to add messages to this discussion forum'
+                });
+            }
             message = {
                 message: req.body.message,
                 createdByEducator: req.userData.userId
