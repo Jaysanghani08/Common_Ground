@@ -3,12 +3,14 @@ const app = require('../app');
 const Student = require('../api/models/student');
 const request = require('supertest');
 const {expect} = require("chai");
+const path = require('path');
+const fs = require('fs');
 
 beforeAll(async () => {
     const testDbUrl = 'mongodb+srv://Group16:Group16@cluster0.vfhbrkw.mongodb.net/Test_Common_Ground?retryWrites=true&w=majority';
     await mongoose.disconnect();
     await mongoose.connect(testDbUrl, {useNewUrlParser: true, useUnifiedTopology: true});
-});
+}, 10000);
 
 beforeEach(async () => {
     // await Student.deleteMany();
@@ -36,16 +38,33 @@ describe('Student Controller - userSignup', () => {
             enrolledCourses: [],
         };
 
+        // Read the profile picture file
+        const imagePath = path.join(__dirname, 'images.png'); // Replace with the actual path to your profile picture
+        const profilePic = fs.readFileSync(imagePath);
+
+        // Use the 'attach' method to attach the profile picture to the request
         const res = await request(app)
             .post('/student/signup')
-            .send(testStudent);
+            .field('fname', testStudent.fname)
+            .field('lname', testStudent.lname)
+            .field('gender', testStudent.gender)
+            .field('location', testStudent.location)
+            .field('dob', testStudent.dob)
+            .field('username', testStudent.username)
+            .field('password', testStudent.password)
+            .field('phone', testStudent.phone)
+            .field('email', testStudent.email)
+            .field('interests', JSON.stringify(testStudent.interests))
+            .field('bookmarkedCourses', testStudent.bookmarkedCourses)
+            .field('enrolledCourses', testStudent.enrolledCourses)
+            .attach('profilePic', profilePic, 'profilePic.jpg'); // 'profilePic' is the field name for the file
 
         expect(res.status).to.equal(201);
         expect(res.body.message).to.equal('Student created');
     });
 
     it('should handle duplicate email during signup', async () => {
-        const initialStudent = {
+        let testStudent = {
             fname: 'Test',
             lname: 'Student',
             gender: 'Male',
@@ -59,13 +78,27 @@ describe('Student Controller - userSignup', () => {
             bookmarkedCourses: [],
             enrolledCourses: [],
         };
+        const imagePath = path.join(__dirname, 'images.png'); // Replace with the actual path to your profile picture
+        const profilePic = fs.readFileSync(imagePath);
 
-        // Make the first request to create the initial student
+        // Use the 'attach' method to attach the profile picture to the request
         await request(app)
             .post('/student/signup')
-            .send(initialStudent);
+            .field('fname', testStudent.fname)
+            .field('lname', testStudent.lname)
+            .field('gender', testStudent.gender)
+            .field('location', testStudent.location)
+            .field('dob', testStudent.dob)
+            .field('username', testStudent.username)
+            .field('password', testStudent.password)
+            .field('phone', testStudent.phone)
+            .field('email', testStudent.email)
+            .field('interests', JSON.stringify(testStudent.interests))
+            .field('bookmarkedCourses', testStudent.bookmarkedCourses)
+            .field('enrolledCourses', testStudent.enrolledCourses)
+            .attach('profilePic', profilePic, 'profilePic.jpg'); // 'profilePic' is the field name for the file
 
-        const duplicateStudent = {
+        testStudent = {
             fname: 'Test',
             lname: 'Student',
             gender: 'Male',
@@ -82,14 +115,26 @@ describe('Student Controller - userSignup', () => {
 
         const res = await request(app)
             .post('/student/signup')
-            .send(duplicateStudent);
+            .field('fname', testStudent.fname)
+            .field('lname', testStudent.lname)
+            .field('gender', testStudent.gender)
+            .field('location', testStudent.location)
+            .field('dob', testStudent.dob)
+            .field('username', testStudent.username)
+            .field('password', testStudent.password)
+            .field('phone', testStudent.phone)
+            .field('email', testStudent.email)
+            .field('interests', JSON.stringify(testStudent.interests))
+            .field('bookmarkedCourses', testStudent.bookmarkedCourses)
+            .field('enrolledCourses', testStudent.enrolledCourses)
+            .attach('profilePic', profilePic, 'profilePic.jpg'); // 'profilePic' is the field name for the file
 
         expect(res.status).to.equal(409);
         expect(res.body.message).to.equal('Mail is already in use - Student');
     });
 
     it('should handle duplicate username during signup', async () => {
-        const initialStudent = {
+        let testStudent = {
             fname: 'Test',
             lname: 'Student',
             gender: 'Male',
@@ -104,12 +149,27 @@ describe('Student Controller - userSignup', () => {
             enrolledCourses: [],
         };
 
-        // Make the first request to create the initial student
+        const imagePath = path.join(__dirname, 'images.png'); // Replace with the actual path to your profile picture
+        const profilePic = fs.readFileSync(imagePath);
+
+        // Use the 'attach' method to attach the profile picture to the request
         await request(app)
             .post('/student/signup')
-            .send(initialStudent);
+            .field('fname', testStudent.fname)
+            .field('lname', testStudent.lname)
+            .field('gender', testStudent.gender)
+            .field('location', testStudent.location)
+            .field('dob', testStudent.dob)
+            .field('username', testStudent.username)
+            .field('password', testStudent.password)
+            .field('phone', testStudent.phone)
+            .field('email', testStudent.email)
+            .field('interests', JSON.stringify(testStudent.interests))
+            .field('bookmarkedCourses', testStudent.bookmarkedCourses)
+            .field('enrolledCourses', testStudent.enrolledCourses)
+            .attach('profilePic', profilePic, 'profilePic.jpg'); // 'profilePic' is the field name for the file
 
-        const duplicateUsernameStudent = {
+        testStudent = {
             fname: 'Test',
             lname: 'Student',
             gender: 'Male',
@@ -126,14 +186,26 @@ describe('Student Controller - userSignup', () => {
 
         const res = await request(app)
             .post('/student/signup')
-            .send(duplicateUsernameStudent);
+            .field('fname', testStudent.fname)
+            .field('lname', testStudent.lname)
+            .field('gender', testStudent.gender)
+            .field('location', testStudent.location)
+            .field('dob', testStudent.dob)
+            .field('username', testStudent.username)
+            .field('password', testStudent.password)
+            .field('phone', testStudent.phone)
+            .field('email', testStudent.email)
+            .field('interests', JSON.stringify(testStudent.interests))
+            .field('bookmarkedCourses', testStudent.bookmarkedCourses)
+            .field('enrolledCourses', testStudent.enrolledCourses)
+            .attach('profilePic', profilePic, 'profilePic.jpg'); // 'profilePic' is the field name for the file
 
         expect(res.status).to.equal(409);
         expect(res.body.message).to.equal('Username is already in use - Student');
     });
 
     it('should handle duplicate phone number during signup', async () => {
-        const initialStudent = {
+        let testStudent = {
             fname: 'Test',
             lname: 'Student',
             gender: 'Male',
@@ -148,12 +220,27 @@ describe('Student Controller - userSignup', () => {
             enrolledCourses: [],
         };
 
-        // Make the first request to create the initial student
+        const imagePath = path.join(__dirname, 'images.png'); // Replace with the actual path to your profile picture
+        const profilePic = fs.readFileSync(imagePath);
+
+        // Use the 'attach' method to attach the profile picture to the request
         await request(app)
             .post('/student/signup')
-            .send(initialStudent);
+            .field('fname', testStudent.fname)
+            .field('lname', testStudent.lname)
+            .field('gender', testStudent.gender)
+            .field('location', testStudent.location)
+            .field('dob', testStudent.dob)
+            .field('username', testStudent.username)
+            .field('password', testStudent.password)
+            .field('phone', testStudent.phone)
+            .field('email', testStudent.email)
+            .field('interests', JSON.stringify(testStudent.interests))
+            .field('bookmarkedCourses', testStudent.bookmarkedCourses)
+            .field('enrolledCourses', testStudent.enrolledCourses)
+            .attach('profilePic', profilePic, 'profilePic.jpg'); // 'profilePic' is the field name for the file
 
-        const duplicatePhoneStudent = {
+        testStudent = {
             fname: 'Test',
             lname: 'Student',
             gender: 'Male',
@@ -170,7 +257,19 @@ describe('Student Controller - userSignup', () => {
 
         const res = await request(app)
             .post('/student/signup')
-            .send(duplicatePhoneStudent);
+            .field('fname', testStudent.fname)
+            .field('lname', testStudent.lname)
+            .field('gender', testStudent.gender)
+            .field('location', testStudent.location)
+            .field('dob', testStudent.dob)
+            .field('username', testStudent.username)
+            .field('password', testStudent.password)
+            .field('phone', testStudent.phone)
+            .field('email', testStudent.email)
+            .field('interests', JSON.stringify(testStudent.interests))
+            .field('bookmarkedCourses', testStudent.bookmarkedCourses)
+            .field('enrolledCourses', testStudent.enrolledCourses)
+            .attach('profilePic', profilePic, 'profilePic.jpg'); // 'profilePic' is the field name for the file
 
         expect(res.status).to.equal(409);
         expect(res.body.message).to.equal('Phone number is already in use - Student');
@@ -225,7 +324,12 @@ describe('Student Controller - userEdit', () => {
             .patch('/student/edit-profile')
             .set('Authorization', 'Bearer ' + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE3MDAyOTk0NjksImV4cCI6MTczMTgzNTQ2OSwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsInVzZXJJZCI6IjkzODkzNDg5Mzg5MzUzNDA1MzQifQ.NdhN2vzwVFjnhVhjI-s5z-EL2ZrhMfEmhDcfSbk_YDA")
             .send({
-                fname: 'EditedTest',
+                fname: 'Test',
+                lname: 'Student',
+                gender: 'Male',
+                location: 'Test Location',
+                dob: '1990-01-01',
+                username: 'teststudent2',
             });
 
         expect(editRes.status).to.equal(401);
@@ -244,7 +348,12 @@ describe('Student Controller - userEdit', () => {
             .patch('/student/edit-profile')
             .set('Authorization', 'Bearer ' + loginRes.body.token)
             .send({
-                fname: 'JaySabva',
+                fname: 'Test',
+                lname: 'Student',
+                gender: 'Male',
+                location: 'Test Location',
+                dob: '1990-01-01',
+                username: 'teststudent2',
             });
 
         expect(editRes.status).to.equal(200);

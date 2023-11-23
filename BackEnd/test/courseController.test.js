@@ -4,6 +4,8 @@ const Student = require('../api/models/student');
 const Educator = require('../api/models/educator');
 const Course = require('../api/models/course');
 const request = require('supertest');
+const path = require("path");
+const fs = require("fs");
 const expect = require('chai').expect;
 
 beforeAll(async () => {
@@ -49,11 +51,25 @@ describe('Course Controller - createCourse', () => {
             prerequisites: 'Basic knowledge of programming',
             discussionForum: 'true', // Set to 'true' if you want to enable the discussion forum
         };
+        const imagePath = path.join(__dirname, 'images.png'); // Replace with the actual path to your educator's profile picture
+        const profilePic = fs.readFileSync(imagePath);
 
         const res2 = await request(app)
             .post('/educator/create-course')
             .set('Authorization', 'Bearer ' + res.body.token)
-            .send(course);
+            .field('courseTitle', course.courseTitle)
+            .field('courseDescription', course.courseDescription)
+            .field('courseDescriptionLong', course.courseDescriptionLong)
+            .field('coursePrice', course.coursePrice)
+            .field('tags', course.tags)
+            .field('courseLevel', course.courseLevel)
+            .field('courseCode', course.courseCode)
+            .field('language', course.language)
+            .field('visibility', course.visibility)
+            .field('prerequisites', course.prerequisites)
+            .field('discussionForum', course.discussionForum)
+            .attach('thumbnail', profilePic, 'profilePic.png');
+
 
         expect(res2.statusCode).to.equal(201);
         expect(res2.body.message).to.equal('Course created');
@@ -163,11 +179,23 @@ describe('Course Controller - editCourse', () => {
             visibility: 'public',
             prerequisites: 'Basic knowledge of programming',
         };
+        const imagePath = path.join(__dirname, 'images.png'); // Replace with the actual path to your educator's profile picture
+        const profilePic = fs.readFileSync(imagePath);
 
         const res2 = await request(app)
             .patch(`/educator/edit-course/${courseId}`)
             .set('Authorization', 'Bearer ' + res.body.token)
-            .send(courseEdit);
+            .field('courseTitle', courseEdit.courseTitle)
+            .field('courseDescription', courseEdit.courseDescription)
+            .field('courseDescriptionLong', courseEdit.courseDescriptionLong)
+            .field('coursePrice', courseEdit.coursePrice)
+            .field('tags', courseEdit.tags)
+            .field('courseLevel', courseEdit.courseLevel)
+            .field('courseCode', courseEdit.courseCode)
+            .field('language', courseEdit.language)
+            .field('visibility', courseEdit.visibility)
+            .field('prerequisites', courseEdit.prerequisites)
+            .attach('thumbnail', profilePic, 'profilePic.png');
 
         expect(res2.statusCode).to.equal(200);
         expect(res2.body.message).to.equal('Course updated');

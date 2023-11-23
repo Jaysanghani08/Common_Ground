@@ -5,6 +5,9 @@ const Educator = require('../api/models/educator');
 const Course = require('../api/models/course');
 const request = require('supertest');
 const Assignment = require("../api/models/assignment");
+const path = require("path");
+const fs = require("fs");
+const Submission = require("../api/models/submission");
 const expect = require('chai').expect;
 beforeAll(async () => {
     const testDbUrl = 'mongodb+srv://Group16:Group16@cluster0.vfhbrkw.mongodb.net/Test_Common_Ground?retryWrites=true&w=majority';
@@ -38,16 +41,33 @@ describe('Student Controller - userSignup', () => {
             enrolledCourses: [],
         };
 
+        // Read the profile picture file
+        const imagePath = path.join(__dirname, 'images.png'); // Replace with the actual path to your profile picture
+        const profilePic = fs.readFileSync(imagePath);
+
+        // Use the 'attach' method to attach the profile picture to the request
         const res = await request(app)
             .post('/student/signup')
-            .send(testStudent);
+            .field('fname', testStudent.fname)
+            .field('lname', testStudent.lname)
+            .field('gender', testStudent.gender)
+            .field('location', testStudent.location)
+            .field('dob', testStudent.dob)
+            .field('username', testStudent.username)
+            .field('password', testStudent.password)
+            .field('phone', testStudent.phone)
+            .field('email', testStudent.email)
+            .field('interests', JSON.stringify(testStudent.interests))
+            .field('bookmarkedCourses', testStudent.bookmarkedCourses)
+            .field('enrolledCourses', testStudent.enrolledCourses)
+            .attach('profilePic', profilePic, 'profilePic.jpg'); // 'profilePic' is the field name for the file
 
         expect(res.status).to.equal(201);
         expect(res.body.message).to.equal('Student created');
     });
 
     it('should handle duplicate email during signup', async () => {
-        const initialStudent = {
+        let testStudent = {
             fname: 'Test',
             lname: 'Student',
             gender: 'Male',
@@ -61,13 +81,27 @@ describe('Student Controller - userSignup', () => {
             bookmarkedCourses: [],
             enrolledCourses: [],
         };
+        const imagePath = path.join(__dirname, 'images.png'); // Replace with the actual path to your profile picture
+        const profilePic = fs.readFileSync(imagePath);
 
-        // Make the first request to create the initial student
+        // Use the 'attach' method to attach the profile picture to the request
         await request(app)
             .post('/student/signup')
-            .send(initialStudent);
+            .field('fname', testStudent.fname)
+            .field('lname', testStudent.lname)
+            .field('gender', testStudent.gender)
+            .field('location', testStudent.location)
+            .field('dob', testStudent.dob)
+            .field('username', testStudent.username)
+            .field('password', testStudent.password)
+            .field('phone', testStudent.phone)
+            .field('email', testStudent.email)
+            .field('interests', JSON.stringify(testStudent.interests))
+            .field('bookmarkedCourses', testStudent.bookmarkedCourses)
+            .field('enrolledCourses', testStudent.enrolledCourses)
+            .attach('profilePic', profilePic, 'profilePic.jpg'); // 'profilePic' is the field name for the file
 
-        const duplicateStudent = {
+        testStudent = {
             fname: 'Test',
             lname: 'Student',
             gender: 'Male',
@@ -84,14 +118,26 @@ describe('Student Controller - userSignup', () => {
 
         const res = await request(app)
             .post('/student/signup')
-            .send(duplicateStudent);
+            .field('fname', testStudent.fname)
+            .field('lname', testStudent.lname)
+            .field('gender', testStudent.gender)
+            .field('location', testStudent.location)
+            .field('dob', testStudent.dob)
+            .field('username', testStudent.username)
+            .field('password', testStudent.password)
+            .field('phone', testStudent.phone)
+            .field('email', testStudent.email)
+            .field('interests', JSON.stringify(testStudent.interests))
+            .field('bookmarkedCourses', testStudent.bookmarkedCourses)
+            .field('enrolledCourses', testStudent.enrolledCourses)
+            .attach('profilePic', profilePic, 'profilePic.jpg'); // 'profilePic' is the field name for the file
 
         expect(res.status).to.equal(409);
         expect(res.body.message).to.equal('Mail is already in use - Student');
     });
 
     it('should handle duplicate username during signup', async () => {
-        const initialStudent = {
+        let testStudent = {
             fname: 'Test',
             lname: 'Student',
             gender: 'Male',
@@ -106,12 +152,27 @@ describe('Student Controller - userSignup', () => {
             enrolledCourses: [],
         };
 
-        // Make the first request to create the initial student
+        const imagePath = path.join(__dirname, 'images.png'); // Replace with the actual path to your profile picture
+        const profilePic = fs.readFileSync(imagePath);
+
+        // Use the 'attach' method to attach the profile picture to the request
         await request(app)
             .post('/student/signup')
-            .send(initialStudent);
+            .field('fname', testStudent.fname)
+            .field('lname', testStudent.lname)
+            .field('gender', testStudent.gender)
+            .field('location', testStudent.location)
+            .field('dob', testStudent.dob)
+            .field('username', testStudent.username)
+            .field('password', testStudent.password)
+            .field('phone', testStudent.phone)
+            .field('email', testStudent.email)
+            .field('interests', JSON.stringify(testStudent.interests))
+            .field('bookmarkedCourses', testStudent.bookmarkedCourses)
+            .field('enrolledCourses', testStudent.enrolledCourses)
+            .attach('profilePic', profilePic, 'profilePic.jpg'); // 'profilePic' is the field name for the file
 
-        const duplicateUsernameStudent = {
+        testStudent = {
             fname: 'Test',
             lname: 'Student',
             gender: 'Male',
@@ -128,14 +189,26 @@ describe('Student Controller - userSignup', () => {
 
         const res = await request(app)
             .post('/student/signup')
-            .send(duplicateUsernameStudent);
+            .field('fname', testStudent.fname)
+            .field('lname', testStudent.lname)
+            .field('gender', testStudent.gender)
+            .field('location', testStudent.location)
+            .field('dob', testStudent.dob)
+            .field('username', testStudent.username)
+            .field('password', testStudent.password)
+            .field('phone', testStudent.phone)
+            .field('email', testStudent.email)
+            .field('interests', JSON.stringify(testStudent.interests))
+            .field('bookmarkedCourses', testStudent.bookmarkedCourses)
+            .field('enrolledCourses', testStudent.enrolledCourses)
+            .attach('profilePic', profilePic, 'profilePic.jpg'); // 'profilePic' is the field name for the file
 
         expect(res.status).to.equal(409);
         expect(res.body.message).to.equal('Username is already in use - Student');
     });
 
     it('should handle duplicate phone number during signup', async () => {
-        const initialStudent = {
+        let testStudent = {
             fname: 'Test',
             lname: 'Student',
             gender: 'Male',
@@ -150,12 +223,27 @@ describe('Student Controller - userSignup', () => {
             enrolledCourses: [],
         };
 
-        // Make the first request to create the initial student
+        const imagePath = path.join(__dirname, 'images.png'); // Replace with the actual path to your profile picture
+        const profilePic = fs.readFileSync(imagePath);
+
+        // Use the 'attach' method to attach the profile picture to the request
         await request(app)
             .post('/student/signup')
-            .send(initialStudent);
+            .field('fname', testStudent.fname)
+            .field('lname', testStudent.lname)
+            .field('gender', testStudent.gender)
+            .field('location', testStudent.location)
+            .field('dob', testStudent.dob)
+            .field('username', testStudent.username)
+            .field('password', testStudent.password)
+            .field('phone', testStudent.phone)
+            .field('email', testStudent.email)
+            .field('interests', JSON.stringify(testStudent.interests))
+            .field('bookmarkedCourses', testStudent.bookmarkedCourses)
+            .field('enrolledCourses', testStudent.enrolledCourses)
+            .attach('profilePic', profilePic, 'profilePic.jpg'); // 'profilePic' is the field name for the file
 
-        const duplicatePhoneStudent = {
+        testStudent = {
             fname: 'Test',
             lname: 'Student',
             gender: 'Male',
@@ -172,7 +260,19 @@ describe('Student Controller - userSignup', () => {
 
         const res = await request(app)
             .post('/student/signup')
-            .send(duplicatePhoneStudent);
+            .field('fname', testStudent.fname)
+            .field('lname', testStudent.lname)
+            .field('gender', testStudent.gender)
+            .field('location', testStudent.location)
+            .field('dob', testStudent.dob)
+            .field('username', testStudent.username)
+            .field('password', testStudent.password)
+            .field('phone', testStudent.phone)
+            .field('email', testStudent.email)
+            .field('interests', JSON.stringify(testStudent.interests))
+            .field('bookmarkedCourses', testStudent.bookmarkedCourses)
+            .field('enrolledCourses', testStudent.enrolledCourses)
+            .attach('profilePic', profilePic, 'profilePic.jpg'); // 'profilePic' is the field name for the file
 
         expect(res.status).to.equal(409);
         expect(res.body.message).to.equal('Phone number is already in use - Student');
@@ -227,7 +327,12 @@ describe('Student Controller - userEdit', () => {
             .patch('/student/edit-profile')
             .set('Authorization', 'Bearer ' + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE3MDAyOTk0NjksImV4cCI6MTczMTgzNTQ2OSwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsInVzZXJJZCI6IjkzODkzNDg5Mzg5MzUzNDA1MzQifQ.NdhN2vzwVFjnhVhjI-s5z-EL2ZrhMfEmhDcfSbk_YDA")
             .send({
-                fname: 'EditedTest',
+                fname: 'Test',
+                lname: 'Student',
+                gender: 'Male',
+                location: 'Test Location',
+                dob: '1990-01-01',
+                username: 'teststudent2',
             });
 
         expect(editRes.status).to.equal(401);
@@ -246,7 +351,12 @@ describe('Student Controller - userEdit', () => {
             .patch('/student/edit-profile')
             .set('Authorization', 'Bearer ' + loginRes.body.token)
             .send({
-                fname: 'JaySabva',
+                fname: 'Test',
+                lname: 'Student',
+                gender: 'Male',
+                location: 'Test Location',
+                dob: '1990-01-01',
+                username: 'teststudent2',
             });
 
         expect(editRes.status).to.equal(200);
@@ -392,7 +502,7 @@ describe('Student Controller - updatePassword', () => {
 // Educator
 describe('Educator Controller - userSignup', () => {
     it('should create a new educator', async () => {
-        const educator = {
+        const testEducator = {
             fname: 'Test',
             lname: 'Educator',
             gender: 'Male',
@@ -404,11 +514,26 @@ describe('Educator Controller - userSignup', () => {
             email: 'testeducator@example.com',
             upiID: 'testUPI@okAxis',
             bio: 'Test bio'
-        }
+        };
+
+        // Read the profile picture file
+        const imagePath = path.join(__dirname, 'images.png'); // Replace with the actual path to your educator's profile picture
+        const profilePic = fs.readFileSync(imagePath);
 
         const res = await request(app)
             .post('/educator/signup')
-            .send(educator);
+            .field('fname', testEducator.fname)
+            .field('lname', testEducator.lname)
+            .field('gender', testEducator.gender)
+            .field('dob', testEducator.dob)
+            .field('location', testEducator.location)
+            .field('username', testEducator.username)
+            .field('password', testEducator.password)
+            .field('phone', testEducator.phone)
+            .field('email', testEducator.email)
+            .field('upiID', testEducator.upiID)
+            .field('bio', testEducator.bio)
+            .attach('profilePic', profilePic, 'profilePic.jpg'); // 'profilePic' is the field name for the file
 
         expect(res.statusCode).to.equal(201);
         expect(res.body.message).to.equal('Educator created');
@@ -426,21 +551,47 @@ describe('Educator Controller - userSignup', () => {
             email: 'testeducator@example.com',
             upiID: 'testUPI@okAxis',
             bio: 'Test bio'
-        }
+        };
+
+        // Read the profile picture file
+        const imagePath = path.join(__dirname, 'images.png'); // Replace with the actual path to your educator's profile picture
+        const profilePic = fs.readFileSync(imagePath);
 
         const res = await request(app)
             .post('/educator/signup')
-            .send(educator);
+            .field('fname', educator.fname)
+            .field('lname', educator.lname)
+            .field('gender', educator.gender)
+            .field('dob', educator.dob)
+            .field('location', educator.location)
+            .field('username', educator.username)
+            .field('password', educator.password)
+            .field('phone', educator.phone)
+            .field('email', educator.email)
+            .field('upiID', educator.upiID)
+            .field('bio', educator.bio)
+            .attach('profilePic', profilePic, 'profilePic.jpg'); // 'profilePic' is the field name for the file
 
         const res2 = await request(app)
             .post('/educator/signup')
-            .send(educator);
+            .field('fname', educator.fname)
+            .field('lname', educator.lname)
+            .field('gender', educator.gender)
+            .field('dob', educator.dob)
+            .field('location', educator.location)
+            .field('username', educator.username)
+            .field('password', educator.password)
+            .field('phone', educator.phone)
+            .field('email', educator.email)
+            .field('upiID', educator.upiID)
+            .field('bio', educator.bio)
+            .attach('profilePic', profilePic, 'profilePic.jpg'); // 'profilePic' is the field name for the file
 
         expect(res.statusCode).to.equal(409);
         expect(res.body.message).to.equal('Mail is already in use - Educator');
     });
     it('should not create a new educator with an existing username', async () => {
-        const educator2 = {
+        const existingEducator = {
             fname: 'Test',
             lname: 'Educator',
             gender: 'Male',
@@ -448,20 +599,67 @@ describe('Educator Controller - userSignup', () => {
             location: 'Test Location',
             username: 'testeducator',
             password: 'testPassword',
+            phone: '1234567890',
+            email: 'testeducator@example.com',
+            upiID: 'testUPI@okAxis',
+            bio: 'Test bio'
+        };
+
+        // Read the profile picture file
+        const imagePath = path.join(__dirname, 'images.png'); // Replace with the actual path to your educator's profile picture
+        const profilePic = fs.readFileSync(imagePath);
+
+        // Use the 'attach' method to attach the profile picture to the request
+        const res = await request(app)
+            .post('/educator/signup')
+            .field('fname', existingEducator.fname)
+            .field('lname', existingEducator.lname)
+            .field('gender', existingEducator.gender)
+            .field('dob', existingEducator.dob)
+            .field('location', existingEducator.location)
+            .field('username', existingEducator.username)
+            .field('password', existingEducator.password)
+            .field('phone', existingEducator.phone)
+            .field('email', existingEducator.email)
+            .field('upiID', existingEducator.upiID)
+            .field('bio', existingEducator.bio)
+            .attach('profilePic', profilePic, 'profilePic.jpg'); // 'profilePic' is the field name for the file
+
+        const newEducator = {
+            fname: 'Test',
+            lname: 'Educator',
+            gender: 'Male',
+            dob: '1990-01-01',
+            location: 'Test Location',
+            username: 'testeducator', // Use the same username as the existing educator
+            password: 'testPassword',
             phone: '1234527890',
             email: 'tested2ucator@example.com',
             upiID: 'testUPI@okAxis',
             bio: 'Test bio'
-        }
+        };
+
+        // Attempt to create a new educator with the same username
         const res2 = await request(app)
             .post('/educator/signup')
-            .send(educator2);
+            .field('fname', newEducator.fname)
+            .field('lname', newEducator.lname)
+            .field('gender', newEducator.gender)
+            .field('dob', newEducator.dob)
+            .field('location', newEducator.location)
+            .field('username', newEducator.username)
+            .field('password', newEducator.password)
+            .field('phone', newEducator.phone)
+            .field('email', newEducator.email)
+            .field('upiID', newEducator.upiID)
+            .field('bio', newEducator.bio)
+            .attach('profilePic', profilePic, 'profilePic.jpg'); // 'profilePic' is the field name for the file
 
         expect(res2.statusCode).to.equal(409);
         expect(res2.body.message).to.equal('Username is already in use - Educator');
     });
     it('should not create a new educator with an existing phone number', async () => {
-        const educator = {
+        const existingEducator = {
             fname: 'Test',
             lname: 'Educator',
             gender: 'Male',
@@ -473,15 +671,62 @@ describe('Educator Controller - userSignup', () => {
             email: 'teste2ducator@example.com',
             upiID: 'testUPI@okAxis',
             bio: 'Test bio'
-        }
+        };
 
+        // Read the profile picture file
+        const imagePath = path.join(__dirname, 'images.png'); // Replace with the actual path to your educator's profile picture
+        const profilePic = fs.readFileSync(imagePath);
+
+        // Use the 'attach' method to attach the profile picture to the request
         const res = await request(app)
             .post('/educator/signup')
-            .send(educator);
+            .field('fname', existingEducator.fname)
+            .field('lname', existingEducator.lname)
+            .field('gender', existingEducator.gender)
+            .field('dob', existingEducator.dob)
+            .field('location', existingEducator.location)
+            .field('username', existingEducator.username)
+            .field('password', existingEducator.password)
+            .field('phone', existingEducator.phone)
+            .field('email', existingEducator.email)
+            .field('upiID', existingEducator.upiID)
+            .field('bio', existingEducator.bio)
+            .attach('profilePic', profilePic, 'profilePic.jpg'); // 'profilePic' is the field name for the file
 
-        expect(res.statusCode).to.equal(409);
-        expect(res.body.message).to.equal('Phone number is already in use - Educator');
+        const newEducator = {
+            fname: 'Test',
+            lname: 'Educator',
+            gender: 'Male',
+            dob: '1990-01-01',
+            location: 'Test Location',
+            username: 'test3educator',
+            password: 'testPassword',
+            phone: '1234567890', // Use the same phone number as the existing educator
+            email: 'test3educator@example.com',
+            upiID: 'testUPI@okAxis',
+            bio: 'Test bio'
+        };
+
+        // Attempt to create a new educator with the same phone number
+        const res2 = await request(app)
+            .post('/educator/signup')
+            .field('fname', newEducator.fname)
+            .field('lname', newEducator.lname)
+            .field('gender', newEducator.gender)
+            .field('dob', newEducator.dob)
+            .field('location', newEducator.location)
+            .field('username', newEducator.username)
+            .field('password', newEducator.password)
+            .field('phone', newEducator.phone)
+            .field('email', newEducator.email)
+            .field('upiID', newEducator.upiID)
+            .field('bio', newEducator.bio)
+            .attach('profilePic', profilePic, 'profilePic.jpg'); // 'profilePic' is the field name for the file
+
+        expect(res2.statusCode).to.equal(409);
+        expect(res2.body.message).to.equal('Phone number is already in use - Educator');
     });
+
 });
 
 describe('Educator Controller - userLogin', () => {
@@ -722,11 +967,25 @@ describe('Course Controller - createCourse', () => {
             prerequisites: 'Basic knowledge of programming',
             discussionForum: 'true', // Set to 'true' if you want to enable the discussion forum
         };
+        const imagePath = path.join(__dirname, 'images.png'); // Replace with the actual path to your educator's profile picture
+        const profilePic = fs.readFileSync(imagePath);
 
         const res2 = await request(app)
             .post('/educator/create-course')
             .set('Authorization', 'Bearer ' + res.body.token)
-            .send(course);
+            .field('courseTitle', course.courseTitle)
+            .field('courseDescription', course.courseDescription)
+            .field('courseDescriptionLong', course.courseDescriptionLong)
+            .field('coursePrice', course.coursePrice)
+            .field('tags', course.tags)
+            .field('courseLevel', course.courseLevel)
+            .field('courseCode', course.courseCode)
+            .field('language', course.language)
+            .field('visibility', course.visibility)
+            .field('prerequisites', course.prerequisites)
+            .field('discussionForum', course.discussionForum)
+            .attach('thumbnail', profilePic, 'profilePic.png');
+
 
         expect(res2.statusCode).to.equal(201);
         expect(res2.body.message).to.equal('Course created');
@@ -836,11 +1095,23 @@ describe('Course Controller - editCourse', () => {
             visibility: 'public',
             prerequisites: 'Basic knowledge of programming',
         };
+        const imagePath = path.join(__dirname, 'images.png'); // Replace with the actual path to your educator's profile picture
+        const profilePic = fs.readFileSync(imagePath);
 
         const res2 = await request(app)
             .patch(`/educator/edit-course/${courseId}`)
             .set('Authorization', 'Bearer ' + res.body.token)
-            .send(courseEdit);
+            .field('courseTitle', courseEdit.courseTitle)
+            .field('courseDescription', courseEdit.courseDescription)
+            .field('courseDescriptionLong', courseEdit.courseDescriptionLong)
+            .field('coursePrice', courseEdit.coursePrice)
+            .field('tags', courseEdit.tags)
+            .field('courseLevel', courseEdit.courseLevel)
+            .field('courseCode', courseEdit.courseCode)
+            .field('language', courseEdit.language)
+            .field('visibility', courseEdit.visibility)
+            .field('prerequisites', courseEdit.prerequisites)
+            .attach('thumbnail', profilePic, 'profilePic.png');
 
         expect(res2.statusCode).to.equal(200);
         expect(res2.body.message).to.equal('Course updated');
@@ -1484,6 +1755,9 @@ describe('Section Controller - addPost', () => {
             .post('/educator/login')
             .send(educator1)
 
+        const imagePath = path.join(__dirname, 'images.png'); // Replace with the actual path to your educator's profile picture
+        const profilePic = fs.readFileSync(imagePath);
+
         let educator = await Educator.findOne({email: 'testeducator@example.com'}).populate('courseCreated').exec();
 
         const res2 = await request(app)
@@ -1503,7 +1777,9 @@ describe('Section Controller - addPost', () => {
         const res1 = await request(app)
             .post(`/educator/add-post/${educator.courseCreated[0]._id}/${educator.courseCreated[0].courseSections[0]}`)
             .set('Authorization', 'Bearer ' + res.body.token)
-            .send(post);
+            .field('title', post.title)
+            .field('body', post.body)
+            .attach('attachments', profilePic, 'profilePic.png');
 
         expect(res1.statusCode).to.equal(201);
         expect(res1.body.message).to.equal('Post added');
@@ -1585,6 +1861,9 @@ describe('Section Controller - editPost', () => {
             title: 'testPost',
             body: 'testContent',
         }
+        const imagePath = path.join(__dirname, 'images.png'); // Replace with the actual path to your educator's profile picture
+        const profilePic = fs.readFileSync(imagePath);
+
         const res = await request(app)
             .post('/educator/login')
             .send(educator1)
@@ -1594,7 +1873,9 @@ describe('Section Controller - editPost', () => {
         const res1 = await request(app)
             .patch(`/educator/edit-post/${course._id}/${course.courseSections[0]._id}/${course.courseSections[0].posts[0]._id}`)
             .set('Authorization', 'Bearer ' + res.body.token)
-            .send(post);
+            .field('title', post.title)
+            .field('body', post.body)
+            .attach('attachments', profilePic, 'profilePic.png');
 
         expect(res1.statusCode).to.equal(200);
         expect(res1.body.message).to.equal('Post edited');
@@ -2247,13 +2528,19 @@ describe('Assignment Controller - CreateAssignment', () => {
             title: 'testAssignment',
             description: 'testDescription',
             dueDate: '2021-04-30',
-            attachment: 'testAttachment'
         };
+        const imagePath = path.join(__dirname, 'images.png'); // Replace with the actual path to your educator's profile picture
+        const profilePic = fs.readFileSync(imagePath);
+
         const res2 = await request(app)
             .post(`/educator/create-assignment/${course._id}`)
-            .send(assignment)
-            .set('Authorization', 'Bearer ' + res.body.token);
+            .set('Authorization', 'Bearer ' + res.body.token)
+            .field('title', assignment.title)
+            .field('description', assignment.description)
+            .field('dueDate', assignment.dueDate)
+            .attach('attachments', profilePic, 'profilePic.png');
 
+        console.log(res2.body);
         expect(res2.statusCode).to.equal(201);
         expect(res2.body.message).to.equal('Assignment created');
     });
@@ -2342,5 +2629,358 @@ describe('Assignment Controller - DeleteAssignment', () => {
 
         expect(res2.statusCode).to.equal(200);
         expect(res2.body.message).to.equal('Assignment deleted');
+    });
+});
+describe('Assignment Controller - gradeSubmission', () => {
+    it('should return 401 if user is not an educator', async () => {
+        const student1 = {
+            email: 'teststudent@example.com',
+            password: 'testPassword',
+        };
+
+        const res = await request(app)
+            .post('/student/login')
+            .send(student1);
+
+        const educator = await Educator.findOne({email: 'testeducator@example.com'}).exec();
+        const course = await Course.findOne({createdBy: educator._id});
+        const student = await Student.findOne({email: student1.email});
+        course.enrolledStudents.push(student._id);
+        await course.save();
+        const assignment = new Assignment({
+            title: 'testAssignment',
+            description: 'testDescription',
+            course: course._id,
+            assignedBy: educator._id,
+        });
+
+        const imagePath = path.join(__dirname, 'images.png'); // Replace with the actual path to your educator's profile picture
+        const profilePic = fs.readFileSync(imagePath);
+
+        assignment.dueDate = new Date('2025-04-30');
+        await assignment.save();
+        const submission = {
+            submission: 'testSubmission',
+        };
+        const res2 = await request(app)
+            .post(`/student/submit-assignment/${assignment.course}/${assignment._id}`)
+            .set('Authorization', 'Bearer ' + res.body.token)
+            .field('submission', submission.submission)
+            .attach('submission', profilePic, 'profilePic.png');
+
+        assignment.submission.push(res2.body.submission._id);
+        await assignment.save();
+        console.log(res2.body);
+        const res3 = await request(app)
+            .post(`/educator/grade-assignment/${assignment.course}/${assignment._id}/${res2.body.submission._id}`)
+            .set('Authorization', 'Bearer ' + res.body.token);
+
+        expect(res3.statusCode).to.equal(401);
+        expect(res3.body.message).to.equal('Unauthorized');
+    });
+    it('should return 404 if assignment is not found', async () => {
+        const educator = {
+            email: 'testeducator@example.com',
+            password: 'testPassword',
+        };
+
+        const res = await request(app)
+            .post('/educator/login')
+            .send(educator);
+
+        const edu = await Educator.findOne({email: educator.email});
+        const course = await Course.findOne({createdBy: edu._id});
+        const assignment = await Assignment.findOne({assignedBy: edu._id});
+
+        const res2 = await request(app)
+            .post(`/educator/grade-assignment/${course._id}/123456789012345678901234/${assignment.submission[0]}`)
+            .set('Authorization', 'Bearer ' + res.body.token);
+
+        expect(res2.statusCode).to.equal(404);
+        expect(res2.body.message).to.equal('Assignment not found');
+    });
+    it('should return 404 if submission is not found', async () => {
+        const educator = {
+            email: 'testeducator@example.com',
+            password: 'testPassword',
+        };
+
+        const res = await request(app)
+            .post('/educator/login')
+            .send(educator);
+
+        const edu = await Educator.findOne({email: educator.email});
+        const course = await Course.findOne({createdBy: edu._id});
+        const assignment = await Assignment.findOne({assignedBy: edu._id});
+
+        const res2 = await request(app)
+            .post(`/educator/grade-assignment/${course._id}/${assignment._id}/123456789012345678901234`)
+            .set('Authorization', 'Bearer ' + res.body.token);
+
+        expect(res2.statusCode).to.equal(404);
+        expect(res2.body.message).to.equal('Submission not found');
+    });
+    it('should return 401 if educator is not the creator of the course', async () => {
+        const educator = {
+            email: 'testeduc1ator@example.com',
+            password: 'testPassword',
+        };
+
+        const res = await request(app)
+            .post('/educator/login')
+            .send(educator);
+
+        const edu = await Educator.findOne({email: 'testeducator@example.com'});
+        const course = await Course.findOne({createdBy: edu._id});
+        const assignment = await Assignment.findOne({assignedBy: edu._id});
+
+        const res2 = await request(app)
+            .post(`/educator/grade-assignment/${course._id}/${assignment._id}/${assignment.submission[0]}`)
+            .set('Authorization', 'Bearer ' + res.body.token);
+
+        expect(res2.statusCode).to.equal(401);
+        expect(res2.body.message).to.equal('Unauthorized');
+    });
+    it('should return 200 if submission is graded', async () => {
+        const educator = {
+            email: 'testeducator@example.com',
+            password: 'testPassword',
+        };
+
+        const res = await request(app)
+            .post('/educator/login')
+            .send(educator);
+
+        const edu = await Educator.findOne({email: educator.email});
+        const course = await Course.findOne({createdBy: edu._id});
+        const assignment = await Assignment.findOne({assignedBy: edu._id});
+        const student = await Student.findOne({email: 'teststudent@example.com'});
+        const submission = new Submission({
+            assignment: assignment._id,
+            submittedBy: student._id,
+            submission: 'testSubmission',
+        });
+
+        await submission.save();
+        const res2 = await request(app)
+            .post(`/educator/grade-assignment/${course._id}/${assignment._id}/${assignment.submission[0]}`)
+            .set('Authorization', 'Bearer ' + res.body.token);
+
+        expect(res2.statusCode).to.equal(200);
+        expect(res2.body.message).to.equal('Assignment graded');
+    });
+});
+
+// Submission
+describe('Submission Controller - submit', () => {
+    it('should return 404 if assignment is not found', async () => {
+        const student = {
+            email: 'teststudent@example.com',
+            password: 'testPassword',
+        };
+
+        const res = await request(app)
+            .post('/student/login')
+            .send(student);
+
+        const stu = await Student.findOne({email: student.email});
+
+        const submission = {
+            submission: 'testSubmission',
+        };
+        const res2 = await request(app)
+            .post(`/student/submit-assignment/${stu.enrolledCourses[0]}/655a10bd1787942f1711ba04`)
+            .send(submission)
+            .set('Authorization', 'Bearer ' + res.body.token);
+
+        console.log(res2.body);
+        expect(res2.statusCode).to.equal(404);
+        expect(res2.body.message).to.equal('Assignment not found');
+    });
+    it('should return 401 if assignment submission time is over', async () => {
+        const student = {
+            email: 'teststudent@example.com',
+            password: 'testPassword',
+        };
+
+        const res = await request(app)
+            .post('/student/login')
+            .send(student);
+
+        const stu = await Student.findOne({email: student.email});
+        const course = await Course.findById(stu.enrolledCourses[0]);
+        const assignment = new Assignment({
+            title: 'testAssignment',
+            description: 'testDescription',
+            dueDate: '2021-04-01',
+            attachment: 'testAttachment',
+            course: stu.enrolledCourses[0],
+            assignedBy: course.createdBy
+        });
+
+        await assignment.save();
+
+        const submission = {
+            submission: 'testSubmission',
+        };
+
+
+        const res2 = await request(app)
+            .post(`/student/submit-assignment/${stu.enrolledCourses[0]}/${assignment._id}`)
+            .send(submission)
+            .set('Authorization', 'Bearer ' + res.body.token);
+
+        expect(res2.statusCode).to.equal(401);
+        expect(res2.body.message).to.equal('Assignment submission time is over');
+    });
+    it('should return 404 if course is not found', async () => {
+        const student = {
+            email: 'teststudent@example.com',
+            password: 'testPassword',
+        };
+
+        const res = await request(app)
+            .post('/student/login')
+            .send(student);
+
+        const submission = {
+            submission: 'testSubmission',
+        };
+
+        const res2 = await request(app)
+            .post(`/student/submit-assignment/123456789012345678901234/123456789012345678901234`)
+            .send(submission)
+            .set('Authorization', 'Bearer ' + res.body.token);
+
+        expect(res2.statusCode).to.equal(404);
+        expect(res2.body.message).to.equal('Course not found');
+    });
+    it('should return 401 if student is not enrolled in the course', async () => {
+        const student = {
+            email: 'teststudent@example.com',
+            password: 'testPassword',
+        };
+
+        const res = await request(app)
+            .post('/student/login')
+            .send(student);
+
+        const stu = await Student.findOne({email: student.email});
+        const course = await Course.findById(stu.enrolledCourses[0]);
+        course.enrolledStudents.pull(stu._id);
+        await course.save();
+
+        const submission = {
+            submission: 'testSubmission',
+        };
+
+        const res2 = await request(app)
+            .post(`/student/submit-assignment/${stu.enrolledCourses[0]}/123456789012345678901234`)
+            .send(submission)
+            .set('Authorization', 'Bearer ' + res.body.token);
+
+        course.enrolledStudents.push(stu._id);
+        await course.save();
+        expect(res2.statusCode).to.equal(401);
+        expect(res2.body.message).to.equal('You are not enrolled in this course');
+    });
+    it('should submit assignment successfully', async () => {
+        const student = {
+            email: 'teststudent@example.com',
+            password: 'testPassword',
+        };
+
+        const res = await request(app)
+            .post('/student/login')
+            .send(student);
+
+        const stu = await Student.findOne({email: student.email});
+        const course = await Course.findById(stu.enrolledCourses[0]);
+        const assignment = new Assignment({
+            title: 'testAssignment',
+            description: 'testDescription',
+            dueDate: '2028-04-30',
+            attachment: 'testAttachment',
+            course: stu.enrolledCourses[0],
+            assignedBy: course.createdBy
+        });
+
+        await assignment.save();
+
+        const submission = {
+            submission: 'testSubmission',
+        };
+
+        const res2 = await request(app)
+            .post(`/student/submit-assignment/${stu.enrolledCourses[0]}/${assignment._id}`)
+            .send(submission)
+            .set('Authorization', 'Bearer ' + res.body.token);
+
+        expect(res2.statusCode).to.equal(201);
+        expect(res2.body.message).to.equal('Submission successful');
+    });
+});
+
+describe('Submission Controller - delete', () => {
+    it('should return 404 if course is not found', async () => {
+        const student = {
+            email: 'teststudent@example.com',
+            password: 'testPassword',
+        };
+
+        const res = await request(app)
+            .post('/student/login')
+            .send(student);
+
+        const res2 = await request(app)
+            .delete(`/student/delete-submission/123456789012345678901234/123456789012345678901234`)
+            .set('Authorization', 'Bearer ' + res.body.token);
+
+        expect(res2.statusCode).to.equal(404);
+        expect(res2.body.message).to.equal('Course not found');
+    });
+    it('should return 401 if student is not enrolled in the course', async () => {
+        const student = {
+            email: 'teststudent@example.com',
+            password: 'testPassword',
+        };
+
+        const res = await request(app)
+            .post('/student/login')
+            .send(student);
+
+        const stu = await Student.findOne({email: student.email});
+        const course = await Course.findOne();
+        course.enrolledStudents.pull(stu._id);
+        await course.save();
+
+        const res2 = await request(app)
+            .delete(`/student/delete-submission/${course._id}/123456789012345678901234`)
+            .set('Authorization', 'Bearer ' + res.body.token);
+
+        expect(res2.statusCode).to.equal(401);
+        expect(res2.body.message).to.equal('You are not enrolled in this course');
+    });
+    it('should return 404 if submission is not found', async () => {
+        const student = {
+            email: 'teststudent@example.com',
+            password: 'testPassword',
+        };
+
+        const res = await request(app)
+            .post('/student/login')
+            .send(student);
+
+        const stu = await Student.findOne({email: student.email});
+        const course = await Course.findOne();
+        course.enrolledStudents.push(stu._id);
+        await course.save();
+
+        const res2 = await request(app)
+            .delete(`/student/delete-submission/${course._id}/123456789012345678901234`)
+            .set('Authorization', 'Bearer ' + res.body.token);
+
+        expect(res2.statusCode).to.equal(404);
+        expect(res2.body.message).to.equal('Submission not found');
     });
 });
