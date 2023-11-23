@@ -269,6 +269,7 @@ exports.getCourse = async (req, res, next) => {
             .select('_id courseTitle courseDescriptionLong coursePrice courseLevel courseCode courseSections courseAssignments language prerequisites rating courseFeedback discussionForum enrolledStudents createdBy')
             .populate('courseSections')
             .populate('courseAssignments')
+            .populate({path: 'enrolledStudents', model: 'Student', select: 'username'})
             .populate({
                 path: 'discussionForum',
                 populate: {
@@ -282,7 +283,7 @@ exports.getCourse = async (req, res, next) => {
                 populate: {
                     path: 'messages.createdByStudent',
                     model: 'Student',
-                    select: 'fname lname',
+                    select: 'username',
                 },
             })
             .exec();
