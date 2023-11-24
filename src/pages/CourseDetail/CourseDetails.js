@@ -7,11 +7,11 @@ import DicussionForum from './CourseDetailComponents/DicussionForum/DicussionFor
 import BasicTextFields from './CourseDetailComponents/Buttons/button'
 import LoadingComponent from '../Loading/Loading'
 import getToken from '../../services/getToken'
-import { getCourseData, getStudentProfile, checkIfenrolled } from '../../services/Apis';
+import { getCourseData, getStudentProfile, checkIfenrolled, RateCourse } from '../../services/Apis';
 import { Navigate, useParams } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
 import StuNavbar from './../student/Dashboard/Sidebar/Sidebar'
-
+import RateCourseDialog from './CourseDetailComponents/RateCourse';
 const CourseDetails = () => {
 
     const { courseId } = useParams()
@@ -98,7 +98,12 @@ const CourseDetails = () => {
                         //   currentUserId={profile?._id} 
                           />
                                 </div> */}
+                                 <RateCourseDialog
+                                courseId={courseId}
+                                />
+                                
                             </div>
+                           
                         </>
                     }
                 </div>

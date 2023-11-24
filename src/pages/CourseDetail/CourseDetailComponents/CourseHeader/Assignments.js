@@ -18,7 +18,7 @@ import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import { deleteAssignment } from '../../../../services/Apis';
 import getToken from '../../../../services/getToken';
-
+import AssignmentSubmissionForm from './AssignmentSubmissionForm';
 function CourseContent(props) {
     const { description } = props;
     return (
@@ -123,7 +123,7 @@ AssignmentEditForm.propTypes = {
     initialData: PropTypes.object,
 };
 
-export function Tmp({ link, title, filename, usertype, createdby, isEnrolled }) {
+export function Tmp({ link, title, filename, usertype, createdby, isEnrolled, assignmentId,submissionId, deadline}) {
     const [openAssignmentDialog, setOpenAssignmentDialog] = useState(false);
     const [fullScreen, setFullScreen] = useState(false);
     const theme = useTheme();
@@ -151,8 +151,9 @@ export function Tmp({ link, title, filename, usertype, createdby, isEnrolled }) 
 
     return (
 
-
+        
         <li>
+            
             <IconButton onClick={handleOpenAssignmentDialog}>
                 <AssignmentIcon style={{ fontSize: '25px' }} />
                 <span style={{
@@ -189,14 +190,18 @@ export function Tmp({ link, title, filename, usertype, createdby, isEnrolled }) 
                     </Button>
                 </DialogActions>
             </Dialog>
-
+            <AssignmentSubmissionForm
+                 assignmentId={assignmentId}
+                 submissionId={submissionId}
+                 deadline={deadline}
+            />                
         </li>
     );
 }
 
 
 export function Assigments(props) {
-    const { title, description, assignmentLink, assignmentId, deadline, createdby, usertype, isEnrolled } = props;
+    const { title, description, assignmentLink, assignmentId, deadline, createdby, usertype, isEnrolled, submissionId } = props;
 
     const { courseId } = useParams();
     const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining(deadline));
@@ -214,22 +219,23 @@ export function Assigments(props) {
 
 
     function calculateTimeRemaining(endTime) {
-        const deadlineTime = new Date(endTime).getTime();
-        const currentTime = new Date().getTime();
-        const timeDifference = deadlineTime - currentTime;
+    const deadlineTime = new Date(endTime).getTime();
+    const currentTime = new Date().getTime();
+    const timeDifference = deadlineTime - currentTime;
 
-        if (timeDifference <= 0) {
-            // Deadline 
-            return 'Deadline has passed';
-        }
-
-        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-
-        return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    if (timeDifference <= 0) {
+        // Deadline has passed
+        return 'Deadline has passed';
     }
+
+    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+}
+
 
     const handleOpenEditForm = () => {
         if ((usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled)) {
@@ -298,12 +304,16 @@ export function Assigments(props) {
                                 usertype={usertype}
                                 createdby={createdby}
                                 isEnrolled={isEnrolled}
+                                assignmentId={assignmentId}
+                                submissionId={submissionId}
+                                deadline={deadline}
                             />
                         ))}
                     </ul>
 
                     {((usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled)) && deadline && (
                         <div>
+                             
                             <Typography variant="subtitle1" style={{ fontWeight: 'bold', marginBottom: '8px' }} >Deadline: {formatDeadline(deadline)}</Typography>
                             <Typography variant="subtitle1" style={{ marginBottom: '8px' }} >Time remaining: {timeRemaining}</Typography>
                         </div>
@@ -340,6 +350,13 @@ export function Assigments(props) {
                     }}
                 />
             </AccordionDetails>
+             {/* Assignment Submission Form */}
+             {/* <AssignmentSubmissionForm
+                open={openSubmissionForm}
+                onClose={handleCloseSubmissionForm}
+                onSubmit={handleSubmitSubmissionForm}
+                assignmentId={assignment._id}
+            /> */}
         </Accordion>
     );
 

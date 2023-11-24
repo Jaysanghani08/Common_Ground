@@ -24,39 +24,14 @@ export const homeAbout = [
   },
 ]
 
-export const awrapper = [
-  {
-    cover: "https://img.icons8.com/external-yogi-aprelliyanto-basic-outline-yogi-aprelliyanto/80/ffffff/external-graduation-education-yogi-aprelliyanto-basic-outline-yogi-aprelliyanto.png",
-    data: "3,000",
-    title: "SUCCESS STORIES",
-  },
 
-  {
-    cover: "https://img.icons8.com/ios/80/ffffff/athlete.png",
-    data: "320",
-    title: "TRUSTED TUTORS",
-  },
-  {
-    cover: "https://img.icons8.com/external-outline-icons-maxicons/80/ffffff/external-calender-insurance-outline-outline-icons-maxicons.png",
-    data: "1,000",
-    title: "SCHEDULES",
-  },
-  {
-    cover: "https://img.icons8.com/ios/80/ffffff/macbook-idea--v3.png",
-    data: "587",
-    title: "COURSES",
-  },
-]
 const AboutCard = () => {
   return (
     <>
       <section className='aboutHome'>
         <div className='container flexSB'>
-          <div className='left row'>
-            <img src='https://s40424.pcdn.co/in/wp-content/uploads/2022/09/12-Benefits-of-Online-Learning-for-Working-Professionals.jpg.optimal.jpg' alt='' />
-          </div>
           <div className='right row'>
-            <div className="heading">
+          <div className="heading">
             <h2>ENABLE LIFELONG LEARNING</h2>
             <h3>Advantages of Sharing Your Expertise Online</h3>
             </div>
@@ -75,6 +50,10 @@ const AboutCard = () => {
                 )
               })}
             </div>
+            
+          </div>
+          <div className='left row'>
+          <img src='https://s40424.pcdn.co/in/wp-content/uploads/2022/09/12-Benefits-of-Online-Learning-for-Working-Professionals.jpg.optimal.jpg' alt='' />
           </div>
         </div>
       </section>

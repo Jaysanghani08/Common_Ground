@@ -15,7 +15,7 @@
     object-fit: cover;
   }
   .aboutHome .right {
-    padding: 80px 50px;
+    /* padding: 80px 50px; */
   }
   .aboutHome .items {
     margin-top: 50px;
@@ -58,4 +58,20 @@
     margin: auto;
     max-width: 85%;
 }
+
+.left{
+  display: flex;
+    align-items: center;
+    background-color: aliceblue;
+}
  
+.left-text{
+  display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.left-text h5{
+  color: aqua;
+  width: 70%;
+}

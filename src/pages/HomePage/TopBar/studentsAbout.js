@@ -50,13 +50,14 @@ const AboutCard = () => {
       <section className='aboutHome'>
         <div className='container flexSB'>
           <div className='left row'>
-            <img src='https://previews.123rf.com/images/stockgiu/stockgiu1902/stockgiu190207314/117472048-school-online-education-student-boy-with-laptop-cartoon-vector-illustration-graphic-design.jpg' alt='' />
+            {/* <img src='https://previews.123rf.com/images/stockgiu/stockgiu1902/stockgiu190207314/117472048-school-online-education-student-boy-with-laptop-cartoon-vector-illustration-graphic-design.jpg' alt='' /> */}
+            <div className="left-text">
+              <h2>Why choose</h2>
+              <h2>Common Ground</h2>
+              <h5>Look into yourself, get something in return as your achievement.</h5>
+              </div>
           </div>
           <div className='right row'>
-            <div className="heading">
-            <h2>LEARN ANYTHING</h2>
-            <h3>Benefits About Online Learning Expertise</h3>
-            </div>
             <div className='items'>
               {homeAbout.map((val) => {
                 return (
