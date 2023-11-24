@@ -10,7 +10,7 @@ import {
 } from "./ComentsApi"; // Import the API functions
 import { toast } from "react-toastify";
 
-const DicussionForum = ({ data }) => {
+const DicussionForum = ({ data,  usertype, createdby, isEnrolled }) => {
     const [comments, setComments] = useState([]);
     const [activeComment, setActiveComment] = useState(null);
 
@@ -21,7 +21,7 @@ const DicussionForum = ({ data }) => {
             message: text,
         };
 
-        const cc = await createComment(courseId, data);
+        const cc = await createComment(courseId, usertype, data);
         if(cc?.status === 201){
             console.log(cc);
             toast.success("Comment created successfully")
@@ -64,32 +64,21 @@ const DicussionForum = ({ data }) => {
         }
     };
 
-    // useEffect(() => {
-    //     getComments(courseId)
-    //         .then((data) => {
-    //             console.log("Received comments:", data);  
-    //             setComments(data.reverse()); // Reverse to display newest comments first
-    //         })
-    //         .catch((error) => {
-    //             // console.error("Error fetching comments: ", error);
-    //         });
-    // }, [courseId]);
-
     return (
         <div className="comments" >
             <div className="comments-container">
                 <h3 className="comments-title">Discussion Forum</h3>
                 {data
-                  
                     .map((rootComment) => (
                         <Comment
                         key={rootComment._id}
                         comment={rootComment}
                         setActiveComment={setActiveComment}
                         activeComment={activeComment}
-                        updateComment={updateCommentText}
-                        deleteComment={deleteCommentById}
                         currentUserId={rootComment.createdByEducator?._id || rootComment.createdByStudent?._id}
+                        usertype={usertype}
+                        createdby={createdby}
+                        isEnrolled={isEnrolled}
                     />
                     ))}
                      
