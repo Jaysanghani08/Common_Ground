@@ -26,7 +26,7 @@ function AssignmentSubmissionForm({ courseId, assignmentId, submissionId, deadli
 
             if (response?.status === 200) {
                 toast.success('Assignment submitted successfully');
-                onSubmit(submissionData); 
+                onSubmit(submissionData);
             } else {
                 toast.error('Error submitting assignment');
             }
@@ -72,7 +72,7 @@ function AssignmentSubmissionForm({ courseId, assignmentId, submissionId, deadli
     };
 
     const onSubmit = (data) => {
-    
+
         console.log('Submission data:', data);
     };
 
@@ -85,27 +85,29 @@ function AssignmentSubmissionForm({ courseId, assignmentId, submissionId, deadli
             <Dialog open={openSubmissionForm} onClose={onClose}>
                 <DialogTitle>Submit Assignment</DialogTitle>
                 <DialogContent>
-                    <form onSubmit={handleSubmit}>
-                        <TextField
-                            label="Submission Data"
-                            variant="outlined"
-                            fullWidth
-                            value={submissionData}
-                            onChange={handleInputChange}
-                        />
-                        <DialogActions>
-                            <Button type="submit" color="primary" onClick={handleSubmit}>
-                                Submit
-                            </Button>
-                            <Button onClick={handleDeleteSubmission} color="secondary">
-                                Delete Submission
-                            </Button>
-                            <Button onClick={onClose} color="default">
-                                Cancel
-                            </Button>
-                        </DialogActions>
-                    </form>
+                    <>
+                        <form>
+                            <TextField
+                                label="Submission Data"
+                                variant="outlined"
+                                fullWidth
+                                value={submissionData}
+                                onChange={handleInputChange}
+                            />
+                        </form>
+                    </>
                 </DialogContent>
+                <DialogActions>
+                    <Button type="submit" color="primary" onClick={handleSubmit}>
+                        Submit
+                    </Button>
+                    <Button onClick={handleDeleteSubmission} color="secondary">
+                        Delete Submission
+                    </Button>
+                    <Button onClick={onClose} color="default">
+                        Cancel
+                    </Button>
+                </DialogActions>
             </Dialog>
 
             <Button variant="outlined" color="primary" onClick={handleOpenSubmissionForm}>

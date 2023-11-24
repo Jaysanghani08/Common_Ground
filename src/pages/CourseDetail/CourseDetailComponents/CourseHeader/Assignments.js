@@ -19,6 +19,7 @@ import { toast } from 'react-toastify';
 import { deleteAssignment } from '../../../../services/Apis';
 import getToken from '../../../../services/getToken';
 import AssignmentSubmissionForm from './AssignmentSubmissionForm';
+import FormDialog from './tmp';
 function CourseContent(props) {
     const { description } = props;
     return (
@@ -123,12 +124,11 @@ AssignmentEditForm.propTypes = {
     initialData: PropTypes.object,
 };
 
-export function Tmp({ link, title, filename, usertype, createdby, isEnrolled, assignmentId,submissionId, deadline}) {
+export function Tmp({ link, title, filename, usertype, createdby, isEnrolled, assignmentId, submissionId, deadline }) {
     const [openAssignmentDialog, setOpenAssignmentDialog] = useState(false);
     const [fullScreen, setFullScreen] = useState(false);
     const theme = useTheme();
     const fullScreenDialog = useMediaQuery(theme.breakpoints.down('sm'));
-
 
 
     const toggleFullScreen = () => {
@@ -151,9 +151,9 @@ export function Tmp({ link, title, filename, usertype, createdby, isEnrolled, as
 
     return (
 
-        
+
         <li>
-            
+
             <IconButton onClick={handleOpenAssignmentDialog}>
                 <AssignmentIcon style={{ fontSize: '25px' }} />
                 <span style={{
@@ -190,51 +190,54 @@ export function Tmp({ link, title, filename, usertype, createdby, isEnrolled, as
                     </Button>
                 </DialogActions>
             </Dialog>
-            <AssignmentSubmissionForm
-                 assignmentId={assignmentId}
-                 submissionId={submissionId}
-                 deadline={deadline}
-            />                
+            {/* <AssignmentSubmissionForm
+                assignmentId={assignmentId}
+                submissionId={submissionId}
+                deadline={deadline}
+            /> */}
+
         </li>
     );
 }
 
 
 export function Assigments(props) {
-    const { title, description, assignmentLink, assignmentId, deadline, createdby, usertype, isEnrolled, submissionId } = props;
-
+    const { title, description, assignmentLink, assignmentId, deadline, createdby, submissiondata, usertype, isEnrolled } = props;
+    const isSubmitted = submissiondata.length !== 0;
+    const submissionId = submissiondata.length !== 0 ? submissiondata[0]._id : "";
     const { courseId } = useParams();
     const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining(deadline));
     const [openEditForm, setOpenEditForm] = useState(false);
     // console.log(assignmentLink);
 
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            setTimeRemaining(calculateTimeRemaining(deadline));
-        }, 1000);
 
-        return () => clearInterval(intervalId);
-    }, [deadline]);
+    // useEffect(() => {
+    //     const intervalId = setInterval(() => {
+    //         setTimeRemaining(calculateTimeRemaining(deadline));
+    //     }, 1000);
+
+    //     return () => clearInterval(intervalId);
+    // }, [deadline]);
 
 
 
     function calculateTimeRemaining(endTime) {
-    const deadlineTime = new Date(endTime).getTime();
-    const currentTime = new Date().getTime();
-    const timeDifference = deadlineTime - currentTime;
+        const deadlineTime = new Date(endTime).getTime();
+        const currentTime = new Date().getTime();
+        const timeDifference = deadlineTime - currentTime;
 
-    if (timeDifference <= 0) {
-        // Deadline has passed
-        return 'Deadline has passed';
+        if (timeDifference <= 0) {
+            // Deadline has passed
+            return 'Deadline has passed';
+        }
+
+        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+        return `${days}d ${hours}h ${minutes}m ${seconds}s`;
     }
-
-    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-
-    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
-}
 
 
     const handleOpenEditForm = () => {
@@ -305,7 +308,6 @@ export function Assigments(props) {
                                 createdby={createdby}
                                 isEnrolled={isEnrolled}
                                 assignmentId={assignmentId}
-                                submissionId={submissionId}
                                 deadline={deadline}
                             />
                         ))}
@@ -313,13 +315,22 @@ export function Assigments(props) {
 
                     {((usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled)) && deadline && (
                         <div>
-                             
+
                             <Typography variant="subtitle1" style={{ fontWeight: 'bold', marginBottom: '8px' }} >Deadline: {formatDeadline(deadline)}</Typography>
                             <Typography variant="subtitle1" style={{ marginBottom: '8px' }} >Time remaining: {timeRemaining}</Typography>
                         </div>
                     )}
                 </div>
 
+                <FormDialog
+                    assignmentId={assignmentId}
+                    submissionId={submissionId}
+                    deadline={deadline}
+                    isSubmitted={isSubmitted}
+                    createdby={createdby}
+                    usertype={usertype}
+                    isEnrolled={isEnrolled}
+                />
 
                 {
                     (usertype === 'educator' && getToken('educator')?.userId === createdby) &&
@@ -351,8 +362,8 @@ export function Assigments(props) {
                     }}
                 />
             </AccordionDetails>
-             {/* Assignment Submission Form */}
-             {/* <AssignmentSubmissionForm
+            {/* Assignment Submission Form */}
+            {/* <AssignmentSubmissionForm
                 open={openSubmissionForm}
                 onClose={handleCloseSubmissionForm}
                 onSubmit={handleSubmitSubmissionForm}
