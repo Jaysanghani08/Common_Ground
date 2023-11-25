@@ -18,7 +18,7 @@ import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import { deleteAssignment } from '../../../../services/Apis';
 import getToken from '../../../../services/getToken';
-import AssignmentSubmissionForm from './AssignmentSubmissionForm';
+import SubmissionViewer from './AssignmentSubmissionForm';
 import FormDialog from './tmp';
 function CourseContent(props) {
     const { description } = props;
@@ -149,6 +149,17 @@ export function Tmp({ link, title, filename, usertype, createdby, isEnrolled, as
         setOpenAssignmentDialog(false);
     };
 
+    
+    const [openSubmissionViewer, setOpenSubmissionViewer] = useState(false);
+
+    const handleViewSubmissions = () => {
+        setOpenSubmissionViewer(true);
+    };
+
+    const handleCloseSubmissionViewer = () => {
+        setOpenSubmissionViewer(false);
+    };
+
     return (
 
 
@@ -194,8 +205,16 @@ export function Tmp({ link, title, filename, usertype, createdby, isEnrolled, as
                 submissionId={submissionId}
                 deadline={deadline}
             /> */}
+      <Button variant="outlined" color="secondary" onClick={handleViewSubmissions}>
+                View Submissions
+            </Button>
 
-        </li>
+            <SubmissionViewer
+                assignmentId={assignmentId}
+                onClose={handleCloseSubmissionViewer}
+                open={openSubmissionViewer}
+            />
+            </li>
     );
 }
 
@@ -308,6 +327,7 @@ export function Assigments(props) {
                                 isEnrolled={isEnrolled}
                                 assignmentId={assignmentId}
                                 deadline={deadline}
+                                
                             />
                         ))}
                     </ul>
@@ -340,7 +360,9 @@ export function Assigments(props) {
                     </Button> */}
                         <Button variant="outlined" color="secondary" onClick={handleDelete}>
                             Delete
-                        </Button>
+                        </Button> 
+
+                       
                     </div>
                 }
 
