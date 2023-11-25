@@ -419,7 +419,21 @@ export const editStudentProfile = async (data) => {
     } catch (error) {
         throw new Error("Error editing profile");
     }
+    
 }
+export const gradeSubmission = async (courseId, assignmentId, submissionId, data) => {
+    try {
+        const response = await commonrequest("POST", `${BACKEND_URL}/educator/grade-assignment/${courseId}/${assignmentId}/${submissionId}`, data, {
+            'authorization': `Bearer ${token}`
+        });
+        return response;
+    } catch (error) {
+        throw new Error("Error grading the submission.");
+    }
+}
+
+
+
 // extra
 export const sentOtpFunction = async (data) => {
     return await commonrequest("POST", `${BACKEND_URL}/user/sendotp`, data)
