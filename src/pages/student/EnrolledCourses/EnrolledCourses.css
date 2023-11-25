@@ -8,6 +8,10 @@
     height: 100vh;
 }
 
+.edu_stu-viewcourses-large-input{
+    z-index: 10;
+}
+
 
 
 .stu_background_img{

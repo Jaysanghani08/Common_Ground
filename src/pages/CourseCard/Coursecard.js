@@ -37,9 +37,9 @@ const Coursecard = ({ course }) => {
                         <p className="courses_description"  >{truncatedDescription}</p>
                     </div>
                     <div className="courses_product-desc">
-                        <span className="courses_product-caption">By {course.instructor}</span>
+                        <span className="courses_product-caption">By {`${course.createdBy?.fname} ${course.createdBy?.lname}`}</span>
                         <span className="courses_product-rating">
-                            <Star stars={course.courserating} />
+                            <Star stars={course.rating >= 5 ? 5 : course.rating} />
                         </span>
                     </div>
                     <div className="courses_product-properties">

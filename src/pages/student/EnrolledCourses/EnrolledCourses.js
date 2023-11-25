@@ -15,7 +15,6 @@ const EnrolledCourses = () => {
     const [error, setError] = useState(null);
     // const [profile, setProfile] = useState(null);
     const [enrolledCourses, setEnrolledCourses] = useState(null);
-    // console.log(enrolledCourses)
 
     // console.log(courses)
     // console.log(profile)
@@ -42,6 +41,11 @@ const EnrolledCourses = () => {
         fetchData();
     }, []);
 
+    const [filter, setFilter] = useState('');
+    const filteredCourses = enrolledCourses ? enrolledCourses.filter(course =>
+        course.courseTitle.toLowerCase().includes(filter.toLowerCase())
+    ) : [];
+
     if (!token) {
         return <Navigate to="/student/login" />;
     }
@@ -65,7 +69,10 @@ const EnrolledCourses = () => {
                         <input
                             className='edu_stu-viewcourses-large-input'
                             type="text"
-                            placeholder="Search by course title" />
+                            placeholder="Search by course title"
+                            value={filter}
+                            onChange={e => setFilter(e.target.value)}
+                        />
 
                         <Button variant="contained">Search</Button>
 
@@ -86,8 +93,8 @@ const EnrolledCourses = () => {
             </video> */}
 
                         {
-                            enrolledCourses && enrolledCourses.map((course, index) => (
-                                <StuCourseCard key={index} courseCode={course.courseCode} courseDescription={course.courseDescription} courseTitle={course.courseTitle} instructor={course.instructor} courserating={course.courserating} enrolledStudents={course.enrolledStudents} coursePrice={course.coursePrice} _id={course._id} />
+                            filteredCourses && filteredCourses.map((course, index) => (
+                                <StuCourseCard key={index} courseCode={course.courseCode} courseDescription={course.courseDescription} courseTitle={course.courseTitle} instructor={`${course.createdBy?.fname} ${course.createdBy?.lname}`} courserating={course.rating} enrolledStudents={course.enrolledStudents} coursePrice={course.coursePrice} _id={course._id} />
                             ))
                         }
 
