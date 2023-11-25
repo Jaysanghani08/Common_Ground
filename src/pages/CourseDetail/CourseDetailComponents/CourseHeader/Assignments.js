@@ -160,7 +160,6 @@ export function Tmp({ link, title, filename, usertype, createdby, isEnrolled, as
                     filter: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'none' : 'blur(5px)',
                     userSelect: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'auto' : 'none',
                     pointerEvents: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'auto' : 'none',
-
                 }}>
                     {filename}
                 </span>
@@ -302,8 +301,8 @@ export function Assigments(props) {
                             <Tmp
                                 link={`http://localhost:8000/file/retrieve?courseId=${courseId}&path=${link}&jwt=${token}`}
                                 key={index}
-                                title={title}
-                                filename={link.split("/")[5]}
+                                title={`${title}/${link.split("/").pop()}`}
+                                filename={link.split("/").pop()}
                                 usertype={usertype}
                                 createdby={createdby}
                                 isEnrolled={isEnrolled}
@@ -327,6 +326,7 @@ export function Assigments(props) {
                     submissionId={submissionId}
                     deadline={deadline}
                     isSubmitted={isSubmitted}
+                    submissiondata={submissiondata}
                     createdby={createdby}
                     usertype={usertype}
                     isEnrolled={isEnrolled}
