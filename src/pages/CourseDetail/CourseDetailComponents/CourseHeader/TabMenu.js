@@ -299,7 +299,7 @@ export default function BasicTabs({ sections, courseAssignments, enrolledStudent
                             && <Tab style={{ fontSize: '18px' }} label="DISCUSSIONFORUM" {...a11yProps(2)} />
                         }
                         {
-                            (usertype === 'educator' && getToken('educator')?.userId === createdby) && 
+                            (usertype === 'educator' && getToken('educator')?.userId === createdby) &&
                             <Tab style={{ fontSize: '18px' }} label="STUDENTS" {...a11yProps(3)} />
                         }
                     </Tabs>
@@ -353,9 +353,12 @@ export default function BasicTabs({ sections, courseAssignments, enrolledStudent
                     }
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={2}>
-                    <div className="dicussion-forum">
-                        <DicussionForum data={discussionData}  usertype={usertype} createdby={createdby} isEnrolled={isEnrolled}/>
-                    </div>
+                    {
+                        ((usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled))
+                        && <div className="dicussion-forum">
+                            <DicussionForum data={discussionData} usertype={usertype} createdby={createdby} isEnrolled={isEnrolled} />
+                        </div>
+                    }
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={3}>
                     {/* <h2>STUDENTS</h2> */}
