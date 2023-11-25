@@ -274,7 +274,7 @@ exports.getCourse = async (req, res, next) => {
                 });
             }
             course = await Course.findById({_id: req.params.courseId, visibility: 'public'})
-                .select('_id courseTitle courseDescriptionLong coursePrice courseLevel courseCode courseSections courseAssignments language prerequisites rating courseFeedback discussionForum enrolledStudents createdBy')
+                .select('_id courseTitle courseDescriptionLong coursePrice courseLevel courseCode courseSections courseAssignments language prerequisites rating courseFeedback discussionForum enrolledStudents createdBy dateCreated')
                 .populate('courseSections')
                 .populate({
                     path: 'courseAssignments',
@@ -314,7 +314,7 @@ exports.getCourse = async (req, res, next) => {
                 .exec();
         } else if (req.userData.userType == "student") {
             course = await Course.findById({_id: req.params.courseId, visibility: 'public'})
-                .select('_id courseTitle courseDescriptionLong coursePrice courseLevel courseCode courseSections courseAssignments language prerequisites rating courseFeedback discussionForum enrolledStudents createdBy')
+                .select('_id courseTitle courseDescriptionLong coursePrice courseLevel courseCode courseSections courseAssignments language prerequisites rating courseFeedback discussionForum enrolledStudents createdBy dateCreated')
                 .populate('courseSections')
                 .populate({
                     path: 'courseAssignments',
