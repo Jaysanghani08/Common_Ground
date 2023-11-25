@@ -65,6 +65,13 @@ function EduDashboard() {
         return <div>Error: {error}</div>;
     }
 
+    const roundToDecimalPlaces = (number, decimalPlaces) => {
+        const factor = 10 ** decimalPlaces;
+        return Math.round(number * factor) / factor;
+      };
+
+    const rating = roundToDecimalPlaces(dashboardData.avgRating, 2)
+
     return (
         <>
             <div className="container1">
@@ -86,7 +93,7 @@ function EduDashboard() {
                     <div className="cards">
                         <Cards
                             income={dashboardData.totalEarning}
-                            rating={dashboardData.avgRating}
+                            rating={rating}
                             studentcnt={dashboardData.totalStudent}
                             totalcourses={dashboardData.totalCourses} />
                     </div>

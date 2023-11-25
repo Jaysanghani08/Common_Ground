@@ -91,7 +91,7 @@ const StuViewCourses = () => {
     const [error, setError] = useState(null);
     const [profile, setProfile] = useState(null);
 
-    // console.log(courses)
+    console.log(courses)
     // console.log(profile)
 
 

@@ -15,7 +15,6 @@ const EnrolledCourses = () => {
     const [error, setError] = useState(null);
     // const [profile, setProfile] = useState(null);
     const [enrolledCourses, setEnrolledCourses] = useState(null);
-    console.log(enrolledCourses)
 
     // console.log(courses)
     // console.log(profile)
@@ -46,8 +45,6 @@ const EnrolledCourses = () => {
     const filteredCourses = enrolledCourses ? enrolledCourses.filter(course =>
         course.courseTitle.toLowerCase().includes(filter.toLowerCase())
     ) : [];
-
-    console.log(filteredCourses)
 
     if (!token) {
         return <Navigate to="/student/login" />;

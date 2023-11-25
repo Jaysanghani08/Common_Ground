@@ -26,7 +26,6 @@ const CourseDetails = () => {
 
     console.log(coursedata)
 
-
     useEffect(() => {
 
         const fetchUsertype = async () => {
