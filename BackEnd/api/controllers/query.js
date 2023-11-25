@@ -268,6 +268,11 @@ exports.getCourse = async (req, res, next) => {
     try {
         let course;
         if (req.userData.userType == "educator") {
+            if (!await Course.findOne({_id: req.params.courseId, createdBy: req.userData.userId})) {
+                return res.status(401).json({
+                    message: 'You are not authorized to access this course'
+                });
+            }
             course = await Course.findById({_id: req.params.courseId, visibility: 'public'})
                 .select('_id courseTitle courseDescriptionLong coursePrice courseLevel courseCode courseSections courseAssignments language prerequisites rating courseFeedback discussionForum enrolledStudents createdBy')
                 .populate('courseSections')
