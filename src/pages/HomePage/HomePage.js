@@ -20,8 +20,8 @@ const HomePage = () => {
       <EducatorAbout/>
       <CoursesCard id="our-free-courses"/>
       <OnlineCourses id="courses"/>
-      <ChooseUs id="aboutus"/>
-      <AboutUs />
+      <AboutUs id="aboutus" />
+      <ChooseUs />
       <Footer id="contactus"/>
     </div>
   );

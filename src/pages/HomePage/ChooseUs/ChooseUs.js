@@ -8,15 +8,19 @@ const ChooseUs = ({id}) => {
     <div className="container">
       <div className="choose-container">
         <div className="choose__content">
-          <h2>Why Choose Us</h2>
           <h5>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt
-            mollitia nostrum harum eos praesentium odit a sed quod aut fugit.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit
-            omnis, culpa eligendi inventore perspiciatis minus. Lorem ipsum dolor
-            sit amet consectetur adipisicing elit. Dolores cupiditate facilis
-            provident quidem accusamus impedit tenetur laboriosam debitis nisi
-            eius!
+          Our team comprises dedicated 
+          educators, industry experts, and 
+          tech enthusiasts who believe in 
+the power of education to 
+transform lives. We aim to break 
+down barriers to education, 
+making it accessible to anyone, 
+anywhere. Join us on this 
+educational journey, where 
+curiosity meets expertise, and 
+together, let s unlock the door to 
+endless possibilities.
           </h5>
         </div>
         <div className="choose__background">

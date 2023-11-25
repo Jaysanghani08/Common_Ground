@@ -83,7 +83,7 @@ const EduOfferedCourses = () => {
 
 
     return (
-        <div className="container1">
+        <div className="container1 fill-container">
             <EdNavbar />
             {/* <div className='edc_container1'>
                 <div className="edu_overlay">
