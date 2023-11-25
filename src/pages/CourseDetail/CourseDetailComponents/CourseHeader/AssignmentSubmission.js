@@ -5,11 +5,21 @@ import IconButton from '@mui/material/IconButton';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 
-function SubmissionViewer({ assignmentId, onClose, open }) {
+function SubmissionViewer({ assignmentId}) {
     const [submissions, setSubmissions] = useState([]);
     const [openPdfDialog, setOpenPdfDialog] = useState(false);
     const [pdfTitle, setPdfTitle] = useState('');
     const [pdfFile, setPdfFile] = useState(null);
+
+    const [openSubmissionViewer, setOpenSubmissionViewer] = useState(false);
+
+    const handleViewSubmissions = () => {
+        setOpenSubmissionViewer(true);
+    };
+
+    const handleCloseSubmissionViewer = () => {
+        setOpenSubmissionViewer(false);
+    };
 
     useEffect(() => {
         const fetchSubmissions = async () => {
@@ -36,9 +46,14 @@ function SubmissionViewer({ assignmentId, onClose, open }) {
         setOpenPdfDialog(false);
     };
 
+
     return (
         <>
-            <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+        <Button variant="outlined" color="secondary" onClick={handleViewSubmissions}>
+                View Submissions
+            </Button>
+
+            <Dialog open={openSubmissionViewer} onClose={handleCloseSubmissionViewer} maxWidth="md" fullWidth>
                 <DialogTitle>View Submissions</DialogTitle>
                 <DialogContent>
                     <Table>
@@ -51,29 +66,32 @@ function SubmissionViewer({ assignmentId, onClose, open }) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {submissions.map((submission) => (
-                                <TableRow key={submission.studentId}>
-                                    <TableCell>{submission.studentName}</TableCell>
-                                    <TableCell>{submission.studentId}</TableCell>
-                                    <TableCell>{new Date(submission.submissionTime).toLocaleString()}</TableCell>
-                                    <TableCell>
-                                        {submission.pdfFile && (
-                                            <IconButton
-                                                edge="end"
-                                                color="inherit"
-                                                onClick={() => handleOpenPdfDialog(submission.pdfTitle, submission.pdfFile)}
-                                            >
-                                                <FullscreenIcon />
-                                            </IconButton>
-                                        )}
-                                    </TableCell>
-                                </TableRow>
-                            ))}
+                        {submissions.map((submission) => (
+                            <TableRow key={submission._id}>
+                                
+                                <TableCell>{submission.submittedBy.username}</TableCell>
+                            
+                                <TableCell>{submission.submittedBy._id}</TableCell>
+                            
+                                <TableCell>{new Date(submission.submissionTime).toLocaleString()}</TableCell>
+                                <TableCell>
+                                    {submission.submission && (
+                                        <IconButton
+                                            edge="end"
+                                            color="inherit"
+                                            onClick={() => handleOpenPdfDialog('PDF Title', submission.attachment)}
+                                        >
+                                            <FullscreenIcon />
+                                        </IconButton>
+                                    )}
+                                </TableCell>
+                            </TableRow>
+                             ))}
                         </TableBody>
                     </Table>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={onClose} color="primary">
+                    <Button onClick={handleCloseSubmissionViewer} color="primary">
                         Close
                     </Button>
                 </DialogActions>

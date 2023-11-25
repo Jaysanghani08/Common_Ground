@@ -18,7 +18,7 @@ import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import { deleteAssignment } from '../../../../services/Apis';
 import getToken from '../../../../services/getToken';
-import SubmissionViewer from './AssignmentSubmissionForm';
+import SubmissionViewer from './AssignmentSubmission';
 import FormDialog from './tmp';
 function CourseContent(props) {
     const { description } = props;
@@ -205,14 +205,11 @@ export function Tmp({ link, title, filename, usertype, createdby, isEnrolled, as
                 submissionId={submissionId}
                 deadline={deadline}
             /> */}
-      <Button variant="outlined" color="secondary" onClick={handleViewSubmissions}>
-                View Submissions
-            </Button>
+      
 
             <SubmissionViewer
                 assignmentId={assignmentId}
-                onClose={handleCloseSubmissionViewer}
-                open={openSubmissionViewer}
+                
             />
             </li>
     );
