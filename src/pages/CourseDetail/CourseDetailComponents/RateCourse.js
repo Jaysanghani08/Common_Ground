@@ -1,78 +1,92 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import Button from '@mui/material/Button';
 import Rating from '@mui/material/Rating';
+import Box from '@mui/material/Box';
 import { toast } from 'react-toastify';
 import { RateCourse } from '../../../services/Apis';
+import StarIcon from '@mui/icons-material/Star'; 
+import { Button } from '@mui/material';
+import { useParams } from "react-router-dom";
 
-function RateCourseDialog({ courseId }) {
-    const [open, setOpen] = useState(false);
-    const [rating, setRating] = useState(0);
+const getLabelText = (value) => {
+    return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
+};
 
-    const handleRatingChange = (event, newRating) => {
-        setRating(newRating);
-    };
+const labels = {
+    0.5: 'Useless',
+    1: 'Useless+',
+    1.5: 'Poor',
+    2: 'Poor+',
+    2.5: 'Ok',
+    3: 'Ok+',
+    3.5: 'Good',
+    4: 'Good+',
+    4.5: 'Excellent',
+    5: 'Excellent+',
+  };
 
-    const handleRateCourse = async () => {
-        try {
-            const response = await RateCourse(courseId, { rating });
+function RateCourseDialog() {
+  const [rating, setRating] = useState(0);
+  const [hover, setHover] = useState(-1);
+  const {courseId} = useParams()
 
-            if (response?.status === 200) {
-                toast.success('Course rated successfully');
-                handleClose();
-            } else {
-                toast.error('Error rating the course');
-            }
-        } catch (error) {
-            console.error('Error rating the course:', error);
-            toast.error('Error rating the course');
-        }
-    };
 
-    const handleOpenRateDialog = () => {
-        setOpen(true);
-    };
+  const handleRateCourse = async () => {
+    const data = {
+        "rating" :rating,
+        "comment" : "ankd"
+    }
+    try {
+      const response = await RateCourse(courseId, data);
+        console.log(response);
+      if (response?.status === 200) {
+        toast.success('Course rated successfully');
+      } else {
+        toast.error('Error rating the course');
+      }
+    } catch (error) {
+      console.error('Error rating the course:', error);
+      toast.error('Error rating the course');
+    }
+  };
 
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    return (
-        <>
-            <Button  color="primary" onClick={handleOpenRateDialog}>
-                Rate Course
-            </Button>
-            <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Rate the Course</DialogTitle>
-                <DialogContent>
-                    <div>
-                        <Rating
-                            name="course-rating"
-                            value={rating}
-                            precision={0.5}
-                            onChange={handleRatingChange}
-                        />
-                    </div>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color="default">
-                        Cancel
-                    </Button>
-                    <Button onClick={handleRateCourse} color="primary">
-                        Rate
-                    </Button>
-                </DialogActions>
-            </Dialog>
-        </>
-    );
+  return (
+    <div>
+          <Box
+      sx={{
+        width: 200,
+        display: 'flex',
+        alignItems: 'center',
+      }}
+    >
+      <Rating
+        name="hover-feedback"
+        value={rating}
+        precision={0.5} 
+        getLabelText={getLabelText}
+        onChange={(event, newRating) => {
+          setRating(newRating);
+        }}
+        // onChangeActive={(event, newHover) => {
+        //   setHover(newHover);
+        // }}
+        emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+        style={{ marginTop: '10px' }}
+      />
+      {rating !== null && (
+        <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : rating]}</Box>
+      )}
+    </Box>
+        <Button variant="contained" color="primary" onClick={handleRateCourse}>
+        Rate Course
+      </Button>
+      
+    </div>
+  );
 }
 
 RateCourseDialog.propTypes = {
-    courseId: PropTypes.string.isRequired,
+  courseId: PropTypes.string.isRequired,
 };
 
 export default RateCourseDialog;

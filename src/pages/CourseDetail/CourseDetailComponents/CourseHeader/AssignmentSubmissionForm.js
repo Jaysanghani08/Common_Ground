@@ -93,6 +93,7 @@ function AssignmentSubmissionForm({ courseId, assignmentId, submissionId, deadli
                             value={submissionData}
                             onChange={handleInputChange}
                         />
+                        </form>
                         <DialogActions>
                             <Button type="submit" color="primary" onClick={handleSubmit}>
                                 Submit
@@ -104,7 +105,7 @@ function AssignmentSubmissionForm({ courseId, assignmentId, submissionId, deadli
                                 Cancel
                             </Button>
                         </DialogActions>
-                    </form>
+                    
                 </DialogContent>
             </Dialog>
 

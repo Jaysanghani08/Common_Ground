@@ -362,8 +362,9 @@ export const DeleteAssignmentSubmission = async ( submissionId) => {
 }
 
 export const RateCourse = async ( courseId, data) => {
+    console.log(data);
     try{
-        const response = await commonrequest("POST", `${BACKEND_URL}student/rating/${courseId}`, data, {
+        const response = await commonrequest("POST", `${BACKEND_URL}/student/rating/${courseId}`, data, {
             'authorization': `Bearer ${token}`
         });
         return response;

@@ -12,6 +12,8 @@ import { Navigate, useParams } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
 import StuNavbar from './../student/Dashboard/Sidebar/Sidebar'
 import RateCourseDialog from './CourseDetailComponents/RateCourse';
+import AssignmentSubmission from './CourseDetailComponents/CourseHeader/AssignmentSubmission'
+
 const CourseDetails = () => {
 
     const { courseId } = useParams()
@@ -68,6 +70,18 @@ const CourseDetails = () => {
         return <div>Error: {error}</div>;
     }
 
+    const studentsData = [
+        {
+          submissionFile: { fileName: 'file1.pdf' },
+          studentDetails: { name: 'John Doe', studentID: '123456' },
+        },
+        {
+          submissionFile: { fileName: 'file2.pdf' },
+          studentDetails: { name: 'Jane Doe', studentID: '789012' },
+        },
+       
+      ];
+
     return (
         <>
             <div>
@@ -99,9 +113,17 @@ const CourseDetails = () => {
                           />
                                 </div> */}
                                  <RateCourseDialog
-                                courseId={courseId}
                                 />
-                                
+                                 <div>
+                                        <h1>Assignment Submissions</h1>
+                                        {studentsData.map((student, index) => (
+                                            <AssignmentSubmission
+                                            key={index}
+                                            submissionFile={student.submissionFile}
+                                            studentDetails={student.studentDetails}
+                                            />
+                                        ))}
+                                        </div>
                             </div>
                            
                         </>
