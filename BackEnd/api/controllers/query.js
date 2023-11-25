@@ -25,7 +25,7 @@ exports.getAllCourse = async (req, res, next) => {
 
 exports.getCourseByEducator = async (req, res, next) => {
     try {
-        const courses = await Course.find({createdBy: req.userData.userId}).select('_id courseTitle courseDescription coursePrice courseLevel courseCode language rating createdBy').populate('createdBy', 'fname lname').exec();
+        const courses = await Course.find({createdBy: req.userData.userId}).select('_id courseTitle courseDescription coursePrice enrolledStudents courseLevel courseCode language rating createdBy').populate('createdBy', 'fname lname').exec();
 
         if (!courses) {
             return res.status(404).json({
