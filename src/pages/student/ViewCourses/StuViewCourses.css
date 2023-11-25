@@ -33,7 +33,7 @@
     z-index: -1;
 }
 
-.stu-viewcourses-section1-cover {
+/* .stu-viewcourses-section1-cover {
     height: 63%;
     background-color: rgba(12, 53, 106);
 }
@@ -48,7 +48,7 @@
     top: 172.5%;
     height: 69%;
     background-color: rgba(12, 53, 106);
-}
+} */
 
 .stu-viewcourses-content {
     display: flex;
@@ -64,6 +64,7 @@
     padding: 4rem;
     z-index: 7;
     /* margin-bottom: 20px; */
+    background-color: rgba(12, 53, 106, 0.7);
 }
 
 .stu-viewcourses-heading {
@@ -125,6 +126,7 @@
 .stu-viewcourses-section2{
     text-align: center;
     padding: 100px 20px;
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 .stu-viewcourses-section2 h2{
@@ -203,6 +205,7 @@
 .stu-viewcourses-section3{
     text-align: center;
     padding: 70px 20px;
+    background-color: rgba(12, 53, 106, 0.7);
 }
 
 .stu-viewcourses-section3 h2{
