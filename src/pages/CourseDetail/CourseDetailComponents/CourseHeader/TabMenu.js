@@ -260,6 +260,7 @@ function a11yProps(index) {
 
 export default function BasicTabs({ sections, courseAssignments, enrolledStudents, discussionData, usertype, createdby, isEnrolled }) {
     const [value, setValue] = useState(0);
+    console.log(courseAssignments)
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -334,6 +335,9 @@ export default function BasicTabs({ sections, courseAssignments, enrolledStudent
                                 createdby={createdby}
                                 usertype={usertype}
                                 key={index}
+                                // assignmentdata={assignment}
+                                submissiondata={assignment.submission}
+                                // isSubmitted={true}
                                 title={assignment.title}
                                 description={assignment.description}
                                 deadline={assignment.dueDate}

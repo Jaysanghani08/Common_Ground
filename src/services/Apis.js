@@ -340,7 +340,8 @@ export const UnenrollInCourse = async (courseId) => {
 export const SubmitAssignment = async (courseId, assignmentId, data) => {
     try{
         const response = await commonrequest("POST", `${BACKEND_URL}/student/submit-assignment/${courseId}/${assignmentId}`, data, {
-            'authorization': `Bearer ${token}`
+            'authorization': `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
         });
         return response;
     }
@@ -349,15 +350,17 @@ export const SubmitAssignment = async (courseId, assignmentId, data) => {
     }
 }
 
-export const DeleteAssignmentSubmission = async ( submissionId) => {
-    try{
-        const response = await commonrequest("POST", `${BACKEND_URL}/student/delete-submission/${submissionId}`, {}, {
-            'authorization': `Bearer ${token}`
-        });
-        return response;
-    }
-    catch(error){
-        throw new Error("Error in Uploding the document.")
+export const DeleteAssignmentSubmission = async (courseId, submissionId) => {
+    if(window.confirm("Are you sure to want to delete assignment ? ")){
+        try{
+            const response = await commonrequest("DELETE", `${BACKEND_URL}/student/delete-submission/${courseId}/${submissionId}`, {}, {
+                'authorization': `Bearer ${token}`
+            });
+            return response;
+        }
+        catch(error){
+            throw new Error("Error in Uploding the document.")
+        }
     }
 }
 
