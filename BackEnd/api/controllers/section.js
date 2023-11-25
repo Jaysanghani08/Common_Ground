@@ -171,10 +171,7 @@ exports.addPost = async (req, res, next) => {
             });
         }
 
-        let attachments = [];
-        if(req.file) {
-            attachments = req.files.map(file => file.path);
-        }
+        const attachments = req.files.map(file => file.path);
         const post = {
             title: req.body.title,
             body: req.body.body,

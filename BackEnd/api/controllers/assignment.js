@@ -33,10 +33,8 @@ exports.createAssignment = async (req, res, next) => {
                 message: 'Unauthorized'
             });
         }
-        let attachment = [];
-        if (req.files) {
-            attachment = req.files.map(file => file.path);
-        }
+
+        const attachment = req.files.map(file => file.path);
         const assignment = new Assignment({
             title: req.body.title,
             description: req.body.description,
