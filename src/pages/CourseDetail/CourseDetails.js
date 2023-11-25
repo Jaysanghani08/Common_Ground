@@ -3,16 +3,15 @@ import EdNavbar from './../Educator/Dashboard/Sidebar/Navbar'
 import "./CourseDetails.css"
 import CourseHeader from './CourseDetailComponents/CourseHeader/CourseHeader'
 import BasicTabs from './CourseDetailComponents/CourseHeader/TabMenu'
-import DicussionForum from './CourseDetailComponents/DicussionForum/DicussionForum'
-import BasicTextFields from './CourseDetailComponents/Buttons/button'
 import LoadingComponent from '../Loading/Loading'
 import getToken from '../../services/getToken'
-import { getCourseData, getStudentProfile, checkIfenrolled, RateCourse } from '../../services/Apis';
-import { Navigate, useParams } from 'react-router-dom'
-import { ToastContainer } from 'react-toastify';
+import { UnenrollInCourse, enrollInCourse, getCourseData } from '../../services/Apis';
+import { useParams } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
 import StuNavbar from './../student/Dashboard/Sidebar/Sidebar'
 import RateCourseDialog from './CourseDetailComponents/RateCourse';
 import AssignmentSubmission from './CourseDetailComponents/CourseHeader/AssignmentSubmission'
+import Button from '@mui/material/Button'
 
 const CourseDetails = () => {
 
@@ -28,17 +27,8 @@ const CourseDetails = () => {
 
     useEffect(() => {
 
-        const fetchUsertype = async () => {
-            const Edutoken = getToken('educator');
-            const Stutoken = getToken('student');
-            if (Edutoken) {
-                setUserType('educator')
-            }
-            else if (Stutoken) {
-                setIsEnrolled(await checkIfenrolled());
-                setUserType('student')
-            }
-        }
+        const Edutoken = getToken('educator');
+        const Stutoken = getToken('student');
 
         const fetchData = async () => {
             try {
@@ -48,14 +38,29 @@ const CourseDetails = () => {
                     // getStudentProfile()
                 ]);
                 setcoursedata(coursedata);
-                // setProfile(profile);
+                if (coursedata?.enrolledStudents.some(user => user._id === Stutoken.userId)) {
+                    console.log("sdfafasdnshfdfkd")
+                    setIsEnrolled(true);
+                }
+                else {
+                    console.log("dfsdfdsfdd")
+                    setIsEnrolled(false);
+                }
                 setLoading(false);
-                // }
             } catch (error) {
                 setError(error.message);
                 setLoading(false);
             }
         };
+
+        const fetchUsertype = async () => {
+            if (Edutoken) {
+                setUserType('educator')
+            }
+            else if (Stutoken) {
+                setUserType('student')
+            }
+        }
 
         fetchData();
         fetchUsertype();
@@ -69,7 +74,42 @@ const CourseDetails = () => {
         return <div>Error: {error}</div>;
     }
 
+    const studentsData = [
+        {
+            submissionFile: { fileName: 'file1.pdf' },
+            studentDetails: { name: 'John Doe', studentID: '123456' },
+        },
+        {
+            submissionFile: { fileName: 'file2.pdf' },
+            studentDetails: { name: 'Jane Doe', studentID: '789012' },
+        },
 
+    ];
+
+    const handleEnroll = async () => {
+        const res = await enrollInCourse(courseId);
+
+        if (res?.status === 200) {
+            toast.success("You are Successfully enrolled.")
+            window.location.reload();
+        }
+        else {
+            toast.error("Error Enrolling in course.")
+        }
+    }
+
+
+    const handleUnenroll = async () => {
+        const res = await UnenrollInCourse(courseId);
+
+        if (res?.status === 200) {
+            toast.success("You are Successfully Unenrolled.")
+            window.location.reload();
+        }
+        else {
+            toast.error("Error Enrolling in course.")
+        }
+    }
 
     return (
         <>
@@ -92,20 +132,34 @@ const CourseDetails = () => {
                                 courseLevel={coursedata.courseLevel}
                             />
 
+
+
                             <div className="course-content">
-                                <BasicTabs sections={coursedata.courseSections} enrolledStudents={coursedata.enrolledStudents} courseAssignments={coursedata.courseAssignments} discussionData={coursedata.discussionForum?.messages} usertype={usertype} createdby={coursedata.createdBy?._id} isEnrolled={isEnrolled}/>
-                                {/* <BasicTextFields courseId={coursedata._id} /> */}
-                                {/* <div className="dicussion-forum">
-                                 <DicussionForum 
-                                    data={coursedata.discussionForum.messages}
-                        //   currentUserId={profile?._id} 
-                          />
-                                </div> */}
-                                 <RateCourseDialog
-                                />
-                                
+                                {
+                                    usertype === 'student' && !isEnrolled &&
+                                    <Button variant="contained" color="success" onClick={handleEnroll}>Enroll in the Course.</Button>
+                                }
+
+                                <BasicTabs sections={coursedata.courseSections} enrolledStudents={coursedata.enrolledStudents} courseAssignments={coursedata.courseAssignments} discussionData={coursedata.discussionForum?.messages} usertype={usertype} createdby={coursedata.createdBy?._id} isEnrolled={isEnrolled} />
+                                <RateCourseDialog />
+
+                                <div>
+                                    <h1>Assignment Submissions</h1>
+                                    {studentsData.map((student, index) => (
+                                        <AssignmentSubmission
+                                            key={index}
+                                            submissionFile={student.submissionFile}
+                                            studentDetails={student.studentDetails}
+                                        />
+                                    ))}
+                                </div>
+
+                                {
+                                    usertype === 'student' && isEnrolled &&
+                                    <Button variant="contained" color="error" onClick={handleUnenroll}>UnEnroll from this  the Course.</Button>
+                                }
                             </div>
-                           
+
                         </>
                     }
                 </div>

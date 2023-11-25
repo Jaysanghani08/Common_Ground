@@ -316,63 +316,67 @@ export const checkIfenrolled = async (courseId) => {
 }
 
 export const enrollInCourse = async (courseId) => {
-    try{
-        const response = await commonrequest("POST", `${BACKEND_URL}/student/enroll/${courseId}`, null, {
-            'authorization': `Bearer ${token}`
-        });
-        return response;
-    } catch(error){
-        throw new Error("Something went wrong");
+    if (window.confirm("Are you sure want to enroll in this course ? ")) {
+        try {
+            const response = await commonrequest("POST", `${BACKEND_URL}/student/enroll/${courseId}`, null, {
+                'authorization': `Bearer ${token}`
+            });
+            return response;
+        } catch (error) {
+            throw new Error("Something went wrong");
+        }
     }
 }
 
 export const UnenrollInCourse = async (courseId) => {
-    try{
-        const response = await commonrequest("POST", `${BACKEND_URL}/student/unroll/${courseId}`, null, {
-            'authorization': `Bearer ${token}`
-        });
-        return response;
-    } catch(error){
-        throw new Error("Something went wrong");
+    if (window.confirm("Are you sure want to unEnroll in this course ? ")) {
+        try {
+            const response = await commonrequest("POST", `${BACKEND_URL}/student/unroll/${courseId}`, null, {
+                'authorization': `Bearer ${token}`
+            });
+            return response;
+        } catch (error) {
+            throw new Error("Something went wrong");
+        }
     }
 }
 
 export const SubmitAssignment = async (courseId, assignmentId, data) => {
-    try{
+    try {
         const response = await commonrequest("POST", `${BACKEND_URL}/student/submit-assignment/${courseId}/${assignmentId}`, data, {
             'authorization': `Bearer ${token}`,
             'Content-Type': 'multipart/form-data'
         });
         return response;
     }
-    catch(error){
+    catch (error) {
         throw new Error("Error in Uploding the document.")
     }
 }
 
 export const DeleteAssignmentSubmission = async (courseId, submissionId) => {
-    if(window.confirm("Are you sure to want to delete assignment ? ")){
-        try{
+    if (window.confirm("Are you sure to want to delete assignment ? ")) {
+        try {
             const response = await commonrequest("DELETE", `${BACKEND_URL}/student/delete-submission/${courseId}/${submissionId}`, {}, {
                 'authorization': `Bearer ${token}`
             });
             return response;
         }
-        catch(error){
+        catch (error) {
             throw new Error("Error in Uploding the document.")
         }
     }
 }
 
-export const RateCourse = async ( courseId, data) => {
+export const RateCourse = async (courseId, data) => {
     console.log(data);
-    try{
+    try {
         const response = await commonrequest("POST", `${BACKEND_URL}/student/rating/${courseId}`, data, {
             'authorization': `Bearer ${token}`
         });
         return response;
     }
-    catch(error){
+    catch (error) {
         throw new Error("Error in Uploding the document.")
     }
 }
@@ -405,7 +409,7 @@ export const getAllCourses = async (data) => {
     }
 }
 
-export const editStudentProfile = async (data) => { 
+export const editStudentProfile = async (data) => {
     try {
         const response = await commonrequest("PATCH", `${BACKEND_URL}/student/edit-profile`, data, {
             'authorization': `Bearer ${token}`,
