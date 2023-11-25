@@ -19,7 +19,6 @@ import Cookies from 'js-cookie';
 
 export default function FormDialog({ assignmentId, submissionId, deadline, submissiondata, isSubmitted, createdby, usertype, isEnrolled }) {
     const token = Cookies.get('token')
-    console.log(submissiondata)
     const [open, setOpen] = useState(false);
     const [selectedFiles, setSelectedFiles] = useState(null);
     const { courseId } = useParams();

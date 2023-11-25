@@ -260,7 +260,6 @@ function a11yProps(index) {
 
 export default function BasicTabs({ sections, courseAssignments, enrolledStudents, discussionData, usertype, createdby, isEnrolled }) {
     const [value, setValue] = useState(0);
-    console.log(courseAssignments)
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
