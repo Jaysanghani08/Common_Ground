@@ -69,17 +69,7 @@ const CourseDetails = () => {
         return <div>Error: {error}</div>;
     }
 
-    const studentsData = [
-        {
-          submissionFile: { fileName: 'file1.pdf' },
-          studentDetails: { name: 'John Doe', studentID: '123456' },
-        },
-        {
-          submissionFile: { fileName: 'file2.pdf' },
-          studentDetails: { name: 'Jane Doe', studentID: '789012' },
-        },
-       
-      ];
+
 
     return (
         <>
@@ -113,16 +103,7 @@ const CourseDetails = () => {
                                 </div> */}
                                  <RateCourseDialog
                                 />
-                                 <div>
-                                        <h1>Assignment Submissions</h1>
-                                        {studentsData.map((student, index) => (
-                                            <AssignmentSubmission
-                                            key={index}
-                                            submissionFile={student.submissionFile}
-                                            studentDetails={student.studentDetails}
-                                            />
-                                        ))}
-                                        </div>
+                                
                             </div>
                            
                         </>
