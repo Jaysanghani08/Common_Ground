@@ -241,7 +241,7 @@ const StuViewCourses = () => {
                     </div>
 
                     <div className="stu-viewcourses-section-cover stu-viewcourses-section2-cover"></div>
-                    <div className="stu-viewcourses-section1 stu-viewcourses-section2">
+                    <div className="stu-viewcourses-section2">
                         <h2>Explore Our Courses</h2>
                         <div className="stu-viewcourses-card-container">
                             {courses.map((course, index) => (
@@ -251,7 +251,7 @@ const StuViewCourses = () => {
                     </div>
 
                     <div className="stu-viewcourses-section-cover stu-viewcourses-section3-cover"></div>
-                    <div className="stu-viewcourses-section1 stu-viewcourses-section3">
+                    <div className="stu-viewcourses-section3">
                         <h2>Top Categories</h2>
                         <div className="stu-viewcourses-card-container">
                             {categoryData.map((category, index) => (
