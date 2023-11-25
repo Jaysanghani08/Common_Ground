@@ -159,12 +159,12 @@ export default function FormDialog({ assignmentId, submissionId, deadline, submi
             {
                 (usertype === 'student' && isEnrolled && isSubmitted) &&
                 <>
-                <h5>Your Submission</h5>
+                    <h5>Your Submission</h5>
                     <IconButton onClick={handleOpenAssignmentDialog}>
                         <AttachmentOutlined style={{ fontSize: '25px' }} />
                         <span>
                             File
-                        {/* {submissiondata[0]?.submission[0]?.split('/')?.pop()?.match(/\/\/(.+?\.PDF)/i)?.at(1)} */}
+                            {/* {submissiondata[0]?.submission[0]?.split('/')?.pop()?.match(/\/\/(.+?\.PDF)/i)?.at(1)} */}
                         </span>
                     </IconButton>
 
@@ -193,12 +193,16 @@ export default function FormDialog({ assignmentId, submissionId, deadline, submi
                         </DialogActions>
                     </Dialog>
 
+                    <span style={{ fontSize: "1.4rem", marginBottom: "1rem", marginLeft:"15px"}}> Grade :
+                        <span > {submissiondata[0].grade}
+                        </span>
+                    </span>
 
-
-
-                    <Button style={{ fontWeight: "600" }} variant="outlined" color="error" onClick={handleDeleteSubmission}>
-                        Delete Submission
-                    </Button>
+                    <span style={{marginLeft:"15px"}}>
+                        <Button style={{ fontWeight: "600" }} variant="outlined" color="error" onClick={handleDeleteSubmission}>
+                            Delete Submission
+                        </Button>
+                    </span>
                 </>
             }
         </React.Fragment>
