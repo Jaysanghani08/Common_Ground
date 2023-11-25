@@ -68,8 +68,7 @@ const DicussionForum = ({ data,  usertype, createdby, isEnrolled }) => {
         <div className="comments" >
             <div className="comments-container">
                 <h3 className="comments-title">Discussion Forum</h3>
-                {data
-                    .map((rootComment) => (
+                {data?.map((rootComment) => (
                         <Comment
                         key={rootComment._id}
                         comment={rootComment}
