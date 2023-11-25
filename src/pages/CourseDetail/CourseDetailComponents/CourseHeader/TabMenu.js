@@ -173,7 +173,6 @@ function CustomAccordion(props) {
                                 </div>
                             </div>
                         </form>
-
                     </Box>
                 </DialogContent>
                 <DialogActions>

@@ -360,15 +360,8 @@ export function Assigments(props) {
                         <Button variant="outlined" color="secondary" onClick={handleDelete}>
                             Delete
                         </Button>
-
-
                     </div>
                 }
-
-
-
-                {/* Assignment Dialog */}
-
 
                 {/* Edit Form */}
                 <AssignmentEditForm
