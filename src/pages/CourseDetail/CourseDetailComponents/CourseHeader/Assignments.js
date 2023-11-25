@@ -124,7 +124,7 @@ AssignmentEditForm.propTypes = {
     initialData: PropTypes.object,
 };
 
-export function Tmp({ link, title, filename, usertype, createdby, isEnrolled, assignmentId, submissionId, deadline }) {
+export function Tmp({ link, title, filename, usertype, createdby, isEnrolled, assignmentId, submissiondata, submissionId, deadline }) {
     const [openAssignmentDialog, setOpenAssignmentDialog] = useState(false);
     const [fullScreen, setFullScreen] = useState(false);
     const theme = useTheme();
@@ -149,7 +149,7 @@ export function Tmp({ link, title, filename, usertype, createdby, isEnrolled, as
         setOpenAssignmentDialog(false);
     };
 
-    
+
     const [openSubmissionViewer, setOpenSubmissionViewer] = useState(false);
 
     const handleViewSubmissions = () => {
@@ -205,13 +205,15 @@ export function Tmp({ link, title, filename, usertype, createdby, isEnrolled, as
                 submissionId={submissionId}
                 deadline={deadline}
             /> */}
-      
 
-            <SubmissionViewer
-                assignmentId={assignmentId}
-                
-            />
-            </li>
+            {
+                (usertype === 'educator' && getToken('educator')?.userId === createdby) &&
+                <SubmissionViewer
+                    assignmentId={assignmentId}
+                    submissions={submissiondata}
+                />
+            }
+        </li>
     );
 }
 
@@ -324,7 +326,7 @@ export function Assigments(props) {
                                 isEnrolled={isEnrolled}
                                 assignmentId={assignmentId}
                                 deadline={deadline}
-                                
+                                submissiondata={submissiondata}
                             />
                         ))}
                     </ul>
@@ -357,9 +359,9 @@ export function Assigments(props) {
                     </Button> */}
                         <Button variant="outlined" color="secondary" onClick={handleDelete}>
                             Delete
-                        </Button> 
+                        </Button>
 
-                       
+
                     </div>
                 }
 

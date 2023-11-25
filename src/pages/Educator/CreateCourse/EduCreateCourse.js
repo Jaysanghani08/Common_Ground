@@ -63,7 +63,8 @@ function EduCreateCourse() {
             // language:"English",
             prerequisites: inputdata.prerequisites.split(','),
             language: courseLanguage,
-            visibility,
+            discussionForum: true,
+            visibility: visibility
         }
 
         if (formData.courseCode === "") {

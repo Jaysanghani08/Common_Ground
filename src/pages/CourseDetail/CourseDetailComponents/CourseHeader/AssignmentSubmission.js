@@ -4,12 +4,19 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Table, Table
 import IconButton from '@mui/material/IconButton';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
+import PictureAsPdf from '@mui/icons-material/PictureAsPdf';
+import { useParams } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
-function SubmissionViewer({ assignmentId}) {
-    const [submissions, setSubmissions] = useState([]);
+function SubmissionViewer({ assignmentId, submissions}) {
+    // const [submissions, setSubmissions] = useState([]);
+
+    console.log(submissions)
     const [openPdfDialog, setOpenPdfDialog] = useState(false);
     const [pdfTitle, setPdfTitle] = useState('');
     const [pdfFile, setPdfFile] = useState(null);
+    const {courseId} = useParams();
+    const token = Cookies.get('token')
 
     const [openSubmissionViewer, setOpenSubmissionViewer] = useState(false);
 
@@ -53,7 +60,7 @@ function SubmissionViewer({ assignmentId}) {
                 View Submissions
             </Button>
 
-            <Dialog open={openSubmissionViewer} onClose={handleCloseSubmissionViewer} maxWidth="md" fullWidth>
+            <Dialog open={openSubmissionViewer} onClose={handleCloseSubmissionViewer} maxWidth="md" fullWidth >
                 <DialogTitle>View Submissions</DialogTitle>
                 <DialogContent>
                     <Table>
@@ -61,27 +68,27 @@ function SubmissionViewer({ assignmentId}) {
                             <TableRow>
                                 <TableCell>Student Name</TableCell>
                                 <TableCell>Student ID</TableCell>
-                                <TableCell>Submission Time</TableCell>
+                                {/* <TableCell>Submission Time</TableCell> */}
                                 <TableCell>PDF File</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                        {submissions.map((submission) => (
+                        {submissions?.map((submission) => (
                             <TableRow key={submission._id}>
                                 
                                 <TableCell>{submission.submittedBy.username}</TableCell>
                             
                                 <TableCell>{submission.submittedBy._id}</TableCell>
                             
-                                <TableCell>{new Date(submission.submissionTime).toLocaleString()}</TableCell>
+                                {/* <TableCell>{new Date(submission.submissionTime).toLocaleString()}</TableCell> */}
                                 <TableCell>
                                     {submission.submission && (
                                         <IconButton
                                             edge="end"
                                             color="inherit"
-                                            onClick={() => handleOpenPdfDialog('PDF Title', submission.attachment)}
+                                            onClick={() => handleOpenPdfDialog('PDF Title', submission?.submission[0])}
                                         >
-                                            <FullscreenIcon />
+                                            <PictureAsPdf />
                                         </IconButton>
                                     )}
                                 </TableCell>
@@ -103,6 +110,7 @@ function SubmissionViewer({ assignmentId}) {
                 onClose={handleClosePdfDialog}
                 maxWidth="md"
                 fullWidth
+                fullScreen={true}
             >
                 <DialogTitle>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -113,7 +121,7 @@ function SubmissionViewer({ assignmentId}) {
                     </div>
                 </DialogTitle>
                 <DialogContent>
-                    {pdfFile && <iframe title="PDF Viewer" width="100%" height="100%" src={URL.createObjectURL(pdfFile)} />}
+                    {pdfFile && <iframe title="PDF Viewer" width="100%" height="100%" src={`http://localhost:8000/file/retrieve?courseId=${courseId}&path=${pdfFile}&jwt=${token}`} />}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClosePdfDialog} color="primary">
