@@ -1,54 +1,110 @@
-// AssignmentSubmission.jsx
+import React, { useState, useEffect } from 'react';
+// import { getSubmissions } from '../../../../services/Apis';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
+import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 
-import React, { useState } from 'react';
-import './AssignmentSubmission.css'; // Import the CSS file
-import PdfViewerModal from './PdfViewerModel'; // Import your PDF viewer modal component
+function SubmissionViewer({ assignmentId, onClose, open }) {
+    const [submissions, setSubmissions] = useState([]);
+    const [openPdfDialog, setOpenPdfDialog] = useState(false);
+    const [pdfTitle, setPdfTitle] = useState('');
+    const [pdfFile, setPdfFile] = useState(null);
 
-const AssignmentSubmission = () => {
-  const [isFileContentOpen, setIsFileContentOpen] = useState(false);
+    useEffect(() => {
+        const fetchSubmissions = async () => {
+            try {
+                // const response = await getSubmissions(assignmentId);
+                // setSubmissions(response.data);
+            } catch (error) {
+                console.error('Error fetching submissions:', error);
+            }
+        };
 
-  const toggleFileContent = () => {
-    setIsFileContentOpen(!isFileContentOpen);
-  };
+        fetchSubmissions();
+    }, [assignmentId]);
 
-  // Dummy data (replace with actual data)
-  const submissionFile = {
-    fileName: 'example.pdf',
-    // Add other file details as needed
-  };
+    const handleOpenPdfDialog = (pdfTitle, pdfFile) => {
+        setPdfTitle(pdfTitle);
+        setPdfFile(pdfFile);
+        setOpenPdfDialog(true);
+    };
 
-  const studentDetails = {
-    name: 'John Doe',
-    studentID: '123456',
-    // Add other student details as needed
-  };
+    const handleClosePdfDialog = () => {
+        setPdfTitle('');
+        setPdfFile(null);
+        setOpenPdfDialog(false);
+    };
 
-  return (
-    <div className="combined-view-row">
-      <div className="list-container">
-        <div className="list-item">
-          <h3>Submission File</h3>
-          <h6>File Name: {submissionFile.fileName}</h6>
-          <button onClick={toggleFileContent}>
-            {isFileContentOpen ? 'Close File' : 'Open File'}
-          </button>
-        </div>
+    return (
+        <>
+            <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+                <DialogTitle>View Submissions</DialogTitle>
+                <DialogContent>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Student Name</TableCell>
+                                <TableCell>Student ID</TableCell>
+                                <TableCell>Submission Time</TableCell>
+                                <TableCell>PDF File</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {submissions.map((submission) => (
+                                <TableRow key={submission.studentId}>
+                                    <TableCell>{submission.studentName}</TableCell>
+                                    <TableCell>{submission.studentId}</TableCell>
+                                    <TableCell>{new Date(submission.submissionTime).toLocaleString()}</TableCell>
+                                    <TableCell>
+                                        {submission.pdfFile && (
+                                            <IconButton
+                                                edge="end"
+                                                color="inherit"
+                                                onClick={() => handleOpenPdfDialog(submission.pdfTitle, submission.pdfFile)}
+                                            >
+                                                <FullscreenIcon />
+                                            </IconButton>
+                                        )}
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={onClose} color="primary">
+                        Close
+                    </Button>
+                </DialogActions>
+            </Dialog>
 
-        <div className="list-item">
-          <h3>Student Details</h3>
-          <h6>Name: {studentDetails.name}</h6>
-          <h6>Student ID: {studentDetails.studentID}</h6>
-        </div>
-      </div>
+            {/* PDF Dialog */}
+            <Dialog
+                open={openPdfDialog}
+                onClose={handleClosePdfDialog}
+                maxWidth="md"
+                fullWidth
+            >
+                <DialogTitle>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        {pdfTitle}
+                        <IconButton edge="end" color="inherit" onClick={handleClosePdfDialog} aria-label="fullscreen">
+                            <FullscreenExitIcon />
+                        </IconButton>
+                    </div>
+                </DialogTitle>
+                <DialogContent>
+                    {pdfFile && <iframe title="PDF Viewer" width="100%" height="100%" src={URL.createObjectURL(pdfFile)} />}
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClosePdfDialog} color="primary">
+                        Close
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </>
+    );
+}
 
-      {isFileContentOpen && (
-        <PdfViewerModal
-          fileName={submissionFile.fileName}
-          onClose={() => setIsFileContentOpen(false)}
-        />
-      )}
-    </div>
-  );
-};
-
-export default AssignmentSubmission;
+export default SubmissionViewer;
