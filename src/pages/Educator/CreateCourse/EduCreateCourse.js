@@ -5,7 +5,7 @@ import Sidebar from '../Dashboard/Sidebar/Sidebar'
 import { ToastContainer, toast } from 'react-toastify'
 import { educreatecoursefunction } from '../../../services/Apis';
 import getToken from '../../../services/getToken';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import EdNavbar from '../Dashboard/Sidebar/Navbar';
 
 function EduCreateCourse() {
@@ -27,7 +27,7 @@ function EduCreateCourse() {
     // console.log(inputdata)
 
     const token = getToken('educator');
-    // console.log(token)
+    const navigate = useNavigate();
 
     if (!token) {
         return <Navigate to="/educator/login" />;
@@ -102,8 +102,8 @@ function EduCreateCourse() {
                 setCourseLevel('');
                 setCourseLanguage('');
                 setVisibility('');
-                // navigate("/")
                 toast.success(response.data.message)
+                navigate("/educator/offered-courses")
             } else {
                 toast.error(response.response.data.message);
             }
