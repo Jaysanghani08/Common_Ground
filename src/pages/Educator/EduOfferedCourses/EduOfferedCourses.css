@@ -1,7 +1,10 @@
 .inside-div{
   display: inline-block;
 }
-
+.fill-container{
+  overflow: auto;
+  height: 100vh;
+}
 .oc-container{
   width: 100%;
   background-color: #F8F9FA;
@@ -365,6 +368,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     margin-top: -90px;
+    padding-bottom: 30px;
 }
 
 .edu_stu-viewcourses-large-input{
