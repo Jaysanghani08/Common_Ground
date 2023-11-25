@@ -243,7 +243,7 @@ exports.getEnrolledCourse = async (req, res, next) => {
         const enrolledStudent = await Student.findById(req.userData.userId)
             .populate({
                 path: 'enrolledCourses',
-                select: '_id courseTitle courseDescription coursePrice courseLevel courseCode language rating createdBy',
+                select: '_id courseTitle courseDescription coursePrice courseLevel enrolledStudents courseCode language rating createdBy',
                 populate: {
                     path: 'createdBy',
                     select: 'fname lname',
