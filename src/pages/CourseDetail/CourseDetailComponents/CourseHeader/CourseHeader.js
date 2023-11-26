@@ -7,7 +7,7 @@ import CourseImg from "./../../../../data/imgs/couse_img.jpg";
 
 // fetch data from backend and display it here
 
-const CourseHeader = ({courseCode, courseTitle, courseDescriptionLong, createdBy, enrolledStudents, language, courseLevel}) => {
+const CourseHeader = ({courseCode, courseTitle, courseDescriptionLong, createdBy, enrolledStudents, coursePrice,rating,language, courseLevel}) => {
     return (
         <div className="course-header">
             <div className="course-title">
@@ -17,10 +17,10 @@ const CourseHeader = ({courseCode, courseTitle, courseDescriptionLong, createdBy
                 <h5>
                     {courseDescriptionLong}
                 </h5>
-                <img src={CourseImg } art=''></img>
+                {/* <img src={CourseImg } art=''></img> */}
             </div>
             <div className="course-rating">
-                <Star stars={3.9} />
+                <Star stars={rating} />
             </div>
             <div className="course-header-botttom ">
                 <div className="course-instructor">
@@ -39,7 +39,7 @@ const CourseHeader = ({courseCode, courseTitle, courseDescriptionLong, createdBy
                 <div className="course-enrolled-students">
                     <FaRupeeSign />
                     {/* have to change */}
-                    600
+                    {coursePrice}
                 </div>
             </div>
         </div>

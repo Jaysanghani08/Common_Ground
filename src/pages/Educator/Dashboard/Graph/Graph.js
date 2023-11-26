@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 
 export default function SimpleBarChart() {
     const [yData, setYdata] = useState([0]);
-    const [xLabels, setXlabels] = useState(["courseTitle"]);
+    const [xLabels, setXlabels] = useState(["No Courses"]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -19,14 +19,20 @@ export default function SimpleBarChart() {
         })
             .then(res => res.json())
             .then(data => {
-                // console.log(data);
-                setXlabels(data.courseTitle)
-                setYdata(data.enrolled)
+                // console.log(data)
+                if(data.courseTitle.length === 0) {
+                    setXlabels(["No Courses"]);
+                    setYdata([0]);
+                }
+                else{
+                    setXlabels(data.courseTitle)
+                    setYdata(data.enrolled)
+                }
             })
             .catch(err => {
                 setError(err);
             })
-    } , []);
+    }, []);
 
 
 
@@ -38,7 +44,6 @@ export default function SimpleBarChart() {
             chartContainer.style.width = event.matches ? 'auto' : '800px';
         }
 
-
         handleMediaQueryChange(mediaQuery);
 
         mediaQuery.addEventListener('change', handleMediaQueryChange);
@@ -48,21 +53,26 @@ export default function SimpleBarChart() {
         };
     }, []);
 
-    if(!yData || !xLabels) return (<div>Loading...</div>)
+    if (!yData || !xLabels) return (<div>Loading...</div>)
 
-    if(error) return (<div>error : {error}</div>)
+    if (error) return (<div>error : {error}</div>)
 
     return (
-        
-            <BarChart
-            className="chart-container"
-            width={800}
-            height={300}
-            series={[
-                { data: yData, label: 'courseTitle', color: "#4f39bf" },
-                // { data: uData, label: 'uv', color: "#cf6624" },
-            ]}
-            xAxis={[{ scaleType: 'band', data: xLabels }]}
-        />
+        <>
+            {
+                yData && xLabels &&
+                < BarChart
+                    className="chart-container"
+                    width={800}
+                    height={300}
+                    series={
+                        [
+                            { data: yData, label: 'courseTitle', color: "rgb(12, 53, 106)" },
+                            // { data: uData, label: 'uv', color: "#cf6624" },
+                        ]}
+                    xAxis={[{ scaleType: 'band', data: xLabels }]}
+                />
+            }
+        </>
     );
 }

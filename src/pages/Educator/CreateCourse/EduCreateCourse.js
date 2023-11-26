@@ -90,7 +90,7 @@ function EduCreateCourse() {
 
             // console.log(response)
 
-            if (response.status === 201) {
+            if (response?.status === 201) {
                 setInputdata({
                     ...inputdata,
                     courseTitle: '',
@@ -103,10 +103,10 @@ function EduCreateCourse() {
                 setCourseLevel('');
                 setCourseLanguage('');
                 setVisibility('');
-                toast.success(response.data.message)
+                toast.success("course created successfully")
                 navigate("/educator/offered-courses")
             } else {
-                toast.error(response.response.data.message);
+                toast.error("error in creating course");
             }
         }
     }

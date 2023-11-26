@@ -104,11 +104,11 @@ const EduRegister = () => {
         else {
 
             // console.log(inputdata)
-            const response = await eduregisterfunction(inputdata, );
+            const response = await eduregisterfunction(inputdata,);
 
             // console.log(response)
 
-            if (response.status === 201) {
+            if (response?.status === 201) {
                 setInputdata({
                     ...inputdata,
                     fname: "",
@@ -126,11 +126,15 @@ const EduRegister = () => {
                     profilePic: ""
                 });
                 navigate("/educator/login")
-                toast.success(response.data.message)
-            } else {
-                toast.error(response.response.data.message);
+                toast.success("Register Successfully")
+            }
+            else if (response?.status === 409) {
+                toast.error("Email or Phone already exists")
+            }
+            else {
+                toast.error("Error in Register ! Please try Again");
                 // console.log(inputdata)
-                // toast.error("response.response.data.error");
+                // toast.error("response?.response?.data.error");
             }
         }
     }
@@ -145,15 +149,14 @@ const EduRegister = () => {
                         <p>Welcome to Common Ground</p>
                     </div>
                     <form className='EDU_register_form' encType='multipart/form-data'>
-                        <div className={style.form_input}>
+                        {/* <div className={style.form_input}>
                             <label htmlFor="profilePic">Profile Picture</label>
                             <input type="file" name="profilePic" accept=".png" onChange={handleFileUpload} />
 
-                        </div>
+                        </div> */}
                         <div className={style.form_input}>
                             <label htmlFor="fname">First Name</label>
                             <input type="text" value={inputdata.fname} name="fname" onChange={handleChange} placeholder='Enter Your First Name' />
-
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="lname">Last Name</label>

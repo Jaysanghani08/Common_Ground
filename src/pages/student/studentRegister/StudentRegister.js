@@ -94,9 +94,9 @@ const StudentRegister = () => {
         else {
             const response = await studentregisterfunction(inputdata);
 
-            // console.log(response)
+            console.log(response)
 
-            if (response.status === 201) {
+            if (response?.status === 201) {
                 setInputdata({
                     ...inputdata,
                     fname: "",
@@ -111,11 +111,15 @@ const StudentRegister = () => {
                     location: ""
                 });
                 navigate("/student/login")
-                toast.success(response.data.message)
-            } else {
-                toast.error(response.response.data.message);
+                toast.success("Registered Successfully")
+            } 
+            else if (response?.status === 409) {
+                toast.error("Credentials already exists");
+            }
+            else {
+                toast.error("Something went wrong ! Please try again");
                 // console.log(inputdata)
-                // toast.error("response.response.data.error");
+                // toast.error("response?.response?.data.error");
             }
         }
     }

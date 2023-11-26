@@ -47,12 +47,12 @@ const EduResetPass = () => {
             const response = await eduupdatepasswordfunction(data);
             // console.log(response)
 
-            if (response.status === 200) {
+            if (response?.status === 200) {
                 setSpiner(false)
-                toast.success(response.data.message);
+                toast.success("Password Updated Successfully");
                 // navigate("/user/otp",{state:email})
             } else {
-                toast.error(response.response.data.message);
+                toast.error("Something went wrong !");
             }
         }
     }

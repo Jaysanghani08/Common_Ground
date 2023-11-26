@@ -39,13 +39,13 @@ const StudentFP = () => {
 
             const response = await studentresetpasswordfunction(data);
 
-            if (response.status === 200) {
+            if (response?.status === 200) {
                 setSpiner(false)
                 // console.log(data)
-                toast.success(response.data.message);
+                toast.success("Link Send Successfully");
                 // navigate("/user/otp",{state:email})
             } else {
-                toast.error(response.response.data.message);
+                toast.error("Something went wrong ! Please try again");
             }
         }
     }

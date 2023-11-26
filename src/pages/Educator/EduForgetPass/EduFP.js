@@ -38,13 +38,13 @@ const EduFP = () => {
 
             const response = await eduresetpasswordfunction(data);
 
-            if (response.status === 200) {
+            if (response?.status === 200) {
                 setSpiner(false)
                 // console.log(data)
-                toast.success(response.data.message);
+                toast.success("Link Send Successfully");
                 // navigate("/user/otp",{state:email})
             } else {
-                toast.error(response.response.data.message);
+                toast.error("Error in Sending Link ! Please try Again");
             }
         }
     }

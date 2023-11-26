@@ -63,7 +63,7 @@ function SubmissionViewer({ assignmentId, submissions }) {
         const fetchSubmissions = async () => {
             try {
                 // const response = await getSubmissions(assignmentId);
-                // setSubmissions(response.data);
+                // setSubmissions(response?.data);
             } catch (error) {
                 console.error('Error fetching submissions:', error);
             }

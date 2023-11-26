@@ -76,8 +76,8 @@ export const getEducatorDashboard = async (data) => {
         const response = await commonrequest("GET", `${BACKEND_URL}/query/dashboard`, data, {
             'authorization': `Bearer ${token}`
         });
-        // console.log(response.data)
-        return response.data;
+        // console.log(response?.data)
+        return response?.data;
     } catch (error) {
         throw new Error("Error fetching user data");
     }
@@ -89,7 +89,7 @@ export const getEducatorProfile = async () => {
         const response = await commonrequest("GET", `${BACKEND_URL}/query/profile`, {}, {
             'authorization': `Bearer ${token}`
         });
-        return response.data.educator;
+        return response?.data?.educator;
     } catch (error) {
         throw new Error("Error fetching user data");
     }
@@ -102,7 +102,7 @@ export const getEducatorcourses = async () => {
         const response = await commonrequest("GET", `${BACKEND_URL}/query/coursebyeducator`, {}, {
             'authorization': `Bearer ${token}`
         });
-        return response.data.courses;
+        return response?.data?.courses;
     } catch (error) {
         throw new Error("Error fetching user data");
     }
@@ -115,7 +115,7 @@ export const getIncome = async (data) => {
         const response = await commonrequest("GET", `${BACKEND_URL}/query/dashboard`, data, {
             'authorization': `Bearer ${token}`
         });
-        return response.data;
+        return response?.data;
     } catch (error) {
         throw new Error("Error fetching user data");
     }
@@ -126,7 +126,7 @@ export const createSection = async (courseId, sectionData) => {
         const response = await commonrequest("POST", `${BACKEND_URL}/educator/create-section/${courseId}`, sectionData, {
             'authorization': `Bearer ${token}`
         });
-        return response.data;
+        return response?.data;
     } catch (error) {
         throw new Error("Error creating section");
     }
@@ -254,8 +254,8 @@ export const getStudentDashboard = async (data) => {
         const response = await commonrequest("GET", `${BACKEND_URL}/query/enrolled-course`, data, {
             'authorization': `Bearer ${token}`
         });
-        // console.log(response.data)
-        return response.data ? response.data.courses.slice(0, 3) : null;
+        // console.log(response?.data)
+        return response?.data ? response?.data?.courses?.slice(0, 3) : null;
     } catch (error) {
         throw new Error("Error fetching user data");
     }
@@ -268,8 +268,8 @@ export const getEnrolledCourses = async (data) => {
         const response = await commonrequest("GET", `${BACKEND_URL}/query/enrolled-course`, data, {
             'authorization': `Bearer ${token}`
         });
-        // console.log(response.data)
-        return response.data ? response.data.courses : null;
+        // console.log(response?.data)
+        return response?.data ? response?.data?.courses : null;
     } catch (error) {
         throw new Error("Error fetching user data");
     }
@@ -282,8 +282,8 @@ export const getStudentProfile = async () => {
         const response = await commonrequest("GET", `${BACKEND_URL}/query/profile`, {}, {
             'authorization': `Bearer ${token}`
         });
-        // console.log(response.data)
-        return response.data.student;
+        // console.log(response?.data)
+        return response?.data?.student;
     } catch (error) {
         throw new Error("Error fetching user data");
     }
@@ -294,7 +294,7 @@ export const getRecommendedCourses = async (queryParams = {}) => {
         const response = await commonrequest("GET", `${BACKEND_URL}/query/recommended-course`, null, {
             'authorization': `Bearer ${token}`
         }, queryParams);
-        return response.data.courses;
+        return response?.data?.courses;
     } catch (error) {
         throw new Error("Error fetching enrolled courses");
     }
@@ -305,7 +305,7 @@ export const getCourseData = async (courseId) => {
         const response = await commonrequest("GET", `${BACKEND_URL}/query/getCourse/${courseId}`, null, {
             'authorization': `Bearer ${token}`
         });
-        return response.data?.course;
+        return response?.data?.course;
     } catch (error) {
         throw new Error("Error fetching course data");
     }
@@ -388,8 +388,8 @@ export const getFilteredCourses = async (queryParams = {}) => {
         const response = await commonrequest("GET", `${BACKEND_URL}/query/search-filter`, null, {
             'authorization': `Bearer ${token}`
         }, queryParams);
-        // console.log(response.data);
-        return response.data.courses;
+        // console.log(response?.data);
+        return response?.data?.courses;
     } catch (error) {
         throw new Error("Error fetching filtered courses");
     }
@@ -402,8 +402,8 @@ export const getAllCourses = async (data) => {
         const response = await commonrequest("GET", `${BASE_URL2}/user/edu-earning`, data, {
             'authorization': `Bearer ${token}`
         });
-        // console.log(response.data[0].earning)
-        return response.data[0].earning;
+        // console.log(response?.data[0].earning)
+        return response?.data[0].earning;
     } catch (error) {
         throw new Error("Error fetching user data");
     }
