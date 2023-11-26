@@ -239,23 +239,68 @@ describe('Query Controller - getCoursePage', () => {
         expect(res.statusCode).to.equal(200);
         expect(res.body).to.have.property('course');
     });
-    it('should return 404 if course not found', async () => {
+});
+
+describe('Query Controller - getEnrolledCourses', () => {
+    it('should return enrolled courses', async () => {
         const student = {
+            email: 'teststudent@example.com',
+            password: 'testPassword'
+        };
+
+        let res = await request(app)
+            .post('/student/login')
+            .send(student);
+
+        res = await request(app)
+            .get('/query/enrolled-course')
+            .set('Authorization', 'Bearer ' + res.body.token)
+            .send();
+
+        expect(res.statusCode).to.equal(200);
+        expect(res.body).to.have.property('courses');
+    });
+});
+
+describe('Query Controller - getRecommendedCourses', () => {
+    it('should return recommended courses', async () => {
+        const student = {
+            email: 'teststudent@example.com',
+            password: 'testPassword'
+        };
+
+        let res = await request(app)
+            .post('/student/login')
+            .send(student);
+
+        res = await request(app)
+            .get('/query/recommended-course')
+            .set('Authorization', 'Bearer ' + res.body.token)
+            .send();
+
+        expect(res.statusCode).to.equal(200);
+        expect(res.body).to.have.property('courses');
+    });
+});
+
+describe('Query Controller - generateGraph', () => {
+    it('should return graph', async () => {
+        const educator = {
             email: 'testeducator@example.com',
             password: 'testPassword'
         };
 
         let res = await request(app)
             .post('/educator/login')
-            .send(student);
+            .send(educator);
 
         res = await request(app)
-            .get(`/query/getCourse/123456789012`)
+            .get('/query/generateGraph')
             .set('Authorization', 'Bearer ' + res.body.token)
             .send();
 
-        console.log(res.body);
-        expect(res.statusCode).to.equal(404);
-        expect(res.body.message).to.equal('Course not found');
+        expect(res.statusCode).to.equal(200);
+        expect(res.body).to.have.property('courseTitle');
+        expect(res.body).to.have.property('enrolled');
     });
 });
