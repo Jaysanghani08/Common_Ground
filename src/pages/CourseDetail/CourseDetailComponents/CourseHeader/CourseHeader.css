@@ -4,13 +4,13 @@
     top: 80px;
     border-radius: 1rem;
     padding: 3rem 5rem;
-    box-shadow: 5px 6px 22px -5px rgba(75, 17, 191, 0.66);
-    -webkit-box-shadow: 5px 6px 22px -5px rgba(75, 17, 191, 0.66);
-    -moz-box-shadow: 5px 6px 22px -5px rgba(75, 17, 191, 0.66);
+    box-shadow: 5px 6px 22px -5px rgba(12, 52,106, 0.66);
+    -webkit-box-shadow: 5px 6px 22px -5px rgba(12, 52,106, 0.66);
+    -moz-box-shadow: 5px 6px 22px -5px rgba(12, 52,106, 0.66);
     /* margin-top: 2rem; */
     /* border: 1px solid black; */
     /* border-radius: 1rem; */
-    /* background-color: #4b11bf; */
+    /* background-color: rgb(12, 52,106); */
     /* background-image: url('./../../../../data/imgs/couse_page_bg.jpg'); */
     background-size: cover;
     /* background-repeat: repeat-y; */

@@ -10,9 +10,9 @@
     transition: transform .2s;
     border-radius: 1rem;
     width: 320px;    
-    box-shadow: 5px 6px 22px -5px rgba(75, 17, 191, 0.66);
-    -webkit-box-shadow: 5px 6px 22px -5px rgba(75, 17, 191, 0.66);
-    -moz-box-shadow: 5px 6px 22px -5px rgba(75, 17, 191, 0.66);
+    box-shadow: 5px 6px 22px -5px rgba(12, 52,106, 0.66);
+    -webkit-box-shadow: 5px 6px 22px -5px rgba(12, 52,106, 0.66);
+    -moz-box-shadow: 5px 6px 22px -5px rgba(12, 52,106, 0.66);
 }
 
 .courses_card:hover {
