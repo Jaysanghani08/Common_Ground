@@ -51,6 +51,8 @@ function RateCourseDialog() {
   };
 
   return (
+    <div className="outer-rate" style={{display:'flex',justifyContent:'center'}
+      }>
     <div>
           <Box
       sx={{
@@ -81,6 +83,8 @@ function RateCourseDialog() {
         Rate Course
       </Button>
       
+    </div>
+
     </div>
   );
 }

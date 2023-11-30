@@ -57,12 +57,14 @@ function AttachmentList({ link, createdby, usertype, isEnrolled }) {
     };
 
     const handleOpenPdfDialog = () => {
-        if ((usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled)) {
-            setOpenPdfDialog(true)
-        }
-        else {
-            setOpenPdfDialog(false)
-            toast.error("You are not enrolled in this course")
+        if (
+            (usertype === 'educator' && getToken('educator')?.userId === createdby) ||
+            (usertype === 'student' && isEnrolled)
+        ) {
+            setOpenPdfDialog(true);
+        } else {
+            setOpenPdfDialog(false);
+            toast.error("You are not enrolled in this course");
         }
     };
 
@@ -177,8 +179,8 @@ export function CourseAccordion(props) {
 
     const handleEditFormOpen = () => {
         setEditedContent(post.body);
-        setEditedPdfFile(null); // Add this line if you're using file input for PDF
-        setEditedVideoFile(null); // Add this line if you're using file input for video
+        setEditedPdfFile(null); 
+        setEditedVideoFile(null); 
         setOpenEditForm(true);
     };
 

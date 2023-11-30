@@ -15,7 +15,7 @@ const HomePage = () => {
   return (
     <div>
       <HomeNavbar/>
-      <TopBar />
+      <TopBar id="home"/>
       <StudentsAbout id="Student"/>
       <EducatorAbout id="Educator"/>
       {/* <CoursesCard id="our-free-courses"/> */}
