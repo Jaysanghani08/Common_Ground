@@ -12,6 +12,7 @@ import StuNavbar from './../student/Dashboard/Sidebar/Sidebar'
 import RateCourseDialog from './CourseDetailComponents/RateCourse';
 import AssignmentSubmission from './CourseDetailComponents/CourseHeader/AssignmentSubmission'
 import Button from '@mui/material/Button'
+import CertificateDownloadButton from './Certificate'
 
 const CourseDetails = () => {
 
@@ -139,6 +140,8 @@ const CourseDetails = () => {
                                     usertype === 'student' && isEnrolled &&
                                     <Button variant="contained" color="error" onClick={handleUnenroll}>UnEnroll from this  the Course.</Button>
                                 }
+
+                                <CertificateDownloadButton/>
                             </div>
 
                         </>
