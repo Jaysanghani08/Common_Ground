@@ -13,6 +13,9 @@ const EduLogin = () => {
         email: "",
         password: ""
     });
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(inputdata.password);
+    const hasCapitalLetter = /[A-Z]/.test(inputdata.password);
+    const hasNumber = /\d/.test(inputdata.password);
 
     const [paswordshow, setPaswordShow] = useState(false);
     const navigate = useNavigate();
@@ -70,11 +73,22 @@ const EduLogin = () => {
             else if (response?.status === 400) {
                 toast.error("Wrong Password");
             }
+            else if (!hasSpecialChar) {
+                toast.error("Password must contain at least one special character");
+            } else if (!hasCapitalLetter) {
+                toast.error("Password must contain at least one capital letter");
+            } else if (!hasNumber) {
+                toast.error("Password must contain at least one number");
+            }
             else {
                 toast.error("Invalid Email or Password");
             }
+
         }
     }
+
+   
+
 
     return (
         <div className={style.outerdiv}>

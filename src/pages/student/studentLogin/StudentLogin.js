@@ -13,6 +13,10 @@ const StudentLogin = () => {
         password: ""
     });
 
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(inputdata.password);
+    const hasCapitalLetter = /[A-Z]/.test(inputdata.password);
+    const hasNumber = /\d/.test(inputdata.password);
+
     const [paswordshow, setPaswordShow] = useState(false);
     const navigate = useNavigate();
 
@@ -41,9 +45,13 @@ const StudentLogin = () => {
             toast.error("Enter Your Password")
         } else if (inputdata.password.length < 6) {
             toast.error("password length minimum 6 character")
-        }
-
-        else {
+        }else if (!hasSpecialChar) {
+            toast.error("Password must contain at least one special character");
+        } else if (!hasCapitalLetter) {
+            toast.error("Password must contain at least one capital letter");
+        } else if (!hasNumber) {
+            toast.error("Password must contain at least one number");
+        }else {
             const data = {
                 email: inputdata.email,
                 password: inputdata.password

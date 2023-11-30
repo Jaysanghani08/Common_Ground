@@ -60,6 +60,9 @@ const StudentRegister = () => {
     };
 
     // register data
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(inputdata.password);
+    const hasCapitalLetter = /[A-Z]/.test(inputdata.password);
+    const hasNumber = /\d/.test(inputdata.password);
     const handleSubmit = async (e) => {
         e.preventDefault();
         // const { fname, email, password } = inputdata;
@@ -90,6 +93,12 @@ const StudentRegister = () => {
             toast.error("Enter Your Password")
         } else if (inputdata.password.length < 6) {
             toast.error("password length minimum 6 character")
+        }else if (!hasSpecialChar) {
+            toast.error("Password must contain at least one special character");
+        } else if (!hasCapitalLetter) {
+            toast.error("Password must contain at least one capital letter");
+        } else if (!hasNumber) {
+            toast.error("Password must contain at least one number");
         }
         else {
             const response = await studentregisterfunction(inputdata);
