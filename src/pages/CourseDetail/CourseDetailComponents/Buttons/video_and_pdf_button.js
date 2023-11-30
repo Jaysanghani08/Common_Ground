@@ -106,7 +106,7 @@ const FileUploadForm = ({ sectionId }) => {
             >
                 <DialogTitle>
 
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
 
                         <Button variant="contained" edge="end" color="inherit" onClick={toggleFullScreen} aria-label="fullscreen">
                             {fullScreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
@@ -128,12 +128,12 @@ const FileUploadForm = ({ sectionId }) => {
                                     <TextField id="outlined-basic" label="PostName" variant="outlined" value={formData.title} name="title" onChange={handle_Change} />
                                 </div>
                                 <div className="bn-section-description">
-                                    <TextField id="outlined-basic" label="PostDiscription" variant="outlined" value={formData.body} name='body' onChange={handle_Change} />
+                                    <TextField id="outlined-basic" label="PostDescription" variant="outlined" value={formData.body} name='body' onChange={handle_Change} />
                                 </div>
 
                                 <div >
                                     <div >
-                                        <label className="post-pdf">PDF File:</label>
+                                        <label className="post-pdf">PDF or Video File:</label>
                                         <div className="post-pdf">
                                             <input
                                                 type="file"

@@ -73,8 +73,7 @@ const EnrolledCourses = () => {
                             value={filter}
                             onChange={e => setFilter(e.target.value)}
                         />
-
-                        <Button variant="contained">Search</Button>
+                        {/* <Button variant="contained">Search</Button> */}
 
                     </div>
                     <div className='stu-main-container'>
