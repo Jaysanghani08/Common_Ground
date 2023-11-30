@@ -130,7 +130,7 @@ function CustomAccordion(props) {
                 {
                     usertype === 'educator' && getToken('educator')?.userId === createdby &&
                     <div >
-                        <Button variant="outlined" onClick={handleEditSection} >Edit</Button>
+                        {/* <Button variant="outlined" onClick={handleEditSection} >Edit</Button> */}
                         <Button variant="outlined" onClick={handleDeleteSection}>Delete</Button>
                     </div>
                 }
