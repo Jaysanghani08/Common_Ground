@@ -118,7 +118,9 @@ export default function BasicTextFields() {
                         autoComplete="off"
                     >
                         <form>
+                            
                             <div className="bn-main-button">
+                                
                                 <div className="bn-section-name">
                                     <TextField id="outlined-basic" label="SectionName" variant="outlined" value={formData.name} name="title" onChange={handle_Change} />
                                 </div>
