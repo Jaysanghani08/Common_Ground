@@ -116,6 +116,7 @@ const EduOfferedCourses = () => {
             <div className="edc_container1">
                 <div className="edu_overlay">
                     <div className='edc_background_img '>
+                        <div className="bar-flex">
                         <div className="search-bar" style={{ zIndex: '15', position:'relative' }} >
                             <input
                                 className='large-input'
@@ -126,6 +127,7 @@ const EduOfferedCourses = () => {
                                 onChange={(e) => setSearchQuery(e.target.value)}
                             />
                             {/* <button className="oc-search-button" onClick={handleSearch}>Search</button> */}
+                        </div>
                         </div>
                         {filteredCs.length === 0 ? (
                             <div className="oc-loading-spinner">
