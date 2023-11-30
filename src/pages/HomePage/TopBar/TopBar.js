@@ -9,9 +9,9 @@ const TopBar = () => {
           <div className='row'>
             <div className="heading">
             <h2>WELCOME TO COMMON GROUND</h2>
-            <h3>Best Online Education Expertise</h3>
+            <h3>Don’t limit yourself to learning</h3>
             </div>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+            <p style={{width:'70%'}}>with help of E-learning, create your own path and drive on your skills on your own to achieve what you seek</p>
             {/* <div className='Top-button'>
               <button className='primary-btn'>
                 GET STARTED NOW --/ <i className='fa fa-long-arrow-alt-right'></i>

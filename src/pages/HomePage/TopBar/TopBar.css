@@ -1,5 +1,5 @@
 .TopBar {
-  background-image: url("https://scintillating-smakager-860376.netlify.app/static/media/bg.baa1024a4ae092566a75.webp");
+  background-image: url("../Images/Topbar.webp");
   background-size: cover;
   background-attachment: fixed;
   /* position: absolute; */
@@ -43,9 +43,9 @@
 }
 
 @media screen and (max-width: 768px) {
-  .margin {
+  /* .margin {
     height: 40vh;
-  }
+  } */
   .TopBar {
     background-position: right;
     padding-top: 50%;
@@ -54,4 +54,6 @@
   .TopBar .row {
     width: 100%;
   }
+
+  
 }

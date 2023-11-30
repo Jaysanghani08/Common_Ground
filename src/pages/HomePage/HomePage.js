@@ -16,10 +16,10 @@ const HomePage = () => {
     <div>
       <HomeNavbar/>
       <TopBar />
-      <StudentsAbout />
-      <EducatorAbout/>
-      <CoursesCard id="our-free-courses"/>
-      <OnlineCourses id="courses"/>
+      <StudentsAbout id="Student"/>
+      <EducatorAbout id="Educator"/>
+      {/* <CoursesCard id="our-free-courses"/> */}
+      {/* <OnlineCourses id="courses"/> */}
       <AboutUs id="aboutus" />
       <ChooseUs />
       <Footer id="contactus"/>

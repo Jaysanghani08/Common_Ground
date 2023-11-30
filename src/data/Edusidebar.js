@@ -70,12 +70,12 @@ export const homepage = [
       route: "/homepage",
     },
     {
-      heading: "Courses",
-      route: "/homepage#our-free-courses",
+      heading: "Student",
+      route: "/homepage#Student",
     },
     {
-      heading: "Category",
-      route: "/homepage#courses",
+      heading: "Educator",
+      route: "/homepage#Educator",
     },
     {
       heading: 'About Us',

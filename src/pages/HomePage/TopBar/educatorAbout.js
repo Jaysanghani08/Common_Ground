@@ -3,6 +3,7 @@ import React from "react"
 import "./about.css"
 // import { homeAbout } from "../../dummydata"
 // import Awrapper from "./Awrapper"
+import eduactorImg from "../Images/educator.jpg"
 export const homeAbout = [
   {
     id: 1,
@@ -25,9 +26,10 @@ export const homeAbout = [
 ]
 
 
-const AboutCard = () => {
+const AboutCard = ({id}) => {
   return (
     <>
+    <div id={id}>
       <section className='aboutHome'>
         <div className='container flexSB'>
           <div className='right row'>
@@ -53,12 +55,12 @@ const AboutCard = () => {
             
           </div>
           <div className='left row'>
-          <img src='https://s40424.pcdn.co/in/wp-content/uploads/2022/09/12-Benefits-of-Online-Learning-for-Working-Professionals.jpg.optimal.jpg' alt='' />
+          <img src={eduactorImg } alt='' className="educator_img" />
           </div>
         </div>
       </section>
       
-       
+     </div>
     </>
   )
 }

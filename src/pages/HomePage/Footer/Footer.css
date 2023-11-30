@@ -6,7 +6,7 @@
   footer .container {
     grid-gap: 30px;
     display: grid;
-    grid-template-columns: 0fr repeat(3, 2fr) 4fr;;
+    grid-template-columns: 0fr 1fr 1fr 1fr;
   }
 
   .icon {
@@ -95,4 +95,40 @@
   .legal i {
     color: #0c356a;
   }
+
+  .box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .box.link ul li .nav-link {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
   
+  .box.link ul li .nav-link:hover {
+    color: #007bff;
+  }
+  
+  .last {
+    text-decoration: none;
+  }
+  .last ul li{
+    color: #333; 
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .last ul li:hover{
+    color: #007bff; 
+  }
+
+  @media (max-width: 768px) {
+    /* Override or reset styles for .box within this media query */
+    .box {
+      display: block; /* Reset display property, for example */
+      /* Add or redefine other styles as needed */
+    }
+  }

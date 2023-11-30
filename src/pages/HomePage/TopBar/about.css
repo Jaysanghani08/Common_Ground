@@ -14,9 +14,7 @@
     height: 100%;
     object-fit: cover;
   }
-  .aboutHome .right {
-    /* padding: 80px 50px; */
-  }
+
   .aboutHome .items {
     margin-top: 50px;
   }
@@ -62,7 +60,7 @@
 .left{
   display: flex;
     align-items: center;
-    background-color: aliceblue;
+    /* background-color: aliceblue; */
 }
  
 .left-text{
@@ -72,6 +70,48 @@
     align-items: center;
 }
 .left-text h5{
-  color: aqua;
-  width: 70%;
+  color: #0174be;
+  width: 60%;
+}
+
+
+@media screen and (max-width: 768px) {
+  .aboutHome {
+    background: url('../Images/educator.jpg') center/cover no-repeat; /* Replace 'your-smaller-screen-image-url.jpg' with the URL of your smaller screen background image */
+  }
+  .anotherComponent{
+    background-color: #0174be;
+    background: none;
+  }
+
+  .container {
+    flex-direction: column;
+  }
+
+  .right,
+  .left {
+    width: 100%; 
+    margin-bottom: 20px; 
+  }
+  .educator_img {
+    display: none;
+  }
+  .heading {
+    text-align: center;
+  }
+
+  .items {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .item {
+    margin-bottom: 20px; 
+  }
+
+  .left img {
+    width: 100%; 
+  }
+  
+ 
 }

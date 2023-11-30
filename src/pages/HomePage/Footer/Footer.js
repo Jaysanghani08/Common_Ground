@@ -1,6 +1,6 @@
 import React from "react"
 import "./Footer.css"
-
+import { NavLink} from "react-router-dom";
 const Footer = ({id}) => {
   return (
     <>
@@ -12,9 +12,9 @@ const Footer = ({id}) => {
           <div className='box logo2'>
             <h1>COMMON GROUND</h1>
             <span>ONLINE EDUCATION & LEARNING</span>
-            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+           
           </div>
-          <div className='box link'>
+          {/* <div className='box link'>
             <h3>Explore</h3>
             <ul>
               <li>About Us</li>
@@ -22,16 +22,14 @@ const Footer = ({id}) => {
               <li>Courses</li>
               <li>Contact us</li>
             </ul>
-          </div>
+          </div> */}
           <div className='box link'>
             <h3>Quick Links</h3>
             <ul>
-              <li>Contact Us</li>
-              <li>Student Login</li>
-              <li>Educator Login</li>
-              <li>Terms & Conditions</li>
-              <li>Privacy</li>
-              <li>Feedbacks</li>
+            <li><NavLink to="/student/login" className="nav-link">Student Login</NavLink> </li>
+            <li><NavLink to="/educator/login" className="nav-link">Educator Login</NavLink></li>
+            <li><NavLink to="/student/register" className="nav-link">Student Register</NavLink></li>
+            <li><NavLink to="/educator/register" className="nav-link">Educator Register</NavLink></li>
             </ul>
           </div>
          
@@ -50,7 +48,7 @@ const Footer = ({id}) => {
               </li>
               <li>
                 <i className='fa fa-paper-plane'></i>
-                info@domain.com
+                <a href="mailto:common_ground@gmail.come">common_ground@gmail.come</a>
               </li>
             </ul>
           </div>
