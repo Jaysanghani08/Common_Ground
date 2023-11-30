@@ -117,7 +117,7 @@ const EduOfferedCourses = () => {
                 <div className="edu_overlay">
                     <div className='edc_background_img '>
                         <div className="bar-flex">
-                        <div className="search-bar" style={{ zIndex: '15', position:'relative' }} >
+                        <div className="search-bar" style={{ zIndex: '15', position:'relative',display:'flex',justifyContent:'center' }} >
                             <input
                                 className='large-input'
                                 style={{ width: '65vw' }}

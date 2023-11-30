@@ -18,7 +18,7 @@
 
 .edu_overlay {
     background: rgba(12, 53, 106, 0.7); 
-    display: flex;
+    /* display: flex; */
     height: 100vh;
     overflow: auto;
 } 

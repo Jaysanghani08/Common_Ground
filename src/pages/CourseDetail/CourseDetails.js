@@ -134,16 +134,18 @@ const CourseDetails = () => {
                                 }
 
                                 <BasicTabs sections={coursedata.courseSections} enrolledStudents={coursedata.enrolledStudents} courseAssignments={coursedata.courseAssignments} discussionData={coursedata.discussionForum?.messages} usertype={usertype} createdby={coursedata.createdBy?._id} isEnrolled={isEnrolled} />
+                                {
+                                    usertype === 'student' && !isEnrolled &&
                                 <RateCourseDialog />
 
-                            
+                                }
 
                                 {
                                     usertype === 'student' && isEnrolled &&
                                     <Button variant="contained" color="error" onClick={handleUnenroll}>UnEnroll from this  the Course.</Button>
                                 }
 
-                                <CertificateDownloadButton/>
+                                {/* <CertificateDownloadButton/> */}
                             </div>
 
                         </>

@@ -27,7 +27,7 @@
 }
 
 .course-content {
-    background-color: rgba(255, 225, 225, 0.8);
+    background-color:rgb(241 233 233 / 80%);
     background-size: cover;
     z-index: 2;
     padding: 40px 4vw;

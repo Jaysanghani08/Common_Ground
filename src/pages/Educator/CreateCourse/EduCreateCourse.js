@@ -119,7 +119,7 @@ function EduCreateCourse() {
                 <EdNavbar />
                 <div className="create-course-container">
                     <form className='course-form' encType='multipart/form-data'>
-                        <h1 style={{ color: "0C356A" }}>Create A New Course</h1>
+                        <h1>Create A New Course</h1>
                         <div>
                             <div className='ccform'>
 
