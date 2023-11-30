@@ -202,6 +202,10 @@ const StudentRegister = () => {
                                 <input type="radio" id="female" name="gender" value="female" checked={inputdata.gender === 'female'} onChange={handleGenderChange} />
                                 <label htmlFor="female">Female</label>
                             </div>
+                            <div className='gender1'>
+                                <input type="radio" id="other" name="gender" value="other" checked={inputdata.gender === 'other'} onChange={handleGenderChange} />
+                                <label htmlFor="other">Other</label>
+                            </div>
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="username">Username</label>

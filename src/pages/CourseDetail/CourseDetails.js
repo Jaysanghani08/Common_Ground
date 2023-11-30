@@ -123,6 +123,7 @@ const CourseDetails = () => {
                                 courseLevel={coursedata.courseLevel}
                                 coursePrice={coursedata.coursePrice}
                                 rating={coursedata.rating}
+                                dateCreated={coursedata.dateCreated}
                             />
 
 
@@ -134,11 +135,10 @@ const CourseDetails = () => {
                                 }
 
                                 <BasicTabs sections={coursedata.courseSections} enrolledStudents={coursedata.enrolledStudents} courseAssignments={coursedata.courseAssignments} discussionData={coursedata.discussionForum?.messages} usertype={usertype} createdby={coursedata.createdBy?._id} isEnrolled={isEnrolled} />
-                                {
-                                    usertype === 'student' && !isEnrolled &&
+                            
+                                
                                 <RateCourseDialog />
 
-                                }
 
                                 {
                                     usertype === 'student' && isEnrolled &&

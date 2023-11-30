@@ -67,7 +67,7 @@ export const SidebarDataForStudent = [
 export const homepage = [
     {
       heading: "Home",
-      route: "/homepage",
+      route: "/homepage#home",
     },
     {
       heading: "Student",

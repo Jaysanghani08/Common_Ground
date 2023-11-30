@@ -7,7 +7,8 @@ import CourseImg from "./../../../../data/imgs/couse_img.jpg";
 
 // fetch data from backend and display it here
 
-const CourseHeader = ({courseCode, courseTitle, courseDescriptionLong, createdBy, enrolledStudents, coursePrice,rating,language, courseLevel}) => {
+const CourseHeader = ({courseCode, courseTitle, courseDescriptionLong, createdBy, enrolledStudents, coursePrice,rating,dateCreated,language, courseLevel}) => {
+    const formattedDate = new Date(dateCreated).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
     return (
         <div className="course-header">
             <div className="course-title">
@@ -30,7 +31,7 @@ const CourseHeader = ({courseCode, courseTitle, courseDescriptionLong, createdBy
                 <div className="course-date">
                     <FaCalendarDay />
                     {/* have to change */}
-                    2 April, 2023
+                    {formattedDate}
                 </div>
                 <div className="course-enrolled-students">
                     <FaUserFriends />
