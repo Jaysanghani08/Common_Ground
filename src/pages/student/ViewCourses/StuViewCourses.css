@@ -33,7 +33,7 @@
     z-index: -1;
 }
 
-.stu-viewcourses-section1-cover {
+/* .stu-viewcourses-section1-cover {
     height: 63%;
     background-color: rgba(12, 53, 106);
 }
@@ -48,7 +48,7 @@
     top: 172.5%;
     height: 69%;
     background-color: rgba(12, 53, 106);
-}
+} */
 
 .stu-viewcourses-content {
     display: flex;
@@ -64,6 +64,7 @@
     padding: 4rem;
     z-index: 7;
     /* margin-bottom: 20px; */
+    background-color: rgba(12, 53, 106, 0.7);
 }
 
 .stu-viewcourses-heading {
@@ -125,6 +126,7 @@
 .stu-viewcourses-section2{
     text-align: center;
     padding: 100px 20px;
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 .stu-viewcourses-section2 h2{
@@ -144,9 +146,9 @@
 }
 
 .stu-viewcourses-courses_card-body {
-    /* box-shadow: 5px 6px 22px -5px rgba(75, 17, 191, 0.66);
-    -webkit-box-shadow: 5px 6px 22px -5px rgba(75, 17, 191, 0.66);
-    -moz-box-shadow: 5px 6px 22px -5px rgba(75, 17, 191, 0.66); */
+    /* box-shadow: 5px 6px 22px -5px rgba(12, 52,106, 0.66);
+    -webkit-box-shadow: 5px 6px 22px -5px rgba(12, 52,106, 0.66);
+    -moz-box-shadow: 5px 6px 22px -5px rgba(12, 52,106, 0.66); */
     margin: 30px 40px;
     transition: transform .3s ease;
     height: 530px;
@@ -203,6 +205,7 @@
 .stu-viewcourses-section3{
     text-align: center;
     padding: 70px 20px;
+    background-color: rgba(12, 53, 106, 0.7);
 }
 
 .stu-viewcourses-section3 h2{

@@ -35,7 +35,7 @@ function App() {
     return (
         <>
             <Routes>
-                <Route path='/' element={<StudentRegister />} />
+                <Route path='/' element={<HomePage />} />
                 <Route path='/tmp' element={<Example />} />
                 <Route path='/course/:courseId' element={<CourseDetails />} />
                 <Route path='/homepage' element={<HomePage />} />

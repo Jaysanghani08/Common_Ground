@@ -53,18 +53,25 @@ const EduLogin = () => {
             const response = await eduloginfunction(data);
             // console.log(response)
 
-            if (response.status === 200) {
-                toast.success(response.data.message);
-                if (response.data.token) Cookies.remove('token')
-                Cookies.set('token', response.data.token, { expires: 7, secure: true });
+            if (response?.status === 200) {
+                toast.success("Login Successfully");
+                if (response?.data?.token) Cookies.remove('token')
+                Cookies.set('token', response?.data?.token, { expires: 7, secure: true });
 
                 setTimeout(() => {
                     navigate("/educator/dashboard")
                     window.location.reload();
                 }, 1000);
-                
-            } else {
-                toast.error(response.response.data.message);
+
+            } 
+            else if (response?.status === 404) {
+                toast.error("User does not exist");
+            }
+            else if (response?.status === 400) {
+                toast.error("Wrong Password");
+            }
+            else {
+                toast.error("Invalid Email or Password");
             }
         }
     }

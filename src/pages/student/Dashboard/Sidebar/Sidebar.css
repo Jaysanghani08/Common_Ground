@@ -10,7 +10,7 @@
     position: relative;
     display: inline-block;
     transition: all 300ms ease;
-    background: #4b11bf;
+    background: rgb(12, 52,106);
     /* font-family: 'Lora', serif; */
     letter-spacing: 2px;
 }
@@ -47,7 +47,7 @@ img{
 
 .active{
     background-color: #f8f9fa;
-    color: #4b11bf;
+    color: rgb(12, 52,106);
     border-top-left-radius:20px ;
     border-bottom-left-radius: 20px;
     padding-left: 75px;
@@ -109,7 +109,7 @@ img{
         position: fixed;
         top: 2rem;
         z-index: 12;
-        background: #4b11bf;
+        background: rgb(12, 52,106);
         padding: 10px;
         border-radius: 10px;
 

@@ -1,7 +1,10 @@
 .inside-div{
   display: inline-block;
 }
-
+.fill-container{
+  overflow: auto;
+  height: 100vh;
+}
 .oc-container{
   width: 100%;
   background-color: #F8F9FA;
@@ -65,7 +68,7 @@
   justify-content: center;
   font-weight: bold;
   margin-bottom: 5px;
-  color: #4B11BF;
+  color: rgb(12, 52,106);
 }
 
 
@@ -78,7 +81,7 @@
 
 .oc-view{
   font-size: 16px;
-  background-color: #4B11BF;
+  background-color: rgb(12, 52,106);
   color: white;
   width: 4.7%;
 }
@@ -120,7 +123,7 @@
 
 .oc-search-bar button {
   width: 10%;
-  background-color: #4B11BF;
+  background-color: rgb(12, 52,106);
   margin-left: 0px;
   color: #fff;
   border: none;
@@ -173,7 +176,7 @@
   display: inline-flex;
   justify-content: center;
   font-weight: bold;
-  color: #4B11BF;
+  color: rgb(12, 52,106);
   width: 80px;
   font-size: 10px;
 }
@@ -187,7 +190,7 @@
 
 .oc-view{
   font-size: 10px;
-  background-color: #4B11BF;
+  background-color: rgb(12, 52,106);
   color: white;
   width: 40px;
   margin-left: 120px;
@@ -213,7 +216,7 @@
 .oc-search-bar button {
   width: 80px;
   padding: 5px;
-  background-color: #4B11BF;
+  background-color: rgb(12, 52,106);
   color: #fff;
   border: none;
   cursor: pointer;
@@ -261,7 +264,7 @@
   display: inline-flex;
   justify-content: center;
   font-weight: bold;
-  color: #4B11BF;
+  color: rgb(12, 52,106);
   width: 80px;
   font-size: 10px;
 }
@@ -275,7 +278,7 @@
 
 .oc-view{
   font-size: 10px;
-  background-color: #4B11BF;
+  background-color: rgb(12, 52,106);
   color: white;
   width: 40px;
   margin-left: 120px;
@@ -301,7 +304,7 @@
 .oc-search-bar button {
   width: 80px;
   padding: 5px;
-  background-color: #4B11BF;
+  background-color: rgb(12, 52,106);
   color: #f4f4f4;
   border: none;
   cursor: pointer;
@@ -365,6 +368,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     margin-top: -90px;
+    padding-bottom: 30px;
 }
 
 .edu_stu-viewcourses-large-input{

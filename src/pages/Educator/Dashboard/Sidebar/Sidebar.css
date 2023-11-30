@@ -48,7 +48,7 @@
 
 .menu .active {
     border-radius: 1rem;
-    background-color: #4b11bf;
+    background-color: rgb(12, 52,106);
     color: white;
     /* padding-left: 75px; */
     /* margin-left: -30px; */
@@ -96,7 +96,7 @@
     .Sidebar {
         position: fixed;
         z-index: 9;
-        background: #4b11bf;
+        background: rgb(12, 52,106);
         width: 50%;
         /* padding-right: 1rem; */
         height: 100%;
@@ -107,7 +107,7 @@
         position: fixed;
         top: 2rem;
         z-index: 12;
-        background: #4b11bf;
+        background: rgb(12, 52,106);
         padding: 10px;
         border-radius: 10px;
 

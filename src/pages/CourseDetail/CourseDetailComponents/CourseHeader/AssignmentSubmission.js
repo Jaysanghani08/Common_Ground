@@ -1,21 +1,52 @@
 import React, { useState, useEffect } from 'react';
 // import { getSubmissions } from '../../../../services/Apis';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Table, TableHead, TableRow, TableCell, TableBody, TextField } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import PictureAsPdf from '@mui/icons-material/PictureAsPdf';
 import { useParams } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
+import { gradeSubmission } from '../../../../services/Apis';
+// import TextField from '@mui/material/TextField';
 
-function SubmissionViewer({ assignmentId, submissions}) {
+function TmpForGrade({assignmentId, submissionId}) {
+
+    const [grade, setGrade] = useState('');
+    const {courseId} = useParams();
+
+    const handleSubmitGrade = async () => {
+        const data = {
+            "grade" : grade
+        }
+
+        const response = await gradeSubmission(courseId, assignmentId, submissionId, data);
+
+        if(response?.status === 200){
+            toast.success("Graded succesfully.")
+            window.location.reload()
+        }else{
+            toast.error('Error in grade submission.')
+        }
+    }
+
+    return (
+    <>
+        <TextField id="standard-basic" label="Assign Grade" variant="standard" value={grade} onChange={(e)=>setGrade(e.target.value)}/>
+        <Button variant='contained' onClick={handleSubmitGrade}>Assign</Button>
+    </>
+    )
+}
+
+function SubmissionViewer({ assignmentId, submissions }) {
     // const [submissions, setSubmissions] = useState([]);
 
     console.log(submissions)
     const [openPdfDialog, setOpenPdfDialog] = useState(false);
     const [pdfTitle, setPdfTitle] = useState('');
     const [pdfFile, setPdfFile] = useState(null);
-    const {courseId} = useParams();
+    const { courseId } = useParams();
     const token = Cookies.get('token')
 
     const [openSubmissionViewer, setOpenSubmissionViewer] = useState(false);
@@ -32,7 +63,7 @@ function SubmissionViewer({ assignmentId, submissions}) {
         const fetchSubmissions = async () => {
             try {
                 // const response = await getSubmissions(assignmentId);
-                // setSubmissions(response.data);
+                // setSubmissions(response?.data);
             } catch (error) {
                 console.error('Error fetching submissions:', error);
             }
@@ -56,7 +87,7 @@ function SubmissionViewer({ assignmentId, submissions}) {
 
     return (
         <>
-        <Button variant="outlined" color="secondary" onClick={handleViewSubmissions}>
+            <Button variant="outlined" color="secondary" onClick={handleViewSubmissions}>
                 View Submissions
             </Button>
 
@@ -70,30 +101,36 @@ function SubmissionViewer({ assignmentId, submissions}) {
                                 <TableCell>Student ID</TableCell>
                                 {/* <TableCell>Submission Time</TableCell> */}
                                 <TableCell>PDF File</TableCell>
+                                <TableCell>Grade</TableCell>
+                                <TableCell>Assign Grade</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                        {submissions?.map((submission) => (
-                            <TableRow key={submission._id}>
-                                
-                                <TableCell>{submission.submittedBy.username}</TableCell>
-                            
-                                <TableCell>{submission.submittedBy._id}</TableCell>
-                            
-                                {/* <TableCell>{new Date(submission.submissionTime).toLocaleString()}</TableCell> */}
-                                <TableCell>
-                                    {submission.submission && (
-                                        <IconButton
-                                            edge="end"
-                                            color="inherit"
-                                            onClick={() => handleOpenPdfDialog('PDF Title', submission?.submission[0])}
-                                        >
-                                            <PictureAsPdf />
-                                        </IconButton>
-                                    )}
-                                </TableCell>
-                            </TableRow>
-                             ))}
+                            {submissions?.map((submission) => (
+                                <TableRow key={submission._id}>
+
+                                    <TableCell>{submission.submittedBy.username}</TableCell>
+
+                                    <TableCell>{submission.submittedBy._id}</TableCell>
+
+                                    {/* <TableCell>{new Date(submission.submissionTime).toLocaleString()}</TableCell> */}
+                                    <TableCell>
+                                        {submission.submission && (
+                                            <IconButton
+                                                edge="end"
+                                                color="inherit"
+                                                onClick={() => handleOpenPdfDialog('PDF Title', submission?.submission[0])}
+                                            >
+                                                <PictureAsPdf />
+                                            </IconButton>
+                                        )}
+                                    </TableCell>
+                                    <TableCell>{submission.grade}</TableCell>
+                                    <TableCell>
+                                        <TmpForGrade assignmentId={assignmentId} submissionId={submission?._id}/>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
                         </TableBody>
                     </Table>
                 </DialogContent>

@@ -44,12 +44,16 @@ const ResetPass = () => {
 
             const response = await studentupdatepasswordfunction(data);
 
-            if (response.status === 200) {
+            if (response?.status === 200) {
                 setSpiner(false)
-                toast.success(response.data.message);
+                toast.success("Password Updated Successfully");
                 // navigate("/user/otp",{state:email})
-            } else {
-                toast.error(response.response.data.message);
+            } 
+            else if(response?.status === 404){
+                toast.error("User not found !");
+            }   
+            else {
+                toast.error("Something went wrong ! Please try again");
             }
         }
     }

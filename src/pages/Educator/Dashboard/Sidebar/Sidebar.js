@@ -29,7 +29,7 @@ function Sidebar() {
 
                 {/* {logo} */}
                 <div className="logo logo-hidden">
-                    <img src={Logo} style={{color : '#4b11bf'}} alt='logo'></img>
+                    <img src={Logo} style={{color : 'rgb(12, 52,106)'}} alt='logo'></img>
 
                 </div>
                 <div className="menu">

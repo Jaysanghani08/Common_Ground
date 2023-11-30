@@ -52,17 +52,21 @@ const StudentLogin = () => {
             const response = await studentloginfunction(data);
             // console.log(response)
 
-            if (response.status === 200) {
-                toast.success(response.data.message);
-                if (response.data.token) Cookies.remove('token')
-                Cookies.set('token', response.data.token, { expires: 7, secure: true });
+            if (response?.status === 200) {
+                toast.success("Login Successfully");
+                if (response?.data?.token) Cookies.remove('token')
+                Cookies.set('token', response?.data?.token, { expires: 7, secure: true });
 
                 setTimeout(() => {
                     navigate("/student/dashboard")
                     window.location.reload();
                 }, 1000);
-            } else {
-                toast.error(response.response.data.message);
+            } 
+            else if(response?.status === 404){
+                toast.error("Invalid Email or Password !");
+            }
+            else {
+                toast.error("Something went wrong ! Please try again");
             }
         }
     }

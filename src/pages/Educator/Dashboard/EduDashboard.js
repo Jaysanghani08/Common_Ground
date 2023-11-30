@@ -85,7 +85,7 @@ function EduDashboard() {
                             {
                             profile && profile.profilePic ? 
                             <img src={`http://localhost:8000/${profile.profilePic?.split('/').pop()}`} alt="user" width={150} srcset="" />
-                            :<UilUser size='100' />
+                            :<img src='https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=400' alt='no image' />
                             }
                         </div>
 

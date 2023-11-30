@@ -121,6 +121,8 @@ const CourseDetails = () => {
                                 enrolledStudents={coursedata.enrolledStudents.length || 0}
                                 language={coursedata.language}
                                 courseLevel={coursedata.courseLevel}
+                                coursePrice={coursedata.coursePrice}
+                                rating={coursedata.rating}
                             />
 
 

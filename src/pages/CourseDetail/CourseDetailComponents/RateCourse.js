@@ -38,7 +38,7 @@ function RateCourseDialog() {
     }
     try {
       const response = await RateCourse(courseId, data);
-        console.log(response);
+        // console.log(response);
       if (response?.status === 200) {
         toast.success('Course rated successfully');
       } else {

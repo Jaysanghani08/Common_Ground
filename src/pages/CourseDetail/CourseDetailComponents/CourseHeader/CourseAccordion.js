@@ -18,6 +18,7 @@ import { useParams } from 'react-router-dom';
 import { deletePost, editPost } from './../../../../services/Apis';
 import { toast } from 'react-toastify';
 import getToken from '../../../../services/getToken';
+import Cookies from 'js-cookie';
 
 const VideoStreamingComponent = ({ videoLink }) => (
     <video width="100%" height="100%" controls>
@@ -39,6 +40,84 @@ CourseContent.propTypes = {
     content: PropTypes.node,
 };
 
+function AttachmentList({ link, createdby, usertype, isEnrolled }) {
+    console.log(link)
+
+    const [openPdfDialog, setOpenPdfDialog] = useState(false);
+    const [openAssignmentDialog, setOpenAssignmentDialog] = useState(false);
+    const [fullScreen, setFullScreen] = useState(false);
+    const theme = useTheme();
+    const fullScreenDialog = useMediaQuery(theme.breakpoints.down('sm'));
+    const [editedPdfFile, setEditedPdfFile] = useState(null);
+    const { courseId } = useParams();
+    const token = Cookies.get("token")
+
+    const toggleFullScreen = () => {
+        setFullScreen(!fullScreen);
+    };
+
+    const handleOpenPdfDialog = () => {
+        if ((usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled)) {
+            setOpenPdfDialog(true)
+        }
+        else {
+            setOpenPdfDialog(false)
+            toast.error("You are not enrolled in this course")
+        }
+    };
+
+    const handleClosePdfDialog = () => {
+        setOpenPdfDialog(false);
+    };
+
+    return (
+        <>
+            <li>
+                <IconButton onClick={handleOpenPdfDialog}>
+                    {
+                        link?.split('/').pop().split('.').pop() === 'pdf' ? 
+                        <PictureAsPdfIcon style={{ fontSize: '25px' }} />
+                        : <VideoLibraryIcon style={{ fontSize: '25px' }}/>
+                    }
+                    <span style={{
+                        filter: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'none' : 'blur(5px)',
+                        userSelect: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'auto' : 'none',
+                        pointerEvents: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'auto' : 'none',
+                    }}>
+                        {link?.split('/').pop()} 
+                    </span>
+                </IconButton>
+
+
+                {/* PDF */}
+                <Dialog
+                    open={openPdfDialog}
+                    onClose={handleClosePdfDialog}
+                    fullScreen={fullScreenDialog || fullScreen}
+                    classes={{ paper: 'custom-paper' }}
+                >
+                    <DialogTitle>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            {link?.split('/').pop()}
+                            <IconButton edge="end" color="inherit" onClick={toggleFullScreen} aria-label="fullscreen">
+                                {fullScreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
+                            </IconButton>
+                        </div>
+                    </DialogTitle>
+                    <DialogContent className="custom-dialog-content">
+                        <iframe title="PDF Viewer" width="100%" height="100%" src={`http://localhost:8000/file/retrieve?courseId=${courseId}&path=${link}&jwt=${token}`} />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClosePdfDialog} color="primary">
+                            Close
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+            </li>
+        </>
+    )
+}
+
 export function CourseAccordion(props) {
     const { post, sectionId, content, pdfLink, assignmentLink, pdfTitle, AssignmentTitle, postName, createdby, usertype, isEnrolled } = props;
     // console.log(post)
@@ -55,15 +134,7 @@ export function CourseAccordion(props) {
         setExpanded(!expanded);
     };
 
-    const handleOpenPdfDialog = () => {
-        if ((usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled)) {
-            setOpenPdfDialog(true)
-        }
-        else {
-            setOpenPdfDialog(false)
-            toast.error("You are not enrolled in this course")
-        }
-    };
+
 
     const handleClosePdfDialog = () => {
         setOpenPdfDialog(false);
@@ -180,7 +251,6 @@ export function CourseAccordion(props) {
                         filter: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'none' : 'blur(5px)',
                         userSelect: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'auto' : 'none',
                         pointerEvents: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'auto' : 'none',
-
                     }}>
                         {post.body}</h4>
 
@@ -192,32 +262,11 @@ export function CourseAccordion(props) {
                         </div>
                     }
                     <ul>
-                        <li>
-                            <IconButton onClick={handleOpenPdfDialog}>
-                                <PictureAsPdfIcon style={{ fontSize: '25px' }} />
-                                <span style={{
-                                    filter: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'none' : 'blur(5px)',
-                                    userSelect: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'auto' : 'none',
-                                    pointerEvents: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'auto' : 'none',
-
-                                }}>
-                                    {"title"} {/* Change this with the title of the PDF */}
-                                </span>
-                            </IconButton>
-                        </li>
-                        <li>
-                            <IconButton onClick={handleOpenVideoDialog}>
-                                <VideoLibraryIcon style={{ fontSize: '25px' }} />
-                                <span style={{
-                                    filter: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'none' : 'blur(5px)',
-                                    userSelect: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'auto' : 'none',
-                                    pointerEvents: (usertype === 'educator' && getToken('educator')?.userId === createdby) || (usertype === 'student' && isEnrolled) ? 'auto' : 'none',
-
-                                }}>
-                                    {"title"} {/* Change this with the title of the PDF */}
-                                </span>
-                            </IconButton>
-                        </li>
+                        {
+                            post?.attachments?.map((link, index) => (
+                                <AttachmentList link={link} createdby={createdby} usertype={usertype} isEnrolled={isEnrolled} />
+                            ))
+                        }
                     </ul>
                 </div>
             )
@@ -269,30 +318,6 @@ export function CourseAccordion(props) {
             </Dialog>
 
 
-            {/* PDF */}
-            <Dialog
-                open={openPdfDialog}
-                onClose={handleClosePdfDialog}
-                fullScreen={fullScreenDialog || fullScreen}
-                classes={{ paper: 'custom-paper' }}
-            >
-                <DialogTitle>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        {pdfTitle}
-                        <IconButton edge="end" color="inherit" onClick={toggleFullScreen} aria-label="fullscreen">
-                            {fullScreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
-                        </IconButton>
-                    </div>
-                </DialogTitle>
-                <DialogContent className="custom-dialog-content">
-                    {editedPdfFile && <iframe title="PDF Viewer" width="100%" height="100%" src={URL.createObjectURL(editedPdfFile)} />}
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClosePdfDialog} color="primary">
-                        Close
-                    </Button>
-                </DialogActions>
-            </Dialog>
 
             {/* Video Streaming Dialog */}
             <Dialog
