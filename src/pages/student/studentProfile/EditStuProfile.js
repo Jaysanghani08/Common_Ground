@@ -150,7 +150,7 @@ const EditStuProfile = () => {
 
                         <div className='spn-edit-image-container1'>
                             <div className='spn-edit-img1'>
-                                {profile?.profilePic ? <img src={`http://localhost:8000/${profile?.profilePic?.split('/').pop()}`} onClick={() => document.getElementById('file-input').click()} style={{cursor: 'pointer'}}/>
+                                {profile?.profilePic ? <img src={`https://common-ground-9kqv.onrender.com/${profile?.profilePic?.split('/').pop()}`} onClick={() => document.getElementById('file-input').click()} style={{cursor: 'pointer'}}/>
                                     : <img src='https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=400' alt='no image' onClick={() => document.getElementById('file-input').click()} style={{cursor: 'pointer'}}/>
                                 }
                                 <input

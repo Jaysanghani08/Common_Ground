@@ -10,7 +10,7 @@ export default function SimpleBarChart() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:8000/query/generateGraph', {
+        fetch('https://common-ground-9kqv.onrender.com/query/generateGraph', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

@@ -2,7 +2,7 @@ import { commonrequest } from '../../../../services/ApiCall';
 import Cookies from "js-cookie";
 const token = Cookies.get('token');
 
-const API = "http://localhost:8000";
+const API = "https://common-ground-9kqv.onrender.com";
 export const createComment = async (courseId, usertype, data) => {
     try {
         const response = await commonrequest("POST", `${API}/${usertype}/${courseId}/discussion`, data, {

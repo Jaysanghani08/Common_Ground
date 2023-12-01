@@ -184,7 +184,7 @@ export default function FormDialog({ assignmentId, submissionId, deadline, submi
                         </DialogTitle>
                         <DialogContent className="custom-dialog-content">
                             {/* {link} */}
-                            <iframe title="Assignment Viewer" width="100%" height="100%" src={`http://localhost:8000/file/retrieve?courseId=${courseId}&path=${submissiondata[0].submission[0]}&jwt=${token}`} />
+                            <iframe title="Assignment Viewer" width="100%" height="100%" src={`https://common-ground-9kqv.onrender.com/file/retrieve?courseId=${courseId}&path=${submissiondata[0].submission[0]}&jwt=${token}`} />
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={handleCloseAssignmentDialog} color="primary">

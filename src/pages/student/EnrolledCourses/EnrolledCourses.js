@@ -78,7 +78,7 @@ const EnrolledCourses = () => {
                     </div>
                     <div className='stu-main-container'>
 
-                        {/* <video src='http://localhost:8000/Campus_Diaries_S1_Ep1.mp4' style={{ margin: "80px" }}> </video> */}
+                        {/* <video src='https://common-ground-9kqv.onrender.com/Campus_Diaries_S1_Ep1.mp4' style={{ margin: "80px" }}> </video> */}
 
                         {/* <video
                 allow="fullscreen"
@@ -88,7 +88,7 @@ const EnrolledCourses = () => {
                 controls
                 controlsList="nodownload"
             >
-                <source src="http://localhost:8000/Campus_Diaries_S1_Ep1.mp4" />
+                <source src="https://common-ground-9kqv.onrender.com/Campus_Diaries_S1_Ep1.mp4" />
             </video> */}
 
                         {

@@ -317,7 +317,7 @@ export function Assigments(props) {
                     <ul>
                         {assignmentLink?.map((link, index) => (
                             <Tmp
-                                link={`http://localhost:8000/file/retrieve?courseId=${courseId}&path=${link}&jwt=${token}`}
+                                link={`https://common-ground-9kqv.onrender.com/file/retrieve?courseId=${courseId}&path=${link}&jwt=${token}`}
                                 key={index}
                                 title={`${title}/${link.split("/").pop()}`}
                                 filename={link.split("/").pop()}

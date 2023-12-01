@@ -107,7 +107,7 @@ function AttachmentList({ link, createdby, usertype, isEnrolled }) {
                         </div>
                     </DialogTitle>
                     <DialogContent className="custom-dialog-content">
-                        <iframe title="PDF Viewer" width="100%" height="100%" src={`http://localhost:8000/file/retrieve?courseId=${courseId}&path=${link}&jwt=${token}`} />
+                        <iframe title="PDF Viewer" width="100%" height="100%" src={`https://common-ground-9kqv.onrender.com/file/retrieve?courseId=${courseId}&path=${link}&jwt=${token}`} />
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClosePdfDialog} color="primary">
