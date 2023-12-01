@@ -213,7 +213,7 @@ exports.resetPassword = async (req, res, next) => {
             await token.save();
         }
 
-        const resetLink = `http://localhost:3000/student/resetpassword/${user._id}/${token.token}`;
+        const resetLink = `http://localhost:3000/student/resetpassword/${user.email}/${token.token}`;
         const subject = 'Reset Password - Common Ground'
         const body = `
             <html>
