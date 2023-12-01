@@ -6,7 +6,7 @@ import Cards from './Cards/Cards';
 import SimpleBarChart from './Graph/Graph';
 import { Navigate, useNavigate } from 'react-router-dom';
 import getToken from '../../../services/getToken';
-import { getEducatorDashboard, getEducatorProfile } from '../../../services/Apis';
+import { getEducatorDashboard, getEducatorProfile, getEduGraph } from '../../../services/Apis';
 import LoadingComponent from './../../Loading/Loading'
 import EdNavbar from "./Sidebar/Navbar";
 
@@ -18,6 +18,9 @@ function EduDashboard() {
     const [profile, setProfile] = useState(null);
     const navigate = useNavigate();
     // const location = useLocation()
+
+    const [yData, setYdata] = useState([0]);
+    const [xLabels, setXlabels] = useState(["No Courses"]);
 
     const navigateToProfile = () => {
         navigate("/educator/profile");
@@ -35,12 +38,21 @@ function EduDashboard() {
             try {
                 if (token) {
 
-                    const [dashboardData, profile] = await Promise.all([
+                    const [dashboardData, profile, graphdata] = await Promise.all([
                         getEducatorDashboard(),
-                        getEducatorProfile()
+                        getEducatorProfile(),
+                        getEduGraph()
                     ]);
                     setdashboardData(dashboardData);
                     setProfile(profile);
+                    if (graphdata.courseTitle.length === 0) {
+                        setXlabels(["No Courses"]);
+                        setYdata([0]);
+                    }
+                    else {
+                        setXlabels(graphdata.courseTitle)
+                        setYdata(graphdata.enrolled)
+                    }
                     setLoading(false);
                 }
             } catch (error) {
@@ -99,7 +111,7 @@ function EduDashboard() {
                     </div>
                     <div className="graphcal">
                         <div className="graph">
-                            <SimpleBarChart />
+                            <SimpleBarChart yData={yData} xLabels={xLabels} />
                         </div>
                         <div className="calendar">
                             <Calendar />
