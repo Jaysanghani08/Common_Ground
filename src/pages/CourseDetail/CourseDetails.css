@@ -23,11 +23,11 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
 }
 
 .course-content {
-    background-color:rgb(241 233 233 / 80%);
+    background-color:rgb(241 233 233 / 90%);
     background-size: cover;
     z-index: 2;
     padding: 40px 4vw;

@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import {useNavigate, useParams } from "react-router-dom"
 import { ToastContainer, toast } from 'react-toastify';
 // import { sentOtpFunction } from "../services/Apis";
+import style from './../studentLogin/studentlogin.module.css'
 import Spinner from 'react-bootstrap/Spinner';
 import { studentupdatepasswordfunction } from '../../../services/Apis';
 
 const ResetPass = () => {
     const { id, token } = useParams();
+    console.log(id, token)
     const [inputdata, setInputdata] = useState({
         password: "",
         cpassword: ""
@@ -59,28 +61,31 @@ const ResetPass = () => {
     }
 
     return (
-        <div className='outerdiv'>
-            <section>
-                <div className="form_data">
-                    <div className="form_heading">
+        <div className={style.outerdiv}>
+            <section className={style.section}>
+            <div className={style.imgBox}> 
+                    <img src="../images/forgot-password.avif"></img>
+                </div>
+                <div className={style.form_data}>
+                    <div className={style.form_heading}>
                         <h1>Reset Your Password</h1>
                         {/* <p></p> */}
                     </div>
                     <form>
-                        <div className="form_input">
+                        <div className={style.form_input}>
                             <label htmlFor="password">Password</label>
-                            <div className='two'>
+                            <div className={style.two}>
                                 <input type={!paswordshow ? "password" : "text"} name="password" onChange={handleChange} value={inputdata.password} placeholder='Enter Your password' />
-                                <div className='showpass' onClick={() => setPaswordShow(!paswordshow)} >
+                                <div className={style.showpass} onClick={() => setPaswordShow(!paswordshow)} >
                                     {!paswordshow ? "Show" : "Hide"}
                                 </div>
                             </div>
                         </div>
-                        <div className="form_input">
+                        <div className={style.form_input}>
                             <label htmlFor="cpassword">Confirm Password</label>
                             <input type="password" name="cpassword" id='' value={inputdata.cpassword} onChange={handleChange} placeholder='Confirm your Password' />
                         </div>
-                        <button className='btn' onClick={forgetPass}>Send
+                        <button className={style.btn} onClick={forgetPass}>Send
                             {
                                 spiner ? <span><Spinner animation="border" /></span> : ""
                             }
