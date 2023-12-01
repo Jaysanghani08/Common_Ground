@@ -19,8 +19,8 @@ function EduDashboard() {
     const navigate = useNavigate();
     // const location = useLocation()
 
-    const [yData, setYdata] = useState([0]);
-    const [xLabels, setXlabels] = useState(["No Courses"]);
+    const [yData, setYdata] = useState();
+    const [xLabels, setXlabels] = useState();
 
     const navigateToProfile = () => {
         navigate("/educator/profile");
@@ -45,14 +45,8 @@ function EduDashboard() {
                     ]);
                     setdashboardData(dashboardData);
                     setProfile(profile);
-                    if (graphdata.courseTitle.length === 0) {
-                        setXlabels(["No Courses"]);
-                        setYdata([0]);
-                    }
-                    else {
-                        setXlabels(graphdata.courseTitle)
-                        setYdata(graphdata.enrolled)
-                    }
+                    setXlabels(graphdata.courseTitle)
+                    setYdata(graphdata.enrolled)
                     setLoading(false);
                 }
             } catch (error) {
@@ -80,14 +74,14 @@ function EduDashboard() {
     const roundToDecimalPlaces = (number, decimalPlaces) => {
         const factor = 10 ** decimalPlaces;
         return Math.round(number * factor) / factor;
-      };
+    };
 
     const rating = roundToDecimalPlaces(dashboardData.avgRating, 2)
 
     return (
         <>
             <div className="container1">
-               <EdNavbar/>
+                <EdNavbar />
                 <div className="maindash">
                     <div className="header">
                         <div className="heading">
@@ -95,9 +89,9 @@ function EduDashboard() {
                         </div>
                         <div className="profilephoto" onClick={navigateToProfile}>
                             {
-                            profile && profile.profilePic ? 
-                            <img src={`https://common-ground-9kqv.onrender.com/${profile.profilePic?.split('/').pop()}`} alt="user" width={150} srcset="" />
-                            :<img src='https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=400' alt='no image' />
+                                profile && profile.profilePic ?
+                                    <img src={`https://common-ground-9kqv.onrender.com/${profile.profilePic?.split('/').pop()}`} alt="user" width={150} srcset="" />
+                                    : <img src='https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=400' alt='no image' />
                             }
                         </div>
 
@@ -110,12 +104,20 @@ function EduDashboard() {
                             totalcourses={dashboardData.totalCourses} />
                     </div>
                     <div className="graphcal">
-                        <div className="graph">
-                            <SimpleBarChart yData={yData} xLabels={xLabels} />
-                        </div>
-                        <div className="calendar">
-                            <Calendar />
-                        </div>
+                        {
+                            (xLabels.length === 0 || yData.length === 0) ?
+                                <div className="nocourses">
+                                    <h1>No Courses</h1>
+                                </div> :
+                                <>
+                                    <div className="graph">
+                                        <SimpleBarChart yData={yData} xLabels={xLabels} />
+                                    </div>
+                                    <div className="calendar">
+                                        <Calendar />
+                                    </div>
+                                </>
+                        }
                     </div>
                     {/* <div className="courses">
                         <BasicTable />
