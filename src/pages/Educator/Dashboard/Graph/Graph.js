@@ -20,11 +20,11 @@ export default function SimpleBarChart() {
             .then(res => res.json())
             .then(data => {
                 // console.log(data)
-                if(data.courseTitle.length === 0) {
+                if (data.courseTitle.length === 0) {
                     setXlabels(["No Courses"]);
                     setYdata([0]);
                 }
-                else{
+                else {
                     setXlabels(data.courseTitle)
                     setYdata(data.enrolled)
                 }
@@ -37,20 +37,22 @@ export default function SimpleBarChart() {
 
 
     useEffect(() => {
-        const mediaQuery = window.matchMedia('(max-width: 600px), (min-width: 601px) and (max-width: 1200px)');
+        if (yData && xLabels) {
+            const mediaQuery = window.matchMedia('(max-width: 600px), (min-width: 601px) and (max-width: 1200px)');
 
-        function handleMediaQueryChange(event) {
-            const chartContainer = document.querySelector('.css-q3wnbe-MuiResponsiveChart-container');
-            chartContainer.style.width = event.matches ? 'auto' : '800px';
+            function handleMediaQueryChange(event) {
+                const chartContainer = document.querySelector('.css-q3wnbe-MuiResponsiveChart-container');
+                chartContainer.style.width = event.matches ? 'auto' : '800px';
+            }
+
+            handleMediaQueryChange(mediaQuery);
+
+            mediaQuery.addEventListener('change', handleMediaQueryChange);
+
+            return () => {
+                mediaQuery.removeEventListener('change', handleMediaQueryChange);
+            };
         }
-
-        handleMediaQueryChange(mediaQuery);
-
-        mediaQuery.addEventListener('change', handleMediaQueryChange);
-
-        return () => {
-            mediaQuery.removeEventListener('change', handleMediaQueryChange);
-        };
     }, []);
 
     if (!yData || !xLabels) return (<div>Loading...</div>)
