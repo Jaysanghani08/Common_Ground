@@ -1,0 +1,173 @@
+* {
+    box-sizing: border-box;
+
+}
+
+.section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+section .imgBox {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    padding: 20px;
+    background-color: whitesmoke;
+
+}
+
+section .imgBox img {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+
+.form_data {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+    background-color: rgb(12, 52,106);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    height: 100%;
+    max-width: 800px;
+}
+
+
+form {
+    display: block;
+    margin-top: 1em;
+}
+
+.form_heading {
+    color: white;
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 20px;
+}
+
+.form_heading h1 {
+    margin-top: 100px;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.form_heading p {
+    font-size: 14px;
+    color: white;
+}
+
+
+.form_input {
+    color: white;
+    margin-bottom: 20px;
+    margin-bottom: auto;
+}
+
+.form_input label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.form_input input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    color: black;
+    border-radius: 5px;
+}
+
+
+.showpass {
+    cursor: pointer;
+    color: orange;
+    font-size: 14px;
+}
+
+
+.btn {
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 200px;
+    background-color: #ff7b00;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 16px;
+}
+
+.btn:hover {
+    background-color: orange;
+}
+
+p {
+    color: white;
+}
+
+p a {
+    text-decoration: none;
+    color: orange;
+    font-weight: bold;
+}
+
+
+@media (max-width: 768px) {
+    section .imgBox {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+    }
+
+    .form_data {
+        display: flex;
+        flex-direction: column;
+        justify-self: center;
+        align-items: center;
+        background-color: transparent;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+
+    }
+
+    .form_heading {
+
+        padding: 20px;
+        padding-bottom: 5px;
+        background: rgb(75 17 191 / 0.9);
+
+    }
+
+    .form_heading h1 {
+        margin-top: 15px;
+    }
+
+    form {
+        padding: 40px;
+        background: rgb(75 17 191 / 0.9);
+        margin: 20px;
+    }
+
+}

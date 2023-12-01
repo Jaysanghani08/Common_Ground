@@ -1,0 +1,163 @@
+.create-course-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: black;
+    
+
+}
+
+.form-pair {
+    display: flex;
+
+}
+
+.ccform{
+    position: relative;
+}
+
+.course-form {
+    width: 70%;
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+    align-items: center;
+    /* background-color: red; */
+    margin-top: 70px;
+
+}
+
+
+  
+  .course-form:before {
+    content: ' ';
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    background-image: url('./123.jpg');
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    background-size: cover;
+    
+  }
+  
+  .demo-content {
+    position: relative;
+  }
+
+
+
+.create-course-left {
+    flex: 1;
+    padding: 20px;
+}
+
+.create-course-right {
+    flex: 1;
+    padding: 20px;
+}
+
+
+
+.no-button {
+    display: inline-block;
+}
+
+.create-course-image {
+    margin: 30px;
+    padding-left: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-course-image img {
+    width: 60vh;
+}
+
+.form-group {
+    margin: 10px;
+    width: 50%;
+
+}
+
+.form-group-v {
+    width: 100% !important;
+    padding-right: 20px;
+}
+
+.form-group label {
+    display: inline-flex;
+    font-weight: bold;
+    color: 0C356A;
+}
+
+.form-group textarea {
+    width: 250px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid 0C356A;
+    color: black;
+    border-radius: 5px;
+
+}
+
+.ccsubmit {
+    display: block;
+    background:darkblue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: auto;
+}
+
+
+
+.ccsubmit:hover {
+    background-color: lightgreen;
+}
+
+
+@media (max-width: 668px) {
+    .create-course-image {
+        display: none;
+    }
+
+    .form-pair {
+        flex-direction: column;
+    }
+
+    .form-group {
+        width: 100%;
+
+    }
+
+
+
+    .create-course-container {
+        padding: 0;
+        padding-top: 10px;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1200px) {
+    .create-course-image {
+        display: none;
+    }
+}

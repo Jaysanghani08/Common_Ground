@@ -1,0 +1,29 @@
+
+.combined-view-row {
+    margin: 20px;
+  }
+  
+  .list-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .list-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    width: 45%;
+    background-color: white;
+  }
+  
+  .file-content {
+    margin-top: 10px;
+    overflow: hidden;
+    height: 0;
+    transition: height 0.3s ease;
+  }
+  
+  .file-content.open {
+    height: auto;
+  }
+  

@@ -1,0 +1,44 @@
+.accordion-content {
+    max-height: 200px; 
+    overflow-y: auto; 
+}
+
+.MuiAccordion-root {
+    transition: transform 0.2s;
+  }
+  
+  .MuiAccordion-root:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .custom-paper {
+    width: 80%; 
+    height: 80%; 
+}
+ .matrials{
+  display: flex;
+    justify-content: space-around;
+ }
+ .matrials li{
+  color: orange;
+    font-weight: bold;
+    display: flex;
+ }
+ .css-19kzrtu {
+  padding: 24px;
+  background-color: #0c356a;
+ }
+ .accordion{
+  font-size: large;
+ }
+ .css-vkc4v8-MuiTypography-root{
+  font-size: 2rem;
+ }
+ .accordion-week{
+  font-size: 16px;
+ }
+
+ .css-o4b71y-MuiAccordionSummary-content{
+  justify-content: space-between;
+ }

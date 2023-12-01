@@ -1,0 +1,39 @@
+.course-container {
+    font-family: "Lato", sans-serif;
+    background-image: url('./../../data/imgs/couse_page_bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    letter-spacing: 0.7;
+    line-height: 20px;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* align-items: center; */
+}
+
+.dicussion-forum {
+    background-color: rgba(255, 225, 225, 0.7);
+    background-size: cover;
+    z-index: 2;
+    flex: 1; 
+    /* width: 100%; */
+    padding: 40px 8vw;
+    margin-top: 40px;
+    /* background-image: url('./../../data/imgs/couse_page_bg.jpg'); */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgb(255, 255, 255);
+}
+
+.course-content {
+    background-color:rgb(241 233 233 / 90%);
+    background-size: cover;
+    z-index: 2;
+    padding: 40px 4vw;
+    margin-top: 100px;
+    border-radius: 1rem;
+    box-shadow: 5px 6px 22px -5px rgba(12, 52,106, 0.66);
+    -webkit-box-shadow: 5px 6px 22px -5px rgba(12, 52,106, 0.66);
+    -moz-box-shadow: 5px 6px 22px -5px rgba(12, 52,106, 0.66);
+}

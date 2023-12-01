@@ -1,0 +1,29 @@
+.bn-main-button {
+    height: 400px;
+    width: 500px;
+    margin-top: 170px;
+}
+
+.bn-section-name{
+        margin: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 500px;
+}
+
+.bn-section-description{
+        margin: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 500px;
+}
+    
+.bn-submit-button{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+}

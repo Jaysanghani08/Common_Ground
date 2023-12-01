@@ -1,0 +1,61 @@
+.TopBar {
+  background-image: url("../Images/Topbar.webp");
+  background-size: cover;
+  background-attachment: fixed;
+  /* position: absolute; */
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100vh;
+  padding-top: 20%;
+  padding-right: 50px;
+  color: #fff;
+}
+.heading h3 {
+  color: #fff;
+}
+.heading {
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+.primary-btn {
+  background-color: #0c356a;
+  color: rgb(255, 255, 255);
+  /* background-color: #fff; */
+    border: none;
+    /* border-radius: 3px; */
+    box-shadow: 0 24px 36px -11px rgb(0 0 0/9%);
+    color: #fff;
+    cursor: pointer;
+    font-weight: 600;
+    margin: 30px 10px 0 0;
+    padding: 17px 30px;
+    transition: .5s;
+}
+.Top-container {
+  max-width: 85%;
+  margin: auto;
+}
+.row {
+  width: 50%;
+}
+
+@media screen and (max-width: 768px) {
+  /* .margin {
+    height: 40vh;
+  } */
+  .TopBar {
+    background-position: right;
+    padding-top: 50%;
+    height: 80vh;
+    display: flex;
+  }
+  .TopBar .row {
+    width: 100%;
+    margin-left: 30px;
+  }
+
+  
+}

@@ -1,0 +1,58 @@
+/* * {
+  margin: 0;
+  padding: 0;
+  outline: none;
+} */
+.courses_main_container {
+    width: 100vw;
+    background: url(./../../../../data//imgs/StuDashCourseSec.jpg);
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.overlay {
+    padding-top: 100px;
+    background: rgba(12, 53, 106, 0.7);
+}
+
+.courses_container {
+
+    /* height: 500px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+.courses_main_container>h2 {
+    margin: 4rem auto;
+    text-align: center;
+    color: rgba(12, 53, 106);
+
+}
+
+.course_main_container_title {
+    /* padding: auto 40px; */
+    padding-left: 100px;
+    padding-right: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.course_main_container_title>h2 {
+    color: #fff;
+}
+
+.view_all_courses_btn {
+    width: 170px;
+    height: 50px;
+    background: rgba(12, 53, 106);
+    border: 2px solid #fff;
+    font-size: 2rem;
+    /* cursor: pointer; */
+}

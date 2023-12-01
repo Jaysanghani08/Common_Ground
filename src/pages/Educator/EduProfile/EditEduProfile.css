@@ -1,0 +1,232 @@
+.epn-container1{
+  height: fit-content;
+}
+.epn-edit-profile{ 
+  height: 100%;
+  width: 100%;
+  padding-top: 40px;
+  border-radius: 5px;
+  background-color: #0c356a;
+  position: relative;
+  color: white;
+}
+
+.epn-edit-profile::before{
+  content: ' ';
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  /* width: 1500px; */
+  left: 0px;
+  bottom: 0px;
+  background-image: url(/public/images/Profilepage.jpg);
+  background-position: center center;
+  /* background-attachment: fixed; */
+  background-size: cover;
+  opacity: 0.3;
+}
+
+.epn-edit-upper{
+  /* padding: 100px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #0c356a;
+  position: relative;
+}
+.epn-edit-sub-upper{
+  display: flex;
+  height: 250px;
+}
+.epn-edit-image-container1{
+  /* height: 300px; */
+  width: 350px;
+  /* margin-left: 100px; */
+  /* margin-top: 25px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.epn-edit-image-container1 img{
+  background-color: #0c356a;
+  height: 170px;
+  width: 150px;
+  margin-left: 20px;
+  padding: 2px;
+  /* border-style: solid; */
+  border-radius: 10px;
+}
+
+.epn-edit-user{
+  width: 459px;
+}
+.epn-edit-username1{
+  /* color: black; */
+  margin-top: 40px;
+  font-weight: bolder;
+  font-size: 2rem;
+}
+
+.epn-edit-about{
+  margin-top: 20px;
+  font-size: 1.5rem;
+}
+
+.epn-edit-lover{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.epn-edit-personalinfo{
+  margin-left: 80px;
+}
+
+.epn-edit-basicinfo{
+  padding: 30px;
+  margin-bottom: 20px;
+  margin-top: -35px;
+  height: 620px;
+  width: 600px;
+  font-size: 2rem;
+  font-weight: bold;
+  background-color: white;
+  position: relative;
+  color: #0c356a;
+  /* border-radius: 10px; */
+}
+.epn-edit-Sub-basicinfo{
+  display: flex;
+  margin-top: 5px;
+}
+.epn-edit-basic-heading{
+  font-size: 2.5rem;
+}
+.epn-edit-info-submain{
+  margin-top: 20px;
+  border-bottom: 1px solid #0c356a;
+  padding-bottom: 10px;
+}
+.epn-edit-info-submain2{
+  margin-top: 20px;
+}
+.edp-edit-form-control {
+  width: 230px;
+  height: 34px;
+  border-radius: 5px;
+  margin-top: 5px;
+  font-size: 1.5rem;
+}
+.epn-cancel-button{
+  width: 150px;
+  height: 30px;
+  color: white;
+  margin-top: 25px;
+  margin-left: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0c356a;
+  font-weight: normal;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  padding: 5px;
+  font-size: 1.6rem;
+  border-radius: 5px;
+  text-decoration: none;
+}
+.epn-submit-button{
+  width: 150px;
+  height: 31px;
+  color: white;
+  margin-top: -32px;
+  margin-left: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0c356a;
+  font-weight: normal;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  padding: 5px;
+  font-size: 1.6rem;
+  border-radius: 5px;
+  border-style: none;
+  text-decoration: none;
+}
+
+.epn-cancel-button:hover{
+  color: white;
+  background-color: #1a083f;
+}
+.epn-submit-button:hover{
+  color: white;
+  background-color: #1a083f;
+}
+
+@media (max-width:600px){
+  .epn-edit-profile{
+      padding-top: 70px;
+  }
+  .epn-edit-upper{
+      height: 450px;
+      padding: 20px;
+  }
+  .epn-edit-sub-upper{
+      display: inline-block;
+      height: 395px;
+  }
+  .epn-edit-image-container1{
+      width: -webkit-fill-available;
+  }
+  .epn-edit-user{
+      width: -webkit-fill-available;
+  }
+  .epn-edit-about{
+      font-size: 1.5rem;
+  }
+  .epn-edit-basicinfo{
+      font-size: 1.5rem;
+      height: -webkit-fill-available;
+      width: auto;
+  }
+  .epn-edit-username1{
+      font-size: 2.1rem;
+  }
+  .epn-edit-personalinfo{
+      margin-left: 5px;
+  }
+  .epn-cancel-button{
+      margin-left: initial;
+      width: 120px;
+  }
+  .epn-submit-button{
+      margin-left: auto;
+      width: 120px;
+  }
+  .edp-edit-form-control {
+    width: 170px;
+    height: 34px;
+    border-radius: 5px;
+    margin-top: 5px;
+    font-size: 1.5rem;
+  }
+  .epn-edit-info-submain2{
+    margin-top: 15px;
+  }
+  .epn-edit-image-container1 img{
+    margin-left: 0px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1200px){
+  .epn-edit-profile{
+      height: fit-content;
+      width: fit-content;
+      padding-top: 75px;
+  }
+  .epn-edit-sub-upper{
+      padding: 20px;
+  }
+
+}

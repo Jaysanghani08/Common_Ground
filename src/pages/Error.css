@@ -1,0 +1,44 @@
+
+.error-container {
+    text-align: center;
+    margin-top: 150px;
+  }
+
+  .er-num{
+    font-size: 4rem;
+    font-weight: bold;
+    color: black;
+  }
+
+  .er-headtag{
+    display: block;
+    font-size: 4rem;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    color: black;
+  }
+  
+  .er-content{
+    color: black;
+    font-size: 1.7rem;
+  }
+  .er-home-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    /* background-color: #3498db; */
+    background-color: #0c356a;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    text-decoration: none;
+    margin-top: 10px;
+  }
+  
+  .er-home-button:hover {
+    background-color: #2980b9;
+  }
+  

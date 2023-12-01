@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+
+.Sidebar {
+    width: 280px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    display: inline-block;
+    transition: all 300ms ease;
+    background: white;
+    /* font-family: 'Lora', serif; */
+    letter-spacing: 2px;
+}
+
+.logo img {
+    width: 250px;
+}
+
+.menu {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.menu .menuItem {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    height: 6rem;
+    margin-left: 1rem;
+    position: relative;
+    font-size: 15px;
+    /* border-radius: -0.9rem; */
+    margin-top: 0;
+    margin-left: 20px;
+    text-decoration: none;
+    color: rgb(65, 65, 65);
+    font-weight: 600;
+}
+
+.menu .navlink {
+    text-decoration: none;
+}
+
+.menu .active {
+    border-radius: 1rem;
+    background-color: rgb(12, 52,106);
+    color: white;
+    /* padding-left: 75px; */
+    /* margin-left: -30px; */
+}
+
+/* .menu .active:before,
+.menu .active:after {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  bottom: 0;
+  background:radial-gradient(circle at top left, #fff0 72%, #f8f9fa 75%);
+}
+
+.menu .active:after {
+  right: 0;
+  top:100%;
+  background:radial-gradient(circle at bottom left, #fff0 70%, #f8f9fa 75%);
+}
+
+.menu .active:before {
+  bottom:100%;
+   right:0;
+} */
+.bars {
+    display: none;
+}
+
+.menu .menuItem:hover {
+    cursor: pointer;
+
+}
+
+@media (max-width:600px) {
+    .menu .menuItem>span {
+        display: block;
+    }
+
+    .logo {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .Sidebar {
+        position: fixed;
+        z-index: 9;
+        background: rgb(12, 52,106);
+        width: 50%;
+        /* padding-right: 1rem; */
+        height: 100%;
+    }
+
+    .bars {
+        display: flex;
+        position: fixed;
+        top: 2rem;
+        z-index: 12;
+        background: rgb(12, 52,106);
+        padding: 10px;
+        border-radius: 10px;
+
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1200px) {
+    .menu .menuItem>span {
+        display: none;
+    }
+
+    .logo-hidden {
+        display: none;
+    }
+
+    .active {
+        padding-left: 55px;
+    }
+
+    .Sidebar {
+        width: 80px;
+    }
+}

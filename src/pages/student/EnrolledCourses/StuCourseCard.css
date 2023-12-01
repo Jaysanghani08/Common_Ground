@@ -1,0 +1,128 @@
+.stu_card_container{
+    flex : 33%;
+    display: flexbox;
+    justify-content: center;
+     align-items: center;
+    /* margin: 60px auto; */
+    display: block;
+    padding-left: 30px;
+    margin-top: 0;
+}
+
+.stu_courses_card {
+    transition: transform .2s;
+    border-radius: 1rem;
+    width: 320px;    
+    box-shadow: 5px 6px 22px -5px rgba(12, 52,106, 0.66);
+    -webkit-box-shadow: 5px 6px 22px -5px rgba(12, 52,106, 0.66);
+    -moz-box-shadow: 5px 6px 22px -5px rgba(12, 52,106, 0.66);
+    
+}
+
+.stu_courses_card:hover {
+    transform: translateY(-10px);
+}
+
+.stu_courses_product-detail {
+    padding: 20px auto;
+    font-size: 15px;
+    color: gray;
+}
+
+.stu_courses_product-detail h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    height: 4.5rem;
+    color: rgba(12, 53, 106);
+    letter-spacing: 2px;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.stu_courses_description {
+    color: rgba(12, 53, 106);
+    font-size: 1.5rem;
+    height: 8em;   
+}
+
+.stu_courses_product-desc{
+    /* width: 200px; */
+    padding: 1.5rem 0;
+    margin-top: 8px
+}
+
+.stu_courses_card-body {
+    /* overflow: hidden; */
+    height: 500px;
+    margin-top : 180px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 1rem;
+    padding: 40px 20px 5px 20px;
+}
+.stu_courses_height{
+   height: 500px;
+}
+
+.stu_card_container{
+    margin-top: -140px;
+}
+
+.stu_courses_product-title {
+    display: block;
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+
+.stu_courses_product-caption {
+    display: block;
+    padding: 1.5rem 0;
+    color: rgba(12, 53, 106);
+    font-size: 2rem;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+
+.stu_courses_product-color > h4{
+    font-family: inherit;
+    color: rgba(12, 53, 106);
+}
+
+.stu_courses_product-price {
+    color: rgba(12, 53, 106);
+    display: flex;
+    font-size: 2rem;
+    font-weight: 600;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+
+}
+
+.stu_courses_product-price button {
+    margin-left: 5px;
+    border: 2px solid #fff;
+    border-radius: 0;
+    font-weight: 900;
+    font-size: 1.7rem;
+    height: 45px;
+    background-color: rgba(12, 53, 106);
+    color: white;
+    cursor: pointer;
+}
+
+.stu-main-container{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: center;
+    align-items: stretch;
+    /* margin-top: 75px; */
+    margin-left: 55px;
+
+}
+
+
