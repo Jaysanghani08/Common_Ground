@@ -146,7 +146,7 @@ const CourseDetails = () => {
                                     <Button variant="contained" color="error" onClick={handleUnenroll}>UnEnroll from this  the Course.</Button>
                                 }
 
-                                {/* <CertificateDownloadButton/> */}
+                                <CertificateDownloadButton/>
                             </div>
 
                         </>

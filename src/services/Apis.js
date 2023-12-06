@@ -448,7 +448,8 @@ export const gradeSubmission = async (courseId, assignmentId, submissionId, data
 export const getCertificate = async (courseId) => {
     try {
         const response = await commonrequest("GET", `${BACKEND_URL}/student/${courseId}/certificate`, {}, {
-            'authorization': `Bearer ${token}`
+            'authorization': `Bearer ${token}`,
+            'responseType': 'application/pdf'
         });
         return response;
     } catch (error) {
