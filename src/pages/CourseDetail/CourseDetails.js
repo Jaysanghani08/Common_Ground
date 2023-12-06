@@ -130,9 +130,6 @@ const CourseDetails = () => {
                             <div className="course-content">
                             
                                 <BasicTabs sections={coursedata.courseSections} enrolledStudents={coursedata.enrolledStudents} courseAssignments={coursedata.courseAssignments} discussionData={coursedata.discussionForum?.messages} usertype={usertype} createdby={coursedata.createdBy?._id} isEnrolled={isEnrolled} />
-                            
-        
-
                                
                             </div>
 

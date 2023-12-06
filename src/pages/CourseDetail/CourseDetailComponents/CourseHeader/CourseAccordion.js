@@ -278,20 +278,23 @@ export function CourseAccordion(props) {
 
             {/* Edit Form Dialog */}
             <Dialog open={openEditForm} onClose={handleEditFormClose}>
-                <DialogTitle>Edit Content</DialogTitle>
+                <DialogTitle>
+                edit description
+                </DialogTitle>
+                
                 <DialogContent>
                     <form onSubmit={handleEditFormSubmit}>
 
-                        <TextField
+                        {/* <TextField
                             label="Post Name"
                             variant="outlined"
                             fullWidth
                             value={editedPostName}
                             onChange={handleEditPostNameChange}
-                        />
+                        /> */}
 
                         <TextField
-                            label="Content"
+                            label="description"
                             variant="outlined"
                             fullWidth
                             value={editedContent}

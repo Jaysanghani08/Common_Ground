@@ -91,7 +91,7 @@
     height: 560px;
     width: 600px;
     font-size: 2rem;
-    font-weight: bold;
+    /* font-weight: bold; */
     background-color: white;
     position: relative;
     color: #0c356a;
@@ -103,6 +103,7 @@
 }
 .epn-basic-heading{
     font-size: 2.5rem;
+    font-weight: bold;
 }
 .epn-info-submain{
     margin-top: 20px;
