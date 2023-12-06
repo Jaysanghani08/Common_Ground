@@ -38,19 +38,22 @@ const StuCourseCard = (props ) => {
                     </div>
                     <div className="stu_courses_product-desc">
                         <span className="stu_courses_product-caption">By {props.instructor}</span>
+                        <span className="stu_courses_product-color">
+                            <h4>{props.enrolledStudents ? props.enrolledStudents.length : 0} Students Enrolled</h4>
+                        </span>
                         <span className="stu_courses_product-rating">
+                            
                             {
                                 (props.courserating >= 5) ? <Star stars={5} /> : <Star stars={props.courserating} />
                             }
                         </span>
+
                     </div>
                     <div className="stu_courses_product-properties">
                         {/* <span className="courses_product-size">
                             <h4>Progress</h4>
                         </span>  */}
-                        <span className="stu_courses_product-color">
-                            <h4>{props.enrolledStudents ? props.enrolledStudents.length : 0} Students Enrolled</h4>
-                        </span>
+                        
                         <span className="stu_courses_product-price">
                             <span> {props.coursePrice === 0 ? "Free" : `Rs. ${props.coursePrice}`} </span>
                             <button type="button" className="btn" ><NavLink to={`/course/${props._id}`} style={{ color: "white" }}>View Course </NavLink></button>

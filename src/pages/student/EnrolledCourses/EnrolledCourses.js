@@ -15,6 +15,7 @@ const EnrolledCourses = () => {
     const [error, setError] = useState(null);
     // const [profile, setProfile] = useState(null);
     const [enrolledCourses, setEnrolledCourses] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
 
     // //console.log(courses)
     // //console.log(profile)
@@ -65,17 +66,27 @@ const EnrolledCourses = () => {
 
             <div className='edc_container_enrolled_course'>
                 <div className="coverEnrolledCourses">
-                    <div className='edu_search_bar stu_margin'>
-                        <input
+                    {/* <div className='edu_search_bar stu_margin width_setter'> */}
+                    <div className="search-bar" style={{ zIndex: '15', position:'relative',display:'flex',justifyContent:'center' }} >
+                        {/* <input
                             className='edu_stu-viewcourses-large-input'
                             type="text"
                             placeholder="Search by course title"
                             value={filter}
                             onChange={e => setFilter(e.target.value)}
                         />
-                        {/* <Button variant="contained">Search</Button> */}
+                        <Button variant="contained">Search</Button> */}
+                        <input
+                                className='stu-viewcourses-large-input'
+                                type="text"
+                                placeholder="Search by course title"
+                                value={filter}
+                                onChange={e => setFilter(e.target.value)}
+                        />
+                        </div>
+                    {/* </div> */}
 
-                    </div>
+                   
                     <div className='stu-main-container'>
 
                         {/* <video src='https://common-ground-9kqv.onrender.com/Campus_Diaries_S1_Ep1.mp4' style={{ margin: "80px" }}> </video> */}

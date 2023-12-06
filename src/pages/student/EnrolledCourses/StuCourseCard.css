@@ -19,6 +19,7 @@
     
 }
 
+
 .stu_courses_card:hover {
     transform: translateY(-10px);
 }
@@ -27,6 +28,9 @@
     padding: 20px auto;
     font-size: 15px;
     color: gray;
+}
+.icon-style{
+    margin-top: 5px;
 }
 
 .stu_courses_product-detail h2 {

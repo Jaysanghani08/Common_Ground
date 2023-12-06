@@ -26,15 +26,32 @@ const StudentRegister = () => {
     // //console.log(inputdata)
 
     const navigate = useNavigate();
+    const today = new Date();
+const maxDate = today.toISOString().split('T')[0];
 
     // set input value as user enters
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setInputdata({
-            ...inputdata,
-            [name]: value
-        })
-    }
+        
+        if (name === "dob") {
+            
+            const selectedDate = new Date(value);
+            if (selectedDate > today) {
+              alert("Please select a past date");
+            } else {
+              setInputdata({
+                ...inputdata,
+                [name]: value
+              });
+            }
+          } else {
+            setInputdata({
+              ...inputdata,
+              [name]: value
+            });
+          }
+        };
+    
 
 
 
@@ -58,11 +75,13 @@ const StudentRegister = () => {
             location: e.target.value,
         });
     };
+    const selectedDate = new Date(inputdata.dob);
+  if (selectedDate > today) {
+    alert("Please select a past date for Date of Birth");
+    return;
+  }
 
     // register data
-    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(inputdata.password);
-    const hasCapitalLetter = /[A-Z]/.test(inputdata.password);
-    const hasNumber = /\d/.test(inputdata.password);
     const handleSubmit = async (e) => {
         e.preventDefault();
         // const { fname, email, password } = inputdata;
@@ -93,12 +112,6 @@ const StudentRegister = () => {
             toast.error("Enter Your Password")
         } else if (inputdata.password.length < 6) {
             toast.error("password length minimum 6 character")
-        }else if (!hasSpecialChar) {
-            toast.error("Password must contain at least one special character");
-        } else if (!hasCapitalLetter) {
-            toast.error("Password must contain at least one capital letter");
-        } else if (!hasNumber) {
-            toast.error("Password must contain at least one number");
         }
         else {
             const response = await studentregisterfunction(inputdata);
@@ -161,18 +174,18 @@ const StudentRegister = () => {
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="dob">DOB</label>
-                            <input type="date" name="dob" value={inputdata.dob} onChange={handleChange} />
+                            {/* <input type="date" name="dob" value={inputdata.dob} onChange={handleChange} /> */}
+                            <input type="date" name="dob" value={inputdata.dob} onChange={handleChange} max={maxDate} />
                         </div>
 
                         <div className={style.form_input}>
-                            <label htmlFor="educationLevel">Education Level:</label>
-                            <select id="educationLevel" name="educationLevel" value={inputdata.education} onChange={handleEducationLevelChange} >
+                            <label htmlFor="gender">Gender </label>
+                            <select id="educationLevel" name="gender" value={inputdata.gender} onChange={handleGenderChange} >
                                 <option value="">Select...</option>
-                                <option value="high_school">High School</option>
-                                <option value="associate_degree">Associate Degree</option>
-                                <option value="bachelor_degree">Bachelor's Degree</option>
-                                <option value="master_degree">Master's Degree</option>
-                                <option value="doctorate">Doctorate</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                                
                             </select>
                         </div>
 
@@ -192,21 +205,7 @@ const StudentRegister = () => {
                             </select>
                         </div>
 
-                        <div className={style.form_input}>
-                            <label>Gender:</label>
-                            <div className='gender1'>
-                                <input type="radio" id="male" name="gender" value="male" checked={inputdata.gender === 'male'} onChange={handleGenderChange} />
-                                <label htmlFor="male">Male</label>
-                            </div>
-                            <div className='gender1'>
-                                <input type="radio" id="female" name="gender" value="female" checked={inputdata.gender === 'female'} onChange={handleGenderChange} />
-                                <label htmlFor="female">Female</label>
-                            </div>
-                            <div className='gender1'>
-                                <input type="radio" id="other" name="gender" value="other" checked={inputdata.gender === 'other'} onChange={handleGenderChange} />
-                                <label htmlFor="other">Other</label>
-                            </div>
-                        </div>
+                       
                         <div className={style.form_input}>
                             <label htmlFor="username">Username</label>
                             <input type="string" value={inputdata.username} name="username" onChange={handleChange} placeholder='Enter username' />
