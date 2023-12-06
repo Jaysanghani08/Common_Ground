@@ -103,7 +103,7 @@ function EduDashboard() {
                             studentcnt={dashboardData.totalStudent}
                             totalcourses={dashboardData.totalCourses} />
                     </div>
-                    <div className="graphcal">
+                    {/* <div className="graphcal">
                         {
                             (xLabels.length !== 0 || yData.length !== 0) &&
                                 // <div className="nocourses">
@@ -118,7 +118,7 @@ function EduDashboard() {
                                     </div>
                                 </>
                         }
-                    </div>
+                    </div> */}
                     {/* <div className="courses">
                         <BasicTable />
                     </div> */}
