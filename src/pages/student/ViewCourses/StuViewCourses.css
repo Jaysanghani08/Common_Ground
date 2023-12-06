@@ -129,6 +129,9 @@
     background-color: rgba(255, 255, 255, 0.7);
 }
 
+.stu-font-size{
+    font-size: 2rem;
+}
 .stu-viewcourses-section2 h2{
     font-size: 4rem;
     color: rgba(12, 53, 106);
@@ -175,7 +178,7 @@
 }
 
 .stu-viewcourses-course-desc {
-    height: 15rem;
+    height: 10rem;
     margin-top: 2rem;
     font-size: 1.5rem;
 }

@@ -15,6 +15,10 @@ const Card = ({ course }) => {
 
             <span style={{ color:"white", display:"block"}} className="stu-viewcourses-courses_product-caption stu-viewcourses-course-desc">{course.courseDescription || "A computer network is a group of interconnected nodes or computing devices that exchange data and resources with each other. jhgfdrt gfcde ffghvnb gyfcdxrtyv fc tgcf ftxd"}</span>
             <span className="stu-viewcourses-courses_product-rating">
+                 <div style={{color:"white"}} className="stu-viewcourses-courses_product-caption stu-font-size">
+                    Rs. {course.coursePrice}
+                 </div>
+                
                 <Star stars={course.rating} />
             </span>
 

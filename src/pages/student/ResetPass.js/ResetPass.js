@@ -7,8 +7,9 @@ import Spinner from 'react-bootstrap/Spinner';
 import { studentupdatepasswordfunction } from '../../../services/Apis';
 
 const ResetPass = () => {
-    const { id, token } = useParams();
+    const { email, token } = useParams();
     //console.log(id, token)
+    const navigate = useNavigate();
     const [inputdata, setInputdata] = useState({
         password: "",
         cpassword: ""
@@ -40,7 +41,7 @@ const ResetPass = () => {
             // setSpiner(true)
             const data = {
                 password: inputdata.password,
-                userid: id,
+                email : email,
                 token: token
             }
 
@@ -49,7 +50,7 @@ const ResetPass = () => {
             if (response?.status === 200) {
                 setSpiner(false)
                 toast.success("Password Updated Successfully");
-                // navigate("/user/otp",{state:email})
+                navigate("/student/login")
             } 
             else if(response?.status === 404){
                 toast.error("User not found !");

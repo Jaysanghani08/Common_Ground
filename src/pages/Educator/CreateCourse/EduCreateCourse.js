@@ -132,6 +132,7 @@ function EduCreateCourse() {
                                             value={inputdata.courseTitle}
                                             onChange={handleChange}
                                             placeholder="Course Name"
+                                            maxLength={40}
                                         />
                                     </div>
 
@@ -143,7 +144,8 @@ function EduCreateCourse() {
                                             value={inputdata.courseCode}
                                             onChange={handleChange}
                                             placeholder="Course Code"
-                                        />
+                                            maxLength={10}
+                                            />
                                     </div>
                                 </div>
                                 <div className='form-pair'>
@@ -156,7 +158,7 @@ function EduCreateCourse() {
                                         >
                                             <option value="">Select</option>
                                             <option value="public">Public</option>
-                                            <option value="protected">Protected</option>
+                                            {/* <option value="protected">Protected</option> */}
                                             <option value="private">Private</option>
                                         </select>
                                     </div>
@@ -171,6 +173,7 @@ function EduCreateCourse() {
                                             onChange={handleChange}
                                             placeholder="Enter Your Course Description-short"
                                             name="courseDescription"
+                                            maxLength={100}
                                         />
                                     </div>
                                 </div>
@@ -212,6 +215,7 @@ function EduCreateCourse() {
                                             value={inputdata.prerequisites}
                                             onChange={handleChange}
                                             placeholder="Enter Course Prerequisites"
+                                            maxLength={150}
                                         />
                                     </div>
 
@@ -225,7 +229,7 @@ function EduCreateCourse() {
                                         >
                                             <option value="">Select</option>
                                             <option value="english">English</option>
-                                            <option value="spanish">Spanish</option>
+                                            {/* <option value="spanish">Spanish</option> */}
                                             <option value="spanish">Hindi</option>
                                             <option value="other">Other</option>
                                         </select>
@@ -241,6 +245,7 @@ function EduCreateCourse() {
                                             value={inputdata.tags}
                                             onChange={handleChange}
                                             placeholder="Enter Values Seperated by '' , ''"
+                                            maxLength={35}
                                         />
                                     </div>
                                     <div className="form-group">
@@ -266,6 +271,7 @@ function EduCreateCourse() {
                                         value={inputdata.courseDescriptionLong}
                                         onChange={handleChange}
                                         placeholder="Enter Your Course Description"
+                                        maxLength={500}
                                     />
 
                                 </div>

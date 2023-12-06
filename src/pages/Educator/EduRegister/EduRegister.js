@@ -63,6 +63,10 @@ const EduRegister = () => {
         });
     };
 
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(inputdata.password);
+    const hasCapitalLetter = /[A-Z]/.test(inputdata.password);
+    const hasNumber = /\d/.test(inputdata.password);
+
     const handleEducationLevelChange = (e) => {
         setInputdata({
             ...inputdata,
@@ -103,8 +107,6 @@ const EduRegister = () => {
             toast.error("Enter Your Phone no.")
         } else if (inputdata.dob === "") {
             toast.error("Enter Your DOB")
-        } else if (inputdata.education === "") {
-            toast.error("Select Your Max-Education")
         } else if (inputdata.location === "") {
             toast.error("Select Your Country")
         } else if (inputdata.gender === "") {
@@ -115,6 +117,12 @@ const EduRegister = () => {
             toast.error("Enter Your Password")
         } else if (inputdata.password.length < 6) {
             toast.error("password length minimum 6 character")
+        }else if (!hasSpecialChar) {
+            toast.error("Password must contain at least one special character");
+        } else if (!hasCapitalLetter) {
+            toast.error("Password must contain at least one capital letter");
+        } else if (!hasNumber) {
+            toast.error("Password must contain at least one number");
         }
         else {
 
@@ -171,27 +179,27 @@ const EduRegister = () => {
                         </div> */}
                         <div className={style.form_input}>
                             <label htmlFor="fname">First Name</label>
-                            <input type="text" value={inputdata.fname} name="fname" onChange={handleChange} placeholder='Enter Your First Name' />
+                            <input type="text" value={inputdata.fname} name="fname" onChange={handleChange} placeholder='Enter Your First Name' maxLength={15}/>
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="lname">Last Name</label>
-                            <input type="text" name="lname" value={inputdata.lname} onChange={handleChange} placeholder='Enter Your Last Name' />
+                            <input type="text" name="lname" value={inputdata.lname} onChange={handleChange} placeholder='Enter Your Last Name'  maxLength={15}/>
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="email">Email</label>
-                            <input type="email" name="email" value={inputdata.email} onChange={handleChange} placeholder='Enter Your Email Address' />
+                            <input type="email" name="email" value={inputdata.email} onChange={handleChange} placeholder='Enter Your Email Address'  maxLength={320} />
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="phone">Phone</label>
-                            <input type="string" name="phone" value={inputdata.phone} onChange={handleChange} placeholder='Enter Your Phone no.' />
+                            <input type="string" name="phone" value={inputdata.phone} onChange={handleChange} placeholder='Enter Your Phone no.'   maxLength={10}/>
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="bio">Bio</label>
-                            <textarea name="bio" value={inputdata.bio} onChange={handleChange} rows={4} cols={40} placeholder='Write few word about yourself' />
+                            <textarea name="bio" value={inputdata.bio} onChange={handleChange} rows={4} cols={40} placeholder='Write few word about yourself'  maxLength={250}/>
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="upiID">Upi i'd</label>
-                            <input type="string" value={inputdata.upiID} name="upiID" onChange={handleChange} placeholder='Enter your upiID' />
+                            <input type="string" value={inputdata.upiID} name="upiID" onChange={handleChange} placeholder='Enter your upiID'  maxLength={30}/>
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="dob">DOB</label>
@@ -261,7 +269,7 @@ const EduRegister = () => {
                         <div className={style.form_input}>
                             <label htmlFor="password">Password</label>
                             <div className='two'>
-                                <input type={!paswordshow ? "password" : "text"} name="password" onChange={handleChange} value={inputdata.password} placeholder='Enter Your password' />
+                                <input type={!paswordshow ? "password" : "text"} name="password" onChange={handleChange} value={inputdata.password} placeholder='Enter Your password' maxLength={20}/>
                                 <div className={style.showpass} onClick={() => setPaswordShow(!paswordshow)} >
                                     {!paswordshow ? "Show" : "Hide"}
                                 </div>

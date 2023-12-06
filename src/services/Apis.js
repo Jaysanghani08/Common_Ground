@@ -69,6 +69,13 @@ export const educreatecoursefunction = async (data) => {
     })
 }
 
+export const edueditcoursefunction = async (data, courseId) => {
+    // //console.log(data)
+    return await commonrequest("PATCH", `${BACKEND_URL}/educator/edit-course/${courseId}`, data, {
+        'authorization': `Bearer ${token}`,
+    })
+}
+
 export const getEducatorDashboard = async (data) => {
     // //console.log(data)
     try {

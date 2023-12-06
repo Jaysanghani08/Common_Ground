@@ -45,7 +45,7 @@ function App() {
                     <Route path='login' element={<StudentLogin />} />
                     <Route path='logout' element={<Logout />} />
                     <Route path='forgetpassword' element={<StudentFP />} />
-                    <Route path='resetpassword/:id/:token' element={<ResetPass />} />
+                    <Route path='resetpassword/:email/:token' element={<ResetPass />} />
                     <Route path='dashboard' element={<StuDashboard />} />
                     <Route path='view-courses' element={<StuViewCourses />} />
                     <Route path='enrolled-courses' element={<EnrolledCourses />} />
@@ -58,7 +58,7 @@ function App() {
                     <Route path='login' element={<EduLogin />} />
                     <Route path='logout' element={<Logout />} />
                     <Route path='forgetpassword' element={<EduFP />} />
-                    <Route path='resetpassword/:id/:token' element={<EduResetPass />} />
+                    <Route path='resetpassword/:email/:token' element={<EduResetPass />} />
                     <Route path='dashboard' element={<EduDashboard />} />
                     <Route path='profile' element={<EduProfile />} />
                     <Route path='update' element={<EditEduProfile />} />

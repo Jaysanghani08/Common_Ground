@@ -197,11 +197,11 @@ const StuViewCourses = () => {
                                 onChange={(e) => setmaxRating(e.target.value)}
                             >
                                 <option value="">Rating</option>
-                                <option value="R1"> 1</option>
-                                <option value="R2"> 2</option>
-                                <option value="R3"> 3</option>
-                                <option value="R4"> 4</option>
-                                <option value="R5"> 5</option>
+                                <option value="1"> 1</option>
+                                <option value="2"> 2</option>
+                                <option value="3"> 3</option>
+                                <option value="4"> 4</option>
+                                <option value="5"> 5</option>
                                 {/* Add more category options as needed */}
                             </select>
                             
