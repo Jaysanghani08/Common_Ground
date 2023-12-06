@@ -73,7 +73,7 @@ function AssignmentSubmissionForm({ courseId, assignmentId, submissionId, deadli
 
     const onSubmit = (data) => {
 
-        console.log('Submission data:', data);
+        //console.log('Submission data:', data);
     };
 
     const onClose = () => {

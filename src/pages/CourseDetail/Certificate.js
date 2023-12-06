@@ -18,7 +18,7 @@ function CertificateDownloadButton() {
                     Authorization: `Bearer ${token}`,
                 }
             });
-            console.log(response);
+            //console.log(response);
 
             // Create a blob from the response data
             const blob = new Blob([response?.data], { type: 'application/pdf' });
@@ -41,7 +41,7 @@ function CertificateDownloadButton() {
     };
 
     return (
-        <Button variant="outlined" color="primary" onClick={handleDownloadCertificate}>
+        <Button variant="contained" color="success" onClick={handleDownloadCertificate}>
             Download Certificate
         </Button>
     );

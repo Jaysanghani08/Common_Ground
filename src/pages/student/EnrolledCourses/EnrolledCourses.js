@@ -16,8 +16,8 @@ const EnrolledCourses = () => {
     // const [profile, setProfile] = useState(null);
     const [enrolledCourses, setEnrolledCourses] = useState(null);
 
-    // console.log(courses)
-    // console.log(profile)
+    // //console.log(courses)
+    // //console.log(profile)
 
 
     const token = getToken('student');

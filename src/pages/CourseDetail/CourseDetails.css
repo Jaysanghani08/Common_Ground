@@ -1,6 +1,6 @@
 .course-container {
     font-family: "Lato", sans-serif;
-    background-image: url('./../../data/imgs/couse_page_bg.jpg');
+    background-image: url('#');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -27,7 +27,8 @@
 }
 
 .course-content {
-    background-color:rgb(241 233 233 / 90%);
+    /* background-image: url('./../../data/imgs/couse_page_bg.jpg'); */
+    background-color:white;
     background-size: cover;
     z-index: 2;
     padding: 40px 4vw;

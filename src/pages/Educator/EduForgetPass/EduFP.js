@@ -40,7 +40,7 @@ const EduFP = () => {
 
             if (response?.status === 200) {
                 setSpiner(false)
-                // console.log(data)
+                // //console.log(data)
                 toast.success("Link Send Successfully");
                 // navigate("/user/otp",{state:email})
             } else {

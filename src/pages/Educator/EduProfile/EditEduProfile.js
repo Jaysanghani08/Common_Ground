@@ -16,7 +16,7 @@ const EduProfile = () => {
     const [profile, setProfile] = useState(null);
     const navigate = useNavigate();
 
-    // console.log(profile)
+    // //console.log(profile)
 
     const token = getToken('educator');
 
@@ -56,7 +56,7 @@ const EduProfile = () => {
         fetchData();
     }, []);
 
-    // console.log(profile)
+    // //console.log(profile)
 
     if (!token) {
         return <Navigate to="/educator/login" />;
@@ -125,7 +125,7 @@ const EduProfile = () => {
             profilePic: profilePic ? profilePic : profile.profilePic
         };
 
-        console.log(formData);
+        //console.log(formData);
 
         const edited = await editEduProfile(formData);
 

@@ -26,7 +26,7 @@ const EduRegister = () => {
         profilePic: ""
     });
 
-    // console.log(inputdata)
+    // //console.log(inputdata)
 
     const navigate = useNavigate();
 
@@ -113,10 +113,10 @@ const EduRegister = () => {
         }
         else {
 
-            // console.log(inputdata)
+            // //console.log(inputdata)
             const response = await eduregisterfunction(inputdata,);
 
-            // console.log(response)
+            // //console.log(response)
 
             if (response?.status === 201) {
                 setInputdata({
@@ -143,7 +143,7 @@ const EduRegister = () => {
             }
             else {
                 toast.error("Error in Register ! Please try Again");
-                // console.log(inputdata)
+                // //console.log(inputdata)
                 // toast.error("response?.response?.data.error");
             }
         }

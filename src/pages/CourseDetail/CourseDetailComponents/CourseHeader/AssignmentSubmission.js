@@ -42,7 +42,7 @@ function TmpForGrade({assignmentId, submissionId}) {
 function SubmissionViewer({ assignmentId, submissions }) {
     // const [submissions, setSubmissions] = useState([]);
 
-    console.log(submissions)
+    //console.log(submissions)
     const [openPdfDialog, setOpenPdfDialog] = useState(false);
     const [pdfTitle, setPdfTitle] = useState('');
     const [pdfFile, setPdfFile] = useState(null);

@@ -43,10 +43,10 @@ export default function FormDialog({ assignmentId, submissionId, deadline, submi
             "submission": selectedFiles
         }
 
-        console.log(data)
+        //console.log(data)
         try {
             const response = await SubmitAssignment(courseId, assignmentId, data);
-            console.log(response)
+            //console.log(response)
             if (response?.status === 201) {
                 toast.success('Assignment submitted successfully');
                 window.location.reload()
@@ -64,7 +64,7 @@ export default function FormDialog({ assignmentId, submissionId, deadline, submi
     const handleDeleteSubmission = async () => {
         try {
             const response = await DeleteAssignmentSubmission(courseId, submissionId);
-            console.log(response);
+            //console.log(response);
 
             if (response?.status === 200) {
                 toast.success('Assignment submission deleted successfully');

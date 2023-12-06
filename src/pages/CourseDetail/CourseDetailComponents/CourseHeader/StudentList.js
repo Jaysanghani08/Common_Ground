@@ -21,7 +21,7 @@ function StudentList(props) {
 
     const handleRemoveStudent = async (studentId) => {
         const removed = await removeStudent({courseId, studentId});
-        console.log(removed)
+        //console.log(removed)
 
         if(removed?.status === 200){
             toast.success("Student removed successfully");

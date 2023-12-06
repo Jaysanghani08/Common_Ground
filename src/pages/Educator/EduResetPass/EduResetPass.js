@@ -7,8 +7,8 @@ import Spinner from 'react-bootstrap/Spinner';
 const EduResetPass = () => {
     const { id, token } = useParams();
     const [paswordshow, setPaswordShow] = useState(false);
-    // console.log(id)
-    // console.log(token)
+    // //console.log(id)
+    // //console.log(token)
     const [inputdata, setInputdata] = useState({
         password: "",
         cpassword: ""
@@ -45,7 +45,7 @@ const EduResetPass = () => {
             }
 
             const response = await eduupdatepasswordfunction(data);
-            // console.log(response)
+            // //console.log(response)
 
             if (response?.status === 200) {
                 setSpiner(false)

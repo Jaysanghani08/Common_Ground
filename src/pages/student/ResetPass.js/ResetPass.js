@@ -8,7 +8,7 @@ import { studentupdatepasswordfunction } from '../../../services/Apis';
 
 const ResetPass = () => {
     const { id, token } = useParams();
-    console.log(id, token)
+    //console.log(id, token)
     const [inputdata, setInputdata] = useState({
         password: "",
         cpassword: ""

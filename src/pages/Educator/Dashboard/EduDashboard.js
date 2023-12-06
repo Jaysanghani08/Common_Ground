@@ -26,7 +26,7 @@ function EduDashboard() {
         navigate("/educator/profile");
     }
 
-    // console.log(profile)
+    // //console.log(profile)
 
     const token = getToken('educator');
 
