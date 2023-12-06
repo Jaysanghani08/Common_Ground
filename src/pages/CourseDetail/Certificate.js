@@ -3,10 +3,8 @@ import Button from '@mui/material/Button';
 import { getCertificate } from '../../services/Apis';
 import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
-import { saveAs } from 'file-saver';
 import { BACKEND_URL } from '../../services/helper';
 import axios from 'axios';
-import getToken from '../../services/getToken';
 import Cookies from 'js-cookie';
 
 function CertificateDownloadButton() {
