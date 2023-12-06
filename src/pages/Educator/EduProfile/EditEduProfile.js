@@ -89,6 +89,14 @@ const EduProfile = () => {
     };
 
     const handleChange = (e) => {
+        const inputDate = new Date(e.target.value);
+        const currentDate = new Date();
+    
+        if (inputDate > currentDate) {
+          alert("Please select a date that is not in the future.");
+          e.target.value = ''; // Clear the input value if it's a future date
+        }
+        
         const { name, value } = e.target;
         setInputData({
             ...inputData,
