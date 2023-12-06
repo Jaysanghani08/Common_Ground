@@ -19,7 +19,8 @@ import { deletePost, editPost } from './../../../../services/Apis';
 import { toast } from 'react-toastify';
 import getToken from '../../../../services/getToken';
 import Cookies from 'js-cookie';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 const VideoStreamingComponent = ({ videoLink }) => (
     <video width="100%" height="100%" controls>
         <source src={videoLink} type="video/mp4" />
@@ -29,9 +30,9 @@ const VideoStreamingComponent = ({ videoLink }) => (
 function CourseContent(props) {
     const { content } = props;
     return (
-        <div>
+        <div style={{marginleft:'20px'}}>
             {/* Render course content here */}
-            <h5>{content}</h5>
+            <h5 >{content}</h5>
         </div>
     );
 }
@@ -259,8 +260,8 @@ export function CourseAccordion(props) {
                     {
                         usertype === 'educator' && getToken('educator')?.userId === createdby &&
                         <div>
-                            <Button onClick={handleEditFormOpen}>Edit</Button>
-                            <Button onClick={handleDelete}>Delete</Button>
+                            <Button onClick={handleEditFormOpen}><FontAwesomeIcon icon={faEdit} style={{fontSize:'15px'}}/></Button>
+                            <Button onClick={handleDelete}><FontAwesomeIcon icon={faTrash} style={{fontSize:'15px'}} /></Button>
                         </div>
                     }
                     <ul>

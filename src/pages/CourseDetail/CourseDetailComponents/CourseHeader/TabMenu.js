@@ -30,7 +30,8 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import AssignmentUploadForm from '../Buttons/AssignmentUploadForm';
 import getToken from '../../../../services/getToken';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 Dialog.propTypes = {
     open: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
@@ -131,7 +132,7 @@ function CustomAccordion(props) {
                     usertype === 'educator' && getToken('educator')?.userId === createdby &&
                     <div >
                         {/* <Button variant="outlined" onClick={handleEditSection} >Edit</Button> */}
-                        <Button variant="outlined" onClick={handleDeleteSection}>Delete</Button>
+                        <Button  onClick={handleDeleteSection}>  <FontAwesomeIcon icon={faTrash} style={{fontSize:'15px'}}/></Button>
                     </div>
                 }
             </AccordionSummary>
