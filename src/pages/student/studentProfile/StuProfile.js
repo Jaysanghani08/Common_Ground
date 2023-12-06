@@ -13,7 +13,7 @@ const StuProfile = () => {
     const [error, setError] = useState(null);
     const [profile, setProfile] = useState(null);
 
-    //console.log(profile)
+    console.log(profile)
 
     const token = getToken('student');
     
