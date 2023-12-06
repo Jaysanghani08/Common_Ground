@@ -5,8 +5,9 @@ import { toast } from "react-toastify";
 import { updateComment, deleteComment } from "./ComentsApi"; // Import the API functions
 import { useParams } from "react-router-dom";
 import getToken from '../../../../services/getToken'
-
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Button } from "@mui/material";
 const Comment = ({ comment, setActiveComment, activeComment, currentUserId, usertype, createdby, isEnrolled }) => {
 
     // console.log(currentUserId)
@@ -56,6 +57,7 @@ const Comment = ({ comment, setActiveComment, activeComment, currentUserId, user
             </div>
             <div className="comment-right-part">
                 <div className="comment-content">
+                    <div style={{display:'flex'}}>
                     <div className="comment-author">{
                         comment.createdByStudent ?
                             `${comment.createdByStudent?.lname} ${comment.createdByStudent?.fname}`
@@ -63,6 +65,35 @@ const Comment = ({ comment, setActiveComment, activeComment, currentUserId, user
                     }
                     </div>
                     <div className="comment-date">{new Date(comment.dateCreated).toLocaleDateString()}</div>
+                    </div>
+                    
+                    <div className="comment-actions edit">
+                    {canEdit && !isEditing && (
+                        <div
+                            className="comment-action"
+                            onClick={() =>
+                                setActiveComment({ id: comment._id, type: "editing" })
+                            }
+                        >
+                            <Button  >
+                            <FontAwesomeIcon icon={faEdit} style={{fontSize:'15px'}} />
+                         </Button>
+                            
+                        </div>
+                    )}
+                    {canDelete && (
+                        <div
+                            className="comment-action"
+                            onClick={() => handleDelete(comment._id)}
+                        >
+                            <Button  >
+                            <FontAwesomeIcon icon={faTrash} style={{fontSize:'15px'}} />
+                         </Button>
+                            
+                           
+                        </div>
+                    )}
+                </div>
                 </div>
                 {!isEditing && <div className="comment-text">{comment.message}</div>}
                 {isEditing && (
@@ -76,26 +107,7 @@ const Comment = ({ comment, setActiveComment, activeComment, currentUserId, user
                         }}
                     />
                 )}
-                <div className="comment-actions edit">
-                    {canEdit && !isEditing && (
-                        <div
-                            className="comment-action"
-                            onClick={() =>
-                                setActiveComment({ id: comment._id, type: "editing" })
-                            }
-                        >
-                            Edit
-                        </div>
-                    )}
-                    {canDelete && (
-                        <div
-                            className="comment-action"
-                            onClick={() => handleDelete(comment._id)}
-                        >
-                            Delete
-                        </div>
-                    )}
-                </div>
+                
             </div>
         </div>
     );

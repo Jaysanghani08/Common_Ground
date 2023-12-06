@@ -1,7 +1,9 @@
 // CommentForm.js
 
 import React, { useState } from "react";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes,faPaperPlane, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { Button } from "@mui/material";
 const DicussionForm = ({
     handleSubmit,
     submitLabel,
@@ -20,23 +22,34 @@ const DicussionForm = ({
 
     return (
         <form onSubmit={onSubmit}>
+            <div className="div-button">
             <textarea
                 className="comment-form-textarea"
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Write Comment here"
+                style={{backgroundolor: '#4a6a93b2'}}
             />
-            <button className="comment-form-button" disabled={isTextareaDisabled}>
-                {submitLabel}
-            </button>
+            <Button type="submit" disabled={isTextareaDisabled}>
+            {submitLabel === 'Submit' ? (
+                <>
+                <FontAwesomeIcon icon={faPaperPlane} style={{ fontSize: '20px' }} />
+                </>
+            ) : (
+                <>
+                <FontAwesomeIcon icon={faPaperPlane} style={{ fontSize: '20px' }} />
+                </>
+            )}
+            </Button>
+
+            </div>
             {hasCancelButton && (
-                <button
-                    type="button"
-                    className="comment-form-button comment-form-cancel-button"
+                <Button
+                    
                     onClick={handleCancel}
                 >
-                    Cancel
-                </button>
+                    <FontAwesomeIcon icon={faTimes} style={{fontSize:'20px'}} />
+                </Button>
             )}
         </form>
     );
