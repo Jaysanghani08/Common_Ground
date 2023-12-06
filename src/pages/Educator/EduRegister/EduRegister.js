@@ -103,8 +103,6 @@ const EduRegister = () => {
             toast.error("Enter Your Phone no.")
         } else if (inputdata.dob === "") {
             toast.error("Enter Your DOB")
-        } else if (inputdata.education === "") {
-            toast.error("Select Your Max-Education")
         } else if (inputdata.location === "") {
             toast.error("Select Your Country")
         } else if (inputdata.gender === "") {
