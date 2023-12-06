@@ -20,6 +20,8 @@ import { deleteAssignment } from '../../../../services/Apis';
 import getToken from '../../../../services/getToken';
 import SubmissionViewer from './AssignmentSubmission';
 import FormDialog from './tmp';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash,faEdit } from '@fortawesome/free-solid-svg-icons';
 function CourseContent(props) {
     const { description } = props;
     return (
@@ -357,8 +359,8 @@ export function Assigments(props) {
                         {/* <Button variant="outlined" color="primary" onClick={handleOpenEditForm}>
                         Edit
                     </Button> */}
-                        <Button variant="outlined" color="secondary" onClick={handleDelete}>
-                            Delete
+                        <Button onClick={handleDelete}>
+                        <FontAwesomeIcon icon={faTrash} style={{fontSize:'15px'}}/>
                         </Button>
                     </div>
                 }
