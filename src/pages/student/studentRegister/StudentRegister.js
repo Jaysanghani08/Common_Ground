@@ -205,17 +205,7 @@ const maxDate = today.toISOString().split('T')[0];
                             </select>
                         </div>
 
-                        {/* <div className={style.form_input}>
-                            <label>Gender:</label>
-                            <div className='gender1'>
-                                <input type="radio" id="male" name="gender" value="male" checked={inputdata.gender === 'male'} onChange={handleGenderChange} />
-                                <label htmlFor="male">Male</label>
-                            </div>
-                            <div className='gender1'>
-                                <input type="radio" id="female" name="gender" value="female" checked={inputdata.gender === 'female'} onChange={handleGenderChange} />
-                                <label htmlFor="female">Female</label>
-                            </div>
-                        </div> */}
+                       
                         <div className={style.form_input}>
                             <label htmlFor="username">Username</label>
                             <input type="string" value={inputdata.username} name="username" onChange={handleChange} placeholder='Enter username' />
