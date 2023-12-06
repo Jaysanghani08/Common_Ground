@@ -29,12 +29,12 @@ const CourseCard = ({ course }) => {
         <div key={course.courseCode} className="edu_card_container">
             <div className="edu_courses_card">
                 <div className="edu_courses_card-head">
-                    {/* <span className="courses_back-text">IT304</span> */}
+                    {/* <span className="courses_back-text">IT304</span>  */}
                 </div>
                 <div className="edu_courses_card-body edu_courses_height">
                     <div className="edu_courses_product-detail">
                         <h2>{course.courseTitle}</h2>
-                        {/* <p className="courses_description"  >{truncatedDescription}</p> */}
+                        <p className="courses_description"  >{truncatedDescription}</p> 
                     </div>
                     <div className="edu_courses_product-desc">
                         {/* <span className="edu_courses_product-caption">By {`${course.createdBy?.fname} ${course.createdBy?.lname}`}</span> */}
@@ -50,7 +50,7 @@ const CourseCard = ({ course }) => {
                             <h4>{course.enrolledStudents ? course.enrolledStudents.length : 0} Students Enrolled</h4>
                         </span>
                         <span className="edu_courses_product-price">
-                            {/* <span> {course.coursePrice === 0 ? "Free" : `Rs. ${course.coursePrice}`} </span> */}
+                            <span> {course.coursePrice === 0 ? "Free" : `Rs. ${course.coursePrice}`} </span>
                             <button type="button" className="btn" ><NavLink to={`/course/${course._id}`} style={{ color: "white" }}>View Course </NavLink></button>
                         </span>
                     </div>
