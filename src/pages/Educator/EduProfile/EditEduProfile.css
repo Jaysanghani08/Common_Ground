@@ -52,12 +52,14 @@
 
 .epn-edit-image-container1 img{
   background-color: #0c356a;
-  height: 170px;
-  width: 150px;
+  max-width: 170px;
+  max-height: 170px;
+  width: 100%;
+  height: auto;
   margin-left: 20px;
   padding: 2px;
-  /* border-style: solid; */
   border-radius: 10px;
+  object-fit: cover;
 }
 
 .epn-edit-user{

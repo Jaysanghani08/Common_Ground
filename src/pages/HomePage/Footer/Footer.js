@@ -48,7 +48,7 @@ const Footer = ({id}) => {
               </li>
               <li>
                 <i className='fa fa-paper-plane'></i>
-                <a href="mailto:common_ground@gmail.come">common_ground@gmail.come</a>
+                <a href="mailto:common_ground@gmail.come">common_ground@gmail.com</a>
               </li>
             </ul>
           </div>
