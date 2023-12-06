@@ -167,7 +167,8 @@ const EduProfile = () => {
 
                         <div className='epn-edit-user'>
                             <div className='epn-edit-username1'>
-                                <input className="edp-edit-form-control" type="text" name='username' onChange={handleChange} value={inputData.username} placeholder={profile.username} />
+                                {/* <input className="edp-edit-form-control" type="text" name='username' onChange={handleChange} value={inputData.username} placeholder={profile.username} /> */}
+                                <div>{profile.username}</div>
                             </div>
 
                             <div className='epn-edit-about'>
@@ -192,7 +193,7 @@ const EduProfile = () => {
                                 <div className='epn-edit-info-submain'>Gender</div>
                                 <div className='epn-edit-info-submain'>Country</div>
                                 <div className='epn-edit-info-submain'>Dob</div>
-                                <div className='epn-edit-info-submain'>Education Level</div>
+                                {/* <div className='epn-edit-info-submain'>Education Level</div> */}
                                 <div className='epn-edit-info-submain'>Email</div>
                                 <div className='epn-edit-info-submain'>Phone</div>
                             </div>
@@ -218,9 +219,9 @@ const EduProfile = () => {
                                     <input className="edp-edit-form-control" type="date" name='dob' onChange={handleChange} value={inputData.dob} placeholder={profile.dob} />
                                 </div>
 
-                                <div className='epn-edit-info-submain2'>
+                                {/* <div className='epn-edit-info-submain2'>
                                     <input className="edp-edit-form-control" type="text" name='educationLevel' onChange={handleChange} value={inputData.educationLevel} placeholder={profile.educationLevel} />
-                                </div>
+                                </div> */}
 
                                 <div className='epn-edit-info-submain2'>
                                     <input className="edp-edit-form-control" type="email" name='email' onChange={handleChange} value={inputData.email} placeholder={profile.email} />

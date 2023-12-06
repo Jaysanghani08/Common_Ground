@@ -24,7 +24,7 @@ function EduCreateCourse() {
     const [courseLevel, setCourseLevel] = useState('');
     const [courseLanguage, setCourseLanguage] = useState('');
     const [visibility, setVisibility] = useState('');
-    // console.log(inputdata)
+    // //console.log(inputdata)
 
     const token = getToken('educator');
     const navigate = useNavigate();
@@ -83,12 +83,12 @@ function EduCreateCourse() {
             toast.error("Enter Valid Course Price. ")
         }
         else {
-            // console.log(formData)
+            // //console.log(formData)
 
             const response = await educreatecoursefunction(formData, token);
             // const response = {};
 
-            // console.log(response)
+            // //console.log(response)
 
             if (response?.status === 201) {
                 setInputdata({

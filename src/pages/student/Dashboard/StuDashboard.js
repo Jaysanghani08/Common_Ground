@@ -15,8 +15,8 @@ function StuDashboard() {
     const [dashboardData, setdashboardData] = useState(null);
     const [profile, setProfile] = useState(null);
 
-    // console.log(dashboardData)
-    // console.log(profile)
+    // //console.log(dashboardData)
+    // //console.log(profile)
 
 
     const token = getToken('student');

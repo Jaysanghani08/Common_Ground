@@ -5,14 +5,11 @@ import CourseHeader from './CourseDetailComponents/CourseHeader/CourseHeader'
 import BasicTabs from './CourseDetailComponents/CourseHeader/TabMenu'
 import LoadingComponent from '../Loading/Loading'
 import getToken from '../../services/getToken'
-import { UnenrollInCourse, enrollInCourse, getCourseData } from '../../services/Apis';
+import { getCourseData } from '../../services/Apis';
 import { useParams } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import StuNavbar from './../student/Dashboard/Sidebar/Sidebar'
-import RateCourseDialog from './CourseDetailComponents/RateCourse';
-import AssignmentSubmission from './CourseDetailComponents/CourseHeader/AssignmentSubmission'
-import Button from '@mui/material/Button'
-import CertificateDownloadButton from './Certificate'
+
 
 const CourseDetails = () => {
 
@@ -24,7 +21,7 @@ const CourseDetails = () => {
     const [isEnrolled, setIsEnrolled] = useState(false);
     const [usertype, setUserType] = useState(null);
 
-    console.log(coursedata)
+    //console.log(coursedata)
 
     useEffect(() => {
 
@@ -40,11 +37,11 @@ const CourseDetails = () => {
                 ]);
                 setcoursedata(coursedata);
                 if (coursedata?.enrolledStudents.some(user => user._id === Stutoken.userId)) {
-                    console.log("sdfafasdnshfdfkd")
+                    //console.log("sdfafasdnshfdfkd")
                     setIsEnrolled(true);
                 }
                 else {
-                    console.log("dfsdfdsfdd")
+                    //console.log("dfsdfdsfdd")
                     setIsEnrolled(false);
                 }
                 setLoading(false);
@@ -77,30 +74,30 @@ const CourseDetails = () => {
 
  
 
-    const handleEnroll = async () => {
-        const res = await enrollInCourse(courseId);
+    // const handleEnroll = async () => {
+    //     const res = await enrollInCourse(courseId);
 
-        if (res?.status === 200) {
-            toast.success("You are Successfully enrolled.")
-            window.location.reload();
-        }
-        else {
-            toast.error("Error Enrolling in course.")
-        }
-    }
+    //     if (res?.status === 200) {
+    //         toast.success("You are Successfully enrolled.")
+    //         window.location.reload();
+    //     }
+    //     else {
+    //         toast.error("Error Enrolling in course.")
+    //     }
+    // }
 
 
-    const handleUnenroll = async () => {
-        const res = await UnenrollInCourse(courseId);
+    // const handleUnenroll = async () => {
+    //     const res = await UnenrollInCourse(courseId);
 
-        if (res?.status === 200) {
-            toast.success("You are Successfully Unenrolled.")
-            window.location.reload();
-        }
-        else {
-            toast.error("Error Enrolling in course.")
-        }
-    }
+    //     if (res?.status === 200) {
+    //         toast.success("You are Successfully Unenrolled.")
+    //         window.location.reload();
+    //     }
+    //     else {
+    //         toast.error("Error Enrolling in course.")
+    //     }
+    // }
 
     return (
         <>
@@ -114,6 +111,8 @@ const CourseDetails = () => {
                         coursedata &&
                         <>
                             <CourseHeader
+                            isEnrolled={isEnrolled}
+                            usertype={usertype}
                                 courseCode={coursedata.courseCode}
                                 courseTitle={coursedata.courseTitle}
                                 courseDescriptionLong={coursedata.courseDescriptionLong}
@@ -129,24 +128,9 @@ const CourseDetails = () => {
 
 
                             <div className="course-content">
-                                {
-                                    usertype === 'student' && !isEnrolled &&
-                                    <Button variant="contained" color="success" onClick={handleEnroll}>Enroll in the Course.</Button>
-                                }
-
-                                <BasicTabs sections={coursedata.courseSections} enrolledStudents={coursedata.enrolledStudents} courseAssignments={coursedata.courseAssignments} discussionData={coursedata.discussionForum?.messages} usertype={usertype} createdby={coursedata.createdBy?._id} isEnrolled={isEnrolled} />
                             
-                                {
-                                    usertype === 'student' && isEnrolled &&
-                                <RateCourseDialog />
-
-                                }
-                                {
-                                    usertype === 'student' && isEnrolled &&
-                                    <Button variant="contained" color="error" onClick={handleUnenroll}>UnEnroll from this  the Course.</Button>
-                                }
-
-                                <CertificateDownloadButton/>
+                                <BasicTabs sections={coursedata.courseSections} enrolledStudents={coursedata.enrolledStudents} courseAssignments={coursedata.courseAssignments} discussionData={coursedata.discussionForum?.messages} usertype={usertype} createdby={coursedata.createdBy?._id} isEnrolled={isEnrolled} />
+                               
                             </div>
 
                         </>

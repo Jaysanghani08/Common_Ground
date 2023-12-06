@@ -63,7 +63,7 @@ function AssignmentEditForm({ open, onClose, onEditSubmit, initialData }) {
 
     const handlePdfFileChange = (e) => {
 
-        // console.log('PDF file uploaded:', e.target.files[0]);
+        // //console.log('PDF file uploaded:', e.target.files[0]);
     };
 
     const handleEditFormSubmit = (e) => {
@@ -225,7 +225,7 @@ export function Assigments(props) {
     const { courseId } = useParams();
     const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining(deadline));
     const [openEditForm, setOpenEditForm] = useState(false);
-    // console.log(assignmentLink);
+    // //console.log(assignmentLink);
 
 
     // useEffect(() => {
@@ -273,7 +273,7 @@ export function Assigments(props) {
 
     const handleEditSubmit = (editedData) => {
 
-        // console.log('Edit submission:', editedData);
+        // //console.log('Edit submission:', editedData);
         handleCloseEditForm();
     };
 

@@ -26,7 +26,7 @@ const FileUploadForm = ({ sectionId }) => {
     const theme = useTheme();
     const fullScreenDialog = useMediaQuery(theme.breakpoints.down('sm'));
 
-    // console.log(selectedFile)
+    // //console.log(selectedFile)
 
     const handleOpenPdfDialog = () => {
         setOpenPdfDialog(true);
@@ -69,7 +69,7 @@ const FileUploadForm = ({ sectionId }) => {
             data.append('attachments', selectedFile[i]);
         }
 
-        // console.log(data)
+        // //console.log(data)
 
         if (!formData.title) {
             toast.error("Enter Post Title")
@@ -79,7 +79,7 @@ const FileUploadForm = ({ sectionId }) => {
         }
         else {
             const newpost = await createPost(courseId, sectionId, data);
-            // console.log(newpost);
+            // //console.log(newpost);
 
             if (newpost?.status === 201) {
                 toast.success("Post created successfully")

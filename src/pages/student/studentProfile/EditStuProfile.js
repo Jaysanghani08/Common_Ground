@@ -136,6 +136,7 @@ const EditStuProfile = () => {
             toast.error('Error in editing profile');
         }
     }
+    
 
     return (
 
@@ -166,7 +167,8 @@ const EditStuProfile = () => {
 
                         <div className='spn-edit-user'>
                             <div className='spn-edit-username1'>
-                                <input className="sdp-edit-user-control" type="text" name='username' onChange={handleChange} value={inputData.username} placeholder={profile.username} />
+                                {/* <input className="sdp-edit-user-control" type="text" name='username' onChange={handleChange} value={inputData.username} placeholder={profile.username} /> */}
+                                <div>{profile.username}</div>
                             </div>
 
                         </div>
@@ -192,7 +194,7 @@ const EditStuProfile = () => {
                                 {/* <div className='spn-edit-info-submain'>Education Level</div> */}
                                 <div className='spn-edit-info-submain'>Email</div>
                                 <div className='spn-edit-info-submain'>Phone</div>
-                                <div className='spn-edit-info-submain'>Interests</div>
+                                {/* <div className='spn-edit-info-submain'>Interests</div> */}
                             </div>
 
                             <div className='spn-edit-personalinfo'>
@@ -229,9 +231,9 @@ const EditStuProfile = () => {
                                     <input className="sdp-edit-form-control" type="string" name='phone' onChange={handleChange} value={inputData.phone} placeholder={profile.phone} />
                                 </div>
 
-                                <div className='spn-edit-info-submain2'>
+                                {/* <div className='spn-edit-info-submain2'>
                                     <input className="sdp-edit-form-control" type="string" name='interests' onChange={handleInterestChange} value={interests} placeholder={profile.interests} />
-                                </div>
+                                </div> */}
 
                             </div>
 

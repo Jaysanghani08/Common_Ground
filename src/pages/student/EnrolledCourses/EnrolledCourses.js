@@ -17,8 +17,8 @@ const EnrolledCourses = () => {
     const [enrolledCourses, setEnrolledCourses] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
 
-    // console.log(courses)
-    // console.log(profile)
+    // //console.log(courses)
+    // //console.log(profile)
 
 
     const token = getToken('student');

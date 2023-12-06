@@ -41,7 +41,7 @@ CourseContent.propTypes = {
 };
 
 function AttachmentList({ link, createdby, usertype, isEnrolled }) {
-    console.log(link)
+    //console.log(link)
 
     const [openPdfDialog, setOpenPdfDialog] = useState(false);
     const [openAssignmentDialog, setOpenAssignmentDialog] = useState(false);
@@ -122,7 +122,7 @@ function AttachmentList({ link, createdby, usertype, isEnrolled }) {
 
 export function CourseAccordion(props) {
     const { post, sectionId, content, pdfLink, assignmentLink, pdfTitle, AssignmentTitle, postName, createdby, usertype, isEnrolled } = props;
-    // console.log(post)
+    // //console.log(post)
     const [expanded, setExpanded] = useState(false);
     const [openPdfDialog, setOpenPdfDialog] = useState(false);
     const [openAssignmentDialog, setOpenAssignmentDialog] = useState(false);
@@ -197,7 +197,7 @@ export function CourseAccordion(props) {
         data.append("body", editedContent);
 
         const edited = await editPost({ courseId, sectionId, postId: post._id, newData: data });
-        // console.log(edited)
+        // //console.log(edited)
 
         if (edited?.status === 200) {
             toast.success("Post Edited Successfully");
@@ -230,7 +230,7 @@ export function CourseAccordion(props) {
     // Logic for deleting content
     const handleDelete = async () => {
         const deleted = await deletePost({ courseId, sectionId, postId: post._id });
-        // console.log(deleted)
+        // //console.log(deleted)
 
         if (deleted?.status === 200) {
             toast.success("Post Deleted Successfully");

@@ -10,10 +10,10 @@ import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Button } from "@mui/material";
 const Comment = ({ comment, setActiveComment, activeComment, currentUserId, usertype, createdby, isEnrolled }) => {
 
-    // console.log(currentUserId)
-    // console.log(usertype)
-    // console.log(createdby)
-    // console.log(isEnrolled)
+    // //console.log(currentUserId)
+    // //console.log(usertype)
+    // //console.log(createdby)
+    // //console.log(isEnrolled)
 
     const isEditing =
         activeComment &&

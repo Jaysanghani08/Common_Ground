@@ -52,14 +52,12 @@
 
 .epn-edit-image-container1 img{
   background-color: #0c356a;
-  max-width: 170px;
-  max-height: 170px;
-  width: 100%;
-  height: auto;
+  height: 170px;
+  width: 150px;
   margin-left: 20px;
   padding: 2px;
+  /* border-style: solid; */
   border-radius: 10px;
-  object-fit: cover;
 }
 
 .epn-edit-user{
@@ -90,10 +88,10 @@
   padding: 30px;
   margin-bottom: 20px;
   margin-top: -35px;
-  height: 620px;
+  height: 570px;
   width: 600px;
   font-size: 2rem;
-  font-weight: bold;
+  /* font-weight: bold; */
   background-color: white;
   position: relative;
   color: #0c356a;
@@ -105,6 +103,7 @@
 }
 .epn-edit-basic-heading{
   font-size: 2.5rem;
+  font-weight: bold;
 }
 .epn-edit-info-submain{
   margin-top: 20px;
@@ -117,9 +116,11 @@
 .edp-edit-form-control {
   width: 230px;
   height: 34px;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   margin-top: 5px;
-  font-size: 1.5rem;
+  border: none;
+  border-bottom: 1px solid #0c356a;
+  /* font-size: 1.5rem; */
 }
 .epn-cancel-button{
   width: 150px;

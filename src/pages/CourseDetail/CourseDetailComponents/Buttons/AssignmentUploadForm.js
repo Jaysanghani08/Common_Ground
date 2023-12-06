@@ -40,7 +40,7 @@ const AssignmentUploadForm = ({ sectionId }) => {
         deadline: '',
     });
 
-    // console.log(formData);
+    // //console.log(formData);
 
     const handle_Change = (e) => {
         const { name, value } = e.target;
@@ -66,7 +66,7 @@ const AssignmentUploadForm = ({ sectionId }) => {
         for (let i = 0; i < selectedFile.length; i++) {
             data.append('attachments', selectedFile[i]);
         }
-        // console.log(data)
+        // //console.log(data)
 
         if (!formData.title) {
             toast.error('Enter Assignment Title');

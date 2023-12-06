@@ -58,7 +58,7 @@ const StudentLogin = () => {
             }
 
             const response = await studentloginfunction(data);
-            // console.log(response)
+            // //console.log(response)
 
             if (response?.status === 200) {
                 toast.success("Login Successfully");

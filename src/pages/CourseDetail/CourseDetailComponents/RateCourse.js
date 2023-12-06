@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import { toast } from 'react-toastify';
 import { RateCourse } from '../../../services/Apis';
 import StarIcon from '@mui/icons-material/Star'; 
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { Button } from '@mui/material';
 import { useParams } from "react-router-dom";
 
@@ -38,7 +39,7 @@ function RateCourseDialog() {
     }
     try {
       const response = await RateCourse(courseId, data);
-        // console.log(response);
+        // //console.log(response);
       if (response?.status === 200) {
         toast.success('Course rated successfully');
       } else {
@@ -69,18 +70,16 @@ function RateCourseDialog() {
         onChange={(event, newRating) => {
           setRating(newRating);
         }}
-        // onChangeActive={(event, newHover) => {
-        //   setHover(newHover);
-        // }}
-        emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+        onChangeActive={(event, newHover) => {
+          setHover(newHover);
+        }}
+        emptyIcon={<StarIcon style={{ opacity: 0.55, color: 'yellow'  }} fontSize="inherit" />}
         style={{ marginTop: '10px' }}
       />
-      {rating !== null && (
-        <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : rating]}</Box>
-      )}
+       {rating !== null && <Box sx={{ ml: 2, color: 'white' }}>{labels[hover !== -1 ? hover : rating]}</Box>}
     </Box>
-        <Button variant="contained" color="primary" onClick={handleRateCourse}>
-        Rate Course
+        <Button variant="contained" color="primary" onClick={handleRateCourse} startIcon={<CheckCircleOutlineIcon />}>
+        Rate 
       </Button>
       
     </div>

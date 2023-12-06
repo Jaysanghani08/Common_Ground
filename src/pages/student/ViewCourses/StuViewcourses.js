@@ -91,8 +91,8 @@ const StuViewCourses = () => {
     const [error, setError] = useState(null);
     const [profile, setProfile] = useState(null);
 
-    console.log(courses)
-    // console.log(profile)
+    //console.log(courses)
+    // //console.log(profile)
 
 
     const token = getToken('student');

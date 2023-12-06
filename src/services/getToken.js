@@ -10,7 +10,7 @@ const getToken = (usertype) => {
     const decodedToken = jwtDecode(token);
     
     if (decodedToken.userType !== usertype) return "";
-    // console.log(decodedToken)
+    // //console.log(decodedToken)
 
     let currentDate = new Date();
 

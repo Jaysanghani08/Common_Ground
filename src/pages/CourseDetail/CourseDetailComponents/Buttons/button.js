@@ -23,7 +23,7 @@ export default function BasicTextFields() {
 
     const { courseId } = useParams();
 
-    // console.log(courseId)
+    // //console.log(courseId)
     const [openPdfDialog, setOpenPdfDialog] = useState(false);
     const [fullScreen, setFullScreen] = useState(false);
     const [openAssignmentDialog, setOpenAssignmentDialog] = useState(false);
@@ -60,7 +60,7 @@ export default function BasicTextFields() {
 
         // setCourseID(courseId)
     };
-    // console.log(formData);
+    // //console.log(formData);
 
     const handle_Submit = async (e) => {
         // e.preventDefault();
@@ -76,7 +76,7 @@ export default function BasicTextFields() {
         }
 
         const response = await createSection(courseId, formData);
-        // console.log(response);
+        // //console.log(response);
         if (response?.message === "Section created") {
             toast.success('Section created successfully')
             // setCourseID(courseId)

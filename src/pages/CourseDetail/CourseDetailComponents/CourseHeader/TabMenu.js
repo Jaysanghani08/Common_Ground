@@ -78,7 +78,7 @@ function CustomAccordion(props) {
 
         // setCourseID(courseId)
     };
-    // console.log(formData);
+    // //console.log(formData);
 
     const handleEditSectionSubmit = async (e) => {
         // e.preventDefault();
@@ -94,7 +94,7 @@ function CustomAccordion(props) {
         }
 
         const response = await editSection(courseId, sectionId, formData);
-        // console.log(response);
+        // //console.log(response);
         if (response?.status === 201) {
             toast.success('Section edited successfully')
             // setCourseID(courseId)

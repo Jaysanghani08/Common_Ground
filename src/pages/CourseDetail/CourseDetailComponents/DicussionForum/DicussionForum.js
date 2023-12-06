@@ -22,7 +22,7 @@ const DicussionForum = ({ data,  usertype, createdby, isEnrolled }) => {
         };
 
         const cc = await createComment(courseId, usertype, data);
-        console.log(cc);
+        //console.log(cc);
         if(cc?.status === 201){
             toast.success("Comment created successfully")
             window.location.reload()

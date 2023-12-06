@@ -5,37 +5,37 @@ import Cookies from "js-cookie"
 const BASE_URL2 = "https://65435b7a01b5e279de203893.mockapi.io/"
 
 const token = Cookies.get('token')
-console.log(`Bearer ${token}`)
+//console.log(`Bearer ${token}`)
 
 // public pages
 //student
 export const studentregisterfunction = async (data) => {
-    // console.log(data)
+    // //console.log(data)
     return await commonrequest("POST", `${BACKEND_URL}/student/signup`, data)
 }
 
 export const studentloginfunction = async (data) => {
-    // console.log(data)
+    // //console.log(data)
     return await commonrequest("POST", `${BACKEND_URL}/student/login`, data)
 }
 
 export const studentresetpasswordfunction = async (data) => {
-    // console.log(data)
+    // //console.log(data)
     return await commonrequest("POST", `${BACKEND_URL}/student/reset-password`, data)
 }
 
 export const studentupdatepasswordfunction = async (data) => {
-    // console.log(data)
+    // //console.log(data)
     return await commonrequest("POST", `${BACKEND_URL}/student/update-password`, data)
 }
 // export const studentdeletefunction = async(data)=>{
-//     console.log(data)
+//     //console.log(data)
 //     return await commonrequest("POST",`${BACKEND_URL}/student/delete`,data)
 // }
 
 // educator
 export const eduregisterfunction = async (data) => {
-    // console.log(data)
+    // //console.log(data)
     return await commonrequest("POST", `${BACKEND_URL}/educator/signup`, data, {
         'Content-Type': 'multipart/form-data'
     })
@@ -43,17 +43,17 @@ export const eduregisterfunction = async (data) => {
 }
 
 export const eduloginfunction = async (data) => {
-    // console.log(data)
+    // //console.log(data)
     return await commonrequest("POST", `${BACKEND_URL}/educator/login`, data)
 }
 
 export const eduresetpasswordfunction = async (data) => {
-    // console.log(data)
+    // //console.log(data)
     return await commonrequest("POST", `${BACKEND_URL}/educator/reset-password`, data)
 }
 
 export const eduupdatepasswordfunction = async (data) => {
-    // console.log(data)
+    // //console.log(data)
     return await commonrequest("POST", `${BACKEND_URL}/educator/update-password`, data)
 }
 
@@ -62,7 +62,7 @@ export const eduupdatepasswordfunction = async (data) => {
 // Educator
 
 export const educreatecoursefunction = async (data) => {
-    // console.log(data)
+    // //console.log(data)
     return await commonrequest("POST", `${BACKEND_URL}/educator/create-course`, data, {
         'authorization': `Bearer ${token}`,
         'Content-Type': 'multipart/form-data'
@@ -70,13 +70,13 @@ export const educreatecoursefunction = async (data) => {
 }
 
 export const getEducatorDashboard = async (data) => {
-    // console.log(data)
+    // //console.log(data)
     try {
-        // console.log(data);
+        // //console.log(data);
         const response = await commonrequest("GET", `${BACKEND_URL}/query/dashboard`, data, {
             'authorization': `Bearer ${token}`
         });
-        // console.log(response?.data)
+        // //console.log(response?.data)
         return response?.data;
     } catch (error) {
         throw new Error("Error fetching user data");
@@ -89,7 +89,7 @@ export const getEduGraph = async (data) => {
             'authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
         });
-        console.log(response?.data)
+        //console.log(response?.data)
         return response?.data;
     }catch (error) {
         throw new Error("Error fetching graph data");
@@ -98,7 +98,7 @@ export const getEduGraph = async (data) => {
 
 export const getEducatorProfile = async () => {
     try {
-        // console.log(data);
+        // //console.log(data);
         const response = await commonrequest("GET", `${BACKEND_URL}/query/profile`, {}, {
             'authorization': `Bearer ${token}`
         });
@@ -109,9 +109,9 @@ export const getEducatorProfile = async () => {
 }
 
 export const getEducatorcourses = async () => {
-    // console.log(data)
+    // //console.log(data)
     try {
-        // console.log(data);
+        // //console.log(data);
         const response = await commonrequest("GET", `${BACKEND_URL}/query/coursebyeducator`, {}, {
             'authorization': `Bearer ${token}`
         });
@@ -122,9 +122,9 @@ export const getEducatorcourses = async () => {
 }
 
 export const getIncome = async (data) => {
-    // console.log(data)
+    // //console.log(data)
     try {
-        // console.log(data);
+        // //console.log(data);
         const response = await commonrequest("GET", `${BACKEND_URL}/query/dashboard`, data, {
             'authorization': `Bearer ${token}`
         });
@@ -146,7 +146,7 @@ export const createSection = async (courseId, sectionData) => {
 }
 
 export const editSection = async (courseId, sectionId, sectionData) => {
-    // console.log(sectionData)
+    // //console.log(sectionData)
     try {
         const response = await commonrequest("PATCH", `${BACKEND_URL}/educator/edit-section/${courseId}/${sectionId}`, sectionData, {
             'authorization': `Bearer ${token}`
@@ -171,13 +171,13 @@ export const deleteSection = async (courseId, sectionId) => {
 }
 
 export const createPost = async (courseId, sectionId, postData) => {
-    // console.log(postData)
+    // //console.log(postData)
     try {
         const response = await commonrequest("POST", `${BACKEND_URL}/educator/add-post/${courseId}/${sectionId}`, postData, {
             'authorization': `Bearer ${token}`,
             'Content-Type': 'multipart/form-data'
         });
-        // console.log(response)
+        // //console.log(response)
         return response;
     } catch (error) {
         throw new Error("Error creating post");
@@ -261,13 +261,13 @@ export const editEduProfile = async (data) => {
 
 // Student
 export const getStudentDashboard = async (data) => {
-    // console.log(data)
+    // //console.log(data)
     try {
-        // console.log(data);
+        // //console.log(data);
         const response = await commonrequest("GET", `${BACKEND_URL}/query/enrolled-course`, data, {
             'authorization': `Bearer ${token}`
         });
-        // console.log(response?.data)
+        // //console.log(response?.data)
         return response?.data ? response?.data?.courses?.slice(0, 3) : null;
     } catch (error) {
         throw new Error("Error fetching user data");
@@ -275,13 +275,13 @@ export const getStudentDashboard = async (data) => {
 }
 
 export const getEnrolledCourses = async (data) => {
-    // console.log(data)
+    // //console.log(data)
     try {
-        // console.log(data);
+        // //console.log(data);
         const response = await commonrequest("GET", `${BACKEND_URL}/query/enrolled-course`, data, {
             'authorization': `Bearer ${token}`
         });
-        // console.log(response?.data)
+        // //console.log(response?.data)
         return response?.data ? response?.data?.courses : null;
     } catch (error) {
         throw new Error("Error fetching user data");
@@ -289,13 +289,13 @@ export const getEnrolledCourses = async (data) => {
 }
 
 export const getStudentProfile = async () => {
-    // console.log(data)
+    // //console.log(data)
     try {
-        // console.log(data);
+        // //console.log(data);
         const response = await commonrequest("GET", `${BACKEND_URL}/query/profile`, {}, {
             'authorization': `Bearer ${token}`
         });
-        // console.log(response?.data)
+        // //console.log(response?.data)
         return response?.data?.student;
     } catch (error) {
         throw new Error("Error fetching user data");
@@ -382,7 +382,7 @@ export const DeleteAssignmentSubmission = async (courseId, submissionId) => {
 }
 
 export const RateCourse = async (courseId, data) => {
-    console.log(data);
+    //console.log(data);
     try {
         const response = await commonrequest("POST", `${BACKEND_URL}/student/rating/${courseId}`, data, {
             'authorization': `Bearer ${token}`
@@ -396,12 +396,12 @@ export const RateCourse = async (courseId, data) => {
 
 
 export const getFilteredCourses = async (queryParams = {}) => {
-    // console.log(queryParams)
+    // //console.log(queryParams)
     try {
         const response = await commonrequest("GET", `${BACKEND_URL}/query/search-filter`, null, {
             'authorization': `Bearer ${token}`
         }, queryParams);
-        // console.log(response?.data);
+        // //console.log(response?.data);
         return response?.data?.courses;
     } catch (error) {
         throw new Error("Error fetching filtered courses");
@@ -409,13 +409,13 @@ export const getFilteredCourses = async (queryParams = {}) => {
 }
 
 export const getAllCourses = async (data) => {
-    // console.log(data)
+    // //console.log(data)
     try {
-        // console.log(data);
+        // //console.log(data);
         const response = await commonrequest("GET", `${BASE_URL2}/user/edu-earning`, data, {
             'authorization': `Bearer ${token}`
         });
-        // console.log(response?.data[0].earning)
+        // //console.log(response?.data[0].earning)
         return response?.data[0].earning;
     } catch (error) {
         throw new Error("Error fetching user data");
