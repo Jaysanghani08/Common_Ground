@@ -57,6 +57,12 @@ export const eduupdatepasswordfunction = async (data) => {
     return await commonrequest("POST", `${BACKEND_URL}/educator/update-password`, data)
 }
 
+export const handleDeleteCourse = async (urltoken, courseId) => {
+    return await commonrequest("DELETE", `${BACKEND_URL}/educator/delete-course/${courseId}/${urltoken}`, {},{
+        'authorization': `Bearer ${token}`,
+    })
+}
+
 // private poges
 
 // Educator
@@ -91,14 +97,14 @@ export const getEducatorDashboard = async (data) => {
 }
 
 export const getEduGraph = async (data) => {
-    try{
+    try {
         const response = await commonrequest("GET", `${BACKEND_URL}/query/generateGraph`, data, {
             'authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
         });
         //console.log(response?.data)
         return response?.data;
-    }catch (error) {
+    } catch (error) {
         throw new Error("Error fetching graph data");
     }
 }
@@ -452,7 +458,7 @@ export const editStudentProfile = async (data) => {
     } catch (error) {
         throw new Error("Error editing profile");
     }
-    
+
 }
 export const gradeSubmission = async (courseId, assignmentId, submissionId, data) => {
     try {

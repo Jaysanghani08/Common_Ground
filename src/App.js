@@ -25,6 +25,7 @@ import Logout from "./pages/Logout/Logout"
 import EnrolledCourses from "./pages/student/EnrolledCourses/EnrolledCourses";
 import StuProfile from "./pages/student/studentProfile/StuProfile"
 import EditStuProfile from "./pages/student/studentProfile/EditStuProfile"
+import EduDeleteCourse from "./pages/Educator/DeleteCourse";
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
     speed: 1000,
@@ -64,6 +65,7 @@ function App() {
                     <Route path='update' element={<EditEduProfile />} />
                     <Route path='create-course' element={<EduCreateCourse />} />
                     <Route path='offered-courses' element={<EduOfferedCourses />} />
+                    <Route path='delete-course/:courseId/:urltoken' element={<EduDeleteCourse />} />
                 </Route>
                 <Route path='*' element={<Error />} />
             </Routes>
