@@ -105,7 +105,7 @@ function EduDashboard() {
                     </div>
                     <div className="graphcal">
                         {
-                            (xLabels.length === 0 || yData.length === 0) &&
+                            (xLabels.length !== 0 || yData.length !== 0) &&
                                 // <div className="nocourses">
                                 //     <h1>No Courses</h1>
                                 // </div> :
