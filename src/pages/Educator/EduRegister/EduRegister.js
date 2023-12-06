@@ -26,20 +26,34 @@ const EduRegister = () => {
         profilePic: ""
     });
 
-    // //console.log(inputdata)
+    // console.log(inputdata)
 
     const navigate = useNavigate();
+    const today = new Date();
+    const maxDate = today.toISOString().split('T')[0];
 
     // set input value as user enters
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setInputdata({
-            ...inputdata,
-            [name]: value
-        })
+        if (name === "dob") {
+            
+            const selectedDate = new Date(value);
+            if (selectedDate > today) {
+              alert("Please select a past date");
+            } else {
+              setInputdata({
+                ...inputdata,
+                [name]: value
+              });
+            }
+          } else {
+            setInputdata({
+              ...inputdata,
+              [name]: value
+            });
+          }
     }
-    
-    
+
 
 
     const handleGenderChange = (e) => {
@@ -72,10 +86,6 @@ const EduRegister = () => {
         });
     };
 
-    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(inputdata.password);
-    const hasCapitalLetter = /[A-Z]/.test(inputdata.password);
-    const hasNumber = /\d/.test(inputdata.password);
-
     // register data
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -105,19 +115,13 @@ const EduRegister = () => {
             toast.error("Enter Your Password")
         } else if (inputdata.password.length < 6) {
             toast.error("password length minimum 6 character")
-        }else if (!hasSpecialChar) {
-            toast.error("Password must contain at least one special character");
-        } else if (!hasCapitalLetter) {
-            toast.error("Password must contain at least one capital letter");
-        } else if (!hasNumber) {
-            toast.error("Password must contain at least one number");
         }
         else {
 
-            // //console.log(inputdata)
+            // console.log(inputdata)
             const response = await eduregisterfunction(inputdata,);
 
-            // //console.log(response)
+            // console.log(response)
 
             if (response?.status === 201) {
                 setInputdata({
@@ -144,7 +148,7 @@ const EduRegister = () => {
             }
             else {
                 toast.error("Error in Register ! Please try Again");
-                // //console.log(inputdata)
+                // console.log(inputdata)
                 // toast.error("response?.response?.data.error");
             }
         }
@@ -167,36 +171,47 @@ const EduRegister = () => {
                         </div> */}
                         <div className={style.form_input}>
                             <label htmlFor="fname">First Name</label>
-                            <input type="text" value={inputdata.fname} name="fname" onChange={handleChange} placeholder='Enter Your First Name' maxLength={15}/>
+                            <input type="text" value={inputdata.fname} name="fname" onChange={handleChange} placeholder='Enter Your First Name' />
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="lname">Last Name</label>
-                            <input type="text" name="lname" value={inputdata.lname} onChange={handleChange} placeholder='Enter Your Last Name' maxLength={15}/>
+                            <input type="text" name="lname" value={inputdata.lname} onChange={handleChange} placeholder='Enter Your Last Name' />
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="email">Email</label>
-                            <input type="email" name="email" value={inputdata.email} onChange={handleChange} placeholder='Enter Your Email Address' maxLength={320}/>
+                            <input type="email" name="email" value={inputdata.email} onChange={handleChange} placeholder='Enter Your Email Address' />
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="phone">Phone</label>
-                            <input type="string" name="phone" value={inputdata.phone} onChange={handleChange} placeholder='Enter Your Phone no.' maxLength={10}/>
+                            <input type="string" name="phone" value={inputdata.phone} onChange={handleChange} placeholder='Enter Your Phone no.' />
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="bio">Bio</label>
-                            <textarea name="bio" value={inputdata.bio} onChange={handleChange} rows={4} cols={40} placeholder='Write few word about yourself' maxLength={250}/>
+                            <textarea name="bio" value={inputdata.bio} onChange={handleChange} rows={4} cols={40} placeholder='Write few word about yourself' />
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="upiID">Upi i'd</label>
-                            <input type="string" value={inputdata.upiID} name="upiID" onChange={handleChange} maxLength={30}/>
+                            <input type="string" value={inputdata.upiID} name="upiID" onChange={handleChange} placeholder='Enter your upiID' />
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="dob">DOB</label>
-                            <input type="date" name="dob" value={inputdata.dob} onChange={handleChange} />
+                            {/* <input type="date" name="dob" value={inputdata.dob} onChange={handleChange} /> */}
+                            <input type="date" name="dob" value={inputdata.dob} onChange={handleChange} max={maxDate} />
+                        </div>
+                        <div className={style.form_input}>
+                            <label htmlFor="gender">Gender </label>
+                            <select id="educationLevel" name="gender" value={inputdata.gender} onChange={handleGenderChange} >
+                                <option value="">Select...</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                                
+                            </select>
                         </div>
 
 
 
-                        <div className={style.form_input}>
+                        {/* <div className={style.form_input}>
                             <label htmlFor="educationLevel">Education Level:</label>
                             <select id="educationLevel" name="educationLevel" value={inputdata.education} onChange={handleEducationLevelChange} >
                                 <option value="">Select...</option>
@@ -206,7 +221,7 @@ const EduRegister = () => {
                                 <option value="master_degree">Master's Degree</option>
                                 <option value="doctorate">Doctorate</option>
                             </select>
-                        </div>
+                        </div> */}
 
                         <div className={style.form_input}>
                             <label htmlFor="country">Country</label>
@@ -224,7 +239,7 @@ const EduRegister = () => {
                             </select>
                         </div>
 
-                        <div className={style.form_input}>
+                        {/* <div className={style.form_input}>
                             <label>Gender:</label>
                             <div className='gender1'>
                                 <input type="radio" id="male" name="gender" value="male" checked={inputdata.gender === 'male'} onChange={handleGenderChange} />
@@ -238,15 +253,15 @@ const EduRegister = () => {
                                 <input type="radio" id="other" name="gender" value="other" checked={inputdata.gender === 'other'} onChange={handleGenderChange} />
                                 <label htmlFor="other">Other</label>
                             </div>
-                        </div>
+                        </div> */}
                         <div className={style.form_input}>
                             <label htmlFor="username">Username</label>
-                            <input type="string" value={inputdata.username} name="username" onChange={handleChange} placeholder='Enter username' maxLength={20}/>
+                            <input type="string" value={inputdata.username} name="username" onChange={handleChange} placeholder='Enter username' />
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="password">Password</label>
                             <div className='two'>
-                                <input type={!paswordshow ? "password" : "text"} name="password" onChange={handleChange} value={inputdata.password} placeholder='Enter Your password' maxLength={20}/>
+                                <input type={!paswordshow ? "password" : "text"} name="password" onChange={handleChange} value={inputdata.password} placeholder='Enter Your password' />
                                 <div className={style.showpass} onClick={() => setPaswordShow(!paswordshow)} >
                                     {!paswordshow ? "Show" : "Hide"}
                                 </div>
