@@ -123,6 +123,7 @@ const CourseDetails = () => {
                                 coursePrice={coursedata.coursePrice}
                                 rating={coursedata.rating}
                                 dateCreated={coursedata.dateCreated}
+                                createdby={coursedata.createdBy?._id}
                             />
 
 

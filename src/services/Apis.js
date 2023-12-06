@@ -108,6 +108,19 @@ export const getEducatorProfile = async () => {
     }
 }
 
+export const DeleteCourse = async (courseId) => {
+    if (window.confirm("Are you sure want to delete this course ? ")) {
+        try {
+            const response = await commonrequest("POST", `${BACKEND_URL}/educator/delete-course/${courseId}`, {}, {
+                'authorization': `Bearer ${token}`
+            });
+            return response;
+        } catch (error) {
+            throw new Error("Something went wrong");
+        }
+    }
+}
+
 export const getEducatorcourses = async () => {
     // //console.log(data)
     try {
