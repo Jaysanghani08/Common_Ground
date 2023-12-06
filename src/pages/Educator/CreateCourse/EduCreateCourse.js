@@ -155,9 +155,9 @@ function EduCreateCourse() {
                                             onChange={(e) => setVisibility(e.target.value)}
                                         >
                                             <option value="">Select</option>
-                                            <option value="Public">Public</option>
-                                            <option value="Protected">Protected</option>
-                                            <option value="Private">Private</option>
+                                            <option value="public">Public</option>
+                                            <option value="protected">Protected</option>
+                                            <option value="private">Private</option>
                                         </select>
                                     </div>
 
@@ -227,8 +227,6 @@ function EduCreateCourse() {
                                             <option value="english">English</option>
                                             <option value="spanish">Spanish</option>
                                             <option value="spanish">Hindi</option>
-                                            <option value="spanish">Gujarati</option>
-
                                             <option value="other">Other</option>
                                         </select>
                                     </div>
