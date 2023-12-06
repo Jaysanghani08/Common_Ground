@@ -38,7 +38,8 @@ const EduRegister = () => {
             [name]: value
         })
     }
-
+    
+    
 
 
     const handleGenderChange = (e) => {
@@ -166,27 +167,27 @@ const EduRegister = () => {
                         </div> */}
                         <div className={style.form_input}>
                             <label htmlFor="fname">First Name</label>
-                            <input type="text" value={inputdata.fname} name="fname" onChange={handleChange} placeholder='Enter Your First Name' />
+                            <input type="text" value={inputdata.fname} name="fname" onChange={handleChange} placeholder='Enter Your First Name' maxLength={15}/>
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="lname">Last Name</label>
-                            <input type="text" name="lname" value={inputdata.lname} onChange={handleChange} placeholder='Enter Your Last Name' />
+                            <input type="text" name="lname" value={inputdata.lname} onChange={handleChange} placeholder='Enter Your Last Name' maxLength={15}/>
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="email">Email</label>
-                            <input type="email" name="email" value={inputdata.email} onChange={handleChange} placeholder='Enter Your Email Address' />
+                            <input type="email" name="email" value={inputdata.email} onChange={handleChange} placeholder='Enter Your Email Address' maxLength={320}/>
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="phone">Phone</label>
-                            <input type="string" name="phone" value={inputdata.phone} onChange={handleChange} placeholder='Enter Your Phone no.' />
+                            <input type="string" name="phone" value={inputdata.phone} onChange={handleChange} placeholder='Enter Your Phone no.' maxLength={10}/>
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="bio">Bio</label>
-                            <textarea name="bio" value={inputdata.bio} onChange={handleChange} rows={4} cols={40} placeholder='Write few word about yourself' />
+                            <textarea name="bio" value={inputdata.bio} onChange={handleChange} rows={4} cols={40} placeholder='Write few word about yourself' maxLength={250}/>
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="upiID">Upi i'd</label>
-                            <input type="string" value={inputdata.upiID} name="upiID" onChange={handleChange} />
+                            <input type="string" value={inputdata.upiID} name="upiID" onChange={handleChange} maxLength={30}/>
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="dob">DOB</label>
@@ -240,12 +241,12 @@ const EduRegister = () => {
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="username">Username</label>
-                            <input type="string" value={inputdata.username} name="username" onChange={handleChange} placeholder='Enter username' />
+                            <input type="string" value={inputdata.username} name="username" onChange={handleChange} placeholder='Enter username' maxLength={20}/>
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="password">Password</label>
                             <div className='two'>
-                                <input type={!paswordshow ? "password" : "text"} name="password" onChange={handleChange} value={inputdata.password} placeholder='Enter Your password' />
+                                <input type={!paswordshow ? "password" : "text"} name="password" onChange={handleChange} value={inputdata.password} placeholder='Enter Your password' maxLength={20}/>
                                 <div className={style.showpass} onClick={() => setPaswordShow(!paswordshow)} >
                                     {!paswordshow ? "Show" : "Hide"}
                                 </div>

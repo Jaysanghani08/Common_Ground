@@ -45,9 +45,7 @@ const EduLogin = () => {
             toast.error("Enter Your Password")
         } else if (inputdata.password.length < 6) {
             toast.error("password length minimum 6 character")
-        }
-
-        else {
+        }else {
             const data = {
                 email: inputdata.email,
                 password: inputdata.password
@@ -104,12 +102,12 @@ const EduLogin = () => {
                     <form>
                         <div className={style.form_input}>
                             <label htmlFor="email">Email</label>
-                            <input type="email" name="email" id="" onChange={handleChange} placeholder='Enter Your Email Address' />
+                            <input type="email" name="email" id="" onChange={handleChange} placeholder='Enter Your Email Address' maxLength={240}/>
                         </div>
                         <div className={style.form_input}>
                             <label htmlFor="password">Password</label>
                             <div className='two'>
-                                <input type={!paswordshow ? "password" : "text"} name="password" onChange={handleChange} placeholder='Enter Your password' />
+                                <input type={!paswordshow ? "password" : "text"} name="password" onChange={handleChange} placeholder='Enter Your password' maxLength={20}/>
                                 <div className={style.showpass} onClick={() => setPaswordShow(!paswordshow)} >
                                     {!paswordshow ? "Show" : "Hide"}
                                 </div>
