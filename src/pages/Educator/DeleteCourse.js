@@ -20,7 +20,7 @@ const EduDeleteCourse = () => {
         console.log(response)
         if (response?.status === 200) {
             toast.success("Password Updated Successfully");
-            navigate(`/course/${courseId}`)
+            navigate(`/educator/offered-courses`)
         }
         else if (response?.status === 404) {
             toast.error("User not found !");
