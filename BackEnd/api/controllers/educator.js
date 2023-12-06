@@ -211,7 +211,7 @@ exports.resetPassword = async (req, res, next) => {
             await token.save();
         }
 
-        const resetLink = `http://localhost:3000/educator/resetpassword/${user.email}/${token.token}`;
+        const resetLink = `https://common-ground.netlify.app/educator/resetpassword/${user.email}/${token.token}`;
         const subject = 'Reset Password - Common Ground'
         const body = `
             <html>

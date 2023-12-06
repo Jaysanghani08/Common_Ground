@@ -217,7 +217,7 @@ exports.deleteCourse = async (req, res, next) => {
                     <p>Hello ${user.username},</p>
                     <p>You have requested to delete your course titled "${course.courseTitle}".</p>
                     <p>To confirm the deletion, please click on the following link:</p>
-                    <p><a href="http://localhost:3000/educator/delete-course/${courseId}/${token.token}">Delete course</a></p>
+                    <p><a href="https://common-ground.netlify.app/educator/delete-course/${courseId}/${token.token}">Delete course</a></p>
                     <p>If you didn't request this, you can safely ignore this email.</p>
                     <p>Best regards,<br />Common Ground</p>
                   </div>
