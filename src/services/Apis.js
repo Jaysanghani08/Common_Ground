@@ -69,6 +69,14 @@ export const educreatecoursefunction = async (data) => {
     })
 }
 
+export const edueditcoursefunction = async (data) => {
+    // //console.log(data)
+    return await commonrequest("POST", `${BACKEND_URL}/educator/edit-course`, data, {
+        'authorization': `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data'
+    })
+}
+
 export const getEducatorDashboard = async (data) => {
     // //console.log(data)
     try {

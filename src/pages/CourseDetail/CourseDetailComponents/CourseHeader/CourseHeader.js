@@ -9,11 +9,53 @@ import { useNavigate, useParams } from 'react-router-dom'
 import Button from '@mui/material/Button'
 import { toast } from 'react-toastify';
 import CertificateDownloadButton from '../../Certificate';
+import { Dialog, DialogTitle, DialogContent, TextField } from '@mui/material';
+import {edueditcoursefunction} from '../../../../services/Apis';
 // fetch data from backend and display it here
 
 const CourseHeader = ({ courseCode, courseTitle, courseDescriptionLong, createdBy, enrolledStudents, coursePrice, rating, dateCreated, isEnrolled, usertype, createdby }) => {
     const formattedDate = new Date(dateCreated).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
 
+
+    const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+    const [editedTitle, setEditedTitle] = useState(courseTitle);
+    const [editedDescription, setEditedDescription] = useState(courseDescriptionLong);
+
+    const handleEditDialogOpen = () => {
+        setIsEditDialogOpen(true);
+      };
+    
+      const handleEditDialogClose = () => {
+        setIsEditDialogOpen(false);
+      };
+    
+      const handleSaveChanges = async () => {
+        const editedData = {
+          courseId: courseId,
+          courseTitle: editedTitle,
+          courseDescriptionLong: editedDescription,
+         
+        };
+    
+        try {
+          const response = await edueditcoursefunction(editedData);
+          if (response?.status === 200) {
+            
+            toast.success('Course details updated successfully');
+            window.location.reload(); 
+          } else {
+           
+            toast.error('Error updating course details');
+          }
+        } catch (error) {
+          
+          toast.error('Error updating course details');
+        } finally {
+          handleEditDialogClose();
+        }
+      };
+
+      
     const { courseId } = useParams();
     const navigate = useNavigate();
 
@@ -57,13 +99,20 @@ const CourseHeader = ({ courseCode, courseTitle, courseDescriptionLong, createdB
     return (
         <div className="course-header">
             <div className="course-title">
-                <h2>{courseTitle}</h2>
+            <h2>
+          {editedTitle}
+          {usertype === 'educator' && (
+            <Button variant="outlined" color="primary" onClick={handleEditDialogOpen}>
+              Edit
+            </Button>
+          )}
+        </h2>
             </div>
             <div className="course-description">
                 <h5>
-                    {courseDescriptionLong}
+                    {courseDescriptionLong}{''}
                 </h5>
-                {/* <img src={CourseImg } art=''></img> */}
+                
                 <div className="student-button">
                     {
                         usertype === 'student' && !isEnrolled &&
@@ -116,6 +165,33 @@ const CourseHeader = ({ courseCode, courseTitle, courseDescriptionLong, createdB
                 </div>
 
             </div>
+                  {/* Edit Dialog */}
+      <Dialog open={isEditDialogOpen} onClose={handleEditDialogClose}>
+        <DialogTitle>Edit Course Details</DialogTitle>
+        <DialogContent>
+          <TextField
+            label="Course Title"
+            fullWidth
+            variant="outlined"
+            value={editedTitle}
+            onChange={(e) => setEditedTitle(e.target.value)}
+            margin="normal"
+          />
+          <TextField
+            label="Course Description"
+            fullWidth
+            variant="outlined"
+            multiline
+            rows={4}
+            value={editedDescription}
+            onChange={(e) => setEditedDescription(e.target.value)}
+            margin="normal"
+          />
+          <Button variant="contained" color="primary" onClick={handleSaveChanges}>
+            Save Changes
+          </Button>
+        </DialogContent>
+      </Dialog>
         </div>
     )
 }

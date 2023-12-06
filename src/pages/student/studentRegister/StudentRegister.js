@@ -6,6 +6,8 @@ import style from "../studentLogin/studentlogin.module.css";
 import "./studentregister.css";
 import { country_list } from "./../../../data/countries"
 
+
+
 const StudentRegister = () => {
 
     const [paswordshow, setPaswordShow] = useState(false);
@@ -22,7 +24,10 @@ const StudentRegister = () => {
         username: "",
         location: ""
     });
-
+   
+const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(inputdata.password);
+const hasCapitalLetter = /[A-Z]/.test(inputdata.password);
+const hasNumber = /\d/.test(inputdata.password);
     // //console.log(inputdata)
 
     const navigate = useNavigate();
@@ -99,8 +104,6 @@ const maxDate = today.toISOString().split('T')[0];
             toast.error("Enter Your Phone no.")
         } else if (inputdata.dob === "") {
             toast.error("Enter Your DOB")
-        } else if (inputdata.education === "") {
-            toast.error("Select Your Max-Education")
         } else if (inputdata.location === "") {
             toast.error("Select Your Country")
         } else if (inputdata.gender === "") {
@@ -112,6 +115,12 @@ const maxDate = today.toISOString().split('T')[0];
             toast.error("Enter Your Password")
         } else if (inputdata.password.length < 6) {
             toast.error("password length minimum 6 character")
+        }else if (!hasSpecialChar) {
+            toast.error("Password must contain at least one special character");
+        } else if (!hasCapitalLetter) {
+            toast.error("Password must contain at least one capital letter");
+        } else if (!hasNumber) {
+            toast.error("Password must contain at least one number");
         }
         else {
             const response = await studentregisterfunction(inputdata);

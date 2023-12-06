@@ -125,11 +125,11 @@ export default function FormDialog({ assignmentId, submissionId, deadline, submi
                         Submit Assignment
                     </Button>
                     <Dialog open={open} onClose={handleClose}>
-                        <DialogTitle>Subscribe</DialogTitle>
+                        <DialogTitle>Submit your response</DialogTitle>
                         <DialogContent>
-                            <DialogContentText>
+                            {/* <DialogContentText>
                                 Submit your response
-                            </DialogContentText>
+                            </DialogContentText> */}
                             <TextField
                                 autoFocus
                                 margin="dense"

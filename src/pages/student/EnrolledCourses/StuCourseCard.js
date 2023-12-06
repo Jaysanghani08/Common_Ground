@@ -52,7 +52,7 @@ const StuCourseCard = (props ) => {
                     <div className="stu_courses_product-properties">
                         {/* <span className="courses_product-size">
                             <h4>Progress</h4>
-                        </span>  */}
+                        // </span>  */}
                         
                         <span className="stu_courses_product-price">
                             <span> {props.coursePrice === 0 ? "Free" : `Rs. ${props.coursePrice}`} </span>
