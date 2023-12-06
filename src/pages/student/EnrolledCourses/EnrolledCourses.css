@@ -5,6 +5,7 @@
 
 .coverEnrolledCourses{
     background-color: rgba(12, 53, 106, 0.7);
+    overflow: scroll;
     height: 100vh;
 }
 

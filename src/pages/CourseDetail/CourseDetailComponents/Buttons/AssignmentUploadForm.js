@@ -14,6 +14,8 @@ import './video_and_pdf_button.css';
 import { toast } from 'react-toastify';
 import { createAssignment } from '../../../../services/Apis';
 import { useParams } from 'react-router-dom';
+import InputAdornment from '@mui/material/InputAdornment';
+import EventIcon from '@mui/icons-material/Event';
 
 const AssignmentUploadForm = ({ sectionId }) => {
     const { courseId } = useParams();
@@ -55,10 +57,20 @@ const AssignmentUploadForm = ({ sectionId }) => {
         setSelectedFile(file);
     };
 
+    const getCurrentDateTime = () => {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = (now.getMonth() + 1).toString().padStart(2, '0');
+        const day = now.getDate().toString().padStart(2, '0');
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+
+        return `${year}-${month}-${day}T${hours}:${minutes}`;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-    
         const data = new FormData();
         data.append('title', formData.title);
         data.append('dueDate', formData.deadline);
@@ -137,6 +149,16 @@ const AssignmentUploadForm = ({ sectionId }) => {
                                     value={formData.deadline}
                                     name="deadline"
                                     onChange={handle_Change}
+                                    InputProps={{
+                                        inputProps: {
+                                            min: getCurrentDateTime(), // Set the minimum value to the current date and time
+                                        },
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <EventIcon />
+                                            </InputAdornment>
+                                        ),
+                                    }}
                                 />
                             </div>
                             <div>
