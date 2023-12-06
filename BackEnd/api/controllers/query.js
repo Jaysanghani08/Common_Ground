@@ -389,6 +389,7 @@ exports.getRecommendedCourse = async (req, res, next) => {
                     courseCode: 1,
                     language: 1,
                     rating: 1,
+                    enrolledStudents: 1,
                     ratio: {$multiply: [{$size: '$enrolledStudents'}, '$rating']},
                     createdBy: 1, // Include the createdBy field to be used for $lookup
                 },
@@ -421,6 +422,7 @@ exports.getRecommendedCourse = async (req, res, next) => {
                     language: 1,
                     rating: 1,
                     ratio: 1,
+                    enrolledStudents: 1,
                     createdBy: {
                         fname: '$educator.fname',
                         lname: '$educator.lname',
