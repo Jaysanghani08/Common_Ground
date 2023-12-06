@@ -117,6 +117,7 @@ exports.searchFilter = async (req, res, next) => {
                             courseCode: 1,
                             language: 1,
                             rating: 1,
+                            enrolledStudents: 1,
                             createdBy: {
                                 fname: '$educator.fname',
                                 lname: '$educator.lname',
